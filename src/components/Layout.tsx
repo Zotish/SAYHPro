@@ -36,7 +36,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
   const [profileOpen, setProfileOpen] = useState(false);
   const [shopMenuOpen, setShopMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
-  const [moreSheetOpen, setMoreSheetOpen] = useState(false);
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
 
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
