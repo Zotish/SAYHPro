@@ -1,0 +1,10 @@
+{
+  "description": "Streamline shop management for small and medium retailers in Bangladesh with tools for sales, inventory, customer dues, and financial reporting in a user-friendly interface.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

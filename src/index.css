@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Outfit', 'Hind Siliguri', sans-serif;
+  --font-body: 'Inter', 'Hind Siliguri', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', 'Hind Siliguri', sans-serif;
+
+  --color-em-50: #ECFDF5;
+  --color-em-100: #D1FAE5;
+  --color-em-200: #A7F3D0;
+  --color-em-300: #6EE7B7;
+  --color-em-400: #34D399;
+  --color-em-500: #10B981;
+  --color-em-600: #059669;
+  --color-em-700: #047857;
+  --color-em-800: #065F46;
+  --color-em-900: #064E3B;
+
+  --color-nv-50: #F8FAFC;
+  --color-nv-100: #F1F5F9;
+  --color-nv-200: #E2E8F0;
+  --color-nv-300: #CBD5E1;
+  --color-nv-400: #94A3B8;
+  --color-nv-500: #64748B;
+  --color-nv-600: #475569;
+  --color-nv-700: #334155;
+  --color-nv-800: #1E293B;
+  --color-nv-900: #0F172A;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+  --color-amber-400: #FBBF24;
+  --color-amber-100: #FEF3C7;
+  --color-amber-50: #FFFBEB;
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FEE2E2;
+  --color-red-500: #EF4444;
+  --color-red-600: #DC2626;
+  --color-blue-50: #EFF6FF;
+  --color-blue-100: #DBEAFE;
+  --color-blue-500: #3B82F6;
+  --color-blue-600: #2563EB;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Hind Siliguri', sans-serif;
+  background: #F8FAFC;
+  color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+.font-display { font-family: 'Outfit', 'Hind Siliguri', sans-serif; }
+.font-mono    { font-family: 'JetBrains Mono', monospace; }
+.font-bn      { font-family: 'Hind Siliguri', sans-serif; }
+.num          { font-family: 'JetBrains Mono', monospace; font-feature-settings: "tnum"; letter-spacing: -0.02em; }
+
+/* Sidebar */
+.sidebar-gradient { background: linear-gradient(180deg, #064E3B 0%, #0F172A 100%); }
+
+/* Scrollbar */
+* { scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent; }
+*::-webkit-scrollbar { width: 4px; height: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+
+/* Card hover lift */
+.card-lift { transition: box-shadow 0.2s, transform 0.2s; }
+.card-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.09); }
+
+/* Transitions */
+.transition-fast { transition: all 0.15s ease; }
+.transition-base { transition: all 0.2s ease; }
+
+/* Input focus */
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+/* Print */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+}
