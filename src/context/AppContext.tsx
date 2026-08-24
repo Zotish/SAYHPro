@@ -12,12 +12,19 @@ export const toBnDigits = (val: number | string | undefined | null): string => {
 
 export const formatNum = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
   if (val === undefined || val === null) return "";
-  const str = typeof val === "number" ? val.toLocaleString("en-US") : val.toString();
+  const num = typeof val === "number" ? val : parseFloat(val.toString());
+  const str = !isNaN(num) ? num.toLocaleString("en-US") : val.toString();
   return lang === "bn" ? toBnDigits(str) : str;
 };
 
 export const formatTaka = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
-  return `৳${formatNum(val, lang)}`;
+  if (val === undefined || val === null) return "";
+  const num = typeof val === "number" ? val : parseFloat(val.toString()) || 0;
+  const isNeg = num < 0;
+  const rounded = Math.round(Math.abs(num));
+  const absStr = rounded.toLocaleString("en-US");
+  const formattedStr = lang === "bn" ? toBnDigits(absStr) : absStr;
+  return isNeg ? `-৳${formattedStr}` : `৳${formattedStr}`;
 };
 
 export interface Product {

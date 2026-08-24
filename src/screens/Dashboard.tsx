@@ -99,7 +99,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <TrendingUp size={12} /> {tNum("+14.2%")}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">{formatTaka(totalSalesAmount)}</div>
+          <div className="text-lg sm:text-xl font-bold text-nv-900">{formatTaka(totalSalesAmount)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "আজকের মোট বিক্রয়" : "Total Sales"}</div>
         </div>
 
@@ -113,7 +113,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               {tNum(((netProfit / (totalSalesAmount || 1)) * 100).toFixed(0))}% {isBn ? "মার্জিন" : "Margin"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-blue-700">{formatTaka(netProfit)}</div>
+          <div className="text-lg sm:text-xl font-bold text-blue-700">{formatTaka(netProfit)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "নিট লাভ (লাভ - খরচ)" : "Net Estimated Profit"}</div>
         </div>
 
@@ -123,11 +123,11 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
               <Wallet size={20} />
             </div>
-            <div className="text-[11px] font-bold text-nv-500 bg-nv-100 px-2 py-0.5 rounded-full font-mono">
+            <div className="text-[11px] font-bold text-nv-500 bg-nv-100 px-2 py-0.5 rounded-full">
               {tNum(accounts.length)} {isBn ? "টি অ্যাকাউন্ট" : "Accounts"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">{formatTaka(totalCashBalance)}</div>
+          <div className="text-lg sm:text-xl font-bold text-nv-900">{formatTaka(totalCashBalance)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "ক্যাশ ও ব্যাংক ব্যালেন্স" : "Combined Cash & Bank"}</div>
         </div>
 
@@ -141,7 +141,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               {tNum(customers.filter(c => c.due > 0).length)} {isBn ? "জন বাকিদার" : "Owing"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-red-600">{formatTaka(totalCustomerDues)}</div>
+          <div className="text-lg sm:text-xl font-bold text-red-600">{formatTaka(totalCustomerDues)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "গ্রাহক বকেয়া পাওনা" : "Customer Dues (Baki)"}</div>
         </div>
       </div>
