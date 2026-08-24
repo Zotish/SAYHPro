@@ -18,7 +18,7 @@ const getNotifIcon = (type: string) => {
 };
 
 export default function Notifications({ lang }: NotificationsProps) {
-  const { notifications, markNotificationRead, markAllNotificationsRead, clearNotifications } = useApp();
+  const { notifications, markNotificationRead, markAllNotificationsRead, clearNotifications, tNum } = useApp();
   const isBn = lang === "bn";
 
   const [filter, setFilter] = useState<"all" | "unread">("all");
@@ -35,13 +35,13 @@ export default function Notifications({ lang }: NotificationsProps) {
             <span>{isBn ? "বিজ্ঞপ্তি ও সতর্কতা" : "Notifications & Alerts"}</span>
             {unreadCount > 0 && (
               <span className="px-2.5 py-0.5 bg-red-500 text-white rounded-full text-xs font-extrabold shadow-xs">
-                {unreadCount}
+                {tNum(unreadCount)}
               </span>
             )}
           </h1>
           <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
             {unreadCount > 0
-              ? (isBn ? `${unreadCount}টি অপঠিত নোটিফিকেশন রয়েছে` : `${unreadCount} unread alerts requiring attention`)
+              ? (isBn ? `${tNum(unreadCount)}টি অপঠিত নোটিফিকেশন রয়েছে` : `${unreadCount} unread alerts requiring attention`)
               : (isBn ? "সকল নোটিফিকেশন পড়া সম্পন্ন" : "All notifications are caught up")}
           </p>
         </div>
@@ -75,14 +75,14 @@ export default function Notifications({ lang }: NotificationsProps) {
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
             ${filter === "all" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-600 hover:border-nv-300"}`}
         >
-          {isBn ? "সকল বিজ্ঞপ্তি" : "All"} ({notifications.length})
+          {isBn ? "সকল বিজ্ঞপ্তি" : "All"} ({tNum(notifications.length)})
         </button>
         <button
           onClick={() => setFilter("unread")}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
             ${filter === "unread" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-600 hover:border-nv-300"}`}
         >
-          {isBn ? "অপঠিত" : "Unread"} ({unreadCount})
+          {isBn ? "অপঠিত" : "Unread"} ({tNum(unreadCount)})
         </button>
       </div>
 
@@ -110,7 +110,7 @@ export default function Notifications({ lang }: NotificationsProps) {
                   <h4 className={`text-xs sm:text-sm font-bold ${!n.read ? "text-nv-900" : "text-nv-700"}`}>
                     {isBn ? n.titleBn || n.title : n.title}
                   </h4>
-                  <span className="text-[10px] text-nv-400">{n.time}</span>
+                  <span className="text-[10px] text-nv-400">{tNum(n.time)}</span>
                 </div>
                 <p className="text-xs text-nv-500 mt-1 leading-relaxed">
                   {isBn ? n.bodyBn || n.body : n.body}

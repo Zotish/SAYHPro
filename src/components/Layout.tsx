@@ -28,14 +28,15 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
     updateSettings,
     products,
     customers,
+    tNum,
   } = useApp();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [shopMenuOpen, setShopMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [moreSheetOpen, setMoreSheetOpen] = useState(false);
 
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -215,7 +216,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                   <span
                     className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white ${item.badgeColor || "bg-white/20"}`}
                   >
-                    {item.badge}
+                    {tNum(item.badge)}
                   </span>
                 )}
                 {isActive && <ChevronRight size={14} className="text-em-950" />}
@@ -319,7 +320,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               <Bell size={18} />
               {unreadNotifs.length > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
-                  {unreadNotifs.length}
+                  {tNum(unreadNotifs.length)}
                 </span>
               )}
             </button>
@@ -331,7 +332,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                     <span className="font-display font-bold text-nv-900 text-sm">{isBn ? "বিজ্ঞপ্তি" : "Notifications"}</span>
                     {unreadNotifs.length > 0 && (
                       <span className="px-1.5 py-0.2 text-[10px] bg-red-100 text-red-700 rounded-full font-bold">
-                        {unreadNotifs.length}
+                        {tNum(unreadNotifs.length)}
                       </span>
                     )}
                   </div>

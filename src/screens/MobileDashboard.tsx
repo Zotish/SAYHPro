@@ -8,7 +8,7 @@ interface MobileProps {
 }
 
 export default function MobileDashboard({ lang, setScreen }: MobileProps) {
-  const { sales, products, customers, expenses, accounts, settings, notifications } = useApp();
+  const { sales, products, customers, expenses, accounts, settings, notifications, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
   const [showFAB, setShowFAB] = useState(false);
 
@@ -47,7 +47,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             </button>
             {unreadNotifs > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
-                {unreadNotifs}
+                {tNum(unreadNotifs)}
               </span>
             )}
           </div>
@@ -56,18 +56,18 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
         {/* Main Live Balance Card */}
         <div className="bg-white/10 rounded-2xl p-5 backdrop-blur-md border border-white/10 shadow-lg">
           <p className="text-em-200 text-xs mb-1 font-semibold">{isBn ? "আজকের মোট বিক্রয় (Live Sales)" : "Today's Total Sales"}</p>
-          <div className="num text-3xl font-extrabold text-white mb-3">৳{totalSalesAmount.toLocaleString()}</div>
+          <div className="num text-3xl font-extrabold text-white mb-3">{formatTaka(totalSalesAmount)}</div>
           <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-3 text-center">
             <div>
-              <div className="num font-bold text-sm text-white">৳{(totalCashBalance / 1000).toFixed(1)}k</div>
+              <div className="num font-bold text-sm text-white">{formatTaka(totalCashBalance)}</div>
               <div className="text-em-300 text-[10px] mt-0.5">{isBn ? "ক্যাশ ব্যালেন্স" : "Cash / Bank"}</div>
             </div>
             <div>
-              <div className="num font-bold text-sm text-red-300">৳{(totalCustomerDues / 1000).toFixed(1)}k</div>
+              <div className="num font-bold text-sm text-red-300">{formatTaka(totalCustomerDues)}</div>
               <div className="text-red-200 text-[10px] mt-0.5">{isBn ? "বাকি পাওনা" : "Due Balance"}</div>
             </div>
             <div>
-              <div className="num font-bold text-sm text-white">{products.length} pcs</div>
+              <div className="num font-bold text-sm text-white">{tNum(products.length)} {isBn ? "টি" : "pcs"}</div>
               <div className="text-em-300 text-[10px] mt-0.5">{isBn ? "মোট পণ্য" : "Products"}</div>
             </div>
           </div>
@@ -98,15 +98,15 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
       {/* Stats Cards */}
       <div className="px-5 mt-4 grid grid-cols-2 gap-3">
         <div className="bg-white rounded-2xl p-4 border-l-4 border-em-500 shadow-sm">
-          <div className="num text-xl font-bold text-nv-900">৳{totalSalesAmount.toLocaleString()}</div>
+          <div className="num text-xl font-bold text-nv-900">{formatTaka(totalSalesAmount)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "আজকের বিক্রয়" : "Today's Sales"}</div>
-          <div className="text-[11px] font-bold text-em-700 mt-1">{sales.length} Invoices</div>
+          <div className="text-[11px] font-bold text-em-700 mt-1">{tNum(sales.length)} {isBn ? "টি ইনভয়েস" : "Invoices"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 border-l-4 border-red-500 shadow-sm">
-          <div className="num text-xl font-bold text-red-600">৳{totalCustomerDues.toLocaleString()}</div>
+          <div className="num text-xl font-bold text-red-600">{formatTaka(totalCustomerDues)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "বাকি পাওনা" : "Customer Dues"}</div>
-          <div className="text-[11px] font-bold text-red-600 mt-1">{customers.filter(c => c.due > 0).length} Customers</div>
+          <div className="text-[11px] font-bold text-red-600 mt-1">{tNum(customers.filter(c => c.due > 0).length)} {isBn ? "জন বাকিদার" : "Customers"}</div>
         </div>
       </div>
 
@@ -127,11 +127,11 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
                   <ArrowUpRight size={16} />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-nv-900 truncate">{s.invoiceNo} · {s.customer}</div>
-                  <div className="text-[10px] text-nv-400">{s.time} · {s.paymentMethod.toUpperCase()}</div>
+                  <div className="text-xs font-bold text-nv-900 truncate">{tNum(s.invoiceNo)} · {s.customer}</div>
+                  <div className="text-[10px] text-nv-400">{tNum(s.time)} · {s.paymentMethod.toUpperCase()}</div>
                 </div>
               </div>
-              <div className="num font-bold text-sm text-em-700">৳{s.grandTotal.toLocaleString()}</div>
+              <div className="num font-bold text-sm text-em-700">{formatTaka(s.grandTotal)}</div>
             </div>
           ))}
         </div>

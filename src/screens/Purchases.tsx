@@ -22,7 +22,7 @@ const statusBadge = (status: string, isBn: boolean) => {
 };
 
 export default function Purchases({ lang }: PurchasesProps) {
-  const { purchases, addPurchase, suppliers, products, accounts } = useApp();
+  const { purchases, addPurchase, suppliers, products, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [showForm, setShowForm] = useState(false);
@@ -95,10 +95,10 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: `৳${(totalPurchasesAmount / 1000).toFixed(0)}k`, icon: Truck, color: "bg-blue-50 text-blue-700" },
-          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: `৳${totalDueToSuppliers.toLocaleString()}`, icon: Clock, color: "bg-red-50 text-red-600" },
-          { label: "Total Orders", labelBn: "মোট অর্ডার", value: `${purchases.length} Orders`, icon: Package, color: "bg-nv-100 text-nv-700" },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${suppliers.length} Companies`, icon: CheckCircle, color: "bg-em-50 text-em-700" },
+          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount), icon: Truck, color: "bg-blue-50 text-blue-700" },
+          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers), icon: Clock, color: "bg-red-50 text-red-600" },
+          { label: "Total Orders", labelBn: "মোট অর্ডার", value: `${tNum(purchases.length)} ${isBn ? "টি" : "Orders"}`, icon: Package, color: "bg-nv-100 text-nv-700" },
+          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: CheckCircle, color: "bg-em-50 text-em-700" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
@@ -211,7 +211,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                     </div>
 
                     <div className="num font-bold text-xs text-nv-800 w-20 text-right">
-                      ৳{(item.qty * item.cost).toLocaleString()}
+                      {formatTaka(item.qty * item.cost)}
                     </div>
 
                     {items.length > 1 && (
@@ -232,7 +232,7 @@ export default function Purchases({ lang }: PurchasesProps) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-nv-100 text-xs sm:text-sm bg-nv-50/50 p-3 rounded-2xl">
               <div>
                 <span className="block text-nv-500">{isBn ? "মোট ক্রয় মূল্য" : "Total Cost"}</span>
-                <span className="num text-xl font-bold text-nv-900">৳{subtotal.toLocaleString()}</span>
+                <span className="num text-xl font-bold text-nv-900">{formatTaka(subtotal)}</span>
               </div>
 
               <div>
@@ -241,7 +241,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                   type="number"
                   value={paidAmount}
                   onChange={e => setPaidAmount(e.target.value)}
-                  placeholder={`Full (৳${subtotal.toLocaleString()})`}
+                  placeholder={`Full (${formatTaka(subtotal)})`}
                   className="num w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-bold text-em-700"
                 />
               </div>
@@ -253,7 +253,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                   onChange={e => setPaymentMethod(e.target.value)}
                   className="w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white"
                 >
-                  {accounts.map(a => <option key={a.id} value={a.id}>{a.name} (৳{a.balance.toLocaleString()})</option>)}
+                  {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({formatTaka(a.balance)})</option>)}
                 </select>
               </div>
             </div>
@@ -308,14 +308,14 @@ export default function Purchases({ lang }: PurchasesProps) {
             <tbody className="divide-y divide-nv-100">
               {filtered.map(p => (
                 <tr key={p.id} className="hover:bg-nv-50 transition-fast">
-                  <td className="px-4 py-3 font-mono font-bold text-nv-900 whitespace-nowrap">{p.id}</td>
+                  <td className="px-4 py-3 font-mono font-bold text-nv-900 whitespace-nowrap">{tNum(p.id)}</td>
                   <td className="px-4 py-3 font-semibold text-nv-800 whitespace-nowrap">{p.supplier}</td>
                   <td className="px-4 py-3 text-xs text-nv-500 whitespace-nowrap">{p.date}</td>
-                  <td className="px-4 py-3 num font-bold text-nv-900 whitespace-nowrap">৳{p.total.toLocaleString()}</td>
-                  <td className="px-4 py-3 num font-semibold text-em-700 whitespace-nowrap">৳{p.paid.toLocaleString()}</td>
+                  <td className="px-4 py-3 num font-bold text-nv-900 whitespace-nowrap">{formatTaka(p.total)}</td>
+                  <td className="px-4 py-3 num font-semibold text-em-700 whitespace-nowrap">{formatTaka(p.paid)}</td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <span className={`num font-bold ${p.due > 0 ? "text-red-600" : "text-nv-400"}`}>
-                      {p.due > 0 ? `৳${p.due.toLocaleString()}` : "৳0"}
+                      {p.due > 0 ? formatTaka(p.due) : "৳০"}
                     </span>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">{statusBadge(p.status, isBn)}</td>

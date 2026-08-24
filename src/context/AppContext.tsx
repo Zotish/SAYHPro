@@ -1,6 +1,25 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "../components/Toast";
 
+export const toBnDigits = (val: number | string | undefined | null): string => {
+  if (val === undefined || val === null) return "";
+  const numMap: Record<string, string> = {
+    "0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪",
+    "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯"
+  };
+  return val.toString().replace(/[0-9]/g, (digit) => numMap[digit] || digit);
+};
+
+export const formatNum = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
+  if (val === undefined || val === null) return "";
+  const str = typeof val === "number" ? val.toLocaleString("en-US") : val.toString();
+  return lang === "bn" ? toBnDigits(str) : str;
+};
+
+export const formatTaka = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
+  return `৳${formatNum(val, lang)}`;
+};
+
 export interface Product {
   id: number;
   name: string;
@@ -251,6 +270,10 @@ interface AppContextType {
   // Quick action modal
   quickModal: string | null;
   setQuickModal: (m: string | null) => void;
+
+  // Number & Currency Translation Helpers
+  tNum: (val: number | string | undefined | null) => string;
+  formatTaka: (val: number | string | undefined | null) => string;
 
   // Reset demo data
   resetToDefaultData: () => void;
@@ -1238,6 +1261,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsSearchOpen,
         quickModal,
         setQuickModal,
+        tNum: (val: number | string | undefined | null) => formatNum(val, lang),
+        formatTaka: (val: number | string | undefined | null) => formatTaka(val, lang),
         resetToDefaultData,
       }}
     >

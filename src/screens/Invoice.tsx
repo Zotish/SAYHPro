@@ -9,7 +9,7 @@ interface InvoiceProps {
 }
 
 export default function Invoice({ lang, setScreen }: InvoiceProps) {
-  const { currentInvoice, sales, settings, setCurrentInvoice } = useApp();
+  const { currentInvoice, sales, settings, setCurrentInvoice, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [receiptType, setReceiptType] = useState<"thermal" | "a4">("thermal");
@@ -73,7 +73,7 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
             <h1 className="font-display text-xl sm:text-2xl font-bold text-nv-900">
               {isBn ? "বিক্রয় রসিদ ও ইনভয়েস" : "Invoice & Receipt View"}
             </h1>
-            <p className="text-nv-500 text-xs sm:text-sm">{activeSale.invoiceNo} · {activeSale.customer}</p>
+            <p className="text-nv-500 text-xs sm:text-sm">{tNum(activeSale.invoiceNo)} · {activeSale.customer}</p>
           </div>
         </div>
 
@@ -128,7 +128,7 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
             className={`px-3 py-1 rounded-xl text-xs font-mono font-semibold transition-fast whitespace-nowrap
               ${activeSale.invoiceNo === s.invoiceNo ? "bg-em-700 text-white shadow-2xs" : "bg-white border border-nv-200 text-nv-600 hover:bg-nv-100"}`}
           >
-            {s.invoiceNo} (৳{s.grandTotal})
+            {tNum(s.invoiceNo)} ({formatTaka(s.grandTotal)})
           </button>
         ))}
       </div>
@@ -139,7 +139,7 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
         <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-nv-200 max-w-sm mx-auto font-mono text-xs text-nv-900 leading-relaxed">
           {/* Header */}
           <div className="text-center pb-4 border-b border-dashed border-nv-300">
-            <h2 className="font-bold text-lg text-nv-900">{settings.shopName}</h2>
+            <h2 className="font-bold text-lg text-nv-900">{isBn ? settings.shopNameBn || settings.shopName : settings.shopName}</h2>
             <div className="text-[11px] text-nv-500 font-sans">{settings.address}</div>
             <div className="text-[11px] text-nv-500 font-sans">Tel: {settings.phone}</div>
           </div>
@@ -147,19 +147,19 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           {/* Metadata */}
           <div className="py-3 border-b border-dashed border-nv-300 space-y-1 text-[11px]">
             <div className="flex justify-between">
-              <span>Invoice:</span>
-              <span className="font-bold">{activeSale.invoiceNo}</span>
+              <span>{isBn ? "ইনভয়েস নং:" : "Invoice:"}</span>
+              <span className="font-bold">{tNum(activeSale.invoiceNo)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Date:</span>
-              <span>{activeSale.date} {activeSale.time}</span>
+              <span>{isBn ? "তারিখ ও সময়:" : "Date:"}</span>
+              <span>{activeSale.date} {tNum(activeSale.time)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Customer:</span>
+              <span>{isBn ? "গ্রাহক:" : "Customer:"}</span>
               <span className="font-bold">{activeSale.customer}</span>
             </div>
             <div className="flex justify-between">
-              <span>Payment:</span>
+              <span>{isBn ? "পেমেন্ট মাধ্যম:" : "Payment:"}</span>
               <span className="uppercase font-bold">{activeSale.paymentMethod}</span>
             </div>
           </div>
@@ -167,15 +167,15 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           {/* Line items */}
           <div className="py-3 border-b border-dashed border-nv-300 space-y-2">
             <div className="flex justify-between font-bold text-[11px] pb-1 border-b border-nv-100">
-              <span>Item & Qty</span>
-              <span>Total</span>
+              <span>{isBn ? "পণ্য ও পরিমাণ" : "Item & Qty"}</span>
+              <span>{isBn ? "মোট" : "Total"}</span>
             </div>
             {activeSale.items.map((item, idx) => (
               <div key={idx} className="space-y-0.5">
-                <div className="font-semibold text-nv-900">{item.name}</div>
+                <div className="font-semibold text-nv-900">{isBn ? item.nameBn || item.name : item.name}</div>
                 <div className="flex justify-between text-nv-500 text-[11px]">
-                  <span>৳{item.price} × {item.qty}</span>
-                  <span className="font-bold text-nv-900">৳{(item.price * item.qty - item.discount).toLocaleString()}</span>
+                  <span>{formatTaka(item.price)} × {tNum(item.qty)}</span>
+                  <span className="font-bold text-nv-900">{formatTaka(item.price * item.qty - item.discount)}</span>
                 </div>
               </div>
             ))}
@@ -184,33 +184,33 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           {/* Totals */}
           <div className="py-3 border-b border-dashed border-nv-300 space-y-1 text-xs">
             <div className="flex justify-between">
-              <span>Subtotal:</span>
-              <span>৳{activeSale.subtotal.toLocaleString()}</span>
+              <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+              <span>{formatTaka(activeSale.subtotal)}</span>
             </div>
             {activeSale.discount > 0 && (
               <div className="flex justify-between text-red-600">
-                <span>Discount:</span>
-                <span>-৳{activeSale.discount.toLocaleString()}</span>
+                <span>{isBn ? "ডিসকাউন্ট:" : "Discount:"}</span>
+                <span>-{formatTaka(activeSale.discount)}</span>
               </div>
             )}
             <div className="flex justify-between font-extrabold text-sm text-nv-900 pt-1">
-              <span>GRAND TOTAL:</span>
-              <span>৳{activeSale.grandTotal.toLocaleString()}</span>
+              <span>{isBn ? "সর্বমোট টাকা:" : "GRAND TOTAL:"}</span>
+              <span>{formatTaka(activeSale.grandTotal)}</span>
             </div>
             <div className="flex justify-between text-nv-600 pt-1">
-              <span>Paid:</span>
-              <span>৳{activeSale.paid.toLocaleString()}</span>
+              <span>{isBn ? "পরিশোধিত:" : "Paid:"}</span>
+              <span>{formatTaka(activeSale.paid)}</span>
             </div>
             {activeSale.due > 0 && (
               <div className="flex justify-between font-bold text-red-600">
-                <span>Due Amount:</span>
-                <span>৳{activeSale.due.toLocaleString()}</span>
+                <span>{isBn ? "বকেয়া বাকি:" : "Due Amount:"}</span>
+                <span>{formatTaka(activeSale.due)}</span>
               </div>
             )}
             {activeSale.change && activeSale.change > 0 ? (
               <div className="flex justify-between text-em-700 font-bold">
-                <span>Change Returned:</span>
-                <span>৳{activeSale.change.toLocaleString()}</span>
+                <span>{isBn ? "ফেরত দেওয়া হয়েছে:" : "Change Returned:"}</span>
+                <span>{formatTaka(activeSale.change)}</span>
               </div>
             ) : null}
           </div>
@@ -218,7 +218,7 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           {/* Footer Note */}
           <div className="pt-4 text-center space-y-1 text-[10px] text-nv-400 font-sans">
             <p className="font-semibold text-nv-600">{isBn ? "আমাদের সাথে থাকার জন্য ধন্যবাদ!" : "Thank you for shopping with us!"}</p>
-            <p>Software by DukanPro</p>
+            <p>Software by SAYHPro</p>
           </div>
         </div>
       ) : (
@@ -227,27 +227,27 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-nv-200">
             <div>
-              <h2 className="font-display text-2xl font-bold text-nv-900">{settings.shopName}</h2>
+              <h2 className="font-display text-2xl font-bold text-nv-900">{isBn ? settings.shopNameBn || settings.shopName : settings.shopName}</h2>
               <p className="text-sm text-nv-500">{settings.businessType}</p>
               <p className="text-xs text-nv-500 mt-1">{settings.address}</p>
               <p className="text-xs text-nv-500">Phone: {settings.phone}</p>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-em-700">INVOICE</div>
-              <div className="font-mono text-sm font-semibold text-nv-800">{activeSale.invoiceNo}</div>
-              <div className="text-xs text-nv-500 mt-1">Date: {activeSale.date}</div>
+              <div className="text-2xl font-bold text-em-700">{isBn ? "ইনভয়েস" : "INVOICE"}</div>
+              <div className="font-mono text-sm font-semibold text-nv-800">{tNum(activeSale.invoiceNo)}</div>
+              <div className="text-xs text-nv-500 mt-1">{isBn ? "তারিখ:" : "Date:"} {activeSale.date}</div>
             </div>
           </div>
 
           {/* Bill To */}
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-xs font-bold text-nv-400 uppercase tracking-wider mb-1">Bill To</p>
+              <p className="text-xs font-bold text-nv-400 uppercase tracking-wider mb-1">{isBn ? "বিল প্রাপক" : "Bill To"}</p>
               <p className="font-bold text-nv-900">{activeSale.customer}</p>
               {activeSale.customerPhone && <p className="text-xs text-nv-500">{activeSale.customerPhone}</p>}
             </div>
             <div className="text-right">
-              <p className="text-xs font-bold text-nv-400 uppercase tracking-wider mb-1">Payment Status</p>
+              <p className="text-xs font-bold text-nv-400 uppercase tracking-wider mb-1">{isBn ? "পেমেন্ট অবস্থা" : "Payment Status"}</p>
               <span className="inline-block px-3 py-1 bg-em-100 text-em-800 font-bold text-xs rounded-full uppercase">
                 {activeSale.status} ({activeSale.paymentMethod})
               </span>
@@ -259,19 +259,19 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="p-3 font-bold text-nv-600">Item Description</th>
-                  <th className="p-3 font-bold text-nv-600 text-center">Qty</th>
-                  <th className="p-3 font-bold text-nv-600 text-right">Unit Price</th>
-                  <th className="p-3 font-bold text-nv-600 text-right">Total</th>
+                  <th className="p-3 font-bold text-nv-600">{isBn ? "পণ্যের বিবরণ" : "Item Description"}</th>
+                  <th className="p-3 font-bold text-nv-600 text-center">{isBn ? "পরিমাণ" : "Qty"}</th>
+                  <th className="p-3 font-bold text-nv-600 text-right">{isBn ? "একক মূল্য" : "Unit Price"}</th>
+                  <th className="p-3 font-bold text-nv-600 text-right">{isBn ? "মোট" : "Total"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
                 {activeSale.items.map((item, i) => (
                   <tr key={i}>
-                    <td className="p-3 font-medium text-nv-900">{item.name}</td>
-                    <td className="p-3 text-center num">{item.qty}</td>
-                    <td className="p-3 text-right num">৳{item.price.toLocaleString()}</td>
-                    <td className="p-3 text-right num font-bold">৳{(item.price * item.qty).toLocaleString()}</td>
+                    <td className="p-3 font-medium text-nv-900">{isBn ? item.nameBn || item.name : item.name}</td>
+                    <td className="p-3 text-center num">{tNum(item.qty)}</td>
+                    <td className="p-3 text-right num">{formatTaka(item.price)}</td>
+                    <td className="p-3 text-right num font-bold">{formatTaka(item.price * item.qty)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -282,18 +282,18 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
           <div className="flex justify-end pt-4 border-t border-nv-200">
             <div className="w-64 space-y-2 text-sm">
               <div className="flex justify-between text-nv-600">
-                <span>Subtotal:</span>
-                <span className="num">৳{activeSale.subtotal.toLocaleString()}</span>
+                <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+                <span className="num">{formatTaka(activeSale.subtotal)}</span>
               </div>
               {activeSale.discount > 0 && (
                 <div className="flex justify-between text-red-600">
-                  <span>Discount:</span>
-                  <span className="num">-৳{activeSale.discount.toLocaleString()}</span>
+                  <span>{isBn ? "ডিসকাউন্ট:" : "Discount:"}</span>
+                  <span className="num">-{formatTaka(activeSale.discount)}</span>
                 </div>
               )}
               <div className="flex justify-between font-bold text-lg text-nv-900 border-t border-nv-200 pt-2">
-                <span>Grand Total:</span>
-                <span className="num text-em-700">৳{activeSale.grandTotal.toLocaleString()}</span>
+                <span>{isBn ? "সর্বমোট টাকা:" : "Grand Total:"}</span>
+                <span className="num text-em-700">{formatTaka(activeSale.grandTotal)}</span>
               </div>
             </div>
           </div>
@@ -322,7 +322,7 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
                 />
               </div>
               <div className="p-3 bg-nv-50 rounded-xl text-xs text-nv-600">
-                A direct link to receipt #{activeSale.invoiceNo} (৳{activeSale.grandTotal}) will be dispatched.
+                A direct link to receipt #{tNum(activeSale.invoiceNo)} ({formatTaka(activeSale.grandTotal)}) will be dispatched.
               </div>
             </div>
 

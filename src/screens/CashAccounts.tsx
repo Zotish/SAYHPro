@@ -15,7 +15,7 @@ const getAccountIcon = (id: string) => {
 };
 
 export default function CashAccounts({ lang }: CashAccountsProps) {
-  const { accounts, transactions, addCashDeposit, transferCash } = useApp();
+  const { accounts, transactions, addCashDeposit, transferCash, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [showModal, setShowModal] = useState<"add" | "transfer" | null>(null);
@@ -36,11 +36,11 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
   const totalOut = accounts.reduce((s, a) => s + a.out, 0);
 
   const flowData = [
-    { day: "Mon", in: 42000, out: 18000 },
-    { day: "Tue", in: 38000, out: 22000 },
-    { day: "Wed", in: 55000, out: 15000 },
-    { day: "Thu", in: 31000, out: 28000 },
-    { day: "Fri", in: totalIn, out: totalOut },
+    { day: "Mon", dayBn: "সোম", in: 42000, out: 18000 },
+    { day: "Tue", dayBn: "মঙ্গল", in: 38000, out: 22000 },
+    { day: "Wed", dayBn: "বুধ", in: 55000, out: 15000 },
+    { day: "Thu", dayBn: "বৃহঃ", in: 31000, out: 28000 },
+    { day: "Fri", dayBn: "শুক্র", in: totalIn, out: totalOut },
   ];
 
   const handleDepositSubmit = (e: React.FormEvent) => {
@@ -99,8 +99,8 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <p className="text-em-200 text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "মোট বর্তমান ব্যালেন্স" : "Total Combined Balance"}</p>
-            <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight">৳{totalBalance.toLocaleString()}</div>
-            <p className="text-white/60 text-xs mt-1">{accounts.length} active accounts monitored</p>
+            <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight">{formatTaka(totalBalance)}</div>
+            <p className="text-white/60 text-xs mt-1">{tNum(accounts.length)} active accounts monitored</p>
           </div>
 
           <div className="flex items-center gap-6 sm:gap-8 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
@@ -110,7 +110,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
               </div>
               <div>
                 <div className="text-xs text-em-200">{isBn ? "আজকের মোট জমা (In)" : "Total Cash In"}</div>
-                <div className="num font-bold text-base sm:text-lg">৳{totalIn.toLocaleString()}</div>
+                <div className="num font-bold text-base sm:text-lg">{formatTaka(totalIn)}</div>
               </div>
             </div>
 
@@ -120,7 +120,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
               </div>
               <div>
                 <div className="text-xs text-em-200">{isBn ? "আজকের মোট খরচ (Out)" : "Total Cash Out"}</div>
-                <div className="num font-bold text-base sm:text-lg">৳{totalOut.toLocaleString()}</div>
+                <div className="num font-bold text-base sm:text-lg">{formatTaka(totalOut)}</div>
               </div>
             </div>
           </div>
@@ -149,12 +149,12 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
 
                 <div>
                   <div className="text-xs font-semibold text-nv-500">{isBn ? acc.nameBn : acc.name}</div>
-                  <div className="num text-xl font-bold text-nv-900 mt-0.5">৳{acc.balance.toLocaleString()}</div>
+                  <div className="num text-xl font-bold text-nv-900 mt-0.5">{formatTaka(acc.balance)}</div>
                 </div>
 
                 <div className="mt-3 pt-2 border-t border-nv-100 flex items-center justify-between text-[10px] text-nv-400">
-                  <span className="text-em-700 font-semibold">+৳{acc.in.toLocaleString()}</span>
-                  <span className="text-red-600 font-semibold">-৳{acc.out.toLocaleString()}</span>
+                  <span className="text-em-700 font-semibold">+{formatTaka(acc.in)}</span>
+                  <span className="text-red-600 font-semibold">-{formatTaka(acc.out)}</span>
                 </div>
               </div>
             );
@@ -173,9 +173,9 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
           <div className="h-52">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={flowData}>
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-                <Tooltip formatter={(v: any) => `৳${Number(v).toLocaleString()}`} />
+                <XAxis dataKey={isBn ? "dayBn" : "day"} tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(v) => tNum(v)} axisLine={false} tickLine={false} />
+                <Tooltip formatter={(v: any) => [formatTaka(Number(v)), ""]} />
                 <Bar dataKey="in" name="Cash In" fill="#059669" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="out" name="Cash Out" fill="#EF4444" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -185,11 +185,11 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
           <div className="flex items-center justify-center gap-4 text-xs font-semibold mt-2">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-em-600" />
-              <span className="text-nv-700">Cash In (জমা)</span>
+              <span className="text-nv-700">{isBn ? "জমা (Cash In)" : "Cash In"}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-red-500" />
-              <span className="text-nv-700">Cash Out (খরচ)</span>
+              <span className="text-nv-700">{isBn ? "খরচ (Cash Out)" : "Cash Out"}</span>
             </div>
           </div>
         </div>
@@ -227,10 +227,10 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                     <td className="px-4 py-3 text-xs font-mono text-nv-600">{tx.account}</td>
                     <td className="px-4 py-3">
                       <span className={`num font-bold ${tx.type === "in" ? "text-em-700" : tx.type === "out" ? "text-red-600" : "text-blue-700"}`}>
-                        {tx.type === "in" ? "+" : tx.type === "out" ? "-" : ""}৳{tx.amount.toLocaleString()}
+                        {tx.type === "in" ? "+" : tx.type === "out" ? "-" : ""}{formatTaka(tx.amount)}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-nv-400">{tx.time}</td>
+                    <td className="px-4 py-3 text-xs text-nv-400">{tNum(tx.time)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -260,7 +260,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 >
                   {accounts.map(a => (
                     <option key={a.id} value={a.id}>
-                      {a.name} (৳{a.balance.toLocaleString()})
+                      {a.name} ({formatTaka(a.balance)})
                     </option>
                   ))}
                 </select>
@@ -330,7 +330,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 >
                   {accounts.map(a => (
                     <option key={a.id} value={a.id}>
-                      {a.name} (৳{a.balance.toLocaleString()})
+                      {a.name} ({formatTaka(a.balance)})
                     </option>
                   ))}
                 </select>
@@ -345,7 +345,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 >
                   {accounts.map(a => (
                     <option key={a.id} value={a.id}>
-                      {a.name} (৳{a.balance.toLocaleString()})
+                      {a.name} ({formatTaka(a.balance)})
                     </option>
                   ))}
                 </select>

@@ -14,7 +14,7 @@ const roleColors: Record<string, string> = {
 };
 
 export default function Employees({ lang }: EmployeesProps) {
-  const { employees, addEmployee, updateEmployee, deleteEmployee, paySalary, accounts } = useApp();
+  const { employees, addEmployee, updateEmployee, deleteEmployee, paySalary, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [showAddModal, setShowAddModal] = useState(false);
@@ -66,7 +66,7 @@ export default function Employees({ lang }: EmployeesProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "কর্মচারী ও বেতন" : "Employees & Payroll"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{employees.length} {isBn ? "জন কর্মী তালিকাভুক্ত" : "staff members registered"}</p>
+          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{tNum(employees.length)} {isBn ? "জন কর্মী তালিকাভুক্ত" : "staff members registered"}</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -79,10 +79,10 @@ export default function Employees({ lang }: EmployeesProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Staff", labelBn: "মোট কর্মচারী", value: employees.length, icon: Users, color: "bg-blue-50 text-blue-600" },
-          { label: "Monthly Payroll", labelBn: "মাসিক মোট বেতন", value: `৳${totalSalary.toLocaleString()}`, icon: DollarSign, color: "bg-red-50 text-red-600" },
-          { label: "Active Roles", labelBn: "সক্রিয় পদবী", value: "4 Roles", icon: Award, color: "bg-purple-50 text-purple-600" },
-          { label: "Status", labelBn: "সবাই সক্রিয়", value: "All Active", icon: CheckCircle, color: "bg-em-50 text-em-700" },
+          { label: "Total Staff", labelBn: "মোট কর্মচারী", value: `${tNum(employees.length)} ${isBn ? "জন" : "Staff"}`, icon: Users, color: "bg-blue-50 text-blue-600" },
+          { label: "Monthly Payroll", labelBn: "মাসিক মোট বেতন", value: formatTaka(totalSalary), icon: DollarSign, color: "bg-red-50 text-red-600" },
+          { label: "Active Roles", labelBn: "সক্রিয় পদবী", value: `${tNum(4)} ${isBn ? "টি পদ" : "Roles"}`, icon: Award, color: "bg-purple-50 text-purple-600" },
+          { label: "Status", labelBn: "সবাই সক্রিয়", value: isBn ? "সবাই সক্রিয়" : "All Active", icon: CheckCircle, color: "bg-em-50 text-em-700" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
@@ -130,7 +130,7 @@ export default function Employees({ lang }: EmployeesProps) {
                 <div className="grid grid-cols-3 gap-2 bg-nv-50 p-3 rounded-xl text-center my-3">
                   <div>
                     <div className="text-[10px] text-nv-500">{isBn ? "মাসিক বেতন" : "Salary"}</div>
-                    <div className="num font-bold text-sm text-nv-900">৳{emp.salary.toLocaleString()}</div>
+                    <div className="num font-bold text-sm text-nv-900">{formatTaka(emp.salary)}</div>
                   </div>
                   <div>
                     <div className="text-[10px] text-nv-500">{isBn ? "মোবাইল" : "Contact"}</div>
@@ -265,7 +265,7 @@ export default function Employees({ lang }: EmployeesProps) {
             <form onSubmit={handlePaySalarySubmit} className="space-y-3 text-xs sm:text-sm">
               <div className="p-3 bg-nv-50 rounded-xl space-y-1">
                 <div className="font-bold text-nv-900">{payingEmployee.name} ({payingEmployee.role})</div>
-                <div className="text-xs text-nv-500">Salary Amount: <span className="num font-bold text-red-600">৳{payingEmployee.salary.toLocaleString()}</span></div>
+                <div className="text-xs text-nv-500">Salary Amount: <span className="num font-bold text-red-600">{formatTaka(payingEmployee.salary)}</span></div>
               </div>
 
               <div>
@@ -277,7 +277,7 @@ export default function Employees({ lang }: EmployeesProps) {
                 >
                   {accounts.map(a => (
                     <option key={a.id} value={a.id}>
-                      {a.name} (৳{a.balance.toLocaleString()})
+                      {a.name} ({formatTaka(a.balance)})
                     </option>
                   ))}
                 </select>

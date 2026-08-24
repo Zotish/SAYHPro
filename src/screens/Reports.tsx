@@ -18,7 +18,7 @@ interface ReportsProps {
 }
 
 export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
-  const { sales, expenses, products, customers, suppliers, accounts } = useApp();
+  const { sales, expenses, products, customers, suppliers, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [activeTab, setActiveTab] = useState<"pl" | "sales" | "expenses" | "dues">(showPL ? "pl" : "pl");
@@ -82,26 +82,26 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-nv-500 mb-1">{isBn ? "মোট আয় (Revenue)" : "Total Revenue"}</div>
-          <div className="num text-xl sm:text-2xl font-bold text-nv-900">৳{totalRevenue.toLocaleString()}</div>
-          <div className="text-[11px] text-em-700 font-semibold mt-1">From {sales.length} Sales</div>
+          <div className="num text-xl sm:text-2xl font-bold text-nv-900">{formatTaka(totalRevenue)}</div>
+          <div className="text-[11px] text-em-700 font-semibold mt-1">{isBn ? `${tNum(sales.length)} টি বিক্রয় থেকে` : `From ${sales.length} Sales`}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-nv-500 mb-1">{isBn ? "গ্রস লাভ (Gross Profit)" : "Gross Profit"}</div>
-          <div className="num text-xl sm:text-2xl font-bold text-em-700">৳{grossProfit.toLocaleString()}</div>
-          <div className="text-[11px] text-em-700 font-semibold mt-1">{grossMargin}% Margin</div>
+          <div className="num text-xl sm:text-2xl font-bold text-em-700">{formatTaka(grossProfit)}</div>
+          <div className="text-[11px] text-em-700 font-semibold mt-1">{tNum(grossMargin)}% {isBn ? "মার্জিন" : "Margin"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-nv-500 mb-1">{isBn ? "মোট খরচ (Expenses)" : "Total Operating Expenses"}</div>
-          <div className="num text-xl sm:text-2xl font-bold text-red-600">৳{totalExpenses.toLocaleString()}</div>
-          <div className="text-[11px] text-red-600 font-semibold mt-1">{expenses.length} Records</div>
+          <div className="num text-xl sm:text-2xl font-bold text-red-600">{formatTaka(totalExpenses)}</div>
+          <div className="text-[11px] text-red-600 font-semibold mt-1">{tNum(expenses.length)} {isBn ? "টি রেকর্ড" : "Records"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-nv-500 mb-1">{isBn ? "নেট লাভ (Net Profit)" : "Net Profit"}</div>
-          <div className="num text-xl sm:text-2xl font-bold text-blue-700">৳{netProfit.toLocaleString()}</div>
-          <div className="text-[11px] text-blue-700 font-semibold mt-1">{netMargin}% Net Margin</div>
+          <div className="num text-xl sm:text-2xl font-bold text-blue-700">{formatTaka(netProfit)}</div>
+          <div className="text-[11px] text-blue-700 font-semibold mt-1">{tNum(netMargin)}% {isBn ? "নিট মার্জিন" : "Net Margin"}</div>
         </div>
       </div>
 
@@ -142,15 +142,15 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
             <div className="space-y-2">
               <div className="flex justify-between items-center font-bold text-nv-900 border-b border-nv-100 pb-1">
                 <span>1. {isBn ? "বিক্রয় আয় (Revenue)" : "Gross Revenue from Sales"}</span>
-                <span className="num text-em-700">৳{totalRevenue.toLocaleString()}</span>
+                <span className="num text-em-700">{formatTaka(totalRevenue)}</span>
               </div>
               <div className="flex justify-between items-center text-nv-600 pl-4">
                 <span>- {isBn ? "পণ্যের মোট ক্রয় খরচ (COGS)" : "Cost of Goods Sold (COGS)"}</span>
-                <span className="num text-red-500">-৳{totalCOGS.toLocaleString()}</span>
+                <span className="num text-red-500">-{formatTaka(totalCOGS)}</span>
               </div>
               <div className="flex justify-between items-center font-bold text-nv-900 bg-em-50/50 p-2.5 rounded-xl">
                 <span>= {isBn ? "গ্রস লাভ (Gross Profit)" : "Gross Profit"}</span>
-                <span className="num font-bold text-em-800">৳{grossProfit.toLocaleString()} ({grossMargin}%)</span>
+                <span className="num font-bold text-em-800">{formatTaka(grossProfit)} ({tNum(grossMargin)}%)</span>
               </div>
             </div>
 
@@ -162,7 +162,7 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
               {Object.entries(expenseByCategory).map(([cat, amt]) => (
                 <div key={cat} className="flex justify-between items-center text-nv-600 pl-4">
                   <span>- {cat}</span>
-                  <span className="num text-red-500">-৳{amt.toLocaleString()}</span>
+                  <span className="num text-red-500">-{formatTaka(amt)}</span>
                 </div>
               ))}
               {Object.keys(expenseByCategory).length === 0 && (
@@ -170,14 +170,14 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
               )}
               <div className="flex justify-between items-center font-bold text-nv-900 bg-red-50/50 p-2.5 rounded-xl">
                 <span>= {isBn ? "মোট পরিচালন খরচ" : "Total Operating Expenses"}</span>
-                <span className="num font-bold text-red-600">-৳{totalExpenses.toLocaleString()}</span>
+                <span className="num font-bold text-red-600">-{formatTaka(totalExpenses)}</span>
               </div>
             </div>
 
             {/* Final Net Profit */}
             <div className="flex justify-between items-center text-base sm:text-lg font-extrabold text-white sidebar-gradient p-4 rounded-2xl shadow-md">
               <span>{isBn ? "চূড়ান্ত নিট লাভ (Net Profit)" : "Net Profit"}</span>
-              <span className="num font-mono">৳{netProfit.toLocaleString()}</span>
+              <span className="num font-mono">{formatTaka(netProfit)}</span>
             </div>
           </div>
         </div>
@@ -203,12 +203,12 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
               <tbody className="divide-y divide-nv-100">
                 {sales.map(s => (
                   <tr key={s.id} className="hover:bg-nv-50">
-                    <td className="px-4 py-3 font-mono font-bold">{s.invoiceNo}</td>
+                    <td className="px-4 py-3 font-mono font-bold">{tNum(s.invoiceNo)}</td>
                     <td className="px-4 py-3 font-medium">{s.customer}</td>
                     <td className="px-4 py-3 uppercase font-semibold text-xs text-nv-700">{s.paymentMethod}</td>
-                    <td className="px-4 py-3 num">৳{s.subtotal.toLocaleString()}</td>
-                    <td className="px-4 py-3 num text-red-500">-৳{s.discount}</td>
-                    <td className="px-4 py-3 num font-bold text-em-700">৳{s.grandTotal.toLocaleString()}</td>
+                    <td className="px-4 py-3 num">{formatTaka(s.subtotal)}</td>
+                    <td className="px-4 py-3 num text-red-500">-{formatTaka(s.discount)}</td>
+                    <td className="px-4 py-3 num font-bold text-em-700">{formatTaka(s.grandTotal)}</td>
                     <td className="px-4 py-3 text-xs text-nv-500">{s.date} {s.time}</td>
                   </tr>
                 ))}
@@ -237,7 +237,7 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
                 {expenses.map(e => (
                   <tr key={e.id} className="hover:bg-nv-50">
                     <td className="px-4 py-3 font-bold">{e.category}</td>
-                    <td className="px-4 py-3 num font-bold text-red-600">৳{e.amount.toLocaleString()}</td>
+                    <td className="px-4 py-3 num font-bold text-red-600">{formatTaka(e.amount)}</td>
                     <td className="px-4 py-3">{e.paidFrom}</td>
                     <td className="px-4 py-3 text-xs text-nv-500">{e.date}</td>
                     <td className="px-4 py-3 text-xs text-nv-600">{e.note || "—"}</td>
@@ -262,7 +262,7 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
                     <div className="font-bold text-nv-900">{c.name}</div>
                     <div className="text-[10px] text-nv-400">{c.phone}</div>
                   </div>
-                  <div className="num font-bold text-red-600">৳{c.due.toLocaleString()}</div>
+                  <div className="num font-bold text-red-600">{formatTaka(c.due)}</div>
                 </div>
               ))}
             </div>
@@ -278,7 +278,7 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
                     <div className="font-bold text-nv-900">{s.name}</div>
                     <div className="text-[10px] text-nv-400">{s.contact}</div>
                   </div>
-                  <div className="num font-bold text-red-600">৳{s.due.toLocaleString()}</div>
+                  <div className="num font-bold text-red-600">{formatTaka(s.due)}</div>
                 </div>
               ))}
             </div>

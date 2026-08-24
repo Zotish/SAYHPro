@@ -16,7 +16,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ lang, setScreen }: DashboardProps) {
-  const { sales, products, customers, expenses, accounts, settings, setCurrentInvoice } = useApp();
+  const { sales, products, customers, expenses, accounts, settings, setCurrentInvoice, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [period, setPeriod] = useState<"today" | "week" | "month">("today");
@@ -36,7 +36,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
   const lowStockProducts = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock");
 
   const salesTrendData = [
-    { day: "Mon", sales: 32000, profit: 5800 },
+    { day: "Mon", dayBn: "সোম", sales: 32000, profit: 5800 },
     { day: "Tue", dayBn: "মঙ্গল", sales: 41000, profit: 7200 },
     { day: "Wed", dayBn: "বুধ", sales: 28000, profit: 4900 },
     { day: "Thu", dayBn: "বৃহঃ", sales: 55000, profit: 9800 },
@@ -96,10 +96,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <ShoppingCart size={20} />
             </div>
             <div className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-em-50 text-em-700">
-              <TrendingUp size={12} /> +14.2%
+              <TrendingUp size={12} /> {tNum("+14.2%")}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">৳{totalSalesAmount.toLocaleString()}</div>
+          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">{formatTaka(totalSalesAmount)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "আজকের মোট বিক্রয়" : "Total Sales"}</div>
         </div>
 
@@ -110,10 +110,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <TrendingUp size={20} />
             </div>
             <div className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
-              {((netProfit / (totalSalesAmount || 1)) * 100).toFixed(0)}% Margin
+              {tNum(((netProfit / (totalSalesAmount || 1)) * 100).toFixed(0))}% {isBn ? "মার্জিন" : "Margin"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-blue-700">৳{netProfit.toLocaleString()}</div>
+          <div className="num text-xl sm:text-2xl font-extrabold text-blue-700">{formatTaka(netProfit)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "নিট লাভ (লাভ - খরচ)" : "Net Estimated Profit"}</div>
         </div>
 
@@ -124,10 +124,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <Wallet size={20} />
             </div>
             <div className="text-[11px] font-bold text-nv-500 bg-nv-100 px-2 py-0.5 rounded-full font-mono">
-              {accounts.length} Accounts
+              {tNum(accounts.length)} {isBn ? "টি অ্যাকাউন্ট" : "Accounts"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">৳{totalCashBalance.toLocaleString()}</div>
+          <div className="num text-xl sm:text-2xl font-extrabold text-nv-900">{formatTaka(totalCashBalance)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "ক্যাশ ও ব্যাংক ব্যালেন্স" : "Combined Cash & Bank"}</div>
         </div>
 
@@ -138,10 +138,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <CreditCard size={20} />
             </div>
             <div className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600">
-              {customers.filter(c => c.due > 0).length} {isBn ? "জন বাকিদার" : "Owing"}
+              {tNum(customers.filter(c => c.due > 0).length)} {isBn ? "জন বাকিদার" : "Owing"}
             </div>
           </div>
-          <div className="num text-xl sm:text-2xl font-extrabold text-red-600">৳{totalCustomerDues.toLocaleString()}</div>
+          <div className="num text-xl sm:text-2xl font-extrabold text-red-600">{formatTaka(totalCustomerDues)}</div>
           <div className="text-xs text-nv-500 mt-0.5">{isBn ? "গ্রাহক বকেয়া পাওনা" : "Customer Dues (Baki)"}</div>
         </div>
       </div>
@@ -180,8 +180,8 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <p className="text-xs text-nv-500">{isBn ? "সাপ্তাহিক বিক্রয় পারফরম্যান্স" : "Weekly financial performance"}</p>
             </div>
             <div className="flex items-center gap-3 text-xs font-semibold">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-em-600" /> Sales</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Profit</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-em-600" /> {isBn ? "বিক্রয়" : "Sales"}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> {isBn ? "লাভ" : "Profit"}</span>
             </div>
           </div>
 
@@ -198,9 +198,9 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-                <Tooltip formatter={(v: any) => `৳${Number(v).toLocaleString()}`} />
+                <XAxis dataKey={isBn ? "dayBn" : "day"} tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(v) => tNum(v)} axisLine={false} tickLine={false} />
+                <Tooltip formatter={(v: any) => [formatTaka(Number(v)), ""]} />
                 <Area type="monotone" dataKey="sales" stroke="#059669" strokeWidth={2.5} fillOpacity={1} fill="url(#salesGrad)" />
                 <Area type="monotone" dataKey="profit" stroke="#3B82F6" strokeWidth={2.5} fillOpacity={1} fill="url(#profitGrad)" />
               </AreaChart>
@@ -222,11 +222,11 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(v: any) => `${v} products`} />
+                <Tooltip formatter={(v: any) => [`${tNum(v)} ${isBn ? "টি পণ্য" : "products"}`, ""]} />
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] text-nv-400 font-bold">{products.length} Items</span>
+              <span className="text-[10px] text-nv-400 font-bold">{tNum(products.length)} {isBn ? "টি পণ্য" : "Items"}</span>
             </div>
           </div>
 
@@ -237,7 +237,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                   <span className="w-2 h-2 rounded-full" style={{ background: c.color }} />
                   <span className="text-nv-700">{c.name}</span>
                 </div>
-                <span className="num font-bold text-nv-900">{c.value} pcs</span>
+                <span className="num font-bold text-nv-900">{tNum(c.value)} {isBn ? "টি" : "pcs"}</span>
               </div>
             ))}
           </div>
@@ -272,10 +272,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               <tbody className="divide-y divide-nv-100">
                 {sales.slice(0, 5).map(s => (
                   <tr key={s.id} className="hover:bg-nv-50 transition-fast">
-                    <td className="px-4 py-3 font-mono font-bold text-nv-900 whitespace-nowrap">{s.invoiceNo}</td>
+                    <td className="px-4 py-3 font-mono font-bold text-nv-900 whitespace-nowrap">{tNum(s.invoiceNo)}</td>
                     <td className="px-4 py-3 font-medium text-nv-800 whitespace-nowrap">{s.customer}</td>
-                    <td className="px-4 py-3 text-nv-600 whitespace-nowrap">{s.items.length} items</td>
-                    <td className="px-4 py-3 num font-bold text-em-700 whitespace-nowrap">৳{s.grandTotal.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-nv-600 whitespace-nowrap">{tNum(s.items.length)} {isBn ? "টি" : "items"}</td>
+                    <td className="px-4 py-3 num font-bold text-em-700 whitespace-nowrap">{formatTaka(s.grandTotal)}</td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase
                         ${s.paymentMethod === "bkash" ? "bg-pink-100 text-pink-700" : s.paymentMethod === "due" ? "bg-red-100 text-red-700" : "bg-em-100 text-em-800"}`}>
@@ -320,11 +320,11 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                   <span className="text-xl flex-shrink-0">{p.image || "📦"}</span>
                   <div className="min-w-0">
                     <div className="text-xs font-bold text-nv-900 truncate">{isBn ? p.nameBn : p.name}</div>
-                    <div className="text-[10px] text-nv-400">Min: {p.min} pcs</div>
+                    <div className="text-[10px] text-nv-400">Min: {tNum(p.min)} pcs</div>
                   </div>
                 </div>
                 <span className={`num font-bold text-xs ${p.stock === 0 ? "text-red-600" : "text-amber-700"}`}>
-                  {p.stock} left
+                  {tNum(p.stock)} {isBn ? "টি বাকি" : "left"}
                 </span>
               </div>
             ))}

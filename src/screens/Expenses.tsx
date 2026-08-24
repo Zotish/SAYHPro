@@ -19,7 +19,7 @@ const expenseCategories = [
 ];
 
 export default function Expenses({ lang }: ExpensesProps) {
-  const { expenses, addExpense, deleteExpense, accounts } = useApp();
+  const { expenses, addExpense, deleteExpense, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [showForm, setShowForm] = useState(false);
@@ -77,7 +77,7 @@ export default function Expenses({ lang }: ExpensesProps) {
           <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "খরচ ব্যবস্থাপনা" : "Expense Management"}</h1>
           <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
             {isBn ? "মোট মাসিক খরচ: " : "Total Expenses: "}
-            <span className="num font-bold text-red-600">৳{totalExpense.toLocaleString()}</span>
+            <span className="num font-bold text-red-600">{formatTaka(totalExpense)}</span>
           </p>
         </div>
         <button
@@ -136,7 +136,7 @@ export default function Expenses({ lang }: ExpensesProps) {
                 >
                   {accounts.map(a => (
                     <option key={a.id} value={a.name}>
-                      {a.name} (৳{a.balance.toLocaleString()})
+                      {a.name} ({formatTaka(a.balance)})
                     </option>
                   ))}
                 </select>
@@ -207,12 +207,12 @@ export default function Expenses({ lang }: ExpensesProps) {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(v: any) => `৳${Number(v).toLocaleString()}`} />
+                <Tooltip formatter={(v: any) => [formatTaka(Number(v)), ""]} />
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <span className="num text-xs text-nv-400">{isBn ? "মোট" : "Total"}</span>
-              <span className="num text-base font-bold text-nv-900">৳{(totalExpense / 1000).toFixed(0)}k</span>
+              <span className="num text-base font-bold text-nv-900">{formatTaka(totalExpense)}</span>
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export default function Expenses({ lang }: ExpensesProps) {
                   <span className="w-2.5 h-2.5 rounded-full" style={{ background: c.color }} />
                   <span className="text-nv-700">{c.name}</span>
                 </div>
-                <span className="num font-bold text-nv-900">৳{c.value.toLocaleString()}</span>
+                <span className="num font-bold text-nv-900">{formatTaka(c.value)}</span>
               </div>
             ))}
           </div>
@@ -265,7 +265,7 @@ export default function Expenses({ lang }: ExpensesProps) {
                     <td className="px-4 py-3 font-bold text-nv-900 whitespace-nowrap">
                       {isBn ? e.categoryBn || e.category : e.category}
                     </td>
-                    <td className="px-4 py-3 num font-bold text-red-600 whitespace-nowrap">৳{e.amount.toLocaleString()}</td>
+                    <td className="px-4 py-3 num font-bold text-red-600 whitespace-nowrap">{formatTaka(e.amount)}</td>
                     <td className="px-4 py-3 text-xs text-nv-600 whitespace-nowrap">
                       <span className="px-2 py-0.5 bg-nv-100 rounded-md font-mono">{e.paidFrom}</span>
                     </td>

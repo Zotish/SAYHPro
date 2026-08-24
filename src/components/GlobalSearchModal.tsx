@@ -9,7 +9,7 @@ interface GlobalSearchModalProps {
 }
 
 export default function GlobalSearchModal({ isOpen, onClose, setScreen }: GlobalSearchModalProps) {
-  const { lang, products, customers, sales, settings } = useApp();
+  const { lang, products, customers, sales, settings, tNum, formatTaka } = useApp();
   const [query, setQuery] = useState("");
   const isBn = lang === "bn";
 
@@ -91,7 +91,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder={isBn ? "পণ্য, গ্রাহক, ইনভয়েস বা মেনু খুঁজুন..." : "Search products, customers, invoices, or pages..."}
+            placeholder={isBn ? "পণ্য, গ্রাহক, ইনভয়েস বা মেনু খুঁজুন..." : "Search products, customers, invoices, or pages..."}
             className="flex-1 bg-transparent text-nv-900 placeholder:text-nv-400 text-base focus:outline-none"
           />
           {query && (
@@ -136,8 +136,8 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="num font-bold text-sm text-em-700">৳{p.sellPrice}</div>
-                      <div className="text-xs text-nv-500">{p.stock} in stock</div>
+                      <div className="num font-bold text-sm text-em-700">{formatTaka(p.sellPrice)}</div>
+                      <div className="text-xs text-nv-500">{tNum(p.stock)} {isBn ? "টি বাকি" : "in stock"}</div>
                     </div>
                   </button>
                 ))}
@@ -171,7 +171,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     </div>
                     <div className="text-right">
                       <div className={`num font-bold text-sm ${c.due > 0 ? "text-red-600" : "text-em-700"}`}>
-                        {c.due > 0 ? `৳${c.due.toLocaleString()} Due` : "No Due"}
+                        {c.due > 0 ? `${formatTaka(c.due)} ${isBn ? "বাকি" : "Due"}` : (isBn ? "বাকি নেই" : "No Due")}
                       </div>
                     </div>
                   </button>
@@ -199,12 +199,12 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                       </div>
                       <div>
                         <div className="text-sm font-semibold text-nv-900 group-hover:text-amber-700">
-                          {s.invoiceNo} · {s.customer}
+                          {tNum(s.invoiceNo)} · {s.customer}
                         </div>
-                        <div className="text-xs text-nv-400">{s.date} {s.time}</div>
+                        <div className="text-xs text-nv-400">{s.date} {tNum(s.time)}</div>
                       </div>
                     </div>
-                    <div className="num font-bold text-sm text-nv-900">৳{s.grandTotal.toLocaleString()}</div>
+                    <div className="num font-bold text-sm text-nv-900">{formatTaka(s.grandTotal)}</div>
                   </button>
                 ))}
               </div>

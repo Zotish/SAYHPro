@@ -2,14 +2,13 @@ import { useState } from "react";
 import { Search, Download, AlertTriangle, Package, CheckCircle, X, RotateCcw, Plus, Minus, ArrowRight } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, Product } from "../context/AppContext";
-import { toast } from "../components/Toast";
 
 interface InventoryProps {
   lang: "en" | "bn";
 }
 
 export default function Inventory({ lang }: InventoryProps) {
-  const { products, adjustStock } = useApp();
+  const { products, adjustStock, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [search, setSearch] = useState("");
@@ -54,7 +53,7 @@ export default function Inventory({ lang }: InventoryProps) {
           <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "ইনভেন্টরি ও স্টক লেজার" : "Inventory & Stock"}</h1>
           <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
             {isBn ? "মোট ইনভেন্টরি মূল্যমান: " : "Total Stock Valuation: "}
-            <span className="num font-bold text-em-700">৳{totalValue.toLocaleString()}</span>
+            <span className="num font-bold text-em-700">{formatTaka(totalValue)}</span>
           </p>
         </div>
       </div>
@@ -62,10 +61,10 @@ export default function Inventory({ lang }: InventoryProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Products", labelBn: "মোট পণ্য", value: products.length, icon: Package, color: "bg-nv-100 text-nv-700" },
-          { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", value: products.filter(i => i.status === "in-stock").length, icon: CheckCircle, color: "bg-em-50 text-em-700" },
-          { label: "Low Stock Alert", labelBn: "কম স্টক সতর্কতা", value: products.filter(i => i.status === "low-stock").length, icon: AlertTriangle, color: "bg-amber-50 text-amber-700" },
-          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: products.filter(i => i.status === "out-of-stock").length, icon: X, color: "bg-red-50 text-red-600" },
+          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length), icon: Package, color: "bg-nv-100 text-nv-700" },
+          { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(i => i.status === "in-stock").length), icon: CheckCircle, color: "bg-em-50 text-em-700" },
+          { label: "Low Stock Alert", labelBn: "কম স্টক সতর্কতা", value: tNum(products.filter(i => i.status === "low-stock").length), icon: AlertTriangle, color: "bg-amber-50 text-amber-700" },
+          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(i => i.status === "out-of-stock").length), icon: X, color: "bg-red-50 text-red-600" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${s.color}`}>
@@ -89,9 +88,9 @@ export default function Inventory({ lang }: InventoryProps) {
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={categoryStockData} layout="vertical">
-                <XAxis type="number" tick={{ fontSize: 10, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
+                <XAxis type="number" tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(v) => tNum(v)} axisLine={false} tickLine={false} />
                 <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "#64748B" }} axisLine={false} tickLine={false} width={80} />
-                <Tooltip formatter={(v: any) => `${v} pcs`} />
+                <Tooltip formatter={(v: any) => [`${tNum(v)} ${isBn ? "টি" : "pcs"}`, ""]} />
                 <Bar dataKey="value" fill="#059669" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -105,7 +104,7 @@ export default function Inventory({ lang }: InventoryProps) {
               <AlertTriangle size={18} className="text-amber-500" />
               <h3 className="font-display font-bold text-nv-900 text-sm">{isBn ? "জরুরি স্টক সতর্কতা" : "Low Stock Alerts"}</h3>
             </div>
-            <span className="text-xs font-bold px-2 py-0.5 bg-red-100 text-red-700 rounded-full">{lowItems.length} items</span>
+            <span className="text-xs font-bold px-2 py-0.5 bg-red-100 text-red-700 rounded-full">{tNum(lowItems.length)} {isBn ? "টি পণ্য" : "items"}</span>
           </div>
 
           <div className="divide-y divide-nv-100 overflow-y-auto max-h-60">
@@ -115,12 +114,12 @@ export default function Inventory({ lang }: InventoryProps) {
                   <span className="text-2xl">{item.image || "📦"}</span>
                   <div>
                     <div className="font-bold text-xs sm:text-sm text-nv-900">{isBn ? item.nameBn : item.name}</div>
-                    <div className="text-[10px] text-nv-400 font-mono">Min limit: {item.min} pcs</div>
+                    <div className="text-[10px] text-nv-400 font-mono">Min limit: {tNum(item.min)} pcs</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`num font-bold text-sm ${item.stock === 0 ? "text-red-600 font-extrabold" : "text-amber-700"}`}>
-                    {item.stock} {isBn ? "টি বাকি" : "pcs"}
+                    {tNum(item.stock)} {isBn ? "টি বাকি" : "pcs"}
                   </span>
                   <button
                     onClick={() => {
@@ -186,11 +185,11 @@ export default function Inventory({ lang }: InventoryProps) {
                   <td className="px-4 py-3 text-xs text-nv-600">{p.category}</td>
                   <td className="px-4 py-3">
                     <span className={`num font-bold text-sm ${p.stock <= 0 ? "text-red-600" : p.stock <= p.min ? "text-amber-700" : "text-nv-900"}`}>
-                      {p.stock} {p.unit.split("/")[0]}
+                      {tNum(p.stock)} {p.unit.split("/")[0]}
                     </span>
                   </td>
-                  <td className="px-4 py-3 num text-nv-700">৳{p.sellPrice}</td>
-                  <td className="px-4 py-3 num font-bold text-em-700">৳{(p.sellPrice * p.stock).toLocaleString()}</td>
+                  <td className="px-4 py-3 num text-nv-700">{formatTaka(p.sellPrice)}</td>
+                  <td className="px-4 py-3 num font-bold text-em-700">{formatTaka(p.sellPrice * p.stock)}</td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => {
@@ -224,7 +223,7 @@ export default function Inventory({ lang }: InventoryProps) {
             <form onSubmit={handleAdjustStockSubmit} className="space-y-3 text-xs sm:text-sm">
               <div className="p-3 bg-nv-50 rounded-xl">
                 <div className="font-bold text-nv-900">{selectedProduct.name}</div>
-                <div className="text-xs text-nv-500">Current Stock: <span className="num font-bold text-em-700">{selectedProduct.stock}</span></div>
+                <div className="text-xs text-nv-500">Current Stock: <span className="num font-bold text-em-700">{tNum(selectedProduct.stock)}</span></div>
               </div>
 
               <div>

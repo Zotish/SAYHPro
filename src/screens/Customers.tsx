@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Search, Plus, Phone, ShoppingCart, CreditCard, ChevronRight, Users, Star, MessageSquare, Trash2, Edit, X, ArrowLeft } from "lucide-react";
 import { useApp, Customer } from "../context/AppContext";
-import { toast } from "../components/Toast";
 
 interface CustomersProps {
   lang: "en" | "bn";
@@ -16,7 +15,7 @@ const statusConfig = {
 };
 
 export default function Customers({ lang, setScreen }: CustomersProps) {
-  const { customers, addCustomer, updateCustomer, deleteCustomer, recordCustomerPayment, accounts } = useApp();
+  const { customers, addCustomer, updateCustomer, deleteCustomer, recordCustomerPayment, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [search, setSearch] = useState("");
@@ -85,7 +84,7 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "গ্রাহক ব্যবস্থাপনা" : "Customers"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{customers.length} {isBn ? "জন নিবন্ধিত গ্রাহক" : "customers registered"}</p>
+          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{tNum(customers.length)} {isBn ? "জন নিবন্ধিত গ্রাহক" : "customers registered"}</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -98,10 +97,10 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
       {/* Stats Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: customers.length, icon: Users, color: "bg-blue-50 text-blue-600" },
-          { label: "Total Purchases", labelBn: "মোট বিক্রয়", value: `৳${(totalPurchases / 1000).toFixed(0)}k`, icon: ShoppingCart, color: "bg-em-50 text-em-700" },
-          { label: "Outstanding Dues", labelBn: "মোট বাকি", value: `৳${totalDue.toLocaleString()}`, icon: CreditCard, color: "bg-red-50 text-red-600" },
-          { label: "VIP Customers", labelBn: "ভিআইপি গ্রাহক", value: vipCount, icon: Star, color: "bg-amber-50 text-amber-600" },
+          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}`, icon: Users, color: "bg-blue-50 text-blue-600" },
+          { label: "Total Purchases", labelBn: "মোট বিক্রয়", value: formatTaka(totalPurchases), icon: ShoppingCart, color: "bg-em-50 text-em-700" },
+          { label: "Outstanding Dues", labelBn: "মোট বাকি", value: formatTaka(totalDue), icon: CreditCard, color: "bg-red-50 text-red-600" },
+          { label: "VIP Customers", labelBn: "ভিআইপি গ্রাহক", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}`, icon: Star, color: "bg-amber-50 text-amber-600" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
@@ -178,13 +177,13 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
                       </div>
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-nv-600">{c.phone}</td>
-                    <td className="px-4 py-3 num font-semibold text-nv-800">৳{c.totalPurchases.toLocaleString()}</td>
+                    <td className="px-4 py-3 num font-semibold text-nv-800">{formatTaka(c.totalPurchases)}</td>
                     <td className="px-4 py-3">
                       <span className={`num font-bold ${c.due > 0 ? "text-red-600" : "text-em-700"}`}>
-                        {c.due > 0 ? `৳${c.due.toLocaleString()}` : "৳0"}
+                        {c.due > 0 ? formatTaka(c.due) : "৳০"}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-nv-600">{c.visits} times</td>
+                    <td className="px-4 py-3 text-xs text-nv-600">{tNum(c.visits)} {isBn ? "বার" : "times"}</td>
                     <td className="px-4 py-3">
                       <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${sc.cls}`}>
                         {isBn ? sc.labelBn : sc.label}
@@ -215,84 +214,6 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
         </div>
       </div>
 
-      {/* Add Customer Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base">{isBn ? "নতুন গ্রাহক যুক্ত করুন" : "Add Customer"}</h3>
-              <button onClick={() => setShowAddModal(false)} className="text-nv-400 hover:text-nv-600">
-                <X size={18} />
-              </button>
-            </div>
-
-            <form onSubmit={handleCreateCustomer} className="space-y-3 text-xs sm:text-sm">
-              <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "নাম" : "Customer Name"} *</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  placeholder="e.g. Shakil Ahmed"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
-                />
-              </div>
-
-              <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
-                  placeholder="01712-000000"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
-                />
-              </div>
-
-              <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "ঠিকানা" : "Address"}</label>
-                <input
-                  type="text"
-                  value={address}
-                  onChange={e => setAddress(e.target.value)}
-                  placeholder="e.g. Mirpur, Dhaka"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
-                />
-              </div>
-
-              <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "প্রারম্ভিক বাকি (যদি থাকে)" : "Opening Due (৳)"}</label>
-                <input
-                  type="number"
-                  value={openingDue}
-                  onChange={e => setOpeningDue(e.target.value)}
-                  placeholder="0"
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
-                />
-              </div>
-
-              <div className="flex gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowAddModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
-                >
-                  {isBn ? "বাতিল" : "Cancel"}
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
-                >
-                  {isBn ? "সংরক্ষণ করুন" : "Save Customer"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
       {/* Customer Detail Drawer / Modal */}
       {selectedCustomer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
@@ -315,15 +236,15 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
             <div className="grid grid-cols-3 gap-3">
               <div className="p-3 bg-nv-50 rounded-2xl text-center">
                 <div className="text-[11px] text-nv-500">{isBn ? "মোট ক্রয়" : "Purchases"}</div>
-                <div className="num font-bold text-base text-nv-900">৳{selectedCustomer.totalPurchases.toLocaleString()}</div>
+                <div className="num font-bold text-base text-nv-900">{formatTaka(selectedCustomer.totalPurchases)}</div>
               </div>
               <div className="p-3 bg-red-50 rounded-2xl text-center">
                 <div className="text-[11px] text-red-600">{isBn ? "বর্তমান বাকি" : "Current Due"}</div>
-                <div className="num font-bold text-base text-red-700">৳{selectedCustomer.due.toLocaleString()}</div>
+                <div className="num font-bold text-base text-red-700">{formatTaka(selectedCustomer.due)}</div>
               </div>
               <div className="p-3 bg-nv-50 rounded-2xl text-center">
                 <div className="text-[11px] text-nv-500">{isBn ? "মোট ভিজিট" : "Visits"}</div>
-                <div className="num font-bold text-base text-nv-900">{selectedCustomer.visits}</div>
+                <div className="num font-bold text-base text-nv-900">{tNum(selectedCustomer.visits)}</div>
               </div>
             </div>
 
