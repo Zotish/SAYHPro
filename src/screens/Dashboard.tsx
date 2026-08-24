@@ -151,19 +151,21 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         <h3 className="font-display font-bold text-nv-900 text-sm mb-3">{isBn ? "দ্রুত অ্যাকশন" : "Quick Actions"}</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
           {[
-            { label: "New Sale", labelBn: "নতুন বিক্রয় (POS)", icon: ShoppingCart, color: "bg-em-700 hover:bg-em-800 text-white", screen: "pos" },
-            { label: "Add Product", labelBn: "পণ্য যোগ করুন", icon: Plus, color: "bg-blue-600 hover:bg-blue-700 text-white", screen: "addproduct" },
-            { label: "Collect Due", labelBn: "বাকি আদায়", icon: CreditCard, color: "bg-red-600 hover:bg-red-700 text-white", screen: "dues" },
-            { label: "Add Expense", labelBn: "খরচ এন্ট্রি", icon: Receipt, color: "bg-amber-600 hover:bg-amber-700 text-white", screen: "expenses" },
-            { label: "Purchases", labelBn: "ক্রয় অর্ডার", icon: Truck, color: "bg-purple-600 hover:bg-purple-700 text-white", screen: "purchases" },
-            { label: "Reports", labelBn: "লাভ-ক্ষতি রিপোর্ট", icon: Zap, color: "bg-nv-800 hover:bg-nv-900 text-white", screen: "reports" },
+            { label: "New Sale", labelBn: "নতুন বিক্রয় (POS)", icon: ShoppingCart, screen: "pos" },
+            { label: "Add Product", labelBn: "পণ্য যোগ করুন", icon: Plus, screen: "addproduct" },
+            { label: "Collect Due", labelBn: "বাকি আদায়", icon: CreditCard, screen: "dues" },
+            { label: "Add Expense", labelBn: "খরচ এন্ট্রি", icon: Receipt, screen: "expenses" },
+            { label: "Purchases", labelBn: "ক্রয় অর্ডার", icon: Truck, screen: "purchases" },
+            { label: "Reports", labelBn: "লাভ-ক্ষতি রিপোর্ট", icon: Zap, screen: "reports" },
           ].map(action => (
             <button
               key={action.label}
               onClick={() => setScreen(action.screen)}
-              className={`p-3 rounded-2xl font-semibold text-xs flex flex-col items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] ${action.color}`}
+              className="p-3.5 bg-white hover:bg-nv-50 border border-nv-200 hover:border-nv-300 rounded-2xl font-semibold text-xs text-nv-800 flex flex-col items-center justify-center gap-2 shadow-2xs hover:shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] group"
             >
-              <action.icon size={20} />
+              <div className="w-8 h-8 rounded-xl bg-nv-100 text-nv-700 flex items-center justify-center group-hover:bg-nv-200 group-hover:text-nv-900 transition-fast">
+                <action.icon size={18} />
+              </div>
               <span className="text-center">{isBn ? action.labelBn : action.label}</span>
             </button>
           ))}
