@@ -1,0 +1,62 @@
+{
+  "name": "SAYHPro — SaaS Management Platform",
+  "short_name": "SAYHPro",
+  "description": "Smart Retail, POS, Inventory, Due & Expense Management Platform",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#064E3B",
+  "theme_color": "#064E3B",
+  "orientation": "any",
+  "categories": ["business", "productivity", "finance", "shopping"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "POS / New Sale",
+      "short_name": "New Sale",
+      "description": "Quickly start a new retail POS transaction",
+      "url": "/?screen=pos",
+      "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Customer Dues",
+      "short_name": "Dues",
+      "description": "View outstanding customer dues and collect payments",
+      "url": "/?screen=dues",
+      "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Products & Stock",
+      "short_name": "Products",
+      "description": "View inventory and stock levels",
+      "url": "/?screen=products",
+      "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Reports & P&L",
+      "short_name": "Reports",
+      "description": "View profit and loss financial statements",
+      "url": "/?screen=reports",
+      "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
+    }
+  ]
+}

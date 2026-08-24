@@ -30,6 +30,8 @@ type Screen =
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
   | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice";
 
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+
 function MainApp() {
   const { lang, setLang } = useApp();
   const [appState, setAppState] = useState<AppState>("app");
@@ -39,24 +41,30 @@ function MainApp() {
 
   if (appState === "login") {
     return (
-      <Login
-        lang={lang}
-        setLang={setLang}
-        onLogin={() => setAppState("app")}
-      />
+      <>
+        <PWAInstallPrompt lang={lang} />
+        <Login
+          lang={lang}
+          setLang={setLang}
+          onLogin={() => setAppState("app")}
+        />
+      </>
     );
   }
 
   if (appState === "onboarding") {
     return (
-      <Onboarding
-        lang={lang}
-        setLang={setLang}
-        onComplete={() => {
-          setAppState("app");
-          setScreen("dashboard");
-        }}
-      />
+      <>
+        <PWAInstallPrompt lang={lang} />
+        <Onboarding
+          lang={lang}
+          setLang={setLang}
+          onComplete={() => {
+            setAppState("app");
+            setScreen("dashboard");
+          }}
+        />
+      </>
     );
   }
 
@@ -64,13 +72,19 @@ function MainApp() {
   if (screenRaw === "invoice") {
     return (
       <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")}>
+        <PWAInstallPrompt lang={lang} />
         <Invoice lang={lang} setScreen={setScreen} />
       </Layout>
     );
   }
 
   if (screenRaw === "mobile-pos") {
-    return <MobilePOS lang={lang} setScreen={setScreen} />;
+    return (
+      <>
+        <PWAInstallPrompt lang={lang} />
+        <MobilePOS lang={lang} setScreen={setScreen} />
+      </>
+    );
   }
 
   const renderScreen = () => {
@@ -119,6 +133,7 @@ function MainApp() {
 
   return (
     <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")}>
+      <PWAInstallPrompt lang={lang} />
       {renderScreen()}
     </Layout>
   );

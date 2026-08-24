@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="50%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#064E3B" />
+    </linearGradient>
+    <linearGradient id="iconGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad512)" />
+  <rect width="512" height="512" rx="112" fill="none" stroke="#6EE7B7" stroke-width="6" stroke-opacity="0.25" />
+
+  <!-- Logo Graphics -->
+  <g transform="translate(106, 96)" filter="url(#shadow)">
+    <!-- Store Roof -->
+    <path d="M150 30 L260 120 L40 120 Z" fill="url(#iconGrad512)" />
+    <!-- Pillars -->
+    <rect x="56" y="132" width="38" height="130" rx="8" fill="#FFFFFF" opacity="0.95" />
+    <rect x="131" y="132" width="38" height="130" rx="8" fill="#FFFFFF" opacity="0.95" />
+    <rect x="206" y="132" width="38" height="130" rx="8" fill="#FFFFFF" opacity="0.95" />
+    <!-- Store Base -->
+    <rect x="30" y="270" width="240" height="38" rx="10" fill="url(#iconGrad512)" />
+    <!-- Center Pro Accent -->
+    <circle cx="150" cy="85" r="14" fill="#FBBF24" />
+  </g>
+</svg>
