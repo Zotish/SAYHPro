@@ -58,16 +58,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
 
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-24 lg:pb-8">
-      {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl sm:text-3xl font-bold text-nv-900">
-            {isBn ? `শুভ সকাল, ${settings.ownerName} 👋` : `Welcome back, ${settings.ownerName} 👋`}
-          </h1>
-        </div>
-
+      {/* Header Bar / Period Selector */}
+      <div className="flex items-center justify-end">
         {/* Period Selector */}
-        <div className="flex items-center gap-1 bg-white border border-nv-200 p-1 rounded-2xl shadow-2xs self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-white border border-nv-200 p-1 rounded-2xl shadow-2xs">
           {[
             { id: "today" as const, label: "Today", labelBn: "আজ" },
             { id: "week" as const, label: "This Week", labelBn: "এই সপ্তাহ" },
