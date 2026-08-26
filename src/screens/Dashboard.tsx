@@ -64,9 +64,6 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-nv-900">
             {isBn ? `শুভ সকাল, ${settings.ownerName} 👋` : `Welcome back, ${settings.ownerName} 👋`}
           </h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
-            {isBn ? `${settings.shopName}-এর আজকের ব্যবসার সম্পূর্ণ হালচাল:` : `Here's a live overview for ${settings.shopName}:`}
-          </p>
         </div>
 
         {/* Period Selector */}
