@@ -57,11 +57,11 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
   });
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 pb-24 lg:pb-8">
+    <div className="px-4 sm:px-6 pt-2 sm:pt-2.5 space-y-3.5 pb-20 lg:pb-6">
       {/* Header Bar / Period Selector */}
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end -mb-0.5">
         {/* Period Selector */}
-        <div className="flex items-center gap-1 bg-white border border-nv-200 p-1 rounded-2xl shadow-2xs">
+        <div className="flex items-center gap-0.5 bg-white border border-nv-200 p-0.5 rounded-xl shadow-2xs">
           {[
             { id: "today" as const, label: "Today", labelBn: "আজ" },
             { id: "week" as const, label: "This Week", labelBn: "এই সপ্তাহ" },
@@ -70,8 +70,8 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             <button
               key={p.id}
               onClick={() => setPeriod(p.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-fast
-                ${period === p.id ? "bg-em-700 text-white shadow-xs" : "text-nv-600 hover:bg-nv-100"}`}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-fast
+                ${period === p.id ? "bg-em-700 text-white shadow-2xs" : "text-nv-600 hover:bg-nv-100"}`}
             >
               {isBn ? p.labelBn : p.label}
             </button>
