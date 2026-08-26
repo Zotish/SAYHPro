@@ -3,7 +3,7 @@ import {
   TrendingUp, TrendingDown, ShoppingCart, Wallet, Users, Truck,
   Receipt, ArrowUpRight, ArrowDownRight, AlertTriangle, Plus,
   Package, CreditCard, RefreshCw, ChevronRight, Zap, CheckCircle, ExternalLink, Sparkles,
-  MessageSquare, Landmark, Store, Globe2, ShieldAlert
+  MessageSquare, Landmark, Store, Globe2, ShieldAlert, LayoutDashboard, Calendar
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip,
@@ -57,11 +57,22 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
   });
 
   return (
-    <div className="px-4 sm:px-6 pt-2 sm:pt-2.5 space-y-3.5 pb-20 lg:pb-6">
-      {/* Header Bar / Period Selector */}
-      <div className="flex items-center justify-end -mb-0.5">
-        {/* Period Selector */}
-        <div className="flex items-center gap-0.5 bg-white border border-nv-200 p-0.5 rounded-xl shadow-2xs">
+    <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
+      {/* Header Bar: Dashboard Title & Professional Segmented Period Filter */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-em-50 text-em-700 flex items-center justify-center shadow-2xs border border-em-200/50">
+            <LayoutDashboard size={17} />
+          </div>
+          <div>
+            <h1 className="font-display text-lg sm:text-xl font-bold text-nv-900 leading-tight">
+              {isBn ? "ড্যাশবোর্ড ওভারভিউ" : "Dashboard Overview"}
+            </h1>
+          </div>
+        </div>
+
+        {/* Professional Segmented Period Filter Control */}
+        <div className="inline-flex items-center p-1 bg-white border border-nv-200/80 rounded-2xl shadow-2xs self-start sm:self-auto">
           {[
             { id: "today" as const, label: "Today", labelBn: "আজ" },
             { id: "week" as const, label: "This Week", labelBn: "এই সপ্তাহ" },
@@ -70,8 +81,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             <button
               key={p.id}
               onClick={() => setPeriod(p.id)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-fast
-                ${period === p.id ? "bg-em-700 text-white shadow-2xs" : "text-nv-600 hover:bg-nv-100"}`}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all
+                ${period === p.id
+                  ? "bg-em-700 text-white shadow-xs"
+                  : "text-nv-600 hover:text-nv-900 hover:bg-nv-50"}`}
             >
               {isBn ? p.labelBn : p.label}
             </button>
