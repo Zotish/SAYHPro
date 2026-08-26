@@ -2,7 +2,8 @@ import { useState } from "react";
 import {
   TrendingUp, TrendingDown, ShoppingCart, Wallet, Users, Truck,
   Receipt, ArrowUpRight, ArrowDownRight, AlertTriangle, Plus,
-  Package, CreditCard, RefreshCw, ChevronRight, Zap, CheckCircle, ExternalLink
+  Package, CreditCard, RefreshCw, ChevronRight, Zap, CheckCircle, ExternalLink, Sparkles,
+  MessageSquare, Landmark, Store, Globe2, ShieldAlert
 } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip,
@@ -148,12 +149,21 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
 
       {/* Quick Action Bar */}
       <div>
-        <h3 className="font-display font-bold text-nv-900 text-sm mb-3">{isBn ? "দ্রুত অ্যাকশন" : "Quick Actions"}</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-display font-bold text-nv-900 text-sm">{isBn ? "ব্যবসার সকল প্রয়োজনীয় টুলস" : "All Business Tools & Actions"}</h3>
+          <span className="text-xs text-nv-400 font-semibold">{isBn ? "১২টি সমন্বিত ফিচার" : "12 Unified Modules"}</span>
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
           {[
             { label: "New Sale", labelBn: "নতুন বিক্রয় (POS)", icon: ShoppingCart, screen: "pos" },
             { label: "Add Product", labelBn: "পণ্য যোগ করুন", icon: Plus, screen: "addproduct" },
             { label: "Collect Due", labelBn: "বাকি আদায়", icon: CreditCard, screen: "dues" },
+            { label: "SMS & FB Ads", labelBn: "মার্কেটিং ও SMS", icon: MessageSquare, screen: "marketing", badge: "SMS" },
+            { label: "Courier Parcel", labelBn: "কুরিয়ার পার্সেল", icon: Truck, screen: "delivery", badge: "Fast" },
+            { label: "Bank & Loans", labelBn: "ব্যাংক ও লোন", icon: Landmark, screen: "fintech", badge: "SME" },
+            { label: "Resell Market", labelBn: "রিসেলিং মার্কেট", icon: Store, screen: "reselling", badge: "Wholesale" },
+            { label: "Store Website", labelBn: "অনলাইন স্টোর", icon: Globe2, screen: "website", badge: "Live" },
+            { label: "Smart Alerts", labelBn: "মনিটরিং অ্যালার্ট", icon: ShieldAlert, screen: "alerts" },
             { label: "Add Expense", labelBn: "খরচ এন্ট্রি", icon: Receipt, screen: "expenses" },
             { label: "Purchases", labelBn: "ক্রয় অর্ডার", icon: Truck, screen: "purchases" },
             { label: "Reports", labelBn: "লাভ-ক্ষতি রিপোর্ট", icon: Zap, screen: "reports" },
@@ -161,8 +171,13 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             <button
               key={action.label}
               onClick={() => setScreen(action.screen)}
-              className="p-3.5 bg-white hover:bg-nv-50 border border-nv-200 hover:border-nv-300 rounded-2xl font-semibold text-xs text-nv-800 flex flex-col items-center justify-center gap-2 shadow-2xs hover:shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] group"
+              className="p-3.5 bg-white hover:bg-nv-50 border border-nv-200 hover:border-nv-300 rounded-2xl font-semibold text-xs text-nv-800 flex flex-col items-center justify-center gap-2 shadow-2xs hover:shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] group relative"
             >
+              {action.badge && (
+                <span className="absolute top-2 right-2 px-1.5 py-0.2 text-[9px] font-extrabold uppercase rounded-full bg-em-50 text-em-700 border border-em-200">
+                  {action.badge}
+                </span>
+              )}
               <div className="w-8 h-8 rounded-xl bg-nv-100 text-nv-700 flex items-center justify-center group-hover:bg-nv-200 group-hover:text-nv-900 transition-fast">
                 <action.icon size={18} />
               </div>
@@ -170,6 +185,36 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             </button>
           ))}
         </div>
+      </div>
+
+      {/* VGO Value Economy Model Feature Banner */}
+      <div className="bg-gradient-to-r from-em-950 via-nv-900 to-slate-900 rounded-3xl p-5 text-white shadow-md border border-em-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-start sm:items-center gap-3.5">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-em-500 to-blue-500 flex items-center justify-center text-white shadow-md flex-shrink-0">
+            <Sparkles size={22} className="animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-em-500/20 text-em-300 border border-em-400/30">
+                VGO VALUE ECONOMY
+              </span>
+              <span className="text-xs text-white/50">Record · Recognize · Move · Share</span>
+            </div>
+            <p className="text-xs sm:text-sm font-semibold text-em-100 mt-1">
+              {isBn 
+                ? "অংশগ্রহণ ও অবদানকে পরিমাপযোগ্য মূল্যে রূপান্তর করুন এবং নেটওয়ার্ক ডিভিডেন্ড শেয়ার করুন।"
+                : "Record contribution, recognize impact, move value, and share it across the network."}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() => setScreen("vgo")}
+          className="self-start md:self-auto px-4 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <span>{isBn ? "ভিজিও হাব খুলুন" : "Open VGO Hub"}</span>
+          <ChevronRight size={16} />
+        </button>
       </div>
 
       {/* Analytics Charts (Sales Area & Category Pie) */}

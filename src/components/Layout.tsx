@@ -3,7 +3,8 @@ import {
   LayoutDashboard, ShoppingCart, Scan, Package, Boxes, Users, Truck,
   CreditCard, Receipt, Wallet, UserCheck, BarChart2, Bell, Settings,
   ChevronRight, Search, Globe, HelpCircle, LogOut, Menu, X, Home,
-  Plus, ChevronDown, Building2, Check, ExternalLink, Sparkles
+  Plus, ChevronDown, Building2, Check, ExternalLink, Sparkles,
+  MessageSquare, Landmark, Store, Globe2, ShieldAlert
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import GlobalSearchModal from "./GlobalSearchModal";
@@ -68,6 +69,13 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
   const navItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "ড্যাশবোর্ড" },
     { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "বিক্রি করুন", highlight: true },
+    { id: "vgo", icon: Sparkles, label: "VGO Value Hub", labelBn: "ভিজিও ভ্যালু হাব", badge: "VGO", badgeColor: "bg-gradient-to-r from-em-500 to-blue-500" },
+    { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস", badge: "New", badgeColor: "bg-blue-600" },
+    { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল", badge: "Steadfast+", badgeColor: "bg-emerald-600" },
+    { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন", badge: "Loans", badgeColor: "bg-purple-600" },
+    { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "রিসেলিং মার্কেট", badge: "Wholesale", badgeColor: "bg-amber-600" },
+    { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "অনলাইন ওয়েবসাইট", badge: "Live", badgeColor: "bg-indigo-600" },
+    { id: "alerts", icon: ShieldAlert, label: "Monitoring & Alerts", labelBn: "মনিটরিং ও অ্যালার্ট" },
     { id: "products", icon: Package, label: "Products", labelBn: "পণ্য", badge: products.length },
     { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-amber-500" },
     { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক", badge: customers.length },
@@ -503,6 +511,13 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-6">
               {[
+                { id: "vgo", icon: Sparkles, label: "VGO Hub", labelBn: "ভিজিও হাব", color: "bg-emerald-50 text-emerald-700" },
+                { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং", color: "bg-blue-50 text-blue-700" },
+                { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার", color: "bg-emerald-50 text-emerald-700" },
+                { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন", color: "bg-purple-50 text-purple-700" },
+                { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং", color: "bg-amber-50 text-amber-700" },
+                { id: "website", icon: Globe2, label: "Store Website", labelBn: "অনলাইন স্টোর", color: "bg-indigo-50 text-indigo-700" },
+                { id: "alerts", icon: ShieldAlert, label: "Alerts", labelBn: "অ্যালার্ট", color: "bg-rose-50 text-rose-700" },
                 { id: "pos", icon: Scan, label: "POS Sale", labelBn: "বিক্রয়", color: "bg-em-50 text-em-700" },
                 { id: "products", icon: Package, label: "Products", labelBn: "পণ্য", color: "bg-blue-50 text-blue-700" },
                 { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", color: "bg-amber-50 text-amber-700" },

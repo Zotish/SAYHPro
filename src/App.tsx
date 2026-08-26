@@ -22,13 +22,21 @@ import Invoice from "./screens/Invoice";
 import Customers from "./screens/Customers";
 import Employees from "./screens/Employees";
 import Notifications from "./screens/Notifications";
+import VGOHub from "./screens/VGOHub";
+import Marketing from "./screens/Marketing";
+import DeliveryAggregator from "./screens/DeliveryAggregator";
+import FintechBanking from "./screens/FintechBanking";
+import Reselling from "./screens/Reselling";
+import WebsiteBuilder from "./screens/WebsiteBuilder";
+import MonitoringAlerts from "./screens/MonitoringAlerts";
 
 type AppState = "login" | "onboarding" | "app";
 type Screen =
   | "dashboard" | "sales" | "pos" | "purchases" | "products" | "inventory"
   | "customers" | "suppliers" | "dues" | "expenses" | "cash" | "employees"
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
-  | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice";
+  | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice" | "vgo"
+  | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts";
 
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
@@ -126,6 +134,20 @@ function MainApp() {
         return <Employees lang={lang} />;
       case "notifications":
         return <Notifications lang={lang} />;
+      case "vgo":
+        return <VGOHub lang={lang} setScreen={setScreen} />;
+      case "marketing":
+        return <Marketing lang={lang} setScreen={setScreen} />;
+      case "delivery":
+        return <DeliveryAggregator lang={lang} setScreen={setScreen} />;
+      case "fintech":
+        return <FintechBanking lang={lang} setScreen={setScreen} />;
+      case "reselling":
+        return <Reselling lang={lang} setScreen={setScreen} />;
+      case "website":
+        return <WebsiteBuilder lang={lang} setScreen={setScreen} />;
+      case "alerts":
+        return <MonitoringAlerts lang={lang} setScreen={setScreen} />;
       default:
         return <Dashboard lang={lang} setScreen={setScreen} />;
     }

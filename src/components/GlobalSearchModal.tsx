@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, X, Package, Users, Receipt, LayoutDashboard, Scan, ShoppingCart, Truck, CreditCard, Wallet, UserCheck, BarChart2, Settings, ArrowRight } from "lucide-react";
+import { Search, X, Package, Users, Receipt, LayoutDashboard, Scan, ShoppingCart, Truck, CreditCard, Wallet, UserCheck, BarChart2, Settings, ArrowRight, Sparkles, MessageSquare, Landmark, Store, Globe2, ShieldAlert } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
 interface GlobalSearchModalProps {
@@ -58,6 +58,13 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
 
   const navigationItems = [
     { id: "dashboard", label: "Dashboard", labelBn: "ড্যাশবোর্ড", icon: LayoutDashboard },
+    { id: "vgo", label: "VGO Value Hub (Record, Recognize, Move, Share)", labelBn: "ভিজিও ভ্যালু হাব (রেকর্ড, স্বীকৃতি, মুভ, শেয়ার)", icon: Sparkles },
+    { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "মার্কেটিং ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
+    { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "কুরিয়ার পার্সেল ও ডেলিভারি এগ্রিগেটর", icon: Truck },
+    { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল ব্যাংকিং, ঋণ ও বাংলা কিউআর পেমেন্ট", icon: Landmark },
+    { id: "reselling", label: "Reselling & Drop-Shipping Wholesale Catalog", labelBn: "রিসেলিং মার্কেট ও পাইকারি ক্যাটালগ", icon: Store },
+    { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "অনলাইন স্টোর ও ওয়েবসাইট বিল্ডার", icon: Globe2 },
+    { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "স্মার্ট মনিটরিং ও স্বয়ংক্রিয় অ্যালার্ট", icon: ShieldAlert },
     { id: "pos", label: "POS / New Sale", labelBn: "বিক্রি করুন", icon: Scan },
     { id: "products", label: "Products Catalog", labelBn: "পণ্য তালিকা", icon: Package },
     { id: "dues", label: "Customer Dues", labelBn: "বাকির হিসাব", icon: CreditCard },
@@ -73,7 +80,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
     query.trim()
       ? item.label.toLowerCase().includes(query.toLowerCase()) || item.labelBn.includes(query)
       : true
-  ).slice(0, query.trim() ? 4 : 6);
+  ).slice(0, query.trim() ? 5 : 8);
 
   const navigateTo = (screen: string) => {
     setScreen(screen);

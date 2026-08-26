@@ -208,6 +208,186 @@ export interface ShopSettings {
   branch: string;
 }
 
+// VGO Value Economy Models (Record. Recognize. Move. Share.)
+export interface VGOContribution {
+  id: string;
+  contributor: string;
+  contributorType: "customer" | "supplier" | "employee" | "store";
+  action: string;
+  actionBn: string;
+  category: "transaction" | "loyalty" | "logistics" | "governance" | "collaboration";
+  impactUnits: number;
+  vgoRewarded: number;
+  proofHash: string;
+  timestamp: string;
+  status: "verified" | "minted" | "shared";
+}
+
+export interface VGOWallet {
+  id: string;
+  ownerName: string;
+  ownerType: "customer" | "supplier" | "employee" | "store_treasury";
+  balanceVGO: number;
+  stakedVGO: number;
+  totalEarned: number;
+  reputationScore: number;
+  impactBadge: string;
+}
+
+export interface VGONetworkPool {
+  totalPoolVGO: number;
+  distributedToday: number;
+  activeNetworkNodes: number;
+  communityDividendsRate: number;
+  networkVelocity: number;
+  lastDistributionTime: string;
+}
+
+// 1. Marketing Models (SMS & Facebook / Meta)
+export interface SMSCampaign {
+  id: string;
+  title: string;
+  titleBn: string;
+  type: "promotional" | "due_reminder" | "festival" | "new_arrival";
+  recipientCount: number;
+  message: string;
+  messageBn: string;
+  date: string;
+  status: "sent" | "scheduled" | "draft";
+  cost: number;
+}
+
+export interface MetaAdSync {
+  catalogSynced: boolean;
+  syncedProductsCount: number;
+  pixelId: string;
+  pixelActive: boolean;
+  adSpend: number;
+  conversions: number;
+}
+
+// 2. Delivery Aggregator Models (Steadfast, Pathao, RedX, eCourier)
+export interface CourierParcel {
+  id: string;
+  trackingCode: string;
+  courier: "steadfast" | "pathao" | "redx" | "ecourier";
+  customerName: string;
+  customerPhone: string;
+  destination: string;
+  invoiceNo: string;
+  codAmount: number;
+  deliveryFee: number;
+  status: "booked" | "picked_up" | "in_transit" | "delivered" | "returned";
+  date: string;
+  codSettled: boolean;
+}
+
+// 3. Fintech, Banking & SME Loan Models
+export interface BankAccountApplication {
+  id: string;
+  bankName: string;
+  bankLogo: string;
+  accountType: "current" | "merchant_wallet" | "islamic_business";
+  accountNumber?: string;
+  status: "active" | "pending_kyc" | "approved";
+  nidNumber: string;
+  tradeLicense: string;
+  kycProgress: number;
+}
+
+export interface SMELoanOffer {
+  id: string;
+  bankPartner: string;
+  eligibleAmount: number;
+  interestRate: number;
+  tenureMonths: number;
+  monthlyEMI: number;
+  status: "pre_approved" | "applied" | "disbursed" | "none";
+  activeLoanAmount?: number;
+  paidInstallments?: number;
+  totalInstallments?: number;
+}
+
+export interface DigitalPaymentConfig {
+  banglaQRActive: boolean;
+  merchantQrString: string;
+  bkashMerchantNumber: string;
+  nagadMerchantNumber: string;
+  paymentGatewayActive: boolean;
+}
+
+export interface PaymentLinkItem {
+  id: string;
+  customerName: string;
+  amount: number;
+  linkUrl: string;
+  purpose: string;
+  createdDate: string;
+  status: "paid" | "pending" | "expired";
+}
+
+// 4. Reselling & Drop-Shipping Models
+export interface ResellProduct {
+  id: string;
+  name: string;
+  nameBn: string;
+  category: string;
+  wholesalePrice: number;
+  suggestedRetailPrice: number;
+  stock: number;
+  image: string;
+  supplier: string;
+  rating: number;
+  isAddedToStore: boolean;
+  mySellingPrice?: number;
+  myProfit?: number;
+}
+
+// 5. No-Code Website Builder Models
+export interface StorefrontConfig {
+  subdomain: string;
+  customDomain?: string;
+  heroHeadline: string;
+  heroHeadlineBn: string;
+  heroSubheadline: string;
+  heroSubheadlineBn: string;
+  themeColor: string;
+  bannerImage: string;
+  logo: string;
+  announcementText: string;
+  announcementTextBn: string;
+  showWhatsAppButton: boolean;
+  whatsAppNumber: string;
+  allowCOD: boolean;
+  showReviews: boolean;
+  featuredProductIds: number[];
+  published: boolean;
+}
+
+// 6. Monitoring & Alert System Models
+export interface MonitoringRule {
+  id: string;
+  name: string;
+  nameBn: string;
+  type: "low_stock" | "high_due" | "cash_discrepancy" | "daily_profit_sms";
+  enabled: boolean;
+  thresholdValue: number;
+  channel: "sms" | "push" | "whatsapp" | "email";
+  lastTriggered?: string;
+}
+
+export interface BusinessAlert {
+  id: string;
+  ruleType: string;
+  title: string;
+  titleBn: string;
+  message: string;
+  messageBn: string;
+  severity: "critical" | "warning" | "info";
+  time: string;
+  resolved: boolean;
+}
+
 interface AppContextType {
   lang: "en" | "bn";
   setLang: (l: "en" | "bn") => void;
@@ -277,6 +457,52 @@ interface AppContextType {
   // Quick action modal
   quickModal: string | null;
   setQuickModal: (m: string | null) => void;
+
+  // VGO Value Economy (Record, Recognize, Move, Share)
+  vgoContributions: VGOContribution[];
+  vgoWallets: VGOWallet[];
+  vgoPool: VGONetworkPool;
+  recordVgoContribution: (c: Omit<VGOContribution, "id" | "proofHash" | "timestamp" | "status">) => void;
+  transferVgoValue: (fromWalletId: string, toWalletId: string, amount: number, note?: string) => void;
+  stakeVgoTokens: (walletId: string, amount: number) => void;
+  distributeVgoPool: (amount: number, poolType?: string) => void;
+
+  // 1. Marketing
+  smsCampaigns: SMSCampaign[];
+  smsBalance: number;
+  metaAdSync: MetaAdSync;
+  sendSMSCampaign: (c: Omit<SMSCampaign, "id" | "date" | "status">) => void;
+  updateMetaSync: (sync: Partial<MetaAdSync>) => void;
+  topupSMSBalance: (amountCredits: number) => void;
+
+  // 2. Delivery Aggregator
+  courierParcels: CourierParcel[];
+  bookCourierParcel: (parcel: Omit<CourierParcel, "id" | "trackingCode" | "date" | "status" | "codSettled">) => void;
+  updateParcelStatus: (id: string, status: CourierParcel["status"]) => void;
+
+  // 3. Fintech, Banking & Loans
+  bankApplications: BankAccountApplication[];
+  smeLoanOffers: SMELoanOffer[];
+  digitalPayments: DigitalPaymentConfig;
+  paymentLinks: PaymentLinkItem[];
+  applyBankKYC: (bankName: string, accountType: BankAccountApplication["accountType"], nid: string, tradeLicense: string) => void;
+  applySMELoan: (offerId: string, amount: number) => void;
+  createPaymentLink: (customerName: string, amount: number, purpose: string) => void;
+  updatePaymentConfig: (config: Partial<DigitalPaymentConfig>) => void;
+
+  // 4. Reselling & Drop-Shipping
+  resellProducts: ResellProduct[];
+  toggleResellProduct: (id: string, mySellingPrice?: number) => void;
+
+  // 5. No-Code Website Builder
+  storefront: StorefrontConfig;
+  updateStorefront: (s: Partial<StorefrontConfig>) => void;
+
+  // 6. Monitoring & Alerts
+  monitoringRules: MonitoringRule[];
+  businessAlerts: BusinessAlert[];
+  toggleMonitoringRule: (id: string) => void;
+  resolveBusinessAlert: (id: string) => void;
 
   // Number & Currency Translation Helpers
   tNum: (val: number | string | undefined | null) => string;
@@ -451,6 +677,127 @@ const initialSettings: ShopSettings = {
   branch: "Main Branch (Dhanmondi)",
 };
 
+const initialVgoContributions: VGOContribution[] = [
+  { id: "VGO-1092", contributor: "Rahim Mia", contributorType: "customer", action: "Purchased weekly grocery bundle", actionBn: "সাপ্তাহিক মুদি সদাই ক্রয় করেছেন", category: "transaction", impactUnits: 120, vgoRewarded: 24, proofHash: "0x8f4c...91b2", timestamp: "10 mins ago", status: "verified" },
+  { id: "VGO-1091", contributor: "Pran-RFL Group", contributorType: "supplier", action: "100% On-Time Supply Delivery", actionBn: "১০০% সময়মতো সাপ্লাই ডেলিভারি সম্পন্ন", category: "logistics", impactUnits: 350, vgoRewarded: 70, proofHash: "0x3e1a...44f0", timestamp: "45 mins ago", status: "minted" },
+  { id: "VGO-1090", contributor: "Tanvir Ahmed", contributorType: "employee", action: "Fast Checkout & Customer Delight", actionBn: "দ্রুত চেকআউট ও গ্রাহক সেবা প্রদান", category: "loyalty", impactUnits: 95, vgoRewarded: 19, proofHash: "0x11bb...cc29", timestamp: "2 hours ago", status: "verified" },
+  { id: "VGO-1089", contributor: "Karim Ahmed", contributorType: "customer", action: "Store Referral (Referred 2 Neighbors)", actionBn: "২ জন নতুন গ্রাহক রেফার করেছেন", category: "collaboration", impactUnits: 250, vgoRewarded: 50, proofHash: "0x4a99...fe12", timestamp: "Yesterday", status: "shared" },
+  { id: "VGO-1088", contributor: "Akij Consumer Care", contributorType: "supplier", action: "Direct Manufacturer Eco-Packaging", actionBn: "পরিবেশবান্ধব ইকো-প্যাকেজিং চালান", category: "governance", impactUnits: 180, vgoRewarded: 36, proofHash: "0x98dd...71ca", timestamp: "2 days ago", status: "minted" },
+];
+
+const initialVgoWallets: VGOWallet[] = [
+  { id: "W-STORE", ownerName: "Rahim Store Treasury", ownerType: "store_treasury", balanceVGO: 48500, stakedVGO: 25000, totalEarned: 95000, reputationScore: 980, impactBadge: "Master Node" },
+  { id: "W-01", ownerName: "Rahim Mia", ownerType: "customer", balanceVGO: 1420, stakedVGO: 500, totalEarned: 3200, reputationScore: 890, impactBadge: "Diamond Patron" },
+  { id: "W-02", ownerName: "Karim Ahmed", ownerType: "customer", balanceVGO: 860, stakedVGO: 200, totalEarned: 1900, reputationScore: 820, impactBadge: "Pioneer" },
+  { id: "W-03", ownerName: "Pran-RFL Group", ownerType: "supplier", balanceVGO: 12400, stakedVGO: 8000, totalEarned: 28000, reputationScore: 950, impactBadge: "Verified Partner" },
+  { id: "W-04", ownerName: "Tanvir Ahmed", ownerType: "employee", balanceVGO: 640, stakedVGO: 150, totalEarned: 1400, reputationScore: 860, impactBadge: "Star Contributor" },
+];
+
+const initialVgoPool: VGONetworkPool = {
+  totalPoolVGO: 250000,
+  distributedToday: 4250,
+  activeNetworkNodes: 1420,
+  communityDividendsRate: 4.8,
+  networkVelocity: 8.4,
+  lastDistributionTime: "Just now",
+};
+
+// Initial Data: 1. Marketing
+const initialSmsCampaigns: SMSCampaign[] = [
+  { id: "SMS-101", title: "Weekend Discount Offer", titleBn: "উইকেন্ড স্পেশাল ছাড়", type: "promotional", recipientCount: 350, message: "Dear Customer, Get 10% flat off on all grocery items this Friday at Rahim Store! Shop now.", messageBn: "সম্মানিত গ্রাহক, শুক্রবার রহিম স্টোরে সকল মুদি পণ্যে ১০% বিশেষ ছাড়! আজই আসুন।", date: "Aug 22, 2026", status: "sent", cost: 140 },
+  { id: "SMS-102", title: "Customer Due Friendly Reminder", titleBn: "বাকি পরিশোধের তাগাদা এসএমএস", type: "due_reminder", recipientCount: 7, message: "Dear Customer, Friendly reminder for your pending due at Rahim Store. Please settle at your convenience.", messageBn: "সম্মানিত গ্রাহক, রহিম স্টোরে আপনার বকেয়া পরিশোধের অনুরোধ রইল। ধন্যবাদ।", date: "Aug 24, 2026", status: "sent", cost: 3.5 },
+  { id: "SMS-103", title: "Eid Mubarak Mega Offer", titleBn: "ঈদ মোবারক মেগা অফার", type: "festival", recipientCount: 500, message: "Eid Mubarak from Rahim Store! Special combo gift on shopping above ৳2000.", messageBn: "রহিম স্টোরের পক্ষ থেকে ঈদ মোবারক! ২০০০ টাকার কেনাকাটায় বিশেষ কম্বো গিফট।", date: "Scheduled for next week", status: "scheduled", cost: 200 },
+];
+
+const initialMetaAdSync: MetaAdSync = {
+  catalogSynced: true,
+  syncedProductsCount: 12,
+  pixelId: "META-PIXEL-BD-89410",
+  pixelActive: true,
+  adSpend: 3400,
+  conversions: 48,
+};
+
+// Initial Data: 2. Delivery Aggregator
+const initialCourierParcels: CourierParcel[] = [
+  { id: "PAR-901", trackingCode: "STF-BD-89211", courier: "steadfast", customerName: "Tanvir Hasan", customerPhone: "01711-223344", destination: "Mirpur 10, Dhaka", invoiceNo: "INV-2026-001", codAmount: 1850, deliveryFee: 60, status: "delivered", date: "Aug 24, 2026", codSettled: true },
+  { id: "PAR-902", trackingCode: "PTH-EXP-44019", courier: "pathao", customerName: "Sultana Begum", customerPhone: "01819-556677", destination: "Sector 7, Uttara", invoiceNo: "INV-2026-002", codAmount: 3200, deliveryFee: 60, status: "in_transit", date: "Today, 11:30 AM", codSettled: false },
+  { id: "PAR-903", trackingCode: "RDX-DH-10928", courier: "redx", customerName: "Mahbubur Rahman", customerPhone: "01912-778899", destination: "Chittagong GEC", invoiceNo: "INV-2026-003", codAmount: 950, deliveryFee: 130, status: "picked_up", date: "Today, 02:15 PM", codSettled: false },
+  { id: "PAR-904", trackingCode: "ECO-NAT-55102", courier: "ecourier", customerName: "Karim Mia", customerPhone: "01788-990011", destination: "Sylhet Zindabazar", invoiceNo: "INV-2026-004", codAmount: 4100, deliveryFee: 130, status: "booked", date: "Today, 04:00 PM", codSettled: false },
+];
+
+// Initial Data: 3. Fintech, Banking & Loans
+const initialBankApplications: BankAccountApplication[] = [
+  { id: "BNK-01", bankName: "BRAC Bank Digital Merchant", bankLogo: "🏦", accountType: "current", accountNumber: "1501204899201001", status: "active", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
+  { id: "BNK-02", bankName: "bKash Merchant Enterprise Wallet", bankLogo: "📱", accountType: "merchant_wallet", accountNumber: "01712-345678", status: "active", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
+  { id: "BNK-03", bankName: "City Bank Islamic SME", bankLogo: "🏛️", accountType: "islamic_business", accountNumber: "21094892010", status: "approved", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
+];
+
+const initialLoanOffers: SMELoanOffer[] = [
+  { id: "LOAN-CITY-01", bankPartner: "City Bank SME QuickCredit", eligibleAmount: 150000, interestRate: 9.0, tenureMonths: 12, monthlyEMI: 13125, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 12 },
+  { id: "LOAN-BRAC-02", bankPartner: "BRAC Bank Shobuj SME Loan", eligibleAmount: 300000, interestRate: 8.5, tenureMonths: 24, monthlyEMI: 13640, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 24 },
+  { id: "LOAN-IDLC-03", bankPartner: "IDLC Micro Enterprise Credit", eligibleAmount: 75000, interestRate: 9.5, tenureMonths: 6, monthlyEMI: 12850, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 6 },
+];
+
+const initialDigitalPayments: DigitalPaymentConfig = {
+  banglaQRActive: true,
+  merchantQrString: "00020101021226500010bd.gov.bb28380008bKash01017123456785204599953030505802BD5911Rahim Store6005Dhaka",
+  bkashMerchantNumber: "01712-345678",
+  nagadMerchantNumber: "01812-345678",
+  paymentGatewayActive: true,
+};
+
+const initialPaymentLinks: PaymentLinkItem[] = [
+  { id: "PLK-8801", customerName: "Tanvir Ahmed", amount: 1850, linkUrl: "https://pay.sayhpro.com/l/rahim-8801", purpose: "Grocery Home Delivery", createdDate: "Aug 24, 2026", status: "paid" },
+  { id: "PLK-8802", customerName: "Farhana Islam", amount: 3400, linkUrl: "https://pay.sayhpro.com/l/rahim-8802", purpose: "Monthly Supplies Order", createdDate: "Today, 10:15 AM", status: "pending" },
+  { id: "PLK-8803", customerName: "Abul Kalam", amount: 650, linkUrl: "https://pay.sayhpro.com/l/rahim-8803", purpose: "Dues Settlement via WhatsApp", createdDate: "Today, 01:40 PM", status: "pending" },
+];
+
+// Initial Data: 4. Reselling Products
+const initialResellProducts: ResellProduct[] = [
+  { id: "RSL-01", name: "T500 Ultra Smartwatch Series 8", nameBn: "টি৫০০ আল্ট্রা স্মার্টওয়াচ", category: "Electronics", wholesalePrice: 580, suggestedRetailPrice: 950, stock: 120, image: "⌚", supplier: "Global Tech Imports", rating: 4.8, isAddedToStore: true, mySellingPrice: 890, myProfit: 310 },
+  { id: "RSL-02", name: "Kemei KM-6330 3-in-1 Grooming Trimmer", nameBn: "কেমেই ৩-ইন-১ গ্রুমিং ট্রিমার", category: "Electronics", wholesalePrice: 620, suggestedRetailPrice: 1050, stock: 85, image: "🪒", supplier: "Apex Electronics", rating: 4.7, isAddedToStore: true, mySellingPrice: 990, myProfit: 370 },
+  { id: "RSL-03", name: "Pure Organic Cold-Pressed Mustard Oil 5L", nameBn: "খাঁটি ঘানি ভাঙা সরিষার তেল ৫লি", category: "Grocery", wholesalePrice: 1100, suggestedRetailPrice: 1450, stock: 60, image: "🫙", supplier: "Gramin Organic Hub", rating: 4.9, isAddedToStore: true, mySellingPrice: 1390, myProfit: 290 },
+  { id: "RSL-04", name: "Premium Daawat Basmati Rice 5kg", nameBn: "দাওয়াত বাসমতি চাল ৫কেজি", category: "Grocery", wholesalePrice: 820, suggestedRetailPrice: 1100, stock: 45, image: "🌾", supplier: "Bengal Agro Foods", rating: 4.8, isAddedToStore: false },
+  { id: "RSL-05", name: "Pro ANC Wireless Bluetooth Earbuds", nameBn: "ওয়্যারলেস ব্লুটুথ এয়ারবাডস", category: "Electronics", wholesalePrice: 450, suggestedRetailPrice: 799, stock: 140, image: "🎧", supplier: "SoundMax BD", rating: 4.6, isAddedToStore: false },
+  { id: "RSL-06", name: "Semi-Stitched Premium Cotton Panjabi", nameBn: "প্রিমিয়াম সুতি পাঞ্জাবি", category: "Fashion", wholesalePrice: 750, suggestedRetailPrice: 1350, stock: 90, image: "👘", supplier: "Dhaka Fabrics Co.", rating: 4.9, isAddedToStore: false },
+];
+
+// Initial Data: 5. No-Code Website Storefront
+const initialStorefrontConfig: StorefrontConfig = {
+  subdomain: "rahimstore",
+  customDomain: "rahimstore.com.bd",
+  heroHeadline: "Rahim Store — Your Neighborhood Daily Grocery & Essentials",
+  heroHeadlineBn: "রহিম স্টোর — আপনার বিশ্বস্ত অনলাইন মুদি ও নিত্যপ্রয়োজনীয় দোকান",
+  heroSubheadline: "Fast 1-hour home delivery across Dhanmondi and surrounding areas. Best quality guaranteed.",
+  heroSubheadlineBn: "ধানমন্ডি ও সংলগ্ন এলাকায় ১ ঘণ্টায় হোম ডেলিভারি। সেরা গুণগত মানের নিশ্চয়তা।",
+  themeColor: "#047857",
+  bannerImage: "🛒",
+  logo: "RA",
+  announcementText: "🎉 Free Home Delivery on all orders above ৳1000! Order now via WhatsApp.",
+  announcementTextBn: "🎉 ১০০০ টাকার বেশি অর্ডারে ফ্রি হোম ডেলিভারি! এখনই হোয়াটসঅ্যাপে অর্ডার করুন।",
+  showWhatsAppButton: true,
+  whatsAppNumber: "01712-345678",
+  allowCOD: true,
+  showReviews: true,
+  featuredProductIds: [1, 2, 3, 4],
+  published: true,
+};
+
+// Initial Data: 6. Monitoring & Alerts
+const initialMonitoringRules: MonitoringRule[] = [
+  { id: "RULE-01", name: "Low Stock Emergency Threshold", nameBn: "কম স্টক জরুরি সতর্কবার্তা", type: "low_stock", enabled: true, thresholdValue: 5, channel: "sms", lastTriggered: "Today, 09:15 AM" },
+  { id: "RULE-02", name: "Customer Due Aging (> 30 Days)", nameBn: "বকেয়া মেয়াদোত্তীর্ণ সতর্কতা (> ৩০ দিন)", type: "high_due", enabled: true, thresholdValue: 5000, channel: "push", lastTriggered: "Yesterday" },
+  { id: "RULE-03", name: "Cash Drawer Discrepancy Alert", nameBn: "ক্যাশ ড্রয়ার গরমিল সতর্কতা", type: "cash_discrepancy", enabled: true, thresholdValue: 500, channel: "whatsapp", lastTriggered: "3 days ago" },
+  { id: "RULE-04", name: "Daily Automatic Closing Profit Report", nameBn: "দৈনিক স্বয়ংক্রিয় লাভ-ক্ষতি এসএমএস", type: "daily_profit_sms", enabled: true, thresholdValue: 0, channel: "sms", lastTriggered: "Yesterday, 10:00 PM" },
+];
+
+const initialBusinessAlerts: BusinessAlert[] = [
+  { id: "ALT-01", ruleType: "low_stock", title: "Low Stock Alert: BD Fresh Milk 1L", titleBn: "কম স্টক: বিডি ফ্রেশ মিল্ক ১লি", message: "Only 8 liters remaining in inventory. Please restock immediately.", messageBn: "দোকানে মাত্র ৮ লিটার অবশিষ্ট আছে। অবিলম্বে রি-স্টক করুন।", severity: "warning", time: "2 hours ago", resolved: false },
+  { id: "ALT-02", ruleType: "high_due", title: "High Due Warning: Karim Ahmed (৳14,500)", titleBn: "উচ্চ বকেয়া: করিম আহমেদ (৳১৪,৫০০)", message: "Due unpaid for more than 35 days. Send automated SMS reminder.", messageBn: "৩৫ দিনেরও বেশি সময় ধরে বাকি অপরিশোধিত। এসএমএস তাগাদা পাঠান।", severity: "critical", time: "5 hours ago", resolved: false },
+  { id: "ALT-03", ruleType: "daily_profit_sms", title: "Daily Sales Summary Dispatched", titleBn: "দৈনিক বিক্রয় সারাংশ পাঠানো হয়েছে", message: "Today's Net Profit summary SMS successfully delivered to Owner phone.", messageBn: "আজকের নিট লাভের সারাংশ এসএমএস মালিকের ফোনে পাঠানো হয়েছে।", severity: "info", time: "Yesterday", resolved: true },
+];
+
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -563,6 +910,141 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [quickModal, setQuickModal] = useState<string | null>(null);
 
+  const [vgoContributions, setVgoContributions] = useState<VGOContribution[]>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_contributions");
+      return saved ? JSON.parse(saved) : initialVgoContributions;
+    } catch {
+      return initialVgoContributions;
+    }
+  });
+
+  const [vgoWallets, setVgoWallets] = useState<VGOWallet[]>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_wallets");
+      return saved ? JSON.parse(saved) : initialVgoWallets;
+    } catch {
+      return initialVgoWallets;
+    }
+  });
+
+  const [vgoPool, setVgoPool] = useState<VGONetworkPool>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_pool");
+      return saved ? JSON.parse(saved) : initialVgoPool;
+    } catch {
+      return initialVgoPool;
+    }
+  });
+
+  // 1. Marketing State
+  const [smsCampaigns, setSmsCampaigns] = useState<SMSCampaign[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_sms_campaigns");
+      return saved ? JSON.parse(saved) : initialSmsCampaigns;
+    } catch {
+      return initialSmsCampaigns;
+    }
+  });
+  const [smsBalance, setSmsBalance] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_sms_balance");
+      return saved ? JSON.parse(saved) : 420;
+    } catch {
+      return 420;
+    }
+  });
+  const [metaAdSync, setMetaAdSync] = useState<MetaAdSync>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_meta_sync");
+      return saved ? JSON.parse(saved) : initialMetaAdSync;
+    } catch {
+      return initialMetaAdSync;
+    }
+  });
+
+  // 2. Delivery Aggregator State
+  const [courierParcels, setCourierParcels] = useState<CourierParcel[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_courier_parcels");
+      return saved ? JSON.parse(saved) : initialCourierParcels;
+    } catch {
+      return initialCourierParcels;
+    }
+  });
+
+  // 3. Fintech, Banking & Loans State
+  const [bankApplications, setBankApplications] = useState<BankAccountApplication[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_bank_apps");
+      return saved ? JSON.parse(saved) : initialBankApplications;
+    } catch {
+      return initialBankApplications;
+    }
+  });
+  const [smeLoanOffers, setSmeLoanOffers] = useState<SMELoanOffer[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_loan_offers");
+      return saved ? JSON.parse(saved) : initialLoanOffers;
+    } catch {
+      return initialLoanOffers;
+    }
+  });
+  const [digitalPayments, setDigitalPayments] = useState<DigitalPaymentConfig>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_digital_payments");
+      return saved ? JSON.parse(saved) : initialDigitalPayments;
+    } catch {
+      return initialDigitalPayments;
+    }
+  });
+  const [paymentLinks, setPaymentLinks] = useState<PaymentLinkItem[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_payment_links");
+      return saved ? JSON.parse(saved) : initialPaymentLinks;
+    } catch {
+      return initialPaymentLinks;
+    }
+  });
+
+  // 4. Reselling State
+  const [resellProducts, setResellProducts] = useState<ResellProduct[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_resell_products");
+      return saved ? JSON.parse(saved) : initialResellProducts;
+    } catch {
+      return initialResellProducts;
+    }
+  });
+
+  // 5. Storefront State
+  const [storefront, setStorefront] = useState<StorefrontConfig>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_storefront");
+      return saved ? JSON.parse(saved) : initialStorefrontConfig;
+    } catch {
+      return initialStorefrontConfig;
+    }
+  });
+
+  // 6. Monitoring & Alerts State
+  const [monitoringRules, setMonitoringRules] = useState<MonitoringRule[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_monitoring_rules");
+      return saved ? JSON.parse(saved) : initialMonitoringRules;
+    } catch {
+      return initialMonitoringRules;
+    }
+  });
+  const [businessAlerts, setBusinessAlerts] = useState<BusinessAlert[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_business_alerts");
+      return saved ? JSON.parse(saved) : initialBusinessAlerts;
+    } catch {
+      return initialBusinessAlerts;
+    }
+  });
+
   // Sync to localStorage
   useEffect(() => {
     try {
@@ -577,10 +1059,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.setItem("dukan_employees", JSON.stringify(employees));
       localStorage.setItem("dukan_notifications", JSON.stringify(notifications));
       localStorage.setItem("dukan_settings", JSON.stringify(settings));
+      localStorage.setItem("vgo_contributions", JSON.stringify(vgoContributions));
+      localStorage.setItem("vgo_wallets", JSON.stringify(vgoWallets));
+      localStorage.setItem("vgo_pool", JSON.stringify(vgoPool));
+      localStorage.setItem("dukan_sms_campaigns", JSON.stringify(smsCampaigns));
+      localStorage.setItem("dukan_sms_balance", JSON.stringify(smsBalance));
+      localStorage.setItem("dukan_meta_sync", JSON.stringify(metaAdSync));
+      localStorage.setItem("dukan_courier_parcels", JSON.stringify(courierParcels));
+      localStorage.setItem("dukan_bank_apps", JSON.stringify(bankApplications));
+      localStorage.setItem("dukan_loan_offers", JSON.stringify(smeLoanOffers));
+      localStorage.setItem("dukan_digital_payments", JSON.stringify(digitalPayments));
+      localStorage.setItem("dukan_payment_links", JSON.stringify(paymentLinks));
+      localStorage.setItem("dukan_resell_products", JSON.stringify(resellProducts));
+      localStorage.setItem("dukan_storefront", JSON.stringify(storefront));
+      localStorage.setItem("dukan_monitoring_rules", JSON.stringify(monitoringRules));
+      localStorage.setItem("dukan_business_alerts", JSON.stringify(businessAlerts));
     } catch (e) {
       console.error("Storage error:", e);
     }
-  }, [products, sales, customers, suppliers, purchases, expenses, accounts, transactions, employees, notifications, settings]);
+  }, [
+    products, sales, customers, suppliers, purchases, expenses, accounts, transactions, employees,
+    notifications, settings, vgoContributions, vgoWallets, vgoPool, smsCampaigns, smsBalance, metaAdSync,
+    courierParcels, bankApplications, smeLoanOffers, digitalPayments, paymentLinks, resellProducts,
+    storefront, monitoringRules, businessAlerts
+  ]);
 
   const updateProductStatus = (stock: number, min: number): "in-stock" | "low-stock" | "out-of-stock" => {
     if (stock <= 0) return "out-of-stock";
@@ -1262,6 +1764,283 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         markAllNotificationsRead,
         clearNotifications,
         addNotification,
+        // VGO Value Economy actions
+        vgoContributions,
+        vgoWallets,
+        vgoPool,
+        recordVgoContribution: (c: Omit<VGOContribution, "id" | "proofHash" | "timestamp" | "status">) => {
+          const id = `VGO-${Math.floor(1000 + Math.random() * 9000)}`;
+          const proofHash = `0x${Math.random().toString(16).substring(2, 10)}...${Math.random().toString(16).substring(2, 6)}`;
+          const newContribution: VGOContribution = {
+            ...c,
+            id,
+            proofHash,
+            timestamp: "Just now",
+            status: "verified",
+          };
+          setVgoContributions(prev => [newContribution, ...prev]);
+          setVgoWallets(prev => prev.map(w => {
+            if (w.ownerName.toLowerCase() === c.contributor.toLowerCase()) {
+              return {
+                ...w,
+                balanceVGO: w.balanceVGO + c.vgoRewarded,
+                totalEarned: w.totalEarned + c.vgoRewarded,
+                reputationScore: Math.min(1000, w.reputationScore + Math.round(c.impactUnits / 10)),
+              };
+            }
+            return w;
+          }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "অবদান রেকর্ড ও ইমপ্যাক্ট স্বীকৃত!" : "Contribution Recorded & Impact Recognized!",
+            message: `${c.action} (+${c.vgoRewarded} VGO Value Units)`,
+          });
+        },
+        transferVgoValue: (fromWalletId: string, toWalletId: string, amount: number, note?: string) => {
+          const fromW = vgoWallets.find(w => w.id === fromWalletId);
+          if (!fromW || fromW.balanceVGO < amount) {
+            toast({
+              type: "error",
+              title: lang === "bn" ? "অপর্যাপ্ত ব্যালেন্স" : "Insufficient VGO Balance",
+              message: "Cannot transfer more than available wallet balance.",
+            });
+            return;
+          }
+          setVgoWallets(prev => prev.map(w => {
+            if (w.id === fromWalletId) return { ...w, balanceVGO: w.balanceVGO - amount };
+            if (w.id === toWalletId) return { ...w, balanceVGO: w.balanceVGO + amount };
+            return w;
+          }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "ভ্যালু ট্রান্সফার সফল!" : "Value Transferred Successfully!",
+            message: `${amount} VGO moved across network (${note || "Direct Settlement"}).`,
+          });
+        },
+        stakeVgoTokens: (walletId: string, amount: number) => {
+          const w = vgoWallets.find(w => w.id === walletId);
+          if (!w || w.balanceVGO < amount) return;
+          setVgoWallets(prev => prev.map(item => item.id === walletId ? {
+            ...item,
+            balanceVGO: item.balanceVGO - amount,
+            stakedVGO: item.stakedVGO + amount,
+          } : item));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "নেটওয়ার্ক স্ট্যাকিং সম্পন্ন!" : "Network Staking Completed!",
+            message: `${amount} VGO staked for collective yield sharing.`,
+          });
+        },
+        distributeVgoPool: (amount: number, poolType = "Community Dividends") => {
+          setVgoPool(prev => ({
+            ...prev,
+            totalPoolVGO: Math.max(0, prev.totalPoolVGO - amount),
+            distributedToday: prev.distributedToday + amount,
+            lastDistributionTime: "Just now",
+          }));
+          // Add reward to all active node wallets proportionally
+          setVgoWallets(prev => prev.map(w => ({
+            ...w,
+            balanceVGO: w.balanceVGO + Math.round((amount / prev.length)),
+            totalEarned: w.totalEarned + Math.round((amount / prev.length)),
+          })));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "নেটওয়ার্ক ডিভিডেন্ড শেয়ার সম্পন্ন!" : "Network Value Shared!",
+            message: `${amount} VGO distributed across connected nodes (${poolType}).`,
+          });
+        },
+        // 1. Marketing actions
+        smsCampaigns,
+        smsBalance,
+        metaAdSync,
+        sendSMSCampaign: (c: Omit<SMSCampaign, "id" | "date" | "status">) => {
+          const id = `SMS-${Math.floor(100 + Math.random() * 900)}`;
+          const newCamp: SMSCampaign = {
+            ...c,
+            id,
+            date: "Today, Just now",
+            status: "sent",
+          };
+          setSmsCampaigns(prev => [newCamp, ...prev]);
+          setSmsBalance(prev => Math.max(0, prev - c.recipientCount));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "এসএমএস ক্যাম্পেইন পাঠানো হয়েছে!" : "SMS Campaign Sent!",
+            message: `Sent to ${c.recipientCount} customers.`,
+          });
+        },
+        updateMetaSync: (sync: Partial<MetaAdSync>) => {
+          setMetaAdSync(prev => ({ ...prev, ...sync }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "মেটা/ফেসবুক সিঙ্ক আপডেট সম্পন্ন!" : "Meta / Facebook Sync Updated!",
+            message: "Catalog & Pixel settings synchronized.",
+          });
+        },
+        topupSMSBalance: (credits: number) => {
+          setSmsBalance(prev => prev + credits);
+          toast({
+            type: "success",
+            title: lang === "bn" ? "এসএমএস ব্যালেন্স রিচার্জ সফল!" : "SMS Balance Recharged!",
+            message: `+${credits} SMS added to account.`,
+          });
+        },
+
+        // 2. Delivery Aggregator actions
+        courierParcels,
+        bookCourierParcel: (parcel: Omit<CourierParcel, "id" | "trackingCode" | "date" | "status" | "codSettled">) => {
+          const id = `PAR-${Math.floor(900 + Math.random() * 100)}`;
+          const trackingCode = `${parcel.courier.toUpperCase().slice(0, 3)}-BD-${Math.floor(10000 + Math.random() * 90000)}`;
+          const newParcel: CourierParcel = {
+            ...parcel,
+            id,
+            trackingCode,
+            date: "Today, Just now",
+            status: "booked",
+            codSettled: false,
+          };
+          setCourierParcels(prev => [newParcel, ...prev]);
+          toast({
+            type: "success",
+            title: lang === "bn" ? "পার্সেল বুকিং সফল!" : "Courier Parcel Booked!",
+            message: `Tracking: ${trackingCode} (${parcel.courier.toUpperCase()})`,
+          });
+        },
+        updateParcelStatus: (id: string, status: CourierParcel["status"]) => {
+          setCourierParcels(prev => prev.map(p => p.id === id ? {
+            ...p,
+            status,
+            codSettled: status === "delivered" ? true : p.codSettled,
+          } : p));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "পার্সেল স্ট্যাটাস আপডেট!" : "Parcel Status Updated!",
+            message: `Status updated to ${status}.`,
+          });
+        },
+
+        // 3. Fintech, Banking & Loans actions
+        bankApplications,
+        smeLoanOffers,
+        digitalPayments,
+        paymentLinks,
+        applyBankKYC: (bankName: string, accountType: BankAccountApplication["accountType"], nid: string, tradeLicense: string) => {
+          const id = `BNK-${Math.floor(10 + Math.random() * 90)}`;
+          const newApp: BankAccountApplication = {
+            id,
+            bankName,
+            bankLogo: "🏦",
+            accountType,
+            nidNumber: nid,
+            tradeLicense,
+            status: "approved",
+            accountNumber: `209489${Math.floor(100000 + Math.random() * 900000)}`,
+            kycProgress: 100,
+          };
+          setBankApplications(prev => [newApp, ...prev]);
+          toast({
+            type: "success",
+            title: lang === "bn" ? "ব্যাংক অ্যাকাউন্ট অনুমোদিত ও চালু!" : "Digital Bank Account Activated!",
+            message: `${bankName} A/C: ${newApp.accountNumber}`,
+          });
+        },
+        applySMELoan: (offerId: string, amount: number) => {
+          setSmeLoanOffers(prev => prev.map(off => off.id === offerId ? {
+            ...off,
+            status: "disbursed",
+            activeLoanAmount: amount,
+            paidInstallments: 0,
+          } : off));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "ক্ষুদ্র ঋণ অনুমোদন ও বিতরণ সম্পন্ন!" : "SME Loan Disbursed!",
+            message: `৳${amount.toLocaleString()} credited to your Business Bank Account.`,
+          });
+        },
+        createPaymentLink: (customerName: string, amount: number, purpose: string) => {
+          const id = `PLK-${Math.floor(8800 + Math.random() * 100)}`;
+          const linkUrl = `https://pay.sayhpro.com/l/rahim-${id.toLowerCase()}`;
+          const newLink: PaymentLinkItem = {
+            id,
+            customerName,
+            amount,
+            linkUrl,
+            purpose,
+            createdDate: "Today, Just now",
+            status: "pending",
+          };
+          setPaymentLinks(prev => [newLink, ...prev]);
+          toast({
+            type: "success",
+            title: lang === "bn" ? "পেমেন্ট লিঙ্ক তৈরি হয়েছে!" : "Payment Link Created!",
+            message: `Link ready for ${customerName} (৳${amount.toLocaleString()}).`,
+          });
+        },
+        updatePaymentConfig: (config: Partial<DigitalPaymentConfig>) => {
+          setDigitalPayments(prev => ({ ...prev, ...config }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "পেমেন্ট গেটওয়ে সেটিংস সংরক্ষিত!" : "Digital Payment Settings Saved!",
+            message: "Bangla QR & merchant gateway updated.",
+          });
+        },
+
+        // 4. Reselling actions
+        resellProducts,
+        toggleResellProduct: (id: string, mySellingPrice?: number) => {
+          setResellProducts(prev => prev.map(p => {
+            if (p.id === id) {
+              const added = !p.isAddedToStore;
+              const sellPrice = mySellingPrice || p.suggestedRetailPrice;
+              const profit = sellPrice - p.wholesalePrice;
+              return {
+                ...p,
+                isAddedToStore: added,
+                mySellingPrice: added ? sellPrice : undefined,
+                myProfit: added ? profit : undefined,
+              };
+            }
+            return p;
+          }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "রিসেল প্রোডাক্ট আপডেট!" : "Resell Product Updated!",
+            message: "Store catalog updated with wholesale margin.",
+          });
+        },
+
+        // 5. Storefront actions
+        storefront,
+        updateStorefront: (s: Partial<StorefrontConfig>) => {
+          setStorefront(prev => ({ ...prev, ...s }));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "অনলাইন স্টোর ওয়েবসাইট সংরক্ষিত!" : "Online Storefront Updated!",
+            message: "Live website preview updated.",
+          });
+        },
+
+        // 6. Monitoring & Alerts actions
+        monitoringRules,
+        businessAlerts,
+        toggleMonitoringRule: (id: string) => {
+          setMonitoringRules(prev => prev.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "মনিটরিং রুল আপডেট!" : "Monitoring Rule Toggled!",
+            message: "Alert trigger rule updated.",
+          });
+        },
+        resolveBusinessAlert: (id: string) => {
+          setBusinessAlerts(prev => prev.map(a => a.id === id ? { ...a, resolved: true } : a));
+          toast({
+            type: "success",
+            title: lang === "bn" ? "অ্যালার্ট সমাধান করা হয়েছে!" : "Alert Resolved!",
+            message: "Marked as resolved.",
+          });
+        },
+
         settings,
         updateSettings,
         isSearchOpen,
