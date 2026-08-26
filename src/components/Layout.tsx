@@ -69,7 +69,6 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
   const navItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "ড্যাশবোর্ড" },
     { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "বিক্রি করুন", highlight: true },
-    { id: "vgo", icon: Sparkles, label: "VGO Value Hub", labelBn: "ভিজিও ভ্যালু হাব", badge: "VGO", badgeColor: "bg-gradient-to-r from-em-500 to-blue-500" },
     { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস", badge: "New", badgeColor: "bg-blue-600" },
     { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল", badge: "Steadfast+", badgeColor: "bg-emerald-600" },
     { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন", badge: "Loans", badgeColor: "bg-purple-600" },
@@ -511,7 +510,6 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-6">
               {[
-                { id: "vgo", icon: Sparkles, label: "VGO Hub", labelBn: "ভিজিও হাব", color: "bg-emerald-50 text-emerald-700" },
                 { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং", color: "bg-blue-50 text-blue-700" },
                 { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার", color: "bg-emerald-50 text-emerald-700" },
                 { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন", color: "bg-purple-50 text-purple-700" },

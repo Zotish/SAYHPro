@@ -58,7 +58,6 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
 
   const navigationItems = [
     { id: "dashboard", label: "Dashboard", labelBn: "ড্যাশবোর্ড", icon: LayoutDashboard },
-    { id: "vgo", label: "VGO Value Hub (Record, Recognize, Move, Share)", labelBn: "ভিজিও ভ্যালু হাব (রেকর্ড, স্বীকৃতি, মুভ, শেয়ার)", icon: Sparkles },
     { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "মার্কেটিং ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
     { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "কুরিয়ার পার্সেল ও ডেলিভারি এগ্রিগেটর", icon: Truck },
     { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল ব্যাংকিং, ঋণ ও বাংলা কিউআর পেমেন্ট", icon: Landmark },
