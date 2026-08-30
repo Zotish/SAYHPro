@@ -8,14 +8,14 @@ interface ExpensesProps {
 }
 
 const expenseCategories = [
-  { id: "Shop Rent", label: "Shop Rent", labelBn: "দোকান ভাড়া", icon: Home, color: "#3B82F6" },
-  { id: "Electricity", label: "Electricity", labelBn: "বিদ্যুৎ", icon: Zap, color: "#F59E0B" },
-  { id: "Salary", label: "Salary", labelBn: "বেতন", icon: Users, color: "#8B5CF6" },
-  { id: "Transport", label: "Transport", labelBn: "পরিবহন", icon: Truck, color: "#06B6D4" },
-  { id: "Food", label: "Food", labelBn: "খাবার", icon: Coffee, color: "#EC4899" },
-  { id: "Maintenance", label: "Maintenance", labelBn: "রক্ষণাবেক্ষণ", icon: Wrench, color: "#F97316" },
-  { id: "Marketing", label: "Marketing", labelBn: "মার্কেটিং", icon: Megaphone, color: "#10B981" },
-  { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#94A3B8" },
+  { id: "Shop Rent", label: "Shop Rent", labelBn: "দোকান ভাড়া", icon: Home, color: "#16A34A" },
+  { id: "Electricity", label: "Electricity", labelBn: "বিদ্যুৎ", icon: Zap, color: "#4ADE80" },
+  { id: "Salary", label: "Salary", labelBn: "বেতন", icon: Users, color: "#D97706" },
+  { id: "Transport", label: "Transport", labelBn: "পরিবহন", icon: Truck, color: "#FBBF24" },
+  { id: "Food", label: "Food", labelBn: "খাবার", icon: Coffee, color: "#475569" },
+  { id: "Maintenance", label: "Maintenance", labelBn: "রক্ষণাবেক্ষণ", icon: Wrench, color: "#94A3B8" },
+  { id: "Marketing", label: "Marketing", labelBn: "মার্কেটিং", icon: Megaphone, color: "#166534" },
+  { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#CBD5E1" },
 ];
 
 export default function Expenses({ lang }: ExpensesProps) {
@@ -74,10 +74,10 @@ export default function Expenses({ lang }: ExpensesProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "খরচ ব্যবস্থাপনা" : "Expense Management"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "খরচ ব্যবস্থাপনা" : "Expense Management"}</h1>
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {isBn ? "মোট মাসিক খরচ: " : "Total Expenses: "}
-            <span className="num font-bold text-red-600">{formatTaka(totalExpense)}</span>
+            <span className="num font-bold text-ink">{formatTaka(totalExpense)}</span>
           </p>
         </div>
         <button
@@ -92,8 +92,8 @@ export default function Expenses({ lang }: ExpensesProps) {
       {showForm && (
         <div className="bg-white rounded-2xl shadow-md border border-nv-200 p-5 animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
-            <h3 className="font-display font-bold text-nv-900 text-base">{isBn ? "নতুন খরচ এন্ট্রি" : "Record New Expense"}</h3>
-            <button onClick={() => setShowForm(false)} className="text-nv-400 hover:text-nv-600">
+            <h3 className="font-display font-bold text-ink text-base">{isBn ? "নতুন খরচ এন্ট্রি" : "Record New Expense"}</h3>
+            <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
             </button>
           </div>
@@ -101,7 +101,7 @@ export default function Expenses({ lang }: ExpensesProps) {
           <form onSubmit={handleCreateExpense} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "খরচের বিভাগ" : "Category"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "খরচের বিভাগ" : "Category"} *</label>
                 <select
                   value={selectedCat}
                   onChange={e => setSelectedCat(e.target.value)}
@@ -116,19 +116,19 @@ export default function Expenses({ lang }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
                 <input
                   type="number"
                   required
                   value={amount}
                   onChange={e => setAmount(e.target.value)}
                   placeholder="0"
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-2.5 font-bold text-red-600 focus:border-em-500"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-2.5 font-bold text-ink focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "পরিশোধ মাধ্যম" : "Paid From Account"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিশোধ মাধ্যম" : "Paid From Account"}</label>
                 <select
                   value={paidFrom}
                   onChange={e => setPaidFrom(e.target.value)}
@@ -143,7 +143,7 @@ export default function Expenses({ lang }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "তারিখ" : "Date"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
                 <input
                   type="date"
                   value={date}
@@ -153,7 +153,7 @@ export default function Expenses({ lang }: ExpensesProps) {
               </div>
 
               <div className="sm:col-span-2 lg:col-span-4">
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "সংক্ষিপ্ত বিবরণ / নোট" : "Description / Note"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "সংক্ষিপ্ত বিবরণ / নোট" : "Description / Note"}</label>
                 <input
                   type="text"
                   value={note}
@@ -168,7 +168,7 @@ export default function Expenses({ lang }: ExpensesProps) {
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="px-5 py-2 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                className="px-5 py-2 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
               >
                 {isBn ? "বাতিল" : "Cancel"}
               </button>
@@ -187,7 +187,7 @@ export default function Expenses({ lang }: ExpensesProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Category Breakdown Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
-          <h3 className="font-display font-bold text-nv-900 text-sm mb-3">
+          <h3 className="font-display font-bold text-ink text-sm mb-3">
             {isBn ? "বিভাগ অনুযায়ী খরচ" : "Expenses by Category"}
           </h3>
 
@@ -211,8 +211,8 @@ export default function Expenses({ lang }: ExpensesProps) {
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="num text-xs text-nv-400">{isBn ? "মোট" : "Total"}</span>
-              <span className="num text-base font-bold text-nv-900">{formatTaka(totalExpense)}</span>
+              <span className="num text-xs text-ink">{isBn ? "মোট" : "Total"}</span>
+              <span className="num text-base font-bold text-ink">{formatTaka(totalExpense)}</span>
             </div>
           </div>
 
@@ -221,9 +221,9 @@ export default function Expenses({ lang }: ExpensesProps) {
               <div key={c.name} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ background: c.color }} />
-                  <span className="text-nv-700">{c.name}</span>
+                  <span className="text-ink">{c.name}</span>
                 </div>
-                <span className="num font-bold text-nv-900">{formatTaka(c.value)}</span>
+                <span className="num font-bold text-ink">{formatTaka(c.value)}</span>
               </div>
             ))}
           </div>
@@ -232,11 +232,11 @@ export default function Expenses({ lang }: ExpensesProps) {
         {/* Expenses Table */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
           <div className="p-4 border-b border-nv-100 flex items-center justify-between gap-3">
-            <h3 className="font-display font-bold text-nv-900 text-sm">
+            <h3 className="font-display font-bold text-ink text-sm">
               {isBn ? "খরচের তালিকা" : "Expense Transactions"}
             </h3>
             <div className="relative max-w-xs flex-1">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-nv-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink" />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -251,30 +251,30 @@ export default function Expenses({ lang }: ExpensesProps) {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "বিভাগ" : "Category"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পরিশোধ" : "Account"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "নোট" : "Note"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap text-right">{isBn ? "কাজ" : "Action"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিভাগ" : "Category"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধ" : "Account"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "নোট" : "Note"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "কাজ" : "Action"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
                 {filtered.map(e => (
                   <tr key={e.id} className="hover:bg-nv-50 transition-fast">
-                    <td className="px-4 py-3 font-bold text-nv-900 whitespace-nowrap">
+                    <td className="px-4 py-3 font-bold text-ink whitespace-nowrap">
                       {isBn ? e.categoryBn || e.category : e.category}
                     </td>
-                    <td className="px-4 py-3 num font-bold text-red-600 whitespace-nowrap">{formatTaka(e.amount)}</td>
-                    <td className="px-4 py-3 text-xs text-nv-600 whitespace-nowrap">
+                    <td className="px-4 py-3 num font-bold text-ink whitespace-nowrap">{formatTaka(e.amount)}</td>
+                    <td className="px-4 py-3 text-xs text-ink whitespace-nowrap">
                       <span className="px-2 py-0.5 bg-nv-100 rounded-md font-mono">{e.paidFrom}</span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-nv-500 whitespace-nowrap">{e.date}</td>
-                    <td className="px-4 py-3 text-xs text-nv-600 max-w-xs truncate">{e.note || "—"}</td>
+                    <td className="px-4 py-3 text-xs text-ink whitespace-nowrap">{e.date}</td>
+                    <td className="px-4 py-3 text-xs text-ink max-w-xs truncate">{e.note || "—"}</td>
                     <td className="px-4 py-3 text-right">
                       <button
                         onClick={() => deleteExpense(e.id)}
-                        className="p-1 rounded-lg text-nv-400 hover:text-red-600 hover:bg-red-50 transition-fast"
+                        className="p-1 rounded-lg text-ink hover:text-ink hover:bg-red-50 transition-fast"
                         title="Delete"
                       >
                         <Trash2 size={14} />
@@ -284,7 +284,7 @@ export default function Expenses({ lang }: ExpensesProps) {
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="text-center py-12 text-nv-400">
+                    <td colSpan={6} className="text-center py-12 text-ink">
                       {isBn ? "কোনো খরচ পাওয়া যায়নি" : "No expense records found"}
                     </td>
                   </tr>

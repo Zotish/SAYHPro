@@ -52,10 +52,10 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "রিসেলিং ও ড্রপ-শিপিং মার্কেট" : "Reselling & Drop-Shipping Hub"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700">Zero Inventory Risk</span>
+            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "রিসেলিং ও ড্রপ-শিপিং মার্কেট" : "Reselling & Drop-Shipping Hub"}</h1>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-nv-100 text-ink">Zero Inventory Risk</span>
           </div>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {isBn ? "শীর্ষ পাইকারি বিক্রেতাদের পণ্য ১-ক্লিকে নিজের দোকানে যোগ করুন ও বাড়তি মুনাফা আয় করুন" : "Add trending verified wholesale products directly into your store catalog with zero upfront investment"}
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
           <button
             onClick={() => setFilterMode(filterMode === "all" ? "added" : "all")}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
-              ${filterMode === "added" ? "bg-em-700 text-white" : "bg-white border border-nv-200 text-nv-700 hover:bg-nv-50"}`}
+              ${filterMode === "added" ? "bg-em-700 text-white" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
           >
             <Store size={16} />
             <span>{isBn ? "আমার যুক্তকৃত পণ্য (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
@@ -75,55 +75,55 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-nv-400 mb-2">
-            <span className="text-xs font-semibold uppercase">{isBn ? "দোকানে সক্রিয় রিসেল পণ্য" : "Active In Store"}</span>
-            <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center">
+          <div className="flex items-center justify-between text-ink mb-2">
+            <span className="text-xs font-medium">{isBn ? "দোকানে সক্রিয় রিসেল পণ্য" : "Active In Store"}</span>
+            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
               <ShoppingBag size={16} />
             </div>
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-nv-900">
+          <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(totalAddedCount)} {isBn ? "টি পণ্য" : "Products"}
           </div>
-          <div className="text-[11px] text-nv-500 mt-0.5">{isBn ? "জিরো ইনভেস্টমেন্ট" : "Zero capital required"}</div>
+          <div className="text-[11px] text-ink mt-0.5">{isBn ? "জিরো ইনভেস্টমেন্ট" : "Zero capital required"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-nv-400 mb-2">
-            <span className="text-xs font-semibold uppercase">{isBn ? "সম্ভাব্য মুনাফা মার্জিন" : "Potential Resell Margin"}</span>
-            <div className="w-8 h-8 rounded-xl bg-em-50 text-em-700 flex items-center justify-center">
+          <div className="flex items-center justify-between text-ink mb-2">
+            <span className="text-xs font-medium">{isBn ? "সম্ভাব্য মুনাফা মার্জিন" : "Potential Resell Margin"}</span>
+            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
               <DollarSign size={16} />
             </div>
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-em-700">
+          <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {formatTaka(totalEstimatedProfit)}
           </div>
-          <div className="text-[11px] text-nv-500 mt-0.5">{isBn ? "প্রতি বিক্রয়ে সরাসরি লাভ" : "Per unit margin"}</div>
+          <div className="text-[11px] text-ink mt-0.5">{isBn ? "প্রতি বিক্রয়ে সরাসরি লাভ" : "Per unit margin"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-nv-400 mb-2">
-            <span className="text-xs font-semibold uppercase">{isBn ? "সাপ্লায়ার সরাসরি ডেলিভারি" : "Direct Drop-Ship"}</span>
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+          <div className="flex items-center justify-between text-ink mb-2">
+            <span className="text-xs font-medium">{isBn ? "সাপ্লায়ার সরাসরি ডেলিভারি" : "Direct Drop-Ship"}</span>
+            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
               <Truck size={16} />
             </div>
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-blue-700">
+          <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("100%")}
           </div>
-          <div className="text-[11px] text-emerald-600 font-bold mt-0.5">{isBn ? "সাপ্লায়ার প্যাক ও কুরিয়ার করে" : "Supplier handles packing"}</div>
+          <div className="text-[11px] text-ink font-bold mt-0.5">{isBn ? "সাপ্লায়ার প্যাক ও কুরিয়ার করে" : "Supplier handles packing"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-nv-400 mb-2">
-            <span className="text-xs font-semibold uppercase">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+          <div className="flex items-center justify-between text-ink mb-2">
+            <span className="text-xs font-medium">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</span>
+            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
               <ShieldCheck size={16} />
             </div>
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-amber-700">
+          <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("35-45%")}
           </div>
-          <div className="text-[11px] text-nv-500 mt-0.5">{isBn ? "মার্কেট রেট থেকে কম" : "Below market price"}</div>
+          <div className="text-[11px] text-ink mt-0.5">{isBn ? "মার্কেট রেট থেকে কম" : "Below market price"}</div>
         </div>
       </div>
 
@@ -135,7 +135,7 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-fast
-                ${selectedCategory === c.id ? "bg-nv-900 text-white" : "bg-nv-100 text-nv-700 hover:bg-nv-200"}`}
+                ${selectedCategory === c.id ? "bg-nv-900 text-white" : "bg-nv-100 text-ink hover:bg-nv-200"}`}
             >
               {isBn ? c.nameBn : c.name}
             </button>
@@ -143,7 +143,7 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search size={15} className="absolute left-3 top-2.5 text-nv-400" />
+          <Search size={15} className="absolute left-3 top-2.5 text-ink" />
           <input
             type="text"
             value={searchQuery}
@@ -157,38 +157,38 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
       {/* Reseller Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map(p => (
-          <div key={p.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-purple-300 transition-all flex flex-col justify-between space-y-4">
+          <div key={p.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-nv-300 transition-all flex flex-col justify-between space-y-4">
             <div>
               <div className="flex items-start justify-between mb-3">
-                <div className="w-14 h-14 rounded-2xl bg-nv-50 flex items-center justify-center text-3xl shadow-2xs border border-nv-100">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-2xs border border-nv-100">
                   {p.image}
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+                  <span className="flex items-center gap-1 text-xs font-bold text-ink bg-ac-50 px-2 py-0.5 rounded-full">
                     <Star size={12} className="fill-amber-500" /> {tNum(p.rating)}
                   </span>
-                  <span className="text-[10px] text-nv-400 mt-1 font-mono">{tNum(p.stock)} in wholesale</span>
+                  <span className="text-[10px] text-ink mt-1 font-mono">{tNum(p.stock)} in wholesale</span>
                 </div>
               </div>
 
-              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-ink bg-nv-50 px-2 py-0.5 rounded-full">
                 {p.category}
               </span>
-              <h3 className="font-bold text-sm sm:text-base text-nv-900 mt-1.5">{isBn ? p.nameBn : p.name}</h3>
-              <p className="text-xs text-nv-500 mt-0.5">Supplier: {p.supplier}</p>
+              <h3 className="font-bold text-sm sm:text-base text-ink mt-1.5">{isBn ? p.nameBn : p.name}</h3>
+              <p className="text-xs text-ink mt-0.5">Supplier: {p.supplier}</p>
 
               <div className="mt-4 p-3 bg-nv-50 rounded-2xl space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-nv-500">{isBn ? "পাইকারি মূল্য (Wholesale):" : "Wholesale Price:"}</span>
-                  <span className="font-bold text-nv-900">{formatTaka(p.wholesalePrice)}</span>
+                  <span className="text-ink">{isBn ? "পাইকারি মূল্য (Wholesale):" : "Wholesale Price:"}</span>
+                  <span className="font-bold text-ink">{formatTaka(p.wholesalePrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-nv-500">{isBn ? "প্রস্তাবিত বিক্রয় মূল্য:" : "Suggested Retail:"}</span>
-                  <span className="font-bold text-nv-700">{formatTaka(p.suggestedRetailPrice)}</span>
+                  <span className="text-ink">{isBn ? "প্রস্তাবিত বিক্রয় মূল্য:" : "Suggested Retail:"}</span>
+                  <span className="font-bold text-ink">{formatTaka(p.suggestedRetailPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs pt-1 border-t border-nv-200/60">
-                  <span className="font-semibold text-em-700">{isBn ? "আপনার নিশ্চিত লাভ:" : "Your Profit Margin:"}</span>
-                  <span className="font-extrabold text-em-700 text-sm">+{formatTaka(p.suggestedRetailPrice - p.wholesalePrice)}</span>
+                  <span className="font-semibold text-ink">{isBn ? "আপনার নিশ্চিত লাভ:" : "Your Profit Margin:"}</span>
+                  <span className="font-extrabold text-ink text-sm">+{formatTaka(p.suggestedRetailPrice - p.wholesalePrice)}</span>
                 </div>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
             <button
               onClick={() => toggleResellProduct(p.id)}
               className={`w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-fast shadow-sm
-                ${p.isAddedToStore ? "bg-em-700 text-white" : "bg-purple-600 hover:bg-purple-700 text-white"}`}
+                ${p.isAddedToStore ? "bg-em-700 text-white" : "bg-nv-600 hover:bg-nv-700 text-white"}`}
             >
               {p.isAddedToStore ? (
                 <>

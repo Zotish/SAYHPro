@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "./components/Layout";
 import { ToastProvider } from "./components/Toast";
 import { AppProvider, useApp } from "./context/AppContext";
@@ -22,7 +22,6 @@ import Invoice from "./screens/Invoice";
 import Customers from "./screens/Customers";
 import Employees from "./screens/Employees";
 import Notifications from "./screens/Notifications";
-import VGOHub from "./screens/VGOHub";
 import Marketing from "./screens/Marketing";
 import DeliveryAggregator from "./screens/DeliveryAggregator";
 import FintechBanking from "./screens/FintechBanking";
@@ -35,17 +34,54 @@ type Screen =
   | "dashboard" | "sales" | "pos" | "purchases" | "products" | "inventory"
   | "customers" | "suppliers" | "dues" | "expenses" | "cash" | "employees"
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
-  | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice" | "vgo"
+  | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice"
   | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts";
 
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
+
+/** Tracks the same breakpoint Layout uses to swap to its mobile chrome (lg). */
+function useIsMobile() {
+  const query = "(max-width: 1023px)";
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(query).matches);
+
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    setIsMobile(mq.matches);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return isMobile;
+}
 
 function MainApp() {
   const { lang, setLang } = useApp();
   const [appState, setAppState] = useState<AppState>("app");
   const [screenRaw, setScreenRaw] = useState<Screen>("dashboard");
+  // A plain history stack so every screen can offer a real "back", not just
+  // "return to home" — every setScreen call that actually changes screen
+  // pushes the screen it left.
+  const [screenHistory, setScreenHistory] = useState<Screen[]>([]);
+  const isMobile = useIsMobile();
 
-  const setScreen = (s: string) => setScreenRaw(s as Screen);
+  const setScreen = (s: string) => {
+    const next = s as Screen;
+    if (next === screenRaw) return;
+    setScreenHistory(h => [...h, screenRaw]);
+    setScreenRaw(next);
+  };
+
+  const goBack = () => {
+    setScreenHistory(h => {
+      if (h.length === 0) {
+        setScreenRaw("dashboard");
+        return h;
+      }
+      setScreenRaw(h[h.length - 1]);
+      return h.slice(0, -1);
+    });
+  };
 
   if (appState === "login") {
     return (
@@ -79,7 +115,7 @@ function MainApp() {
   // Full-page mobile / invoice screens (if viewed standalone)
   if (screenRaw === "invoice") {
     return (
-      <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")}>
+      <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
         <PWAInstallPrompt lang={lang} />
         <Invoice lang={lang} setScreen={setScreen} />
       </Layout>
@@ -91,6 +127,18 @@ function MainApp() {
       <>
         <PWAInstallPrompt lang={lang} />
         <MobilePOS lang={lang} setScreen={setScreen} />
+      </>
+    );
+  }
+
+  // On a phone the home screen IS the redesigned mobile home — it carries its
+  // own header and bottom nav, so it renders outside Layout rather than
+  // doubling up on chrome. Desktop keeps the wide analytics dashboard.
+  if (screenRaw === "mobile-dashboard" || (screenRaw === "dashboard" && isMobile)) {
+    return (
+      <>
+        <PWAInstallPrompt lang={lang} />
+        <MobileDashboard lang={lang} setScreen={setScreen} />
       </>
     );
   }
@@ -107,11 +155,11 @@ function MainApp() {
       case "addproduct":
         return <Products lang={lang} showAdd setScreen={setScreen} />;
       case "inventory":
-        return <Inventory lang={lang} />;
+        return <Inventory lang={lang} onBack={goBack} />;
       case "dues":
-        return <CustomerDue lang={lang} setScreen={setScreen} />;
+        return <CustomerDue lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "customerdetail":
-        return <CustomerDue lang={lang} showDetail setScreen={setScreen} />;
+        return <CustomerDue lang={lang} showDetail setScreen={setScreen} onBack={goBack} />;
       case "customers":
         return <Customers lang={lang} setScreen={setScreen} />;
       case "suppliers":
@@ -121,21 +169,17 @@ function MainApp() {
       case "expenses":
         return <Expenses lang={lang} />;
       case "cash":
-        return <CashAccounts lang={lang} />;
+        return <CashAccounts lang={lang} onBack={goBack} />;
       case "reports":
         return <Reports lang={lang} setScreen={setScreen} />;
       case "profitloss":
         return <Reports lang={lang} showPL setScreen={setScreen} />;
       case "settings":
         return <Settings lang={lang} setLang={setLang} />;
-      case "mobile-dashboard":
-        return <MobileDashboard lang={lang} setScreen={setScreen} />;
       case "employees":
         return <Employees lang={lang} />;
       case "notifications":
         return <Notifications lang={lang} />;
-      case "vgo":
-        return <VGOHub lang={lang} setScreen={setScreen} />;
       case "marketing":
         return <Marketing lang={lang} setScreen={setScreen} />;
       case "delivery":
@@ -154,7 +198,7 @@ function MainApp() {
   };
 
   return (
-    <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")}>
+    <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
       <PWAInstallPrompt lang={lang} />
       {renderScreen()}
     </Layout>

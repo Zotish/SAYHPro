@@ -45,7 +45,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6" style={{ background: "linear-gradient(135deg, #064E3B 0%, #0F172A 100%)" }}>
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6" style={{ background: "#0F172A" }}>
       <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Progress header */}
         <div className="bg-nv-50 px-6 sm:px-8 pt-6 pb-4 border-b border-nv-100">
@@ -53,7 +53,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
             {Array.from({ length: totalSteps }, (_, i) => (
               <div key={i} className="flex items-center gap-2 flex-1">
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all
-                  ${i + 1 < step ? "bg-em-700 text-white" : i + 1 === step ? "bg-em-700 text-white ring-4 ring-em-100" : "bg-nv-200 text-nv-400"}`}>
+                  ${i + 1 < step ? "bg-em-700 text-white" : i + 1 === step ? "bg-em-700 text-white ring-4 ring-em-100" : "bg-nv-200 text-ink"}`}>
                   {i + 1 < step ? <Check size={13} /> : i + 1}
                 </div>
                 {i < totalSteps - 1 && (
@@ -62,8 +62,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
               </div>
             ))}
           </div>
-          <p className="text-xs text-nv-500">
-            {isBn ? `ধাপ ${step} এর ${totalSteps}` : `Step ${step} of ${totalSteps}`}: <span className="font-bold text-nv-800">{stepLabels[step - 1]}</span>
+          <p className="text-xs text-ink">
+            {isBn ? `ধাপ ${step} এর ${totalSteps}` : `Step ${step} of ${totalSteps}`}: <span className="font-bold text-ink">{stepLabels[step - 1]}</span>
           </p>
         </div>
 
@@ -71,13 +71,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {/* Step 1: Welcome */}
           {step === 1 && (
             <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-em-100 rounded-2xl flex items-center justify-center mx-auto text-em-700 shadow-sm">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto text-ink shadow-sm">
                 <Building2 size={32} />
               </div>
-              <h2 className="font-display text-2xl font-bold text-nv-900">
+              <h2 className="font-display text-2xl font-bold text-ink">
                 {isBn ? "DukanPro তে স্বাগতম! 🎉" : "Welcome to DukanPro! 🎉"}
               </h2>
-              <p className="text-nv-500 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
+              <p className="text-ink text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
                 {isBn
                   ? "মাত্র কয়েকটি ধাপে আপনার দোকান সেটআপ করুন এবং সহজভাবে ডিজিটাল হিসাব শুরু করুন।"
                   : "Set up your store in just a few quick steps and start managing your sales, inventory, and customer dues seamlessly."}
@@ -96,13 +96,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-nv-900 mb-1">{isBn ? "দোকানের মূল বিবরণ" : "Your Shop Information"}</h3>
-                <p className="text-xs text-nv-500">{isBn ? "আপনার দোকানের নাম ও ঠিকানা দিন" : "Enter store name and location"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "দোকানের মূল বিবরণ" : "Your Shop Information"}</h3>
+                <p className="text-xs text-ink">{isBn ? "আপনার দোকানের নাম ও ঠিকানা দিন" : "Enter store name and location"}</p>
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm">
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "দোকানের নাম" : "Store Name"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "দোকানের নাম" : "Store Name"} *</label>
                   <input
                     type="text"
                     value={shopNameInput}
@@ -113,7 +113,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "মোবাইল নম্বর" : "Contact Phone"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Contact Phone"} *</label>
                   <input
                     type="tel"
                     value={phoneInput}
@@ -124,7 +124,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "দোকানের ঠিকানা" : "Shop Address"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "দোকানের ঠিকানা" : "Shop Address"}</label>
                   <input
                     type="text"
                     value={addressInput}
@@ -138,7 +138,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
               <div className="flex gap-2 pt-2">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50 text-xs sm:text-sm"
+                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
                   {isBn ? "পূর্ববর্তী" : "Back"}
                 </button>
@@ -156,8 +156,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 3 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-nv-900 mb-1">{isBn ? "ব্যবসার ধরন বেছে নিন" : "Select Business Category"}</h3>
-                <p className="text-xs text-nv-500">{isBn ? "আপনার ধরন অনুযায়ী আমরা প্রিসেট প্রোডাক্ট রেডি করব" : "We'll configure relevant templates for your business"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "ব্যবসার ধরন বেছে নিন" : "Select Business Category"}</h3>
+                <p className="text-xs text-ink">{isBn ? "আপনার ধরন অনুযায়ী আমরা প্রিসেট প্রোডাক্ট রেডি করব" : "We'll configure relevant templates for your business"}</p>
               </div>
 
               <div className="grid grid-cols-3 gap-2.5 max-h-60 overflow-y-auto p-1">
@@ -169,7 +169,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                       ${selectedType === bt.label ? "bg-em-50 border-em-500 ring-2 ring-em-500/20 shadow-xs" : "border-nv-200 hover:border-nv-300"}`}
                   >
                     <span className="text-2xl">{bt.emoji}</span>
-                    <span className="text-xs font-bold text-nv-800 line-clamp-1">{isBn ? bt.labelBn : bt.label}</span>
+                    <span className="text-xs font-bold text-ink line-clamp-1">{isBn ? bt.labelBn : bt.label}</span>
                   </button>
                 ))}
               </div>
@@ -177,7 +177,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
               <div className="flex gap-2 pt-2">
                 <button
                   onClick={() => setStep(2)}
-                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50 text-xs sm:text-sm"
+                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
                   {isBn ? "পূর্ববর্তী" : "Back"}
                 </button>
@@ -195,8 +195,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 4 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-nv-900 mb-1">{isBn ? "ভাষা ও মুদ্রা পছন্দ" : "Language & Currency"}</h3>
-                <p className="text-xs text-nv-500">{isBn ? "যে ভাষায় আপনি অ্যাপটি ব্যবহার করতে চান" : "Choose default language and currency"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "ভাষা ও মুদ্রা পছন্দ" : "Language & Currency"}</h3>
+                <p className="text-xs text-ink">{isBn ? "যে ভাষায় আপনি অ্যাপটি ব্যবহার করতে চান" : "Choose default language and currency"}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -205,8 +205,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   className={`p-4 rounded-2xl border text-center transition-all
                     ${lang === "en" ? "bg-em-50 border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
                 >
-                  <div className="font-bold text-sm text-nv-900">English</div>
-                  <div className="text-[11px] text-nv-500">Default (English)</div>
+                  <div className="font-bold text-sm text-ink">English</div>
+                  <div className="text-[11px] text-ink">Default (English)</div>
                 </button>
 
                 <button
@@ -214,19 +214,19 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   className={`p-4 rounded-2xl border text-center transition-all
                     ${lang === "bn" ? "bg-em-50 border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
                 >
-                  <div className="font-bold text-sm text-nv-900 font-bn">বাংলা</div>
-                  <div className="text-[11px] text-nv-500 font-bn">বাংলা ইন্টারফেস</div>
+                  <div className="font-bold text-sm text-ink font-bn">বাংলা</div>
+                  <div className="text-[11px] text-ink font-bn">বাংলা ইন্টারফেস</div>
                 </button>
               </div>
 
-              <div className="p-3 bg-nv-50 rounded-2xl text-xs text-nv-600">
-                Default Currency: <span className="font-bold text-nv-900">BDT — Bangladeshi Taka (৳)</span>
+              <div className="p-3 bg-nv-50 rounded-2xl text-xs text-ink">
+                Default Currency: <span className="font-bold text-ink">BDT — Bangladeshi Taka (৳)</span>
               </div>
 
               <div className="flex gap-2 pt-2">
                 <button
                   onClick={() => setStep(3)}
-                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50 text-xs sm:text-sm"
+                  className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
                   {isBn ? "পূর্ববর্তী" : "Back"}
                 </button>
@@ -243,13 +243,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {/* Step 5: Ready */}
           {step === 5 && (
             <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-em-100 rounded-full flex items-center justify-center mx-auto text-em-700 shadow-md">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto text-ink shadow-md">
                 <Sparkles size={32} />
               </div>
-              <h2 className="font-display text-2xl font-bold text-nv-900">
+              <h2 className="font-display text-2xl font-bold text-ink">
                 {isBn ? "আপনার দোকান সম্পূর্ণ প্রস্তুত! 🚀" : "You're All Set! 🚀"}
               </h2>
-              <p className="text-nv-500 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
+              <p className="text-ink text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
                 {isBn
                   ? "আমরা আপনার জন্য প্রোডাক্ট ক্যাটালগ ও হিসাব প্রস্তুত করেছি। ড্যাশবোর্ডে প্রবেশ করুন।"
                   : "Your product catalog, cash accounts, and POS terminal are fully initialized. Welcome to DukanPro!"}
@@ -257,22 +257,22 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
 
               <div className="bg-nv-50 p-4 rounded-2xl text-left text-xs space-y-1.5 border border-nv-200">
                 <div className="flex justify-between">
-                  <span className="text-nv-500">Store:</span>
-                  <span className="font-bold text-nv-900">{shopNameInput}</span>
+                  <span className="text-ink">Store:</span>
+                  <span className="font-bold text-ink">{shopNameInput}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-nv-500">Category:</span>
-                  <span className="font-bold text-nv-900">{selectedType}</span>
+                  <span className="text-ink">Category:</span>
+                  <span className="font-bold text-ink">{selectedType}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-nv-500">Phone:</span>
-                  <span className="font-mono text-nv-900">{phoneInput}</span>
+                  <span className="text-ink">Phone:</span>
+                  <span className="font-mono text-ink">{phoneInput}</span>
                 </div>
               </div>
 
               <button
                 onClick={handleFinish}
-                className="w-full py-4 bg-gradient-to-r from-em-600 to-em-500 hover:from-em-500 hover:to-em-400 text-white rounded-xl font-bold text-base shadow-xl shadow-em-900/30 transition-all hover:scale-[1.01] active:scale-[0.99]"
+                className="w-full py-4 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold text-base shadow-xl transition-all"
               >
                 {isBn ? "ড্যাশবোর্ডে যান" : "Go to Dashboard"} →
               </button>

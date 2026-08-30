@@ -11,9 +11,9 @@ interface ProductsProps {
 
 const statusBadge = (status: Product["status"], isBn: boolean) => {
   const map = {
-    "in-stock": { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", cls: "bg-em-50 text-em-700 border border-em-200" },
-    "low-stock": { label: "Low Stock", labelBn: "কম স্টক", cls: "bg-amber-50 text-amber-700 border border-amber-200" },
-    "out-of-stock": { label: "Out of Stock", labelBn: "স্টক শেষ", cls: "bg-red-50 text-red-600 border border-red-200" },
+    "in-stock": { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", cls: "bg-em-50 text-ink border border-em-200" },
+    "low-stock": { label: "Low Stock", labelBn: "কম স্টক", cls: "bg-ac-50 text-ink border border-ac-200" },
+    "out-of-stock": { label: "Out of Stock", labelBn: "স্টক শেষ", cls: "bg-red-50 text-ink border border-red-200" },
   };
   const m = map[status] || map["in-stock"];
   return (
@@ -169,16 +169,16 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "পণ্য ও ক্যাটালগ" : "Products"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "পণ্য ও ক্যাটালগ" : "Products"}</h1>
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {tNum(products.length)} {isBn ? "টি পণ্য তালিকাভুক্ত · মোট স্টক মূল্য: " : "products registered · Total Stock Value: "}
-            <span className="num font-bold text-em-700">{formatTaka(totalValuation)}</span>
+            <span className="num font-bold text-ink">{formatTaka(totalValuation)}</span>
           </p>
         </div>
         <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-nv-700 bg-white hover:bg-nv-50 transition-fast"
+            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
           >
             <Download size={15} />
             <span>{isBn ? "এক্সপোর্ট" : "Export CSV"}</span>
@@ -199,18 +199,18 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length), icon: Package, color: "bg-nv-100 text-nv-700" },
-          { label: "In Stock Items", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(p => p.status === "in-stock").length), icon: CheckCircle, color: "bg-em-50 text-em-700" },
-          { label: "Low Stock Items", labelBn: "কম স্টক", value: tNum(products.filter(p => p.status === "low-stock").length), icon: AlertTriangle, color: "bg-amber-50 text-amber-700" },
-          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length), icon: X, color: "bg-red-50 text-red-600" },
+          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length), icon: Package, color: "bg-nv-100 text-ink" },
+          { label: "In Stock Items", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(p => p.status === "in-stock").length), icon: CheckCircle, color: "bg-em-50 text-ink" },
+          { label: "Low Stock Items", labelBn: "কম স্টক", value: tNum(products.filter(p => p.status === "low-stock").length), icon: AlertTriangle, color: "bg-ac-50 text-ink" },
+          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length), icon: X, color: "bg-red-50 text-ink" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
               <s.icon size={18} />
             </div>
             <div>
-              <div className="num text-lg sm:text-xl font-bold text-nv-900">{s.value}</div>
-              <div className="text-[11px] text-nv-500">{isBn ? s.labelBn : s.label}</div>
+              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
+              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
             </div>
           </div>
         ))}
@@ -220,7 +220,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-nv-200 shadow-2xs">
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <div className="relative flex-1 max-w-sm">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-nv-400" />
+            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink" />
             <input
               type="text"
               value={search}
@@ -233,7 +233,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
           <select
             value={selectedCat}
             onChange={e => setSelectedCat(e.target.value)}
-            className="text-xs font-semibold text-nv-700 bg-nv-50 border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
+            className="text-xs font-semibold text-ink bg-nv-50 border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
           >
             {categories.map(c => (
               <option key={c} value={c}>{c === "All" && isBn ? "সকল ক্যাটাগরি" : c}</option>
@@ -246,14 +246,14 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
           <div className="flex bg-nv-100 p-1 rounded-xl">
             <button
               onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded-lg transition-fast ${viewMode === "table" ? "bg-white shadow-xs text-em-700" : "text-nv-500"}`}
+              className={`p-1.5 rounded-lg transition-fast ${viewMode === "table" ? "bg-white shadow-xs text-ink" : "text-ink"}`}
               title="Table View"
             >
               <List size={16} />
             </button>
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded-lg transition-fast ${viewMode === "grid" ? "bg-white shadow-xs text-em-700" : "text-nv-500"}`}
+              className={`p-1.5 rounded-lg transition-fast ${viewMode === "grid" ? "bg-white shadow-xs text-ink" : "text-ink"}`}
               title="Grid View"
             >
               <Grid size={16} />
@@ -269,13 +269,13 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পণ্য" : "Product"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "বিক্রয় মূল্য" : "Sell Price"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "ক্রয় খরচ" : "Cost"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "স্টক" : "Stock"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পণ্য" : "Product"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিক্রয় মূল্য" : "Sell Price"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্রয় খরচ" : "Cost"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "স্টক" : "Stock"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
@@ -285,37 +285,37 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                       <div className="flex items-center gap-3">
                         <span className="text-2xl flex-shrink-0">{p.image || "📦"}</span>
                         <div>
-                          <div className="font-bold text-nv-900">{isBn ? p.nameBn : p.name}</div>
-                          <div className="text-[10px] text-nv-400 font-mono">{p.sku}</div>
+                          <div className="font-bold text-ink">{isBn ? p.nameBn : p.name}</div>
+                          <div className="text-[10px] text-ink font-mono">{p.sku}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-nv-600 whitespace-nowrap">{p.category}</td>
-                    <td className="px-4 py-3 num font-bold text-em-700 whitespace-nowrap">{formatTaka(p.sellPrice)}</td>
-                    <td className="px-4 py-3 num text-nv-500 whitespace-nowrap">{formatTaka(p.buyPrice)}</td>
+                    <td className="px-4 py-3 text-xs text-ink whitespace-nowrap">{p.category}</td>
+                    <td className="px-4 py-3 num font-bold text-ink whitespace-nowrap">{formatTaka(p.sellPrice)}</td>
+                    <td className="px-4 py-3 num text-ink whitespace-nowrap">{formatTaka(p.buyPrice)}</td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="num font-semibold text-nv-800">{tNum(p.stock)} {p.unit.split("/")[0]}</span>
+                      <span className="num font-semibold text-ink">{tNum(p.stock)} {p.unit.split("/")[0]}</span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">{statusBadge(p.status, isBn)}</td>
                     <td className="px-4 py-3 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => setBarcodePreviewProduct(p)}
-                          className="p-1.5 rounded-lg text-nv-500 hover:text-em-700 hover:bg-em-50 transition-fast"
+                          className="p-1.5 rounded-lg text-ink hover:text-ink hover:bg-em-50 transition-fast"
                           title="Barcode"
                         >
                           <Barcode size={15} />
                         </button>
                         <button
                           onClick={() => openEdit(p)}
-                          className="p-1.5 rounded-lg text-nv-500 hover:text-blue-600 hover:bg-blue-50 transition-fast"
+                          className="p-1.5 rounded-lg text-ink hover:text-ink hover:bg-nv-50 transition-fast"
                           title="Edit"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => deleteProduct(p.id)}
-                          className="p-1.5 rounded-lg text-nv-500 hover:text-red-600 hover:bg-red-50 transition-fast"
+                          className="p-1.5 rounded-lg text-ink hover:text-ink hover:bg-red-50 transition-fast"
                           title="Delete"
                         >
                           <Trash2 size={15} />
@@ -326,7 +326,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="text-center py-10 text-nv-400 text-xs">
+                    <td colSpan={7} className="text-center py-10 text-ink text-xs">
                       {isBn ? "কোনো পণ্য খুঁজে পাওয়া যায়নি" : "No matching products found"}
                     </td>
                   </tr>
@@ -348,20 +348,20 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                   <span className="text-3xl">{p.image || "📦"}</span>
                   {statusBadge(p.status, isBn)}
                 </div>
-                <h4 className="font-bold text-xs sm:text-sm text-nv-900 line-clamp-2">{isBn ? p.nameBn : p.name}</h4>
-                <div className="text-[10px] text-nv-400 font-mono mt-0.5">{p.sku} · {p.category}</div>
+                <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2">{isBn ? p.nameBn : p.name}</h4>
+                <div className="text-[10px] text-ink font-mono mt-0.5">{p.sku} · {p.category}</div>
               </div>
 
               <div className="mt-3 pt-2 border-t border-nv-100 flex items-center justify-between">
                 <div>
-                  <div className="num font-bold text-sm text-em-700">{formatTaka(p.sellPrice)}</div>
-                  <div className="text-[10px] text-nv-400">Stock: {tNum(p.stock)}</div>
+                  <div className="num font-bold text-sm text-ink">{formatTaka(p.sellPrice)}</div>
+                  <div className="text-[10px] text-ink">Stock: {tNum(p.stock)}</div>
                 </div>
                 <div className="flex gap-1">
-                  <button onClick={() => openEdit(p)} className="p-1 text-nv-500 hover:text-blue-600">
+                  <button onClick={() => openEdit(p)} className="p-1 text-ink hover:text-ink">
                     <Edit2 size={14} />
                   </button>
-                  <button onClick={() => deleteProduct(p.id)} className="p-1 text-nv-500 hover:text-red-600">
+                  <button onClick={() => deleteProduct(p.id)} className="p-1 text-ink hover:text-ink">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -376,7 +376,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-nv-200 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
-              <h3 className="font-display font-bold text-nv-900 text-lg">
+              <h3 className="font-display font-bold text-ink text-lg">
                 {editingProduct ? (isBn ? "পণ্য সম্পাদনা করুন" : "Edit Product") : (isBn ? "নতুন পণ্য যোগ করুন" : "Add New Product")}
               </h3>
               <button
@@ -384,7 +384,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                   setShowAddModal(false);
                   setEditingProduct(null);
                 }}
-                className="text-nv-400 hover:text-nv-600"
+                className="text-ink hover:text-ink"
               >
                 <X size={20} />
               </button>
@@ -393,7 +393,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
             <form onSubmit={editingProduct ? handleUpdateProduct : handleCreateProduct} className="space-y-4 text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "পণ্যের নাম (ইংরেজি)" : "Product Name (EN)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "পণ্যের নাম (ইংরেজি)" : "Product Name (EN)"} *</label>
                   <input
                     type="text"
                     required
@@ -405,7 +405,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "পণ্যের নাম (বাংলা)" : "Product Name (Bangla)"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "পণ্যের নাম (বাংলা)" : "Product Name (Bangla)"}</label>
                   <input
                     type="text"
                     value={nameBn}
@@ -416,7 +416,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "ক্যাটাগরি" : "Category"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাটাগরি" : "Category"}</label>
                   <select
                     value={category}
                     onChange={e => setCategory(e.target.value)}
@@ -432,7 +432,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "আইকন / ছবি" : "Emoji Icon"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "আইকন / ছবি" : "Emoji Icon"}</label>
                   <div className="flex gap-2">
                     {["📦", "🌾", "🛢️", "🍪", "🥤", "🧼", "🧴", "🥫"].map(emo => (
                       <button
@@ -448,7 +448,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "ক্রয় মূল্য (৳)" : "Buy Price (Cost)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "ক্রয় মূল্য (৳)" : "Buy Price (Cost)"} *</label>
                   <input
                     type="number"
                     required
@@ -460,19 +460,19 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "বিক্রয় মূল্য (৳)" : "Selling Price"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "বিক্রয় মূল্য (৳)" : "Selling Price"} *</label>
                   <input
                     type="number"
                     required
                     value={sellPrice}
                     onChange={e => setSellPrice(e.target.value)}
                     placeholder="0"
-                    className="num w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-em-700 focus:border-em-500"
+                    className="num w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink focus:border-em-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "বর্তমান স্টক" : "Current Stock Quantity"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "বর্তমান স্টক" : "Current Stock Quantity"} *</label>
                   <input
                     type="number"
                     required
@@ -484,7 +484,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-nv-700 mb-1">{isBn ? "কম স্টক সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "কম স্টক সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
                   <input
                     type="number"
                     value={minStock}
@@ -502,7 +502,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                     setShowAddModal(false);
                     setEditingProduct(null);
                   }}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
@@ -523,14 +523,14 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-xs shadow-2xl border border-nv-200 p-5 text-center space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-sm">{isBn ? "বারকোড স্টিকার" : "Barcode Label"}</h3>
-              <button onClick={() => setBarcodePreviewProduct(null)} className="text-nv-400 hover:text-nv-600">
+              <h3 className="font-bold text-ink text-sm">{isBn ? "বারকোড স্টিকার" : "Barcode Label"}</h3>
+              <button onClick={() => setBarcodePreviewProduct(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
             <div className="p-4 bg-white border border-nv-300 rounded-xl shadow-2xs font-mono space-y-1">
-              <div className="font-bold text-xs text-nv-900">{barcodePreviewProduct.name}</div>
+              <div className="font-bold text-xs text-ink">{barcodePreviewProduct.name}</div>
               <div className="py-2">
                 <div className="h-10 bg-black w-full flex items-center justify-around px-2">
                   {Array.from({ length: 24 }).map((_, i) => (
@@ -539,7 +539,7 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
                 </div>
               </div>
               <div className="text-[11px] font-bold">{barcodePreviewProduct.sku}</div>
-              <div className="num text-base font-extrabold text-em-700 pt-1">{formatTaka(barcodePreviewProduct.sellPrice)}</div>
+              <div className="num text-base font-extrabold text-ink pt-1">{formatTaka(barcodePreviewProduct.sellPrice)}</div>
             </div>
 
             <button

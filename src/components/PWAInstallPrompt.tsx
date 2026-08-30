@@ -92,7 +92,7 @@ export default function PWAInstallPrompt({ lang = "en" }: PWAInstallPromptProps)
     <>
       {/* Offline Status Top Alert Strip */}
       {isOffline && (
-        <div className="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-bold flex items-center justify-between shadow-md z-50 sticky top-0 animate-in slide-in-from-top-2">
+        <div className="bg-ac-500 text-ink px-4 py-2 text-xs font-bold flex items-center justify-between shadow-md z-50 sticky top-0 animate-in slide-in-from-top-2">
           <div className="flex items-center gap-2 max-w-4xl mx-auto">
             <WifiOff size={16} className="animate-pulse" />
             <span>
@@ -108,14 +108,14 @@ export default function PWAInstallPrompt({ lang = "en" }: PWAInstallPromptProps)
       {showInstallBanner && (
         <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 max-w-sm w-[calc(100%-2rem)] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-em-200 p-4 animate-in slide-in-from-bottom-5">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-em-700 to-em-500 flex items-center justify-center text-white flex-shrink-0 shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-em-600 flex items-center justify-center text-white flex-shrink-0 shadow-md">
               <Smartphone size={20} />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-display font-bold text-nv-900 text-xs sm:text-sm">
+              <h4 className="font-display font-bold text-ink text-xs sm:text-sm">
                 {isBn ? "SAYHPro অ্যাপ ইনস্টল করুন" : "Install SAYHPro App"}
               </h4>
-              <p className="text-nv-500 text-[11px] mt-0.5 leading-snug">
+              <p className="text-ink text-[11px] mt-0.5 leading-snug">
                 {isBn
                   ? "হোম স্ক্রিনে সরাসরি অ্যাপের মতো দ্রুত ব্যবহার ও অফলাইন সুবিধা পান।"
                   : "Install on your home screen for quick 1-tap launch & full offline access."}
@@ -130,7 +130,7 @@ export default function PWAInstallPrompt({ lang = "en" }: PWAInstallPromptProps)
                 </button>
                 <button
                   onClick={() => setShowInstallBanner(false)}
-                  className="px-2.5 py-1.5 text-nv-500 hover:text-nv-800 text-xs font-semibold rounded-xl hover:bg-nv-100 transition-fast"
+                  className="px-2.5 py-1.5 text-ink hover:text-ink text-xs font-semibold rounded-xl hover:bg-nv-100 transition-fast"
                 >
                   {isBn ? "পরে" : "Later"}
                 </button>
@@ -138,7 +138,7 @@ export default function PWAInstallPrompt({ lang = "en" }: PWAInstallPromptProps)
             </div>
             <button
               onClick={() => setShowInstallBanner(false)}
-              className="text-nv-400 hover:text-nv-600 p-1"
+              className="text-ink hover:text-ink p-1"
             >
               <X size={15} />
             </button>
@@ -151,27 +151,27 @@ export default function PWAInstallPrompt({ lang = "en" }: PWAInstallPromptProps)
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl w-full max-w-sm shadow-2xl border border-nv-200 p-6 space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base flex items-center gap-2">
-                <Smartphone size={18} className="text-em-700" />
+              <h3 className="font-bold text-ink text-base flex items-center gap-2">
+                <Smartphone size={18} className="text-ink" />
                 <span>{isBn ? "iPhone / iPad এ ইনস্টল করুন" : "Install on iOS"}</span>
               </h3>
-              <button onClick={() => setShowIOSModal(false)} className="text-nv-400 hover:text-nv-600">
+              <button onClick={() => setShowIOSModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs sm:text-sm text-nv-700 leading-relaxed">
+            <div className="space-y-3 text-xs sm:text-sm text-ink leading-relaxed">
               <div className="flex items-start gap-2.5 p-2.5 bg-nv-50 rounded-xl">
                 <span className="w-5 h-5 rounded-full bg-em-700 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
                 <div>
-                  Safari ব্রাউজারের নিচের <span className="font-bold inline-flex items-center gap-1 text-em-800"><Share size={13} /> Share</span> বাটনে চাপ দিন।
+                  Safari ব্রাউজারের নিচের <span className="font-bold inline-flex items-center gap-1 text-ink"><Share size={13} /> Share</span> বাটনে চাপ দিন।
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5 p-2.5 bg-nv-50 rounded-xl">
                 <span className="w-5 h-5 rounded-full bg-em-700 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
                 <div>
-                  তালিকা থেকে <span className="font-bold inline-flex items-center gap-1 text-em-800"><PlusSquare size={13} /> Add to Home Screen</span> বেছে নিন।
+                  তালিকা থেকে <span className="font-bold inline-flex items-center gap-1 text-ink"><PlusSquare size={13} /> Add to Home Screen</span> বেছে নিন।
                 </div>
               </div>
 

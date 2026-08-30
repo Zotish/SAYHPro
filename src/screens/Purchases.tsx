@@ -8,9 +8,9 @@ interface PurchasesProps {
 
 const statusBadge = (status: string, isBn: boolean) => {
   const map: Record<string, { label: string; labelBn: string; cls: string; icon: React.ElementType }> = {
-    paid: { label: "Paid", labelBn: "পরিশোধিত", cls: "bg-em-50 text-em-700 border border-em-200", icon: CheckCircle },
-    partial: { label: "Partial", labelBn: "আংশিক বাকি", cls: "bg-amber-50 text-amber-700 border border-amber-200", icon: Clock },
-    credit: { label: "Credit / Due", labelBn: "বাকিতে ক্রয়", cls: "bg-red-50 text-red-600 border border-red-200", icon: X },
+    paid: { label: "Paid", labelBn: "পরিশোধিত", cls: "bg-em-50 text-ink border border-em-200", icon: CheckCircle },
+    partial: { label: "Partial", labelBn: "আংশিক বাকি", cls: "bg-ac-50 text-ink border border-ac-200", icon: Clock },
+    credit: { label: "Credit / Due", labelBn: "বাকিতে ক্রয়", cls: "bg-red-50 text-ink border border-red-200", icon: X },
   };
   const m = map[status] || map.paid;
   return (
@@ -79,8 +79,8 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "ক্রয় ও স্টক ইন" : "Purchases & Stock In"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "ক্রয় ও স্টক ইন" : "Purchases & Stock In"}</h1>
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {isBn ? "সাপ্লায়ার থেকে স্টক ক্রয় ও দেনা হিসাব" : "Supplier purchase orders and inventory additions"}
           </p>
         </div>
@@ -95,18 +95,18 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount), icon: Truck, color: "bg-blue-50 text-blue-700" },
-          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers), icon: Clock, color: "bg-red-50 text-red-600" },
-          { label: "Total Orders", labelBn: "মোট অর্ডার", value: `${tNum(purchases.length)} ${isBn ? "টি" : "Orders"}`, icon: Package, color: "bg-nv-100 text-nv-700" },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: CheckCircle, color: "bg-em-50 text-em-700" },
+          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount), icon: Truck, color: "bg-nv-50 text-ink" },
+          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers), icon: Clock, color: "bg-red-50 text-ink" },
+          { label: "Total Orders", labelBn: "মোট অর্ডার", value: `${tNum(purchases.length)} ${isBn ? "টি" : "Orders"}`, icon: Package, color: "bg-nv-100 text-ink" },
+          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: CheckCircle, color: "bg-em-50 text-ink" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
               <s.icon size={18} />
             </div>
             <div>
-              <div className="num text-lg sm:text-xl font-bold text-nv-900">{s.value}</div>
-              <div className="text-[11px] text-nv-500">{isBn ? s.labelBn : s.label}</div>
+              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
+              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
             </div>
           </div>
         ))}
@@ -117,10 +117,10 @@ export default function Purchases({ lang }: PurchasesProps) {
         <div className="bg-white rounded-3xl shadow-xl border border-nv-200 p-5 sm:p-6 animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
             <div className="flex items-center gap-2">
-              <Truck size={20} className="text-em-700" />
-              <h3 className="font-display font-bold text-nv-900 text-base">{isBn ? "নতুন ক্রয় অর্ডার এন্ট্রি" : "Record Purchase Order"}</h3>
+              <Truck size={20} className="text-ink" />
+              <h3 className="font-display font-bold text-ink text-base">{isBn ? "নতুন ক্রয় অর্ডার এন্ট্রি" : "Record Purchase Order"}</h3>
             </div>
-            <button onClick={() => setShowForm(false)} className="text-nv-400 hover:text-nv-600">
+            <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
             </button>
           </div>
@@ -128,7 +128,7 @@ export default function Purchases({ lang }: PurchasesProps) {
           <form onSubmit={handleCreatePurchase} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "সাপ্লায়ার" : "Supplier"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "সাপ্লায়ার" : "Supplier"} *</label>
                 <select
                   value={supplierName}
                   onChange={e => setSupplierName(e.target.value)}
@@ -139,7 +139,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "চালান / ইনভয়েস নং" : "Supplier Invoice No."}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "চালান / ইনভয়েস নং" : "Supplier Invoice No."}</label>
                 <input
                   type="text"
                   value={invoiceNo}
@@ -150,7 +150,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "তারিখ" : "Date"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
                 <input
                   type="date"
                   value={purchaseDate}
@@ -163,11 +163,11 @@ export default function Purchases({ lang }: PurchasesProps) {
             {/* Line Items */}
             <div className="space-y-2 pt-2 border-t border-nv-100">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-nv-700 uppercase tracking-wider">{isBn ? "পণ্যের তালিকা (স্টক বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
+                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "পণ্যের তালিকা (স্টক বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
                 <button
                   type="button"
                   onClick={addItem}
-                  className="text-xs font-bold text-em-700 hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-ink hover:underline flex items-center gap-1"
                 >
                   <Plus size={14} /> {isBn ? "আরেকটি পণ্য যোগ করুন" : "Add Item"}
                 </button>
@@ -189,7 +189,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                     </select>
 
                     <div className="flex items-center gap-1 w-24">
-                      <span className="text-[11px] text-nv-400">Qty:</span>
+                      <span className="text-[11px] text-ink">Qty:</span>
                       <input
                         type="number"
                         min="1"
@@ -200,7 +200,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                     </div>
 
                     <div className="flex items-center gap-1 w-28">
-                      <span className="text-[11px] text-nv-400">৳/pc:</span>
+                      <span className="text-[11px] text-ink">৳/pc:</span>
                       <input
                         type="number"
                         min="0"
@@ -210,7 +210,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                       />
                     </div>
 
-                    <div className="num font-bold text-xs text-nv-800 w-20 text-right">
+                    <div className="num font-bold text-xs text-ink w-20 text-right">
                       {formatTaka(item.qty * item.cost)}
                     </div>
 
@@ -218,7 +218,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                       <button
                         type="button"
                         onClick={() => removeItem(idx)}
-                        className="text-nv-400 hover:text-red-600 p-1"
+                        className="text-ink hover:text-ink p-1"
                       >
                         <Trash2 size={14} />
                       </button>
@@ -231,23 +231,23 @@ export default function Purchases({ lang }: PurchasesProps) {
             {/* Payment Row */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-nv-100 text-xs sm:text-sm bg-nv-50/50 p-3 rounded-2xl">
               <div>
-                <span className="block text-nv-500">{isBn ? "মোট ক্রয় মূল্য" : "Total Cost"}</span>
-                <span className="num text-xl font-bold text-nv-900">{formatTaka(subtotal)}</span>
+                <span className="block text-ink">{isBn ? "মোট ক্রয় মূল্য" : "Total Cost"}</span>
+                <span className="num text-xl font-bold text-ink">{formatTaka(subtotal)}</span>
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "নগদ পরিশোধিত (৳)" : "Paid Amount (৳)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "নগদ পরিশোধিত (৳)" : "Paid Amount (৳)"}</label>
                 <input
                   type="number"
                   value={paidAmount}
                   onChange={e => setPaidAmount(e.target.value)}
                   placeholder={`Full (${formatTaka(subtotal)})`}
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-bold text-em-700"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-bold text-ink"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Payment Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Payment Account"}</label>
                 <select
                   value={paymentMethod}
                   onChange={e => setPaymentMethod(e.target.value)}
@@ -262,7 +262,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="px-5 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50 text-xs sm:text-sm"
+                className="px-5 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
               >
                 {isBn ? "বাতিল" : "Cancel"}
               </button>
@@ -281,7 +281,7 @@ export default function Purchases({ lang }: PurchasesProps) {
       <div className="bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden">
         <div className="p-3 sm:p-4 border-b border-nv-100 flex items-center justify-between gap-3">
           <div className="relative max-w-sm flex-1">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-nv-400" />
+            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink" />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
@@ -296,25 +296,25 @@ export default function Purchases({ lang }: PurchasesProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "অর্ডার আইডি" : "Order ID"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "মোট টাকা" : "Total"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অর্ডার আইডি" : "Order ID"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট টাকা" : "Total"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
               {filtered.map(p => (
                 <tr key={p.id} className="hover:bg-nv-50 transition-fast">
-                  <td className="px-4 py-3 font-mono font-bold text-nv-900 whitespace-nowrap">{tNum(p.id)}</td>
-                  <td className="px-4 py-3 font-semibold text-nv-800 whitespace-nowrap">{p.supplier}</td>
-                  <td className="px-4 py-3 text-xs text-nv-500 whitespace-nowrap">{p.date}</td>
-                  <td className="px-4 py-3 num font-bold text-nv-900 whitespace-nowrap">{formatTaka(p.total)}</td>
-                  <td className="px-4 py-3 num font-semibold text-em-700 whitespace-nowrap">{formatTaka(p.paid)}</td>
+                  <td className="px-4 py-3 font-mono font-bold text-ink whitespace-nowrap">{tNum(p.id)}</td>
+                  <td className="px-4 py-3 font-semibold text-ink whitespace-nowrap">{p.supplier}</td>
+                  <td className="px-4 py-3 text-xs text-ink whitespace-nowrap">{p.date}</td>
+                  <td className="px-4 py-3 num font-bold text-ink whitespace-nowrap">{formatTaka(p.total)}</td>
+                  <td className="px-4 py-3 num font-semibold text-ink whitespace-nowrap">{formatTaka(p.paid)}</td>
                   <td className="px-4 py-3 whitespace-nowrap">
-                    <span className={`num font-bold ${p.due > 0 ? "text-red-600" : "text-nv-400"}`}>
+                    <span className={`num font-bold ${p.due > 0 ? "text-ink" : "text-ink"}`}>
                       {p.due > 0 ? formatTaka(p.due) : "৳০"}
                     </span>
                   </td>

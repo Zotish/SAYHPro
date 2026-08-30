@@ -91,24 +91,24 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
       <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-nv-200 overflow-hidden flex flex-col max-h-[85vh]">
         {/* Search Header */}
         <div className="p-4 border-b border-nv-200 flex items-center gap-3 bg-nv-50/50">
-          <Search size={20} className="text-em-700 flex-shrink-0" />
+          <Search size={20} className="text-ink flex-shrink-0" />
           <input
             autoFocus
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder={isBn ? "পণ্য, গ্রাহক, ইনভয়েস বা মেনু খুঁজুন..." : "Search products, customers, invoices, or pages..."}
-            className="flex-1 bg-transparent text-nv-900 placeholder:text-nv-400 text-base focus:outline-none"
+            className="flex-1 bg-transparent text-ink placeholder:text-ink text-base focus:outline-none"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="text-nv-400 hover:text-nv-600 p-1">
+            <button onClick={() => setQuery("")} className="text-ink hover:text-ink p-1">
               <X size={16} />
             </button>
           )}
-          <button onClick={onClose} className="text-xs bg-nv-200 text-nv-700 px-2 py-1 rounded-md font-mono hidden sm:inline">
+          <button onClick={onClose} className="text-xs bg-nv-200 text-ink px-2 py-1 rounded-md font-mono hidden sm:inline">
             ESC
           </button>
-          <button onClick={onClose} className="sm:hidden text-nv-500 hover:text-nv-900">
+          <button onClick={onClose} className="sm:hidden text-ink hover:text-ink">
             <X size={20} />
           </button>
         </div>
@@ -118,7 +118,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {/* Products */}
           {filteredProducts.length > 0 && (
             <div>
-              <p className="text-[11px] font-bold tracking-wider text-nv-400 uppercase px-2 mb-1.5">
+              <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
                 {isBn ? "পণ্য" : "Products"}
               </p>
               <div className="space-y-1">
@@ -129,21 +129,21 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nv-100 transition-fast text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-em-50 text-xl flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg text-xl flex items-center justify-center">
                         {p.image || "📦"}
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-nv-900 group-hover:text-em-700">
+                        <div className="text-sm font-semibold text-ink group-hover:text-ink">
                           {isBn ? p.nameBn : p.name}
                         </div>
-                        <div className="text-xs text-nv-400 font-mono">
+                        <div className="text-xs text-ink font-mono">
                           {p.sku} · {p.category}
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="num font-bold text-sm text-em-700">{formatTaka(p.sellPrice)}</div>
-                      <div className="text-xs text-nv-500">{tNum(p.stock)} {isBn ? "টি বাকি" : "in stock"}</div>
+                      <div className="num font-bold text-sm text-ink">{formatTaka(p.sellPrice)}</div>
+                      <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "টি বাকি" : "in stock"}</div>
                     </div>
                   </button>
                 ))}
@@ -154,7 +154,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {/* Customers */}
           {filteredCustomers.length > 0 && (
             <div>
-              <p className="text-[11px] font-bold tracking-wider text-nv-400 uppercase px-2 mb-1.5">
+              <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
                 {isBn ? "গ্রাহক" : "Customers"}
               </p>
               <div className="space-y-1">
@@ -165,18 +165,18 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nv-100 transition-fast text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 font-bold flex items-center justify-center text-sm">
+                      <div className="w-8 h-8 rounded-lg text-ink font-bold flex items-center justify-center text-sm">
                         {c.avatar}
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-nv-900 group-hover:text-blue-700">
+                        <div className="text-sm font-semibold text-ink group-hover:text-ink">
                           {isBn ? c.nameBn : c.name}
                         </div>
-                        <div className="text-xs text-nv-400">{c.phone}</div>
+                        <div className="text-xs text-ink">{c.phone}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`num font-bold text-sm ${c.due > 0 ? "text-red-600" : "text-em-700"}`}>
+                      <div className={`num font-bold text-sm ${c.due > 0 ? "text-ink" : "text-ink"}`}>
                         {c.due > 0 ? `${formatTaka(c.due)} ${isBn ? "বাকি" : "Due"}` : (isBn ? "বাকি নেই" : "No Due")}
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {/* Sales / Invoices */}
           {filteredSales.length > 0 && (
             <div>
-              <p className="text-[11px] font-bold tracking-wider text-nv-400 uppercase px-2 mb-1.5">
+              <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
                 {isBn ? "ইনভয়েস" : "Invoices"}
               </p>
               <div className="space-y-1">
@@ -200,17 +200,17 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nv-100 transition-fast text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg text-ink flex items-center justify-center">
                         <Receipt size={16} />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-nv-900 group-hover:text-amber-700">
+                        <div className="text-sm font-semibold text-ink group-hover:text-ink">
                           {tNum(s.invoiceNo)} · {s.customer}
                         </div>
-                        <div className="text-xs text-nv-400">{s.date} {tNum(s.time)}</div>
+                        <div className="text-xs text-ink">{s.date} {tNum(s.time)}</div>
                       </div>
                     </div>
-                    <div className="num font-bold text-sm text-nv-900">{formatTaka(s.grandTotal)}</div>
+                    <div className="num font-bold text-sm text-ink">{formatTaka(s.grandTotal)}</div>
                   </button>
                 ))}
               </div>
@@ -219,7 +219,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
 
           {/* Pages & Navigation */}
           <div>
-            <p className="text-[11px] font-bold tracking-wider text-nv-400 uppercase px-2 mb-1.5">
+            <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
               {isBn ? "দ্রুত মেনু" : "Navigation & Pages"}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
@@ -229,13 +229,13 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                   onClick={() => navigateTo(item.id)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-nv-100 transition-fast text-left group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-nv-100 group-hover:bg-em-100 flex items-center justify-center text-nv-600 group-hover:text-em-700 transition-fast">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-ink group-hover:text-ink transition-fast">
                     <item.icon size={16} />
                   </div>
-                  <span className="text-sm font-medium text-nv-800 flex-1">
+                  <span className="text-sm font-medium text-ink flex-1">
                     {isBn ? item.labelBn : item.label}
                   </span>
-                  <ArrowRight size={13} className="text-nv-300 group-hover:text-nv-600 transition-fast" />
+                  <ArrowRight size={13} className="text-ink transition-fast" />
                 </button>
               ))}
             </div>
@@ -243,7 +243,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
         </div>
 
         {/* Footer */}
-        <div className="p-3 bg-nv-50 border-t border-nv-200 text-xs text-nv-500 flex items-center justify-between">
+        <div className="p-3 bg-nv-50 border-t border-nv-200 text-xs text-ink flex items-center justify-between">
           <span>{settings.shopName} · {settings.branch}</span>
           <span className="hidden sm:inline">Use ↑↓ keys to navigate</span>
         </div>

@@ -31,7 +31,7 @@ export default function Notifications({ lang }: NotificationsProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900 flex items-center gap-2.5">
+          <h1 className="font-display text-2xl font-bold text-ink flex items-center gap-2.5">
             <span>{isBn ? "বিজ্ঞপ্তি ও সতর্কতা" : "Notifications & Alerts"}</span>
             {unreadCount > 0 && (
               <span className="px-2.5 py-0.5 bg-red-500 text-white rounded-full text-xs font-extrabold shadow-xs">
@@ -39,7 +39,7 @@ export default function Notifications({ lang }: NotificationsProps) {
               </span>
             )}
           </h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {unreadCount > 0
               ? (isBn ? `${tNum(unreadCount)}টি অপঠিত নোটিফিকেশন রয়েছে` : `${unreadCount} unread alerts requiring attention`)
               : (isBn ? "সকল নোটিফিকেশন পড়া সম্পন্ন" : "All notifications are caught up")}
@@ -50,7 +50,7 @@ export default function Notifications({ lang }: NotificationsProps) {
           {unreadCount > 0 && (
             <button
               onClick={markAllNotificationsRead}
-              className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-nv-700 bg-white hover:bg-nv-50 transition-fast"
+              className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
             >
               <CheckCircle size={15} />
               <span>{isBn ? "সব পড়া হিসেবে চিহ্নিত" : "Mark all as read"}</span>
@@ -59,7 +59,7 @@ export default function Notifications({ lang }: NotificationsProps) {
           {notifications.length > 0 && (
             <button
               onClick={clearNotifications}
-              className="p-2 border border-nv-200 rounded-xl text-nv-500 hover:text-red-600 bg-white hover:bg-red-50 transition-fast"
+              className="p-2 border border-nv-200 rounded-xl text-ink hover:text-ink bg-white hover:bg-red-50 transition-fast"
               title="Clear all"
             >
               <Trash2 size={16} />
@@ -73,14 +73,14 @@ export default function Notifications({ lang }: NotificationsProps) {
         <button
           onClick={() => setFilter("all")}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
-            ${filter === "all" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-600 hover:border-nv-300"}`}
+            ${filter === "all" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:border-nv-300"}`}
         >
           {isBn ? "সকল বিজ্ঞপ্তি" : "All"} ({tNum(notifications.length)})
         </button>
         <button
           onClick={() => setFilter("unread")}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
-            ${filter === "unread" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-600 hover:border-nv-300"}`}
+            ${filter === "unread" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:border-nv-300"}`}
         >
           {isBn ? "অপঠিত" : "Unread"} ({tNum(unreadCount)})
         </button>
@@ -101,18 +101,18 @@ export default function Notifications({ lang }: NotificationsProps) {
                 <span className="absolute top-4 right-4 w-2.5 h-2.5 bg-em-600 rounded-full shadow-xs" />
               )}
 
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${n.color || "bg-em-50 text-em-700"}`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${n.color || "bg-em-50 text-ink"}`}>
                 <Icon size={18} />
               </div>
 
               <div className="flex-1 min-w-0 pr-4">
                 <div className="flex items-center justify-between">
-                  <h4 className={`text-xs sm:text-sm font-bold ${!n.read ? "text-nv-900" : "text-nv-700"}`}>
+                  <h4 className={`text-xs sm:text-sm font-bold ${!n.read ? "text-ink" : "text-ink"}`}>
                     {isBn ? n.titleBn || n.title : n.title}
                   </h4>
-                  <span className="text-[10px] text-nv-400">{tNum(n.time)}</span>
+                  <span className="text-[10px] text-ink">{tNum(n.time)}</span>
                 </div>
-                <p className="text-xs text-nv-500 mt-1 leading-relaxed">
+                <p className="text-xs text-ink mt-1 leading-relaxed">
                   {isBn ? n.bodyBn || n.body : n.body}
                 </p>
               </div>
@@ -122,9 +122,9 @@ export default function Notifications({ lang }: NotificationsProps) {
 
         {filtered.length === 0 && (
           <div className="bg-white rounded-3xl border border-nv-200 p-12 text-center shadow-sm">
-            <Bell size={40} className="text-nv-200 mx-auto mb-3" />
-            <h3 className="font-bold text-nv-800 text-sm">{isBn ? "কোনো বিজ্ঞপ্তি নেই" : "No notifications"}</h3>
-            <p className="text-nv-400 text-xs mt-0.5">{isBn ? "আপনি আপ-টু-ডেট আছেন!" : "You're all caught up with your store alerts!"}</p>
+            <Bell size={40} className="text-ink mx-auto mb-3" />
+            <h3 className="font-bold text-ink text-sm">{isBn ? "কোনো বিজ্ঞপ্তি নেই" : "No notifications"}</h3>
+            <p className="text-ink text-xs mt-0.5">{isBn ? "আপনি আপ-টু-ডেট আছেন!" : "You're all caught up with your store alerts!"}</p>
           </div>
         )}
       </div>

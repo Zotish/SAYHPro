@@ -82,10 +82,10 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "ডিজিটাল ব্যাংকিং, ঋণ ও পেমেন্ট সার্ভিস" : "Fintech, Banking & SME Loans"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-em-100 text-em-700">Bangla QR + Micro-Credit</span>
+            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "ডিজিটাল ব্যাংকিং, ঋণ ও পেমেন্ট সার্ভিস" : "Fintech, Banking & SME Loans"}</h1>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-em-100 text-ink">Bangla QR + Micro-Credit</span>
           </div>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">
+          <p className="text-ink text-xs sm:text-sm mt-0.5">
             {isBn ? "কাগজপত্রহীন ব্যাংক অ্যাকাউন্ট, টার্নওভার ভিত্তিক ইনস্ট্যান্ট ব্যবসা ঋণ এবং ডিজিটাল পেমেন্ট গেটওয়ে" : "Paperless digital bank accounts, instant turnover-based SME loans, and dynamic Bangla QR payments"}
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
         <button
           onClick={() => setActiveTab("banking")}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
-            ${activeTab === "banking" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-700 hover:bg-nv-50"}`}
+            ${activeTab === "banking" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <Landmark size={16} />
           <span>{isBn ? "১. ডিজিটাল ব্যাংক অ্যাকাউন্ট" : "1. Digital Bank Accounts"}</span>
@@ -127,7 +127,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
         <button
           onClick={() => setActiveTab("loans")}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
-            ${activeTab === "loans" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-700 hover:bg-nv-50"}`}
+            ${activeTab === "loans" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <Percent size={16} />
           <span>{isBn ? "২. এসএমই ব্যবসা ঋণ (SME Loans)" : "2. Instant SME Loans"}</span>
@@ -136,7 +136,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
         <button
           onClick={() => setActiveTab("payments")}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
-            ${activeTab === "payments" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-nv-700 hover:bg-nv-50"}`}
+            ${activeTab === "payments" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <QrCode size={16} />
           <span>{isBn ? "৩. বাংলা কিউআর ও পেমেন্ট সার্ভিস" : "3. Bangla QR & Payments"}</span>
@@ -152,35 +152,35 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                 <div>
                   <div className="flex items-start justify-between">
                     <span className="text-3xl">{app.bankLogo}</span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-em-50 text-em-700 flex items-center gap-1">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-em-50 text-ink flex items-center gap-1">
                       <CheckCircle2 size={12} /> {app.status}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-base text-nv-900 mt-3">{app.bankName}</h3>
-                  <span className="text-xs text-nv-500 capitalize">{app.accountType.replace("_", " ")}</span>
+                  <h3 className="font-bold text-base text-ink mt-3">{app.bankName}</h3>
+                  <span className="text-xs text-ink capitalize">{app.accountType.replace("_", " ")}</span>
 
                   <div className="mt-4 p-3 bg-nv-50 rounded-2xl space-y-1">
-                    <span className="text-[10px] text-nv-400 uppercase font-semibold">{isBn ? "অ্যাকাউন্ট নম্বর" : "Account Number"}</span>
-                    <div className="font-mono font-bold text-sm text-nv-900">{app.accountNumber}</div>
+                    <span className="text-[10px] text-ink uppercase font-semibold">{isBn ? "অ্যাকাউন্ট নম্বর" : "Account Number"}</span>
+                    <div className="font-mono font-bold text-sm text-ink">{app.accountNumber}</div>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-nv-100 flex items-center justify-between text-xs">
-                  <span className="text-nv-500">{isBn ? "কেওয়াইসি স্ট্যাটাস:" : "KYC Status:"}</span>
-                  <span className="font-bold text-emerald-700">১০০% ভেরিফাইড</span>
+                  <span className="text-ink">{isBn ? "কেওয়াইসি স্ট্যাটাস:" : "KYC Status:"}</span>
+                  <span className="font-bold text-ink">১০০% ভেরিফাইড</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-blue-900 via-nv-900 to-indigo-950 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="bg-nv-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
-              <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30">
+              <span className="px-3 py-1 rounded-full bg-nv-500/20 text-nv-300 text-xs font-bold border border-nv-400/30">
                 PARTNER BANKING NETWORK
               </span>
               <h3 className="font-display font-extrabold text-xl">{isBn ? "ঘরে বসেই ৩ মিনিটে কারেন্ট অ্যাকাউন্ট খুলুন" : "Open Merchant Bank Account in 3 Minutes"}</h3>
-              <p className="text-xs text-blue-100 max-w-xl leading-relaxed">
+              <p className="text-xs text-nv-100 max-w-xl leading-relaxed">
                 {isBn
                   ? "এনআইডি ও ট্রেড লাইসেন্স আপলোড করে ব্র্যাক ব্যাংক, সিটি ব্যাংক অথবা বিকাশ মার্চেন্ট অ্যাকাউন্ট সক্রিয় করুন। কোনো শাখা ভিজিটের প্রয়োজন নেই।"
                   : "Zero branch visits. Upload NID and trade license to activate your high-limit merchant banking account instantly."}
@@ -202,29 +202,29 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {smeLoanOffers.map(loan => (
-              <div key={loan.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-blue-400 transition-all flex flex-col justify-between space-y-4">
+              <div key={loan.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-nv-400 transition-all flex flex-col justify-between space-y-4">
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-700">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-nv-50 text-ink">
                       {loan.status === "disbursed" ? (isBn ? "বিতরণকৃত" : "Active Disbursed") : (isBn ? "প্রাক-অনুমোদিত" : "Pre-Approved")}
                     </span>
-                    <span className="text-xs font-mono font-bold text-nv-400">{loan.interestRate}% Interest</span>
+                    <span className="text-xs font-mono font-bold text-ink">{loan.interestRate}% Interest</span>
                   </div>
 
-                  <h3 className="font-bold text-base text-nv-900 mt-2">{loan.bankPartner}</h3>
-                  <div className="text-2xl font-extrabold text-em-700 mt-1">
+                  <h3 className="font-bold text-base text-ink mt-2">{loan.bankPartner}</h3>
+                  <div className="text-2xl font-extrabold text-ink mt-1">
                     {formatTaka(loan.eligibleAmount)}
                   </div>
-                  <span className="text-xs text-nv-500">{isBn ? "টার্নওভার ভিত্তিক লিমিট" : "Pre-qualified credit line"}</span>
+                  <span className="text-xs text-ink">{isBn ? "টার্নওভার ভিত্তিক লিমিট" : "Pre-qualified credit line"}</span>
 
                   <div className="mt-4 pt-3 border-t border-nv-100 grid grid-cols-2 gap-2 text-xs">
                     <div>
-                      <span className="text-nv-400">{isBn ? "মেয়াদ" : "Tenure"}</span>
-                      <div className="font-bold text-nv-900">{tNum(loan.tenureMonths)} {isBn ? "মাস" : "Months"}</div>
+                      <span className="text-ink">{isBn ? "মেয়াদ" : "Tenure"}</span>
+                      <div className="font-bold text-ink">{tNum(loan.tenureMonths)} {isBn ? "মাস" : "Months"}</div>
                     </div>
                     <div>
-                      <span className="text-nv-400">{isBn ? "মাসিক কিস্তি" : "Monthly EMI"}</span>
-                      <div className="font-bold text-blue-700">{formatTaka(loan.monthlyEMI)}</div>
+                      <span className="text-ink">{isBn ? "মাসিক কিস্তি" : "Monthly EMI"}</span>
+                      <div className="font-bold text-ink">{formatTaka(loan.monthlyEMI)}</div>
                     </div>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                     setShowLoanModal(true);
                   }}
                   className={`w-full py-2.5 rounded-xl font-bold text-xs transition-fast
-                    ${loan.status === "disbursed" ? "bg-nv-100 text-nv-400 cursor-not-allowed" : "bg-em-700 hover:bg-em-800 text-white shadow-md"}`}
+                    ${loan.status === "disbursed" ? "bg-nv-100 text-ink cursor-not-allowed" : "bg-em-700 hover:bg-em-800 text-white shadow-md"}`}
                 >
                   {loan.status === "disbursed" ? (isBn ? "ঋণ সক্রিয় রয়েছে" : "Loan Active") : (isBn ? "ঋণের জন্য আবেদন করুন" : "Apply Instantly")}
                 </button>
@@ -251,17 +251,17 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Dynamic Bangla QR Card */}
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-nv-200 flex flex-col items-center text-center space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-em-50 text-em-700 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-2xl text-ink flex items-center justify-center">
               <QrCode size={24} />
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-em-50 text-em-800 text-xs font-bold mb-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-em-50 text-ink text-xs font-bold mb-1">
                 <ShieldCheck size={13} /> BANGLA QR INTEROPERABLE
               </div>
-              <h3 className="font-display font-bold text-xl text-nv-900">
+              <h3 className="font-display font-bold text-xl text-ink">
                 {isBn ? "দোকানের অফিসিয়াল বাংলা কিউআর" : "Official In-Store Bangla QR"}
               </h3>
-              <p className="text-xs text-nv-500 mt-1 max-w-sm">
+              <p className="text-xs text-ink mt-1 max-w-sm">
                 bKash, Nagad, Rocket, Upay, Visa & Mastercard — এক কিউআর কোডেই সকল ডিজিটাল পেমেন্ট রিসিভ করুন।
               </p>
             </div>
@@ -269,19 +269,19 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
             {/* QR Visual */}
             <div className="p-4 bg-white border-2 border-dashed border-em-300 rounded-3xl shadow-sm flex flex-col items-center">
               <div className="w-48 h-48 bg-nv-900 rounded-2xl flex items-center justify-center p-3 text-white">
-                <div className="w-full h-full border-4 border-white rounded-xl flex items-center justify-center font-mono text-[10px] text-center p-2 bg-slate-900">
+                <div className="w-full h-full border-4 border-white rounded-xl flex items-center justify-center font-mono text-[10px] text-center p-2 bg-nv-900">
                   <div className="space-y-1">
-                    <QrCode size={64} className="mx-auto text-emerald-400" />
+                    <QrCode size={64} className="mx-auto text-em-400" />
                     <span className="font-bold text-white tracking-widest">BANGLA QR</span>
                   </div>
                 </div>
               </div>
-              <span className="text-xs font-bold text-nv-900 mt-2">Rahim Store (Merchant ID: 89410)</span>
+              <span className="text-xs font-bold text-ink mt-2">Rahim Store (Merchant ID: 89410)</span>
             </div>
 
             <button
               onClick={() => toast({ type: "success", title: isBn ? "কিউআর প্রিন্ট রেডি!" : "Print Ready!", message: "Bangla QR downloaded for store counter display." })}
-              className="px-4 py-2 border border-nv-200 hover:bg-nv-50 text-nv-800 rounded-xl text-xs font-bold transition-fast"
+              className="px-4 py-2 border border-nv-200 hover:bg-nv-50 text-ink rounded-xl text-xs font-bold transition-fast"
             >
               {isBn ? "কিউআর স্ট্যান্ড প্রিন্ট করুন" : "Download QR Standee Print"}
             </button>
@@ -290,10 +290,10 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           {/* Payment Links List */}
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-nv-200 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
-              <h3 className="font-display font-bold text-nv-900 text-base">{isBn ? "পেমেন্ট লিঙ্কসমূহ" : "Active Payment Links"}</h3>
+              <h3 className="font-display font-bold text-ink text-base">{isBn ? "পেমেন্ট লিঙ্কসমূহ" : "Active Payment Links"}</h3>
               <button
                 onClick={() => setShowLinkModal(true)}
-                className="text-xs text-em-700 font-bold hover:underline flex items-center gap-1"
+                className="text-xs text-ink font-bold hover:underline flex items-center gap-1"
               >
                 <Plus size={14} /> {isBn ? "নতুন লিঙ্ক" : "Create Link"}
               </button>
@@ -303,16 +303,16 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
               {paymentLinks.map(link => (
                 <div key={link.id} className="p-3.5 rounded-2xl bg-nv-50 border border-nv-200/60 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-sm text-nv-900">{link.customerName}</div>
-                    <div className="text-xs text-nv-500">{link.purpose} ({tNum(link.createdDate)})</div>
-                    <div className="font-mono text-[11px] text-blue-600 mt-1 flex items-center gap-1">
+                    <div className="font-bold text-sm text-ink">{link.customerName}</div>
+                    <div className="text-xs text-ink">{link.purpose} ({tNum(link.createdDate)})</div>
+                    <div className="font-mono text-[11px] text-ink mt-1 flex items-center gap-1">
                       {link.linkUrl} <Copy size={11} className="cursor-pointer" onClick={() => { navigator.clipboard?.writeText(link.linkUrl); toast({ type: "success", title: "Copied!", message: "Link copied to clipboard" }); }} />
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-extrabold text-base text-nv-900">{formatTaka(link.amount)}</div>
+                    <div className="font-extrabold text-base text-ink">{formatTaka(link.amount)}</div>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase
-                      ${link.status === "paid" ? "bg-em-50 text-em-700" : "bg-amber-50 text-amber-700"}`}>
+                      ${link.status === "paid" ? "bg-em-50 text-ink" : "bg-ac-50 text-ink"}`}>
                       {link.status}
                     </span>
                   </div>
@@ -329,15 +329,15 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl border border-nv-200 p-6 space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
-                <Landmark size={20} className="text-em-700" />
-                <h3 className="font-display font-bold text-nv-900 text-lg">{isBn ? "ডিজিটাল ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Digital Bank Account"}</h3>
+                <Landmark size={20} className="text-ink" />
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "ডিজিটাল ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Digital Bank Account"}</h3>
               </div>
-              <button onClick={() => setShowKycModal(false)} className="text-nv-400 hover:text-nv-600">✕</button>
+              <button onClick={() => setShowKycModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
 
             <form onSubmit={handleCreateBankKYC} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "ব্যাংক নির্বাচন" : "Select Bank"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "ব্যাংক নির্বাচন" : "Select Bank"} *</label>
                 <select
                   value={bankName}
                   onChange={e => setBankName(e.target.value)}
@@ -351,7 +351,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "জাতীয় পরিচয়পত্র নম্বর (NID)" : "NID Number"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "জাতীয় পরিচয়পত্র নম্বর (NID)" : "NID Number"} *</label>
                 <input
                   type="text"
                   required
@@ -363,7 +363,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "ট্রেড লাইসেন্স নম্বর" : "Trade License Number"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "ট্রেড লাইসেন্স নম্বর" : "Trade License Number"} *</label>
                 <input
                   type="text"
                   required
@@ -378,7 +378,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                 <button
                   type="button"
                   onClick={() => setShowKycModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
@@ -400,27 +400,27 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl border border-nv-200 p-6 space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
-                <Percent size={20} className="text-em-700" />
-                <h3 className="font-display font-bold text-nv-900 text-lg">{isBn ? "এসএমই লোন অনুমোদন" : "Instant SME Loan Disbursal"}</h3>
+                <Percent size={20} className="text-ink" />
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "এসএমই লোন অনুমোদন" : "Instant SME Loan Disbursal"}</h3>
               </div>
-              <button onClick={() => setShowLoanModal(false)} className="text-nv-400 hover:text-nv-600">✕</button>
+              <button onClick={() => setShowLoanModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
 
             <div className="space-y-3 text-xs sm:text-sm">
               <div className="p-4 bg-em-50 rounded-2xl space-y-1">
-                <span className="text-xs text-em-800 font-semibold">{selectedLoanOffer.bankPartner}</span>
-                <div className="text-2xl font-extrabold text-em-900">{formatTaka(selectedLoanOffer.eligibleAmount)}</div>
-                <p className="text-[11px] text-em-700">Pre-approved based on Rahim Store POS turnover</p>
+                <span className="text-xs text-ink font-semibold">{selectedLoanOffer.bankPartner}</span>
+                <div className="text-2xl font-extrabold text-ink">{formatTaka(selectedLoanOffer.eligibleAmount)}</div>
+                <p className="text-[11px] text-ink">Pre-approved based on Rahim Store POS turnover</p>
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="p-3 bg-nv-50 rounded-xl">
-                  <span className="text-nv-400">Monthly EMI</span>
-                  <div className="font-bold text-sm text-nv-900">{formatTaka(selectedLoanOffer.monthlyEMI)}</div>
+                  <span className="text-ink">Monthly EMI</span>
+                  <div className="font-bold text-sm text-ink">{formatTaka(selectedLoanOffer.monthlyEMI)}</div>
                 </div>
                 <div className="p-3 bg-nv-50 rounded-xl">
-                  <span className="text-nv-400">Tenure</span>
-                  <div className="font-bold text-sm text-nv-900">{tNum(selectedLoanOffer.tenureMonths)} Months</div>
+                  <span className="text-ink">Tenure</span>
+                  <div className="font-bold text-sm text-ink">{tNum(selectedLoanOffer.tenureMonths)} Months</div>
                 </div>
               </div>
 
@@ -428,7 +428,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                 <button
                   type="button"
                   onClick={() => setShowLoanModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
@@ -451,15 +451,15 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl border border-nv-200 p-6 space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
-                <QrCode size={20} className="text-em-700" />
-                <h3 className="font-display font-bold text-nv-900 text-lg">{isBn ? "পেমেন্ট লিঙ্ক তৈরি করুন" : "Create Payment Link"}</h3>
+                <QrCode size={20} className="text-ink" />
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "পেমেন্ট লিঙ্ক তৈরি করুন" : "Create Payment Link"}</h3>
               </div>
-              <button onClick={() => setShowLinkModal(false)} className="text-nv-400 hover:text-nv-600">✕</button>
+              <button onClick={() => setShowLinkModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
 
             <form onSubmit={handleCreateLink} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
@@ -471,19 +471,19 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
                 <input
                   type="number"
                   required
                   value={linkAmount}
                   onChange={e => setLinkAmount(e.target.value)}
                   placeholder="e.g. 1850"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-em-700 text-base"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink text-base"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-nv-700 mb-1">{isBn ? "বিবরণ / উদ্দেশ্য" : "Payment Purpose"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "বিবরণ / উদ্দেশ্য" : "Payment Purpose"}</label>
                 <input
                   type="text"
                   value={linkPurpose}
@@ -497,7 +497,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                 <button
                   type="button"
                   onClick={() => setShowLinkModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>

@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { Banknote, Smartphone, Building, ArrowUpRight, ArrowDownRight, ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown } from "lucide-react";
+import { ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown, ArrowLeft } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface CashAccountsProps {
   lang: "en" | "bn";
+  onBack?: () => void;
 }
 
-const getAccountIcon = (id: string) => {
-  if (id === "cash") return Banknote;
-  if (id === "bank") return Building;
-  return Smartphone;
-};
-
-export default function CashAccounts({ lang }: CashAccountsProps) {
+export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
   const { accounts, transactions, addCashDeposit, transferCash, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -72,16 +67,23 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
 
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "ক্যাশ ও হিসাব ব্যবস্থাপনা" : "Cash & Accounts"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{isBn ? "সকল অ্যাকাউন্ট ও ট্রানজাকশন লেজার" : "Account balances and financial flow"}</p>
-        </div>
-        <div className="flex gap-2 self-start sm:self-auto">
+      {/* Header — the back arrow and the button group are real flex
+          siblings on the same row (not overlaid), so neither can ever
+          cover the other no matter how narrow the screen gets. */}
+      <div className="flex items-center gap-4">
+        {onBack && (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        )}
+        <div className="ml-auto flex gap-2">
           <button
             onClick={() => setShowModal("transfer")}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-nv-700 bg-white hover:bg-nv-50 transition-fast shadow-2xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"
           >
             <ArrowRightLeft size={14} /> {isBn ? "ট্রান্সফার" : "Transfer"}
           </button>
@@ -89,39 +91,29 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
             onClick={() => setShowModal("add")}
             className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
           >
-            <Plus size={16} /> {isBn ? "ক্যাশ জমা" : "Add Cash / Deposit"}
+            <Plus size={16} /> {isBn ? "জমা" : "Deposit"}
           </button>
         </div>
       </div>
 
       {/* Hero Balance Card */}
-      <div className="sidebar-gradient rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-em-50 border border-em-100 rounded-3xl p-6 text-ink shadow-sm relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <p className="text-em-200 text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "মোট বর্তমান ব্যালেন্স" : "Total Combined Balance"}</p>
-            <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight">{formatTaka(totalBalance)}</div>
-            <p className="text-white/60 text-xs mt-1">{tNum(accounts.length)} active accounts monitored</p>
+            <p className="text-ink text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "মোট বর্তমান ব্যালেন্স" : "Total Combined Balance"}</p>
+            <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">{formatTaka(totalBalance)}</div>
+            <p className="text-ink text-xs mt-1">{tNum(accounts.length)} active accounts monitored</p>
           </div>
 
-          <div className="flex items-center gap-6 sm:gap-8 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-em-500/20 border border-em-400/30 flex items-center justify-center">
-                <ArrowUpRight size={18} className="text-em-300 stroke-[2.5]" />
-              </div>
-              <div>
-                <div className="text-xs text-em-200">{isBn ? "আজকের মোট জমা (In)" : "Total Cash In"}</div>
-                <div className="num font-bold text-base sm:text-lg">{formatTaka(totalIn)}</div>
-              </div>
+          <div className="flex items-center gap-6 sm:gap-8 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-em-200 md:pl-8">
+            <div>
+              <div className="text-xs text-ink">{isBn ? "আজকের মোট জমা (In)" : "Total Cash In"}</div>
+              <div className="num font-bold text-base sm:text-lg text-ink">{formatTaka(totalIn)}</div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-400/30 flex items-center justify-center">
-                <ArrowDownRight size={18} className="text-red-300 stroke-[2.5]" />
-              </div>
-              <div>
-                <div className="text-xs text-em-200">{isBn ? "আজকের মোট খরচ (Out)" : "Total Cash Out"}</div>
-                <div className="num font-bold text-base sm:text-lg">{formatTaka(totalOut)}</div>
-              </div>
+            <div>
+              <div className="text-xs text-ink">{isBn ? "আজকের মোট খরচ (Out)" : "Total Cash Out"}</div>
+              <div className="num font-bold text-base sm:text-lg text-ink">{formatTaka(totalOut)}</div>
             </div>
           </div>
         </div>
@@ -129,36 +121,24 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
 
       {/* Accounts List Grid */}
       <div>
-        <h3 className="font-display font-bold text-nv-900 text-sm mb-3">{isBn ? "অ্যাকাউন্ট ব্যালেন্স" : "Account Balances"}</h3>
+        <h3 className="font-display font-bold text-ink text-sm mb-3">{isBn ? "অ্যাকাউন্ট ব্যালেন্স" : "Account Balances"}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {accounts.map(acc => {
-            const Icon = getAccountIcon(acc.id);
-            return (
-              <div
-                key={acc.id}
-                className="bg-white rounded-2xl p-4 border border-nv-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-fast"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-2xs" style={{ background: acc.bg, color: acc.color }}>
-                    <Icon size={18} />
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-nv-100 text-nv-600 font-mono">
-                    {acc.id.toUpperCase()}
-                  </span>
-                </div>
-
-                <div>
-                  <div className="text-xs font-semibold text-nv-500">{isBn ? acc.nameBn : acc.name}</div>
-                  <div className="num text-xl font-bold text-nv-900 mt-0.5">{formatTaka(acc.balance)}</div>
-                </div>
-
-                <div className="mt-3 pt-2 border-t border-nv-100 flex items-center justify-between text-[10px] text-nv-400">
-                  <span className="text-em-700 font-semibold">+{formatTaka(acc.in)}</span>
-                  <span className="text-red-600 font-semibold">-{formatTaka(acc.out)}</span>
-                </div>
+          {accounts.map(acc => (
+            <div
+              key={acc.id}
+              className="bg-white rounded-2xl p-4 border border-nv-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-fast"
+            >
+              <div>
+                <div className="text-xs font-semibold text-ink">{isBn ? acc.nameBn : acc.name}</div>
+                <div className="num text-xl font-bold text-ink mt-0.5">{formatTaka(acc.balance)}</div>
               </div>
-            );
-          })}
+
+              <div className="mt-3 pt-2 border-t border-nv-100 flex items-center justify-between text-[10px] text-ink">
+                <span className="text-ink font-semibold">+{formatTaka(acc.in)}</span>
+                <span className="text-ink font-semibold">-{formatTaka(acc.out)}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -166,7 +146,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Cash Flow Bar Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
-          <h3 className="font-display font-bold text-nv-900 text-sm mb-3">
+          <h3 className="font-display font-bold text-ink text-sm mb-3">
             {isBn ? "ক্যাশ ফ্লো (আয় বনাম ব্যয়)" : "Weekly Cash Flow"}
           </h3>
 
@@ -176,8 +156,8 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 <XAxis dataKey={isBn ? "dayBn" : "day"} tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(v) => tNum(v)} axisLine={false} tickLine={false} />
                 <Tooltip formatter={(v: any) => [formatTaka(Number(v)), ""]} />
-                <Bar dataKey="in" name="Cash In" fill="#059669" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="out" name="Cash Out" fill="#EF4444" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="in" name="Cash In" fill="#16A34A" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="out" name="Cash Out" fill="#FCA5A5" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -185,11 +165,11 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
           <div className="flex items-center justify-center gap-4 text-xs font-semibold mt-2">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-em-600" />
-              <span className="text-nv-700">{isBn ? "জমা (Cash In)" : "Cash In"}</span>
+              <span className="text-ink">{isBn ? "জমা (Cash In)" : "Cash In"}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-red-500" />
-              <span className="text-nv-700">{isBn ? "খরচ (Cash Out)" : "Cash Out"}</span>
+              <span className="w-3 h-3 rounded bg-[#FCA5A5]" />
+              <span className="text-ink">{isBn ? "খরচ (Cash Out)" : "Cash Out"}</span>
             </div>
           </div>
         </div>
@@ -197,7 +177,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
         {/* Transactions Table */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
           <div className="p-4 border-b border-nv-100">
-            <h3 className="font-display font-bold text-nv-900 text-sm">
+            <h3 className="font-display font-bold text-ink text-sm">
               {isBn ? "সাম্প্রতিক ক্যাশ ট্রানজাকশন" : "Recent Account Transactions"}
             </h3>
           </div>
@@ -206,10 +186,10 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "বিবরণ" : "Description"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "অ্যাকাউন্ট" : "Account"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
-                  <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "সময়" : "Time"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিবরণ" : "Description"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অ্যাকাউন্ট" : "Account"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সময়" : "Time"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
@@ -218,19 +198,19 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold
-                          ${tx.type === "in" ? "bg-em-100 text-em-700" : tx.type === "out" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}>
+                          ${tx.type === "in" ? "bg-em-100 text-ink" : tx.type === "out" ? "bg-red-100 text-ink" : "bg-nv-100 text-ink"}`}>
                           {tx.type === "in" ? "+" : tx.type === "out" ? "-" : "⇄"}
                         </div>
-                        <span className="font-semibold text-nv-900">{isBn ? tx.descBn || tx.desc : tx.desc}</span>
+                        <span className="font-semibold text-ink">{isBn ? tx.descBn || tx.desc : tx.desc}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs font-mono text-nv-600">{tx.account}</td>
+                    <td className="px-4 py-3 text-xs font-mono text-ink">{tx.account}</td>
                     <td className="px-4 py-3">
-                      <span className={`num font-bold ${tx.type === "in" ? "text-em-700" : tx.type === "out" ? "text-red-600" : "text-blue-700"}`}>
+                      <span className={`num font-bold ${tx.type === "in" ? "text-ink" : tx.type === "out" ? "text-ink" : "text-ink"}`}>
                         {tx.type === "in" ? "+" : tx.type === "out" ? "-" : ""}{formatTaka(tx.amount)}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-nv-400">{tNum(tx.time)}</td>
+                    <td className="px-4 py-3 text-xs text-ink">{tNum(tx.time)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -244,15 +224,15 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base">{isBn ? "ক্যাশ জমা করুন" : "Add Cash / Deposit"}</h3>
-              <button onClick={() => setShowModal(null)} className="text-nv-400 hover:text-nv-600">
+              <h3 className="font-bold text-ink text-base">{isBn ? "ক্যাশ জমা করুন" : "Add Cash / Deposit"}</h3>
+              <button onClick={() => setShowModal(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
             <form onSubmit={handleDepositSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "অ্যাকাউন্ট বেছে নিন" : "Account"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "অ্যাকাউন্ট বেছে নিন" : "Account"} *</label>
                 <select
                   value={depositAccId}
                   onChange={e => setDepositAccId(e.target.value)}
@@ -267,19 +247,19 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "জমার পরিমাণ" : "Deposit Amount"} (৳) *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "জমার পরিমাণ" : "Deposit Amount"} (৳) *</label>
                 <input
                   type="number"
                   required
                   value={depositAmount}
                   onChange={e => setDepositAmount(e.target.value)}
                   placeholder="0"
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-em-700 focus:border-em-500"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-ink focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "বিবরণ / নোট" : "Note / Source"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "বিবরণ / নোট" : "Note / Source"}</label>
                 <input
                   type="text"
                   value={depositNote}
@@ -293,7 +273,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 <button
                   type="button"
                   onClick={() => setShowModal(null)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
@@ -314,15 +294,15 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base">{isBn ? "টাকা ট্রান্সফার করুন" : "Transfer Funds"}</h3>
-              <button onClick={() => setShowModal(null)} className="text-nv-400 hover:text-nv-600">
+              <h3 className="font-bold text-ink text-base">{isBn ? "টাকা ট্রান্সফার করুন" : "Transfer Funds"}</h3>
+              <button onClick={() => setShowModal(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
             <form onSubmit={handleTransferSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "উৎস অ্যাকাউন্ট (From)" : "From Account"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "উৎস অ্যাকাউন্ট (From)" : "From Account"} *</label>
                 <select
                   value={transferFromId}
                   onChange={e => setTransferFromId(e.target.value)}
@@ -337,7 +317,7 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "গন্তব্য অ্যাকাউন্ট (To)" : "To Account"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "গন্তব্য অ্যাকাউন্ট (To)" : "To Account"} *</label>
                 <select
                   value={transferToId}
                   onChange={e => setTransferToId(e.target.value)}
@@ -352,14 +332,14 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "ট্রান্সফার পরিমাণ" : "Transfer Amount"} (৳) *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "ট্রান্সফার পরিমাণ" : "Transfer Amount"} (৳) *</label>
                 <input
                   type="number"
                   required
                   value={transferAmount}
                   onChange={e => setTransferAmount(e.target.value)}
                   placeholder="0"
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-blue-600 focus:border-em-500"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-ink focus:border-em-500"
                 />
               </div>
 
@@ -367,13 +347,13 @@ export default function CashAccounts({ lang }: CashAccountsProps) {
                 <button
                   type="button"
                   onClick={() => setShowModal(null)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md"
+                  className="flex-1 py-2.5 bg-nv-600 hover:bg-nv-700 text-white rounded-xl font-bold shadow-md"
                 >
                   {isBn ? "ট্রান্সফার সম্পন্ন করুন" : "Execute Transfer"}
                 </button>

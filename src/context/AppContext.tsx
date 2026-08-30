@@ -406,7 +406,7 @@ interface AppContextType {
 
   // Customers
   customers: Customer[];
-  addCustomer: (customer: Omit<Customer, "id" | "totalPurchases" | "visits" | "lastVisit" | "rating" | "avatar">) => void;
+  addCustomer: (customer: Omit<Customer, "id" | "totalPurchases" | "visits" | "lastVisit" | "rating" | "avatar"> & { totalPurchases?: number }) => void;
   updateCustomer: (id: number, customer: Partial<Customer>) => void;
   deleteCustomer: (id: number) => void;
   recordCustomerPayment: (customerId: number, amount: number, accountId: string, note?: string) => void;
@@ -565,9 +565,9 @@ const initialExpenses: Expense[] = [
 ];
 
 const initialAccounts: CashAccount[] = [
-  { id: "cash", name: "Cash", nameBn: "নগদ ক্যাশ", balance: 72500, color: "#059669", bg: "#ECFDF5", in: 48250, out: 12800 },
+  { id: "cash", name: "Cash", nameBn: "নগদ ক্যাশ", balance: 72500, color: "#16A34A", bg: "#F0FDF4", in: 48250, out: 12800 },
   { id: "bkash", name: "bKash", nameBn: "বিকাশ", balance: 28400, color: "#E91E8C", bg: "#FDF2F8", in: 12400, out: 3200 },
-  { id: "nagad", name: "Nagad", nameBn: "নগদ", balance: 15200, color: "#F57C00", bg: "#FFF3E0", in: 8200, out: 1500 },
+  { id: "nagad", name: "Nagad", nameBn: "নগদ", balance: 15200, color: "#D97706", bg: "#FFFBEB", in: 8200, out: 1500 },
   { id: "rocket", name: "Rocket", nameBn: "রকেট", balance: 8600, color: "#7B1FA2", bg: "#F3E5F5", in: 4100, out: 800 },
   { id: "bank", name: "BRAC Bank", nameBn: "ব্র্যাক ব্যাংক", balance: 185000, color: "#1565C0", bg: "#E3F2FD", in: 50000, out: 25000 },
 ];
@@ -589,11 +589,11 @@ const initialEmployees: Employee[] = [
 ];
 
 const initialNotifications: NotificationItem[] = [
-  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Pran Salt 1kg has only 3 units left. Minimum stock is 15.", bodyBn: "প্রাণ লবণ ১কেজিতে মাত্র ৩টি বাকি। সর্বনিম্ন স্টক ১৫টি।", time: "2 min ago", read: false, color: "bg-amber-50 text-amber-600", badge: "bg-amber-100 text-amber-700" },
-  { id: 2, type: "sale", title: "Sale Completed", titleBn: "বিক্রয় সম্পন্ন", body: "INV-1043 completed for Karim Ahmed — ৳2,850", bodyBn: "করিম আহমেদের INV-১০৪৩ সম্পন্ন — ৳২,৮৫০", time: "15 min ago", read: false, color: "bg-em-50 text-em-600", badge: "bg-em-100 text-em-700" },
-  { id: 3, type: "due", title: "Overdue Payment Reminder", titleBn: "বকেয়া পেমেন্ট মনে করানো", body: "Sumaiya Khatun has ৳12,000 overdue since Nov 28.", bodyBn: "সুমাইয়া খাতুনের ৳১২,০০০ বাকি নভেম্বর ২৮ থেকে।", time: "1 hour ago", read: false, color: "bg-red-50 text-red-600", badge: "bg-red-100 text-red-700" },
-  { id: 4, type: "stock", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "BD Fresh Milk 1L — 8 units left (min: 20)", bodyBn: "বিডি ফ্রেশ মিল্ক — ৮টি বাকি (সর্বনিম্ন: ২০)", time: "2 hours ago", read: true, color: "bg-amber-50 text-amber-600", badge: "bg-amber-100 text-amber-700" },
-  { id: 5, type: "supplier", title: "Supplier Payment Due", titleBn: "সাপ্লায়ার পেমেন্ট দেয়", body: "Pran-RFL Group payment of ৳21,400 is due on Dec 20.", bodyBn: "প্রাণ-আরএফএল গ্রুপের ৳২১,৪০০ পেমেন্ট ডিসেম্বর ২০ তারিখে।", time: "3 hours ago", read: true, color: "bg-blue-50 text-blue-600", badge: "bg-blue-100 text-blue-700" },
+  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Pran Salt 1kg has only 3 units left. Minimum stock is 15.", bodyBn: "প্রাণ লবণ ১কেজিতে মাত্র ৩টি বাকি। সর্বনিম্ন স্টক ১৫টি।", time: "2 min ago", read: false, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 2, type: "sale", title: "Sale Completed", titleBn: "বিক্রয় সম্পন্ন", body: "INV-1043 completed for Karim Ahmed — ৳2,850", bodyBn: "করিম আহমেদের INV-১০৪৩ সম্পন্ন — ৳২,৮৫০", time: "15 min ago", read: false, color: "bg-em-50 text-ink", badge: "bg-em-100 text-ink" },
+  { id: 3, type: "due", title: "Overdue Payment Reminder", titleBn: "বকেয়া পেমেন্ট মনে করানো", body: "Sumaiya Khatun has ৳12,000 overdue since Nov 28.", bodyBn: "সুমাইয়া খাতুনের ৳১২,০০০ বাকি নভেম্বর ২৮ থেকে।", time: "1 hour ago", read: false, color: "bg-red-50 text-ink", badge: "bg-red-100 text-ink" },
+  { id: 4, type: "stock", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "BD Fresh Milk 1L — 8 units left (min: 20)", bodyBn: "বিডি ফ্রেশ মিল্ক — ৮টি বাকি (সর্বনিম্ন: ২০)", time: "2 hours ago", read: true, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 5, type: "supplier", title: "Supplier Payment Due", titleBn: "সাপ্লায়ার পেমেন্ট দেয়", body: "Pran-RFL Group payment of ৳21,400 is due on Dec 20.", bodyBn: "প্রাণ-আরএফএল গ্রুপের ৳২১,৪০০ পেমেন্ট ডিসেম্বর ২০ তারিখে।", time: "3 hours ago", read: true, color: "bg-nv-50 text-ink", badge: "bg-nv-100 text-ink" },
 ];
 
 const initialSales: Sale[] = [
@@ -771,7 +771,7 @@ const initialStorefrontConfig: StorefrontConfig = {
   heroHeadlineBn: "রহিম স্টোর — আপনার বিশ্বস্ত অনলাইন মুদি ও নিত্যপ্রয়োজনীয় দোকান",
   heroSubheadline: "Fast 1-hour home delivery across Dhanmondi and surrounding areas. Best quality guaranteed.",
   heroSubheadlineBn: "ধানমন্ডি ও সংলগ্ন এলাকায় ১ ঘণ্টায় হোম ডেলিভারি। সেরা গুণগত মানের নিশ্চয়তা।",
-  themeColor: "#047857",
+  themeColor: "#16A34A",
   bannerImage: "🛒",
   logo: "RA",
   announcementText: "🎉 Free Home Delivery on all orders above ৳1000! Order now via WhatsApp.",
@@ -1234,8 +1234,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       titleBn: "বিক্রয় সম্পন্ন",
       body: `${invoiceNumber} for ${saleData.customer} — ৳${saleData.grandTotal.toLocaleString()}`,
       bodyBn: `${saleData.customer}-এর জন্য ${invoiceNumber} সম্পন্ন — ৳${saleData.grandTotal.toLocaleString()}`,
-      color: "bg-em-50 text-em-600",
-      badge: "bg-em-100 text-em-700",
+      color: "bg-em-50 text-ink",
+      badge: "bg-em-100 text-ink",
     });
 
     setSales(prev => [newSale, ...prev]);
@@ -1251,13 +1251,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Customers Actions
-  const addCustomer = (c: Omit<Customer, "id" | "totalPurchases" | "visits" | "lastVisit" | "rating" | "avatar">) => {
+  const addCustomer = (c: Omit<Customer, "id" | "totalPurchases" | "visits" | "lastVisit" | "rating" | "avatar"> & { totalPurchases?: number }) => {
     const id = Date.now();
     const avatar = c.nameBn ? c.nameBn.slice(0, 1) : c.name.slice(0, 1);
     const newCust: Customer = {
       ...c,
       id,
-      totalPurchases: 0,
+      totalPurchases: c.totalPurchases ?? 0,
       visits: 1,
       lastVisit: "Today",
       rating: 5,

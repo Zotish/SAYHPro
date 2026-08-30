@@ -26,15 +26,15 @@ const icons = {
 const styles = {
   success: "border-em-200 bg-em-50",
   error: "border-red-200 bg-red-50",
-  warning: "border-amber-200 bg-amber-50",
-  info: "border-blue-200 bg-blue-50",
+  warning: "border-ac-200 bg-ac-50",
+  info: "border-nv-200 bg-nv-50",
 };
 
 const iconStyles = {
-  success: "text-em-600",
-  error: "text-red-500",
-  warning: "text-amber-500",
-  info: "text-blue-500",
+  success: "text-ink",
+  error: "text-ink",
+  warning: "text-ink",
+  info: "text-ink",
 };
 
 export function ToastProvider() {
@@ -66,10 +66,10 @@ export function ToastProvider() {
           >
             <Icon size={18} className={`flex-shrink-0 mt-0.5 ${iconStyles[t.type]}`} />
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-nv-900">{t.title}</div>
-              {t.message && <div className="text-xs text-nv-500 mt-0.5">{t.message}</div>}
+              <div className="text-sm font-semibold text-ink">{t.title}</div>
+              {t.message && <div className="text-xs text-ink mt-0.5">{t.message}</div>}
             </div>
-            <button onClick={() => remove(t.id)} className="text-nv-300 hover:text-nv-600 transition-fast flex-shrink-0">
+            <button onClick={() => remove(t.id)} className="text-ink transition-fast flex-shrink-0">
               <X size={14} />
             </button>
           </div>

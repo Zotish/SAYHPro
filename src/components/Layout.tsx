@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import {
-  LayoutDashboard, ShoppingCart, Scan, Package, Boxes, Users, Truck,
+  LayoutDashboard, Scan, ShoppingCart, QrCode, Package, Boxes, Users, Truck,
   CreditCard, Receipt, Wallet, UserCheck, BarChart2, Bell, Settings,
-  ChevronRight, Search, Globe, HelpCircle, LogOut, Menu, X, Home,
-  Plus, ChevronDown, Building2, Check, ExternalLink, Sparkles,
+  Search, Globe, LogOut, Menu, X, Home, ArrowLeft,
+  Plus, ChevronDown, Check,
   MessageSquare, Landmark, Store, Globe2, ShieldAlert
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
@@ -11,14 +11,21 @@ import GlobalSearchModal from "./GlobalSearchModal";
 
 type Screen = string;
 
+/** Screens whose header row is a bare right-aligned action button with
+ *  nothing on the left (CustomerDue's "Add Due Entry", Inventory's "Add
+ *  Stock") — the mobile back arrow overlays into that empty space instead
+ *  of taking its own row, so it lines up with the button. */
+const screensWithInlineBack = ["dues", "inventory", "cash"];
+
 interface LayoutProps {
   currentScreen: Screen;
   setScreen: (s: string) => void;
   children: React.ReactNode;
   onLogout?: () => void;
+  onBack?: () => void;
 }
 
-export default function Layout({ currentScreen, setScreen, children, onLogout }: LayoutProps) {
+export default function Layout({ currentScreen, setScreen, children, onLogout, onBack }: LayoutProps) {
   const {
     lang,
     setLang,
@@ -69,31 +76,33 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
   const navItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "ড্যাশবোর্ড" },
     { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "বিক্রি করুন", highlight: true },
-    { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস", badge: "New", badgeColor: "bg-blue-600" },
-    { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল", badge: "Steadfast+", badgeColor: "bg-emerald-600" },
-    { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন", badge: "Loans", badgeColor: "bg-purple-600" },
-    { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "রিসেলিং মার্কেট", badge: "Wholesale", badgeColor: "bg-amber-600" },
-    { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "অনলাইন ওয়েবসাইট", badge: "Live", badgeColor: "bg-indigo-600" },
+    { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস" },
+    { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল" },
+    { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন" },
+    { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "রিসেলিং মার্কেট" },
+    { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "অনলাইন ওয়েবসাইট" },
     { id: "alerts", icon: ShieldAlert, label: "Monitoring & Alerts", labelBn: "মনিটরিং ও অ্যালার্ট" },
     { id: "products", icon: Package, label: "Products", labelBn: "পণ্য", badge: products.length },
-    { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-amber-500" },
+    { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-ac-600" },
     { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক", badge: customers.length },
-    { id: "dues", icon: CreditCard, label: "Customer Dues", labelBn: "বাকির হিসাব", badge: dueCustomersCount > 0 ? dueCustomersCount : undefined, badgeColor: "bg-red-500" },
+    { id: "dues", icon: CreditCard, label: "Customer Dues", labelBn: "বাকির হিসাব", badge: dueCustomersCount > 0 ? dueCustomersCount : undefined, badgeColor: "bg-red-600" },
     { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচ" },
     { id: "cash", icon: Wallet, label: "Cash & Accounts", labelBn: "ক্যাশ ও হিসাব" },
     { id: "purchases", icon: Truck, label: "Purchases", labelBn: "ক্রয়" },
     { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার" },
     { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
     { id: "reports", icon: BarChart2, label: "Reports & P&L", labelBn: "রিপোর্ট" },
-    { id: "notifications", icon: Bell, label: "Notifications", labelBn: "বিজ্ঞপ্তি", badge: unreadNotifs.length > 0 ? unreadNotifs.length : undefined, badgeColor: "bg-red-500" },
+    { id: "notifications", icon: Bell, label: "Notifications", labelBn: "বিজ্ঞপ্তি", badge: unreadNotifs.length > 0 ? unreadNotifs.length : undefined, badgeColor: "bg-red-600" },
     { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
   ];
 
+  // Kept in step with the mobile home screen's own nav so the bar does not
+  // change shape when you leave the home screen.
   const mobileNavItems = [
     { id: "dashboard", icon: Home, label: "Home", labelBn: "হোম" },
-    { id: "pos", icon: Scan, label: "Sale", labelBn: "বিক্রি" },
-    { id: "products", icon: Package, label: "Products", labelBn: "পণ্য" },
-    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "বাকি" },
+    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "বেচা-বিক্রি" },
+    { id: "fintech", icon: QrCode, label: "My QR", labelBn: "আমার QR" },
+    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "দেনা-পে" },
   ];
 
   const branches = [
@@ -140,11 +149,11 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               <div className="text-white text-sm font-semibold truncate">
                 {isBn ? settings.shopNameBn || settings.shopName : settings.shopName}
               </div>
-              <div className="text-em-300 text-[11px] truncate">{settings.branch}</div>
+              <div className="text-white/50 text-[11px] truncate">{settings.branch}</div>
             </div>
             <ChevronDown
               size={14}
-              className={`text-em-300 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`}
+              className={`text-white/50 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`}
             />
           </button>
           <button
@@ -157,7 +166,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
           {shopMenuOpen && (
             <div className="absolute top-full left-3 right-3 mt-1.5 bg-nv-900 border border-white/20 rounded-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95">
-              <div className="text-[10px] font-bold text-em-300 uppercase px-2 py-1">
+              <div className="text-[10px] font-semibold text-white/40 uppercase px-2 py-1">
                 {isBn ? "শাখা পরিবর্তন" : "Select Branch"}
               </div>
               {branches.map(branch => (
@@ -185,9 +194,9 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               setScreen("pos");
               setSidebarOpen(false);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-em-500 to-em-400 hover:from-em-400 hover:to-em-300 text-em-950 font-bold text-sm shadow-lg shadow-em-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-em-600 hover:bg-em-700 text-white font-semibold text-sm transition-colors"
           >
-            <Plus size={18} className="stroke-[2.5]" />
+            <Plus size={17} />
             <span>{isBn ? "নতুন বিক্রয় (POS)" : "New Sale (POS)"}</span>
           </button>
         </div>
@@ -210,23 +219,22 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                   setSidebarOpen(false);
                 }}
                 className={`
-                  w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all group text-left
+                  w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group text-left
                   ${isActive
-                    ? "bg-em-500 text-em-950 font-bold shadow-md shadow-em-900/20"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
+                    ? "bg-white/10 text-white font-semibold"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
                   }
                 `}
               >
-                <item.icon size={17} className={`flex-shrink-0 ${isActive ? "text-em-950" : "text-white/70 group-hover:text-white"}`} />
+                <item.icon size={17} className={`flex-shrink-0 group-hover:text-em-400 ${isActive ? "text-white" : "text-white/50"}`} />
                 <span className="flex-1 truncate">{isBn ? item.labelBn : item.label}</span>
                 {item.badge !== undefined && (
                   <span
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white ${item.badgeColor || "bg-white/20"}`}
+                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded text-white ${item.badgeColor || "bg-white/15 text-white/70"}`}
                   >
                     {tNum(item.badge)}
                   </span>
                 )}
-                {isActive && <ChevronRight size={14} className="text-em-950" />}
               </button>
             );
           })}
@@ -238,8 +246,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
             </p>
             {[
               { id: "invoice", label: "Invoice & Receipt", labelBn: "ইনভয়েস ভিউ" },
-              { id: "mobile-dashboard", label: "Mobile Home View", labelBn: "মোবাইল ড্যাশবোর্ড" },
-              { id: "mobile-pos", label: "Mobile POS View", labelBn: "মোবাইল বিক্রয়" },
+                            { id: "mobile-pos", label: "Mobile POS View", labelBn: "মোবাইল বিক্রয়" },
             ].map(item => (
               <button
                 key={item.id}
@@ -248,7 +255,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                   setSidebarOpen(false);
                 }}
                 className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs transition-fast text-left
-                  ${currentScreen === item.id ? "text-em-300 font-bold bg-white/10" : "text-white/50 hover:text-white hover:bg-white/5"}`}
+                  ${currentScreen === item.id ? "text-white font-semibold bg-white/10" : "text-white/50 hover:text-white hover:bg-white/5"}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-current flex-shrink-0" />
                 <span className="truncate">{isBn ? item.labelBn : item.label}</span>
@@ -265,7 +272,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white text-xs font-semibold truncate">{settings.ownerName}</div>
-              <div className="text-em-300 text-[10px]">Owner / Admin</div>
+              <div className="text-white/50 text-[10px]">Owner / Admin</div>
             </div>
             <button
               onClick={() => onLogout?.()}
@@ -280,25 +287,20 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
       {/* Main Container */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-        {/* Top Header */}
-        <header className="h-14 sm:h-16 bg-white border-b border-nv-200 flex items-center gap-2 sm:gap-4 px-3 sm:px-6 flex-shrink-0 z-30 shadow-xs">
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden text-nv-600 hover:text-nv-900 p-2 rounded-xl hover:bg-nv-100 transition-fast"
-            aria-label="Open menu"
-          >
-            <Menu size={22} />
-          </button>
-
+        {/* Top Header
+            Hidden below `lg`: on a phone, the only screen that renders inside
+            Layout's own header is a non-Home screen (Home bypasses Layout
+            entirely for its own header+nav), and navigation there runs through
+            the bottom nav / More sheet, not this bar. */}
+        <header className="hidden lg:flex h-16 bg-white border-b border-nv-200 items-center gap-4 px-6 flex-shrink-0 z-30 shadow-xs">
           {/* Global Search Bar (Trigger) */}
           <button
             onClick={() => setSearchModalOpen(true)}
-            className="flex-1 max-w-xs sm:max-w-sm flex items-center gap-2 px-3 py-2 bg-nv-50 hover:bg-nv-100 border border-nv-200 rounded-xl text-left text-xs sm:text-sm text-nv-400 transition-fast"
+            className="flex-1 max-w-sm flex items-center gap-2 px-3 py-2 bg-nv-50 hover:bg-nv-100 border border-nv-200 rounded-xl text-left text-sm text-ink transition-fast"
           >
-            <Search size={15} className="text-nv-400 flex-shrink-0" />
+            <Search size={15} className="text-ink flex-shrink-0" />
             <span className="flex-1 truncate">{isBn ? "পণ্য বা গ্রাহক খুঁজুন..." : "Search anything..."}</span>
-            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white border border-nv-200 text-nv-500 rounded">
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white border border-nv-200 text-ink rounded">
               ⌘K
             </kbd>
           </button>
@@ -306,14 +308,14 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
           <div className="flex-1" />
 
           {/* Date Indicator (Tablet/Desktop) */}
-          <span className="text-xs font-medium text-nv-500 hidden md:block">{today}</span>
+          <span className="text-xs font-medium text-ink hidden md:block">{today}</span>
 
           {/* Language Switcher */}
           <button
             onClick={() => setLang(isBn ? "en" : "bn")}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-nv-200 text-xs font-semibold text-nv-700 hover:border-em-500 hover:text-em-700 bg-white transition-fast shadow-2xs"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-nv-200 text-xs font-medium text-ink hover:bg-nv-50 hover:text-ink bg-white transition-colors"
           >
-            <Globe size={14} className="text-em-700" />
+            <Globe size={14} className="text-ink" />
             <span>{isBn ? "English" : "বাংলা"}</span>
           </button>
 
@@ -321,7 +323,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
           <div className="relative" ref={notifRef}>
             <button
               onClick={() => setNotifOpen(!notifOpen)}
-              className="relative w-9 h-9 flex items-center justify-center rounded-xl hover:bg-nv-100 text-nv-600 transition-fast border border-nv-200"
+              className="relative w-9 h-9 flex items-center justify-center rounded-xl hover:bg-nv-100 text-ink transition-fast border border-nv-200"
               aria-label="Notifications"
             >
               <Bell size={18} />
@@ -336,9 +338,9 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-nv-200 rounded-2xl shadow-2xl p-3 z-50 animate-in fade-in zoom-in-95">
                 <div className="flex items-center justify-between pb-2 border-b border-nv-100 px-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-display font-bold text-nv-900 text-sm">{isBn ? "বিজ্ঞপ্তি" : "Notifications"}</span>
+                    <span className="font-display font-bold text-ink text-sm">{isBn ? "বিজ্ঞপ্তি" : "Notifications"}</span>
                     {unreadNotifs.length > 0 && (
-                      <span className="px-1.5 py-0.2 text-[10px] bg-red-100 text-red-700 rounded-full font-bold">
+                      <span className="px-1.5 py-0.2 text-[10px] bg-red-100 text-ink rounded-full font-bold">
                         {tNum(unreadNotifs.length)}
                       </span>
                     )}
@@ -346,7 +348,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                   {unreadNotifs.length > 0 && (
                     <button
                       onClick={markAllNotificationsRead}
-                      className="text-xs text-em-700 font-semibold hover:underline"
+                      className="text-xs text-ink font-semibold hover:underline"
                     >
                       {isBn ? "সব পড়া হয়েছে" : "Mark all read"}
                     </button>
@@ -361,16 +363,16 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                       className={`p-2.5 rounded-xl transition-fast cursor-pointer hover:bg-nv-50 ${!n.read ? "bg-em-50/40 font-medium" : ""}`}
                     >
                       <div className="flex items-start justify-between gap-1">
-                        <span className={`text-xs font-semibold ${!n.read ? "text-nv-900" : "text-nv-700"}`}>
+                        <span className={`text-xs font-semibold ${!n.read ? "text-ink" : "text-ink"}`}>
                           {isBn ? n.titleBn : n.title}
                         </span>
-                        <span className="text-[10px] text-nv-400 flex-shrink-0">{n.time}</span>
+                        <span className="text-[10px] text-ink flex-shrink-0">{n.time}</span>
                       </div>
-                      <p className="text-xs text-nv-500 mt-0.5 line-clamp-2">{isBn ? n.bodyBn : n.body}</p>
+                      <p className="text-xs text-ink mt-0.5 line-clamp-2">{isBn ? n.bodyBn : n.body}</p>
                     </div>
                   ))}
                   {notifications.length === 0 && (
-                    <div className="py-6 text-center text-nv-400 text-xs">
+                    <div className="py-6 text-center text-ink text-xs">
                       {isBn ? "কোনো নতুন বিজ্ঞপ্তি নেই" : "No notifications"}
                     </div>
                   )}
@@ -381,7 +383,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                     setScreen("notifications");
                     setNotifOpen(false);
                   }}
-                  className="w-full mt-2 py-2 bg-nv-50 hover:bg-nv-100 text-nv-700 text-xs font-semibold rounded-xl text-center transition-fast"
+                  className="w-full mt-2 py-2 bg-nv-50 hover:bg-nv-100 text-ink text-xs font-semibold rounded-xl text-center transition-fast"
                 >
                   {isBn ? "সব বিজ্ঞপ্তি দেখুন" : "View all notifications"} →
                 </button>
@@ -395,18 +397,18 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               onClick={() => setProfileOpen(!profileOpen)}
               className="flex items-center gap-2 p-1 rounded-xl hover:bg-nv-100 transition-fast"
             >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-em-700 to-em-500 flex items-center justify-center text-white text-xs font-bold shadow-xs">
+              <div className="w-8 h-8 rounded-full bg-em-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
                 {settings.ownerName.slice(0, 1)}
               </div>
-              <span className="text-xs font-semibold text-nv-800 hidden sm:inline">{settings.ownerName}</span>
-              <ChevronDown size={14} className="text-nv-400 hidden sm:inline" />
+              <span className="text-xs font-semibold text-ink hidden sm:inline">{settings.ownerName}</span>
+              <ChevronDown size={14} className="text-ink hidden sm:inline" />
             </button>
 
             {profileOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white border border-nv-200 rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95">
                 <div className="px-3 py-2 border-b border-nv-100">
-                  <div className="font-semibold text-sm text-nv-900">{settings.ownerName}</div>
-                  <div className="text-xs text-nv-500">{settings.phone}</div>
+                  <div className="font-semibold text-sm text-ink">{settings.ownerName}</div>
+                  <div className="text-xs text-ink">{settings.phone}</div>
                 </div>
                 <div className="py-1">
                   <button
@@ -414,7 +416,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                       setScreen("settings");
                       setProfileOpen(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-nv-700 hover:bg-nv-50 transition-fast text-left"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-nv-50 transition-fast text-left"
                   >
                     <Settings size={14} />
                     <span>{isBn ? "দোকান সেটিংস" : "Shop Settings"}</span>
@@ -424,7 +426,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                       setScreen("reports");
                       setProfileOpen(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-nv-700 hover:bg-nv-50 transition-fast text-left"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-nv-50 transition-fast text-left"
                   >
                     <BarChart2 size={14} />
                     <span>{isBn ? "রিপোর্ট ও লাভ-ক্ষতি" : "Financial Reports"}</span>
@@ -434,7 +436,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                       onLogout?.();
                       setProfileOpen(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-red-600 hover:bg-red-50 transition-fast text-left mt-1 border-t border-nv-100 pt-2"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-red-50 transition-fast text-left mt-1 border-t border-nv-100 pt-2"
                   >
                     <LogOut size={14} />
                     <span>{isBn ? "লগআউট" : "Logout"}</span>
@@ -447,6 +449,26 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto bg-nv-50">
+          {/* Back button — mobile only. Desktop keeps the full sidebar as its
+              nav model and doesn't need a "back", but on a phone this is the
+              only way out of a feature screen since the header is hidden.
+
+              Screens in screensWithInlineBack render this arrow themselves,
+              as a real flex sibling inside their own header row (so it can
+              never overlap that row's own content) — Layout stays out of
+              their way entirely. Every other screen gets the arrow here,
+              on its own row above whatever the screen renders. */}
+          {onBack && !screensWithInlineBack.includes(currentScreen) && (
+            <div className="lg:hidden px-4 sm:px-6 pt-3">
+              <button
+                onClick={onBack}
+                aria-label={isBn ? "পেছনে যান" : "Go back"}
+                className="w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+              >
+                <ArrowLeft size={18} />
+              </button>
+            </div>
+          )}
           {children}
         </main>
       </div>
@@ -460,13 +482,14 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
               <button
                 key={item.id}
                 onClick={() => setScreen(item.id)}
-                className={`flex-1 flex flex-col items-center justify-center py-1 gap-1 transition-fast touch-manipulation
-                  ${isActive ? "text-em-700 font-bold" : "text-nv-400 hover:text-nv-700"}`}
+                // Matches the mobile home nav: every label is full-strength
+                // black and bold, and stroke weight alone marks the active tab.
+                className="flex-1 flex flex-col items-center justify-center py-1 gap-0.5 text-ink touch-manipulation"
               >
-                <div className={`p-1 rounded-xl transition-all ${isActive ? "bg-em-100 text-em-800" : ""}`}>
-                  <item.icon size={20} />
-                </div>
-                <span className="text-[10px] font-medium leading-none">{isBn ? item.labelBn : item.label}</span>
+                <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
+                <span className={`text-[10px] leading-tight text-center ${isActive ? "font-extrabold" : "font-semibold"}`}>
+                  {isBn ? item.labelBn : item.label}
+                </span>
               </button>
             );
           })}
@@ -474,13 +497,12 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
           {/* More Menu Trigger */}
           <button
             onClick={() => setMobileMoreOpen(true)}
-            className={`flex-1 flex flex-col items-center justify-center py-1 gap-1 transition-fast touch-manipulation
-              ${mobileMoreOpen ? "text-em-700 font-bold" : "text-nv-400 hover:text-nv-700"}`}
+            className="flex-1 flex flex-col items-center justify-center py-1 gap-0.5 text-ink touch-manipulation"
           >
-            <div className="p-1 rounded-xl">
-              <Menu size={20} />
-            </div>
-            <span className="text-[10px] font-medium leading-none">{isBn ? "মেনু" : "Menu"}</span>
+            <Menu size={20} strokeWidth={mobileMoreOpen ? 2.5 : 1.75} />
+            <span className={`text-[10px] leading-tight text-center ${mobileMoreOpen ? "font-extrabold" : "font-semibold"}`}>
+              {isBn ? "মেনু" : "Menu"}
+            </span>
           </button>
         </div>
       </nav>
@@ -494,15 +516,12 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
           />
           <div className="bg-white rounded-t-3xl p-5 max-h-[85vh] overflow-y-auto shadow-2xl border-t border-nv-200 animate-in slide-in-from-bottom duration-300">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
-              <div className="flex items-center gap-2">
-                <Sparkles size={18} className="text-em-700" />
-                <span className="font-display font-bold text-nv-900 text-base">
-                  {isBn ? "সকল মডিউল ও মেনু" : "All Modules & Features"}
-                </span>
-              </div>
+              <span className="font-display font-semibold text-ink text-base">
+                {isBn ? "সকল মডিউল ও মেনু" : "All Modules"}
+              </span>
               <button
                 onClick={() => setMobileMoreOpen(false)}
-                className="w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-nv-500 hover:text-nv-900"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-ink hover:text-ink"
               >
                 <X size={18} />
               </button>
@@ -510,24 +529,26 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
 
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-6">
               {[
-                { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং", color: "bg-blue-50 text-blue-700" },
-                { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার", color: "bg-emerald-50 text-emerald-700" },
-                { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন", color: "bg-purple-50 text-purple-700" },
-                { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং", color: "bg-amber-50 text-amber-700" },
-                { id: "website", icon: Globe2, label: "Store Website", labelBn: "অনলাইন স্টোর", color: "bg-indigo-50 text-indigo-700" },
-                { id: "alerts", icon: ShieldAlert, label: "Alerts", labelBn: "অ্যালার্ট", color: "bg-rose-50 text-rose-700" },
-                { id: "pos", icon: Scan, label: "POS Sale", labelBn: "বিক্রয়", color: "bg-em-50 text-em-700" },
-                { id: "products", icon: Package, label: "Products", labelBn: "পণ্য", color: "bg-blue-50 text-blue-700" },
-                { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", color: "bg-amber-50 text-amber-700" },
-                { id: "dues", icon: CreditCard, label: "Dues", labelBn: "বাকির হিসাব", color: "bg-red-50 text-red-600" },
-                { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচ", color: "bg-purple-50 text-purple-700" },
-                { id: "purchases", icon: Truck, label: "Purchases", labelBn: "ক্রয়", color: "bg-cyan-50 text-cyan-700" },
-                { id: "cash", icon: Wallet, label: "Accounts", labelBn: "ক্যাশ হিসাব", color: "bg-emerald-50 text-emerald-700" },
-                { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক", color: "bg-indigo-50 text-indigo-700" },
-                { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার", color: "bg-orange-50 text-orange-700" },
-                { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী", color: "bg-teal-50 text-teal-700" },
-                { id: "reports", icon: BarChart2, label: "Reports", labelBn: "রিপোর্ট", color: "bg-rose-50 text-rose-700" },
-                { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস", color: "bg-slate-100 text-slate-700" },
+                // Colour is reserved: brand = selling, accent = stock attention,
+                // red = money owed. Everything else stays neutral.
+                { id: "pos", icon: Scan, label: "POS Sale", labelBn: "বিক্রয়", color: "bg-em-50 text-ink" },
+                { id: "dues", icon: CreditCard, label: "Dues", labelBn: "বাকির হিসাব", color: "bg-red-50 text-ink" },
+                { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", color: "bg-ac-50 text-ink" },
+                { id: "products", icon: Package, label: "Products", labelBn: "পণ্য" },
+                { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক" },
+                { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং" },
+                { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার" },
+                { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন" },
+                { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং" },
+                { id: "website", icon: Globe2, label: "Store Website", labelBn: "অনলাইন স্টোর" },
+                { id: "alerts", icon: ShieldAlert, label: "Alerts", labelBn: "অ্যালার্ট" },
+                { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচ" },
+                { id: "purchases", icon: Truck, label: "Purchases", labelBn: "ক্রয়" },
+                { id: "cash", icon: Wallet, label: "Accounts", labelBn: "ক্যাশ হিসাব" },
+                { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার" },
+                { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
+                { id: "reports", icon: BarChart2, label: "Reports", labelBn: "রিপোর্ট" },
+                { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
               ].map(item => (
                 <button
                   key={item.id}
@@ -535,19 +556,19 @@ export default function Layout({ currentScreen, setScreen, children, onLogout }:
                     setScreen(item.id);
                     setMobileMoreOpen(false);
                   }}
-                  className="flex flex-col items-center gap-1.5 p-3 rounded-2xl border border-nv-100 hover:border-em-400 bg-white hover:bg-em-50/30 transition-all text-center group"
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl border border-nv-200 hover:border-nv-300 bg-white transition-colors text-center"
                 >
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${item.color} shadow-xs group-hover:scale-105 transition-transform`}>
-                    <item.icon size={22} />
+                  <div className={`w-11 h-11 rounded-lg flex items-center justify-center ${item.color || "bg-nv-100 text-ink"}`}>
+                    <item.icon size={20} />
                   </div>
-                  <span className="text-xs font-semibold text-nv-800 line-clamp-1">{isBn ? item.labelBn : item.label}</span>
+                  <span className="text-xs font-medium text-ink line-clamp-1">{isBn ? item.labelBn : item.label}</span>
                 </button>
               ))}
             </div>
 
-            <div className="pt-2 border-t border-nv-100 flex items-center justify-between text-xs text-nv-500">
+            <div className="pt-2 border-t border-nv-100 flex items-center justify-between text-xs text-ink">
               <span>{settings.shopName}</span>
-              <button onClick={() => { onLogout?.(); setMobileMoreOpen(false); }} className="text-red-600 font-semibold flex items-center gap-1">
+              <button onClick={() => { onLogout?.(); setMobileMoreOpen(false); }} className="text-ink font-semibold flex items-center gap-1">
                 <LogOut size={13} /> {isBn ? "লগআউট" : "Logout"}
               </button>
             </div>

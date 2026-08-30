@@ -72,8 +72,8 @@ export default function Suppliers({ lang }: SuppliersProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-nv-900">{isBn ? "সাপ্লায়ার ব্যবস্থাপনা" : "Suppliers Directory"}</h1>
-          <p className="text-nv-500 text-xs sm:text-sm mt-0.5">{tNum(suppliers.length)} {isBn ? "জন রেজিস্টার্ড সাপ্লায়ার" : "registered suppliers"}</p>
+          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "সাপ্লায়ার ব্যবস্থাপনা" : "Suppliers Directory"}</h1>
+          <p className="text-ink text-xs sm:text-sm mt-0.5">{tNum(suppliers.length)} {isBn ? "জন রেজিস্টার্ড সাপ্লায়ার" : "registered suppliers"}</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -86,18 +86,18 @@ export default function Suppliers({ lang }: SuppliersProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Payable Due", labelBn: "মোট সাপ্লায়ার দেনা", value: formatTaka(totalDue), icon: AlertCircle, color: "bg-red-50 text-red-600" },
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchases), icon: Truck, color: "bg-blue-50 text-blue-700" },
-          { label: "Total Paid", labelBn: "মোট পরিশোধ", value: formatTaka(totalPaid), icon: CheckCircle, color: "bg-em-50 text-em-700" },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: Calendar, color: "bg-amber-50 text-amber-700" },
+          { label: "Total Payable Due", labelBn: "মোট সাপ্লায়ার দেনা", value: formatTaka(totalDue), icon: AlertCircle, color: "bg-red-50 text-ink" },
+          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchases), icon: Truck, color: "bg-nv-50 text-ink" },
+          { label: "Total Paid", labelBn: "মোট পরিশোধ", value: formatTaka(totalPaid), icon: CheckCircle, color: "bg-em-50 text-ink" },
+          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: Calendar, color: "bg-ac-50 text-ink" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
               <s.icon size={18} />
             </div>
             <div>
-              <div className="num text-lg sm:text-xl font-bold text-nv-900">{s.value}</div>
-              <div className="text-[11px] text-nv-500">{isBn ? s.labelBn : s.label}</div>
+              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
+              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
             </div>
           </div>
         ))}
@@ -105,7 +105,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
 
       {/* Search Input */}
       <div className="relative max-w-sm">
-        <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-nv-400" />
+        <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink" />
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
@@ -121,12 +121,12 @@ export default function Suppliers({ lang }: SuppliersProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "যোগাযোগ" : "Contact"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "মোট ক্রয়" : "Total Purchases"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
-                <th className="px-4 py-3 font-bold text-nv-600 whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "যোগাযোগ" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট ক্রয়" : "Total Purchases"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
@@ -138,16 +138,16 @@ export default function Suppliers({ lang }: SuppliersProps) {
                         {s.avatar}
                       </div>
                       <div>
-                        <div className="font-bold text-nv-900 text-xs sm:text-sm">{isBn ? s.nameBn : s.name}</div>
-                        <div className="text-[10px] text-nv-400">{s.category}</div>
+                        <div className="font-bold text-ink text-xs sm:text-sm">{isBn ? s.nameBn : s.name}</div>
+                        <div className="text-[10px] text-ink">{s.category}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 font-mono text-xs text-nv-600">{s.contact}</td>
-                  <td className="px-4 py-3 num font-semibold text-nv-800">{formatTaka(s.totalPurchases)}</td>
-                  <td className="px-4 py-3 num font-semibold text-em-700">{formatTaka(s.paid)}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-ink">{s.contact}</td>
+                  <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(s.totalPurchases)}</td>
+                  <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(s.paid)}</td>
                   <td className="px-4 py-3">
-                    <span className={`num font-bold ${s.due > 0 ? "text-red-600" : "text-em-700"}`}>
+                    <span className={`num font-bold ${s.due > 0 ? "text-ink" : "text-ink"}`}>
                       {s.due > 0 ? formatTaka(s.due) : "৳০"}
                     </span>
                   </td>
@@ -167,7 +167,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
                       )}
                       <a
                         href={`tel:${s.contact}`}
-                        className="p-1.5 bg-nv-100 text-nv-700 hover:bg-nv-200 rounded-lg transition-fast"
+                        className="p-1.5 bg-nv-100 text-ink hover:bg-nv-200 rounded-lg transition-fast"
                         title="Call"
                       >
                         <Phone size={14} />
@@ -186,15 +186,15 @@ export default function Suppliers({ lang }: SuppliersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base">{isBn ? "নতুন সাপ্লায়ার যোগ করুন" : "Add Supplier"}</h3>
-              <button onClick={() => setShowAddModal(false)} className="text-nv-400 hover:text-nv-600">
+              <h3 className="font-bold text-ink text-base">{isBn ? "নতুন সাপ্লায়ার যোগ করুন" : "Add Supplier"}</h3>
+              <button onClick={() => setShowAddModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
             <form onSubmit={handleCreateSupplier} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "কোম্পানি / নাম" : "Company / Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "কোম্পানি / নাম" : "Company / Name"} *</label>
                 <input
                   type="text"
                   required
@@ -206,7 +206,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "যোগাযোগ নম্বর" : "Contact Phone"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "যোগাযোগ নম্বর" : "Contact Phone"} *</label>
                 <input
                   type="tel"
                   required
@@ -218,7 +218,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "পণ্যের ধরণ" : "Category"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "পণ্যের ধরণ" : "Category"}</label>
                 <input
                   type="text"
                   value={category}
@@ -229,7 +229,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "প্রারম্ভিক দেনা (যদি থাকে)" : "Opening Payable (৳)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "প্রারম্ভিক দেনা (যদি থাকে)" : "Opening Payable (৳)"}</label>
                 <input
                   type="number"
                   value={openingDue}
@@ -243,7 +243,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
@@ -264,31 +264,31 @@ export default function Suppliers({ lang }: SuppliersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-nv-900 text-base">{isBn ? "সাপ্লায়ারকে পরিশোধ" : "Pay Supplier"}</h3>
-              <button onClick={() => setShowPayModal(false)} className="text-nv-400 hover:text-nv-600">
+              <h3 className="font-bold text-ink text-base">{isBn ? "সাপ্লায়ারকে পরিশোধ" : "Pay Supplier"}</h3>
+              <button onClick={() => setShowPayModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
             </div>
 
             <form onSubmit={handlePaySupplierSubmit} className="space-y-3 text-xs sm:text-sm">
-              <p className="text-xs text-nv-600">
-                Pay to <span className="font-bold text-nv-900">{selectedSupplier.name}</span> (Due: {formatTaka(selectedSupplier.due)})
+              <p className="text-xs text-ink">
+                Pay to <span className="font-bold text-ink">{selectedSupplier.name}</span> (Due: {formatTaka(selectedSupplier.due)})
               </p>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "পরিশোধের পরিমাণ (৳)" : "Payment Amount (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধের পরিমাণ (৳)" : "Payment Amount (৳)"} *</label>
                 <input
                   type="number"
                   required
                   value={payAmount}
                   max={selectedSupplier.due}
                   onChange={e => setPayAmount(e.target.value)}
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-em-700 focus:border-em-500"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-ink focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-nv-700 mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Paid From Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Paid From Account"}</label>
                 <select
                   value={payAccountId}
                   onChange={e => setPayAccountId(e.target.value)}
@@ -302,7 +302,7 @@ export default function Suppliers({ lang }: SuppliersProps) {
                 <button
                   type="button"
                   onClick={() => setShowPayModal(false)}
-                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-nv-700 hover:bg-nv-50"
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
                   {isBn ? "বাতিল" : "Cancel"}
                 </button>
