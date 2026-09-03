@@ -513,17 +513,17 @@ interface AppContextType {
 }
 
 const initialProducts: Product[] = [
-  { id: 1, name: "Fresh Sunflower Oil 5L", nameBn: "ফ্রেশ সানফ্লাওয়ার অয়েল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
-  { id: 2, name: "Pran RUCHI Chanachur 200g", nameBn: "প্রাণ রুচি চানাচুর ২০০গ্রাম", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
-  { id: 3, name: "BD Fresh Milk 1L", nameBn: "বিডি ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "Liter / লিটার", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
-  { id: 4, name: "Bashundhara Tissue Box", nameBn: "বসুন্ধরা টিস্যু বক্স", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
-  { id: 5, name: "Pran Frooto 250ml", nameBn: "প্রাণ ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
+  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
+  { id: 2, name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
+  { id: 3, name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "Liter / লিটার", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
+  { id: 4, name: "Bashundhara Tissue", nameBn: "বসুন্ধরা টিস্যু", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
+  { id: 5, name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
   { id: 6, name: "Lifebuoy Soap 100g", nameBn: "লাইফবয় সাবান ১০০গ্রাম", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "Piece / পিস", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
-  { id: 7, name: "Pran Salt 1kg", nameBn: "প্রাণ লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "KG", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
+  { id: 7, name: "Salt 1kg", nameBn: "লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "KG", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
   { id: 8, name: "Meril Shampoo 200ml", nameBn: "মেরিল শ্যাম্পু ২০০মিলি", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "Piece / পিস", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
   { id: 9, name: "Lal Gura 500g", nameBn: "লাল গুড়া ৫০০গ্রাম", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
   { id: 10, name: "Tea Biscuit 200g", nameBn: "টি বিস্কিট ২০০গ্রাম", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "Packet / প্যাকেট", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
-  { id: 11, name: "Pran Juice 1L", nameBn: "প্রাণ জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
+  { id: 11, name: "Juice 1L", nameBn: "জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
   { id: 12, name: "Dove Soap 100g", nameBn: "ডাভ সাবান ১০০গ্রাম", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "Piece / পিস", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
 ];
 
@@ -547,7 +547,7 @@ const initialSuppliers: Supplier[] = [
 ];
 
 const initialPurchases: Purchase[] = [
-  { id: "PUR-0042", supplier: "Pran-RFL Group", date: "Dec 13, 2024", items: [{ product: "Pran Chanachur", qty: 50, cost: 45 }, { product: "Pran Frooto", qty: 100, cost: 18 }], itemCount: 8, total: 18500, paid: 18500, due: 0, status: "paid", invoiceNo: "PRAN-9921" },
+  { id: "PUR-0042", supplier: "Pran-RFL Group", date: "Dec 13, 2024", items: [{ product: "Chanachur", qty: 50, cost: 45 }, { product: "Frooto", qty: 100, cost: 18 }], itemCount: 8, total: 18500, paid: 18500, due: 0, status: "paid", invoiceNo: "PRAN-9921" },
   { id: "PUR-0041", supplier: "Meghna Group", date: "Dec 12, 2024", items: [{ product: "Fresh Sunflower Oil", qty: 40, cost: 250 }], itemCount: 4, total: 12000, paid: 8000, due: 4000, status: "partial", invoiceNo: "MEG-412" },
   { id: "PUR-0040", supplier: "ACI Limited", date: "Dec 11, 2024", items: [{ product: "Salt & Spices", qty: 60, cost: 30 }], itemCount: 6, total: 8500, paid: 0, due: 8500, status: "credit", invoiceNo: "ACI-108" },
   { id: "PUR-0039", supplier: "Square Group BD", date: "Dec 10, 2024", items: [{ product: "Personal Care Bundle", qty: 100, cost: 250 }], itemCount: 12, total: 25000, paid: 25000, due: 0, status: "paid", invoiceNo: "SQ-551" },
@@ -589,10 +589,10 @@ const initialEmployees: Employee[] = [
 ];
 
 const initialNotifications: NotificationItem[] = [
-  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Pran Salt 1kg has only 3 units left. Minimum stock is 15.", bodyBn: "প্রাণ লবণ ১কেজিতে মাত্র ৩টি বাকি। সর্বনিম্ন স্টক ১৫টি।", time: "2 min ago", read: false, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Salt 1kg has only 3 units left. Minimum stock is 15.", bodyBn: "লবণ ১কেজিতে মাত্র ৩টি বাকি। সর্বনিম্ন স্টক ১৫টি।", time: "2 min ago", read: false, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
   { id: 2, type: "sale", title: "Sale Completed", titleBn: "বিক্রয় সম্পন্ন", body: "INV-1043 completed for Karim Ahmed — ৳2,850", bodyBn: "করিম আহমেদের INV-১০৪৩ সম্পন্ন — ৳২,৮৫০", time: "15 min ago", read: false, color: "bg-em-50 text-ink", badge: "bg-em-100 text-ink" },
   { id: 3, type: "due", title: "Overdue Payment Reminder", titleBn: "বকেয়া পেমেন্ট মনে করানো", body: "Sumaiya Khatun has ৳12,000 overdue since Nov 28.", bodyBn: "সুমাইয়া খাতুনের ৳১২,০০০ বাকি নভেম্বর ২৮ থেকে।", time: "1 hour ago", read: false, color: "bg-red-50 text-ink", badge: "bg-red-100 text-ink" },
-  { id: 4, type: "stock", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "BD Fresh Milk 1L — 8 units left (min: 20)", bodyBn: "বিডি ফ্রেশ মিল্ক — ৮টি বাকি (সর্বনিম্ন: ২০)", time: "2 hours ago", read: true, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 4, type: "stock", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Fresh Milk 1L — 8 units left (min: 20)", bodyBn: "ফ্রেশ মিল্ক — ৮টি বাকি (সর্বনিম্ন: ২০)", time: "2 hours ago", read: true, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
   { id: 5, type: "supplier", title: "Supplier Payment Due", titleBn: "সাপ্লায়ার পেমেন্ট দেয়", body: "Pran-RFL Group payment of ৳21,400 is due on Dec 20.", bodyBn: "প্রাণ-আরএফএল গ্রুপের ৳২১,৪০০ পেমেন্ট ডিসেম্বর ২০ তারিখে।", time: "3 hours ago", read: true, color: "bg-nv-50 text-ink", badge: "bg-nv-100 text-ink" },
 ];
 
@@ -603,11 +603,11 @@ const initialSales: Sale[] = [
     customer: "Karim Ahmed",
     customerPhone: "01712-345678",
     items: [
-      { name: "Fresh Sunflower Oil 5L", nameBn: "ফ্রেশ সানফ্লাওয়ার অয়েল ৫লি", qty: 2, price: 300, discount: 0 },
-      { name: "Pran RUCHI Chanachur 200g", nameBn: "প্রাণ রুচি চানাচুর ২০০গ্রাম", qty: 3, price: 60, discount: 0 },
+      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", qty: 2, price: 300, discount: 0 },
+      { name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", qty: 3, price: 60, discount: 0 },
       { name: "Meril Shampoo 200ml", nameBn: "মেরিল শ্যাম্পু ২০০মিলি", qty: 1, price: 150, discount: 20 },
-      { name: "BD Fresh Milk 1L", nameBn: "বিডি ফ্রেশ মিল্ক ১লি", qty: 4, price: 80, discount: 0 },
-      { name: "Pran Frooto 250ml", nameBn: "প্রাণ ফ্রুটো ২৫০মিলি", qty: 5, price: 25, discount: 0 },
+      { name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", qty: 4, price: 80, discount: 0 },
+      { name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", qty: 5, price: 25, discount: 0 },
     ],
     subtotal: 1345,
     discount: 20,
@@ -628,7 +628,7 @@ const initialSales: Sale[] = [
     customer: "Sumaiya Khatun",
     customerPhone: "01812-456789",
     items: [
-      { name: "Fresh Sunflower Oil 5L", nameBn: "ফ্রেশ সানফ্লাওয়ার অয়েল ৫লি", qty: 4, price: 300, discount: 0 },
+      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", qty: 4, price: 300, discount: 0 },
     ],
     subtotal: 1200,
     discount: 0,
@@ -646,8 +646,8 @@ const initialSales: Sale[] = [
     invoiceNo: "INV-1040",
     customer: "Walk-in Customer",
     items: [
-      { name: "Bashundhara Tissue Box", nameBn: "বসুন্ধরা টিস্যু বক্স", qty: 5, price: 120, discount: 0 },
-      { name: "Pran RUCHI Chanachur 200g", nameBn: "প্রাণ রুচি চানাচুর ২০০গ্রাম", qty: 10, price: 60, discount: 0 },
+      { name: "Bashundhara Tissue", nameBn: "বসুন্ধরা টিস্যু", qty: 5, price: 120, discount: 0 },
+      { name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", qty: 10, price: 60, discount: 0 },
     ],
     subtotal: 1200,
     discount: 0,
@@ -793,7 +793,7 @@ const initialMonitoringRules: MonitoringRule[] = [
 ];
 
 const initialBusinessAlerts: BusinessAlert[] = [
-  { id: "ALT-01", ruleType: "low_stock", title: "Low Stock Alert: BD Fresh Milk 1L", titleBn: "কম স্টক: বিডি ফ্রেশ মিল্ক ১লি", message: "Only 8 liters remaining in inventory. Please restock immediately.", messageBn: "দোকানে মাত্র ৮ লিটার অবশিষ্ট আছে। অবিলম্বে রি-স্টক করুন।", severity: "warning", time: "2 hours ago", resolved: false },
+  { id: "ALT-01", ruleType: "low_stock", title: "Low Stock Alert: Fresh Milk 1L", titleBn: "কম স্টক: ফ্রেশ মিল্ক ১লি", message: "Only 8 liters remaining in inventory. Please restock immediately.", messageBn: "দোকানে মাত্র ৮ লিটার অবশিষ্ট আছে। অবিলম্বে রি-স্টক করুন।", severity: "warning", time: "2 hours ago", resolved: false },
   { id: "ALT-02", ruleType: "high_due", title: "High Due Warning: Karim Ahmed (৳14,500)", titleBn: "উচ্চ বকেয়া: করিম আহমেদ (৳১৪,৫০০)", message: "Due unpaid for more than 35 days. Send automated SMS reminder.", messageBn: "৩৫ দিনেরও বেশি সময় ধরে বাকি অপরিশোধিত। এসএমএস তাগাদা পাঠান।", severity: "critical", time: "5 hours ago", resolved: false },
   { id: "ALT-03", ruleType: "daily_profit_sms", title: "Daily Sales Summary Dispatched", titleBn: "দৈনিক বিক্রয় সারাংশ পাঠানো হয়েছে", message: "Today's Net Profit summary SMS successfully delivered to Owner phone.", messageBn: "আজকের নিট লাভের সারাংশ এসএমএস মালিকের ফোনে পাঠানো হয়েছে।", severity: "info", time: "Yesterday", resolved: true },
 ];

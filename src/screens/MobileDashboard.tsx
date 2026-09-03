@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Bell, Headphones, User, ChevronRight, ArrowRight, Plus, X,
   ShoppingCart, ShoppingBag, CreditCard, Boxes, Wallet, Receipt, Package, Users,
@@ -33,6 +33,12 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
 
   const [period, setPeriod] = useState<"day" | "week" | "month">("day");
   const [moreOpen, setMoreOpen] = useState(false);
+
+  // Promo carousel — auto-advances and swipes between whatever slides are
+  // in `promoSlides` below, so a new ad, banner, or video is just another
+  // array entry, not a new component.
+  const [promoIndex, setPromoIndex] = useState(0);
+  const touchStartXRef = useRef<number | null>(null);
 
   const unreadNotifs = notifications.filter(n => !n.read).length;
 
@@ -86,6 +92,65 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
     { id: "dues", icon: CreditCard, label: "Dues", labelBn: "দেনা-পে" },
     { id: "more", icon: Menu, label: "More", labelBn: "আরও" },
   ];
+
+  // Slide 1 is the real due-reminder card. Slide 2 is an open placeholder —
+  // swap it for an <img>, a <video>, or a real promo card once there's
+  // actual ad/campaign creative to show; the carousel doesn't change.
+  const promoSlides = [
+    <button
+      key="due-reminder"
+      onClick={() => setScreen("dues")}
+      className="w-full text-left bg-em-900 rounded-xl px-4 py-4 relative overflow-hidden active:bg-em-950 transition-colors"
+    >
+      {/* Oversized amber "?" is the reference banner's whole visual hook */}
+      <span
+        aria-hidden
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-[92px] leading-none font-extrabold text-ac-400 select-none"
+      >
+        ?
+      </span>
+      <div className="relative max-w-[66%]">
+        <div className="font-display text-[17px] font-semibold text-white leading-snug">
+          {isBn ? (
+            <>কার কাছে কত <span className="text-ac-300">বাকি</span>,<br />মনে পড়ছে না?</>
+          ) : (
+            <>Can't recall who <span className="text-ac-300">owes</span> what?</>
+          )}
+        </div>
+        <p className="text-[11px] text-em-200 mt-1.5 leading-snug">
+          {isBn
+            ? `${tNum(dueCount)} জন গ্রাহকের কাছে মোট ${formatTaka(totalDues)} বাকি আছে।`
+            : `${tNum(dueCount)} customers owe you ${formatTaka(totalDues)} in total.`}
+        </p>
+        <span className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 rounded-lg bg-ac-400 text-ink text-xs font-semibold">
+          {isBn ? "বাকির খাতা দেখুন" : "Open due ledger"}
+          <ArrowRight size={13} />
+        </span>
+      </div>
+    </button>,
+
+    <div
+      key="ad-slot"
+      className="w-full bg-nv-50 border-2 border-dashed border-nv-300 rounded-xl px-4 py-4 flex flex-col items-center justify-center gap-1 text-center min-h-[132px]"
+    >
+      <span className="text-xs font-semibold text-ink">
+        {isBn ? "বিজ্ঞাপন / ব্যানার / ভিডিও এখানে বসবে" : "Ad, banner, or video slot"}
+      </span>
+      <span className="text-[11px] text-ink">
+        {isBn ? "প্রচারণার কনটেন্ট প্রস্তুত হলে এখানে যুক্ত করুন" : "Add your campaign creative here"}
+      </span>
+    </div>,
+  ];
+
+  // Auto-advance the carousel; pauses cleanly when the screen unmounts or
+  // when a slide is added/removed.
+  useEffect(() => {
+    if (promoSlides.length <= 1) return;
+    const id = setInterval(() => {
+      setPromoIndex(i => (i + 1) % promoSlides.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [promoSlides.length]);
 
   return (
     // The shell owns the scroll rather than the document, so the fixed nav
@@ -223,47 +288,61 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
           </button>
         </section>
 
-        {/* ---------- Promo / dues prompt ---------- */}
-        <button
-          onClick={() => setScreen("dues")}
-          className="w-full text-left bg-em-900 rounded-xl px-4 py-4 relative overflow-hidden active:bg-em-950 transition-colors"
-        >
-          {/* Oversized amber "?" is the reference banner's whole visual hook */}
-          <span
-            aria-hidden
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[92px] leading-none font-extrabold text-ac-400 select-none"
+        {/* ---------- Promo carousel ---------- */}
+        {/* Add a new ad, banner, or video by appending another entry here —
+            the track, auto-advance, dots, and swipe handling all work off
+            promoSlides.length, nothing else needs to change. */}
+        <div className="relative">
+          <div
+            className="overflow-hidden rounded-xl"
+            onTouchStart={e => { touchStartXRef.current = e.touches[0].clientX; }}
+            onTouchEnd={e => {
+              if (touchStartXRef.current === null) return;
+              const delta = e.changedTouches[0].clientX - touchStartXRef.current;
+              const SWIPE_PX = 40;
+              if (delta > SWIPE_PX) {
+                setPromoIndex(i => (i - 1 + promoSlides.length) % promoSlides.length);
+              } else if (delta < -SWIPE_PX) {
+                setPromoIndex(i => (i + 1) % promoSlides.length);
+              }
+              touchStartXRef.current = null;
+            }}
           >
-            ?
-          </span>
-          <div className="relative max-w-[66%]">
-            <div className="font-display text-[17px] font-semibold text-white leading-snug">
-              {isBn ? (
-                <>কার কাছে কত <span className="text-ac-300">বাকি</span>,<br />মনে পড়ছে না?</>
-              ) : (
-                <>Can't recall who <span className="text-ac-300">owes</span> what?</>
-              )}
+            <div
+              className="flex transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${promoIndex * 100}%)` }}
+            >
+              {promoSlides.map((slide, i) => (
+                <div key={i} className="w-full flex-shrink-0">
+                  {slide}
+                </div>
+              ))}
             </div>
-            <p className="text-[11px] text-em-200 mt-1.5 leading-snug">
-              {isBn
-                ? `${tNum(dueCount)} জন গ্রাহকের কাছে মোট ${formatTaka(totalDues)} বাকি আছে।`
-                : `${tNum(dueCount)} customers owe you ${formatTaka(totalDues)} in total.`}
-            </p>
-            <span className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 rounded-lg bg-ac-400 text-ink text-xs font-semibold">
-              {isBn ? "বাকির খাতা দেখুন" : "Open due ledger"}
-              <ArrowRight size={13} />
-            </span>
           </div>
-        </button>
+
+          {promoSlides.length > 1 && (
+            <div className="flex items-center justify-center gap-1.5 mt-2.5">
+              {promoSlides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setPromoIndex(i)}
+                  aria-label={`${isBn ? "স্লাইড" : "Slide"} ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === promoIndex ? "w-4 bg-em-700" : "w-1.5 bg-nv-300"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* ---------- Services ---------- */}
-        {/* gap-px over a grey backing paints the reference's hairline grid,
-            so the tiles read as one panel instead of nine floating cards */}
-        <section className="grid grid-cols-3 gap-px bg-nv-200 border border-nv-200 rounded-xl overflow-hidden">
+        <section className="grid grid-cols-3 gap-4">
           {services.map(s => (
             <button
               key={s.id}
               onClick={() => setScreen(s.id)}
-              className="bg-white flex flex-col items-center gap-2 py-4 px-1.5 active:bg-nv-50 transition-colors"
+              className="flex flex-col items-center gap-2 py-2 px-1.5 rounded-xl active:bg-nv-50 transition-colors"
             >
               <div className="w-13 h-13 flex items-center justify-center text-ink">
                 <s.icon size={26} strokeWidth={1.75} />

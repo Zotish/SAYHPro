@@ -1,6 +1,26 @@
 import { useState } from "react";
-import { Building2, Check, ArrowRight, ChevronLeft, Package, Globe, Smartphone, Sparkles } from "lucide-react";
+import {
+  Check, ArrowRight, Smartphone, Sparkles,
+  ShoppingCart, CreditCard, Wallet, MessageSquare, Truck, ShieldAlert, Landmark,
+  Banknote, Store, Globe2,
+} from "lucide-react";
 import { useApp } from "../context/AppContext";
+
+// Mirrors the app's real module list one-to-one — this is a feature summary,
+// not marketing copy for capabilities that don't exist.
+const featureList = [
+  { id: "pos", icon: ShoppingCart, label: "Mobile POS with inventory", labelBn: "মোবাইল POS ও ইনভেন্টরি" },
+  { id: "dues", icon: CreditCard, label: "Due management", labelBn: "বাকি ব্যবস্থাপনা" },
+  { id: "cash", icon: Wallet, label: "Accounting", labelBn: "হিসাবরক্ষণ" },
+  { id: "marketing", icon: MessageSquare, label: "SMS & Facebook marketing", labelBn: "এসএমএস ও ফেসবুক মার্কেটিং" },
+  { id: "delivery", icon: Truck, label: "Delivery aggregator", labelBn: "ডেলিভারি এগ্রিগেটর" },
+  { id: "alerts", icon: ShieldAlert, label: "Monitoring & alert system", labelBn: "মনিটরিং ও অ্যালার্ট সিস্টেম" },
+  { id: "bank", icon: Landmark, label: "Bank account creation", labelBn: "ব্যাংক অ্যাকাউন্ট খোলা" },
+  { id: "loan", icon: Banknote, label: "Loan", labelBn: "লোন" },
+  { id: "payments", icon: Smartphone, label: "Digital payment services", labelBn: "ডিজিটাল পেমেন্ট সেবা" },
+  { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং" },
+  { id: "website", icon: Globe2, label: "Create website without any coding knowledge", labelBn: "কোনো কোডিং ছাড়াই ওয়েবসাইট তৈরি" },
+];
 
 interface OnboardingProps {
   lang: "en" | "bn";
@@ -44,6 +64,52 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
     onComplete();
   };
 
+  // Step 1 is a full-bleed features pitch, not the boxed wizard the later
+  // steps use — it has its own layout entirely, then hands off to step 2.
+  if (step === 1) {
+    return (
+      <div className="min-h-screen flex flex-col p-6 sm:p-8" style={{ background: "#0F172A" }}>
+        <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
+          <div className="pt-4">
+            <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mb-1.5">
+              {isBn ? "DukanPro তে স্বাগতম! 🎉" : "Welcome to DukanPro! 🎉"}
+            </h1>
+            <p className="text-em-200 text-xs sm:text-sm leading-relaxed">
+              {isBn
+                ? "একটি অ্যাপে আপনার দোকানের সব কিছু — বিক্রি, বাকি, হিসাব ও আরও অনেক কিছু।"
+                : "Everything your shop needs — sales, dues, accounting, and more — in one app."}
+            </p>
+          </div>
+
+          <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-8 mb-4">
+            {isBn ? "ফিচারসমূহ" : "Features"}
+          </h2>
+
+          <div className="flex-1 overflow-y-auto space-y-3.5 pr-1">
+            {featureList.map(f => (
+              <div key={f.id} className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-em-600 flex items-center justify-center flex-shrink-0">
+                  <f.icon size={16} className="text-white" />
+                </div>
+                <span className="text-sm sm:text-base font-medium text-white leading-snug">
+                  {isBn ? f.labelBn : f.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setStep(2)}
+            className="w-full py-3.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold text-sm shadow-md transition-fast flex items-center justify-center gap-2 mt-6 flex-shrink-0"
+          >
+            <span>{isBn ? "শুরু করুন" : "Get Started"}</span>
+            <ArrowRight size={16} />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6" style={{ background: "#0F172A" }}>
       <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -68,30 +134,6 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
         </div>
 
         <div className="p-6 sm:p-8">
-          {/* Step 1: Welcome */}
-          {step === 1 && (
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto text-ink shadow-sm">
-                <Building2 size={32} />
-              </div>
-              <h2 className="font-display text-2xl font-bold text-ink">
-                {isBn ? "DukanPro তে স্বাগতম! 🎉" : "Welcome to DukanPro! 🎉"}
-              </h2>
-              <p className="text-ink text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
-                {isBn
-                  ? "মাত্র কয়েকটি ধাপে আপনার দোকান সেটআপ করুন এবং সহজভাবে ডিজিটাল হিসাব শুরু করুন।"
-                  : "Set up your store in just a few quick steps and start managing your sales, inventory, and customer dues seamlessly."}
-              </p>
-              <button
-                onClick={() => setStep(2)}
-                className="w-full py-3.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold text-sm shadow-md transition-fast flex items-center justify-center gap-2 mt-4"
-              >
-                <span>{isBn ? "শুরু করুন" : "Get Started"}</span>
-                <ArrowRight size={16} />
-              </button>
-            </div>
-          )}
-
           {/* Step 2: Shop Info */}
           {step === 2 && (
             <div className="space-y-4">
