@@ -512,19 +512,56 @@ interface AppContextType {
   resetToDefaultData: () => void;
 }
 
+// Helpers to keep product names short, crisp and understandable for fast POS operations
+export function cleanProductName(name: string): string {
+  if (!name) return "";
+  let s = name.trim();
+  s = s.replace(/^Fresh Sunflower Oil 5L$/i, "Sunflower Oil 5L");
+  s = s.replace(/^Pran RUCHI Chanachur( 200g)?$/i, "Ruchi Chanachur");
+  s = s.replace(/^Ruchi Chanachur 200g$/i, "Ruchi Chanachur");
+  s = s.replace(/^BD Fresh Milk 1L$/i, "Fresh Milk 1L");
+  s = s.replace(/^Bashundhara Tissue( Box)?$/i, "Tissue Box");
+  s = s.replace(/^Pran Frooto( 250ml)?$/i, "Frooto 250ml");
+  s = s.replace(/^Lifebuoy Soap( 100g)?$/i, "Lifebuoy Soap");
+  s = s.replace(/^Meril Shampoo( 200ml)?$/i, "Meril Shampoo");
+  s = s.replace(/^Lal Gura( 500g)?$/i, "Chilli Powder 500g");
+  s = s.replace(/^Tea Biscuit( 200g)?$/i, "Tea Biscuit");
+  s = s.replace(/^Juice 1L$/i, "Mango Juice 1L");
+  s = s.replace(/^Dove Soap( 100g)?$/i, "Dove Soap");
+  return s;
+}
+
+export function cleanProductNameBn(nameBn: string): string {
+  if (!nameBn) return "";
+  let s = nameBn.trim();
+  s = s.replace(/^(ফ্রেশ )?সানফ্লাওয়ার অয়েল ৫লি$/i, "সানফ্লাওয়ার তেল ৫লি");
+  s = s.replace(/^প্রাণ রুচি চানাচুর( ২০০গ্রাম)?$/i, "রুচি চানাচুর");
+  s = s.replace(/^রুচি চানাচুর ২০০গ্রাম$/i, "রুচি চানাচুর");
+  s = s.replace(/^বিডি ফ্রেশ মিল্ক( ১লি)?$/i, "ফ্রেশ মিল্ক ১লি");
+  s = s.replace(/^বসুন্ধরা টিস্যু( বক্স)?$/i, "টিস্যু বক্স");
+  s = s.replace(/^প্রাণ ফ্রুটো( ২৫০মিলি)?$/i, "ফ্রুটো ২৫০মিলি");
+  s = s.replace(/^লাইফবয় সাবান( ১০০গ্রাম)?$/i, "লাইফবয় সাবান");
+  s = s.replace(/^মেরিল শ্যাম্পু( ২০০মিলি)?$/i, "মেরিল শ্যাম্পু");
+  s = s.replace(/^লাল গুড়া( ৫০০গ্রাম)?$/i, "মরিচ গুঁড়া ৫০০গ্রা");
+  s = s.replace(/^টি বিস্কিট( ২০০গ্রাম)?$/i, "টি বিস্কুট");
+  s = s.replace(/^জুস ১লি$/i, "ম্যাঙ্গো জুস ১লি");
+  s = s.replace(/^ডাভ সাবান( ১০০গ্রাম)?$/i, "ডাভ সাবান");
+  return s;
+}
+
 const initialProducts: Product[] = [
-  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
-  { id: 2, name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
+  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
+  { id: 2, name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
   { id: 3, name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "Liter / লিটার", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
-  { id: 4, name: "Bashundhara Tissue", nameBn: "বসুন্ধরা টিস্যু", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
+  { id: 4, name: "Tissue Box", nameBn: "টিস্যু বক্স", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
   { id: 5, name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
-  { id: 6, name: "Lifebuoy Soap 100g", nameBn: "লাইফবয় সাবান ১০০গ্রাম", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "Piece / পিস", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
+  { id: 6, name: "Lifebuoy Soap", nameBn: "লাইফবয় সাবান", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "Piece / পিস", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
   { id: 7, name: "Salt 1kg", nameBn: "লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "KG", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
-  { id: 8, name: "Meril Shampoo 200ml", nameBn: "মেরিল শ্যাম্পু ২০০মিলি", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "Piece / পিস", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
-  { id: 9, name: "Lal Gura 500g", nameBn: "লাল গুড়া ৫০০গ্রাম", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
-  { id: 10, name: "Tea Biscuit 200g", nameBn: "টি বিস্কিট ২০০গ্রাম", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "Packet / প্যাকেট", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
-  { id: 11, name: "Juice 1L", nameBn: "জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
-  { id: 12, name: "Dove Soap 100g", nameBn: "ডাভ সাবান ১০০গ্রাম", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "Piece / পিস", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
+  { id: 8, name: "Meril Shampoo", nameBn: "মেরিল শ্যাম্পু", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "Piece / পিস", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
+  { id: 9, name: "Chilli Powder 500g", nameBn: "মরিচ গুঁড়া ৫০০গ্রা", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
+  { id: 10, name: "Tea Biscuit", nameBn: "টি বিস্কুট", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "Packet / প্যাকেট", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
+  { id: 11, name: "Mango Juice 1L", nameBn: "ম্যাঙ্গো জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
+  { id: 12, name: "Dove Soap", nameBn: "ডাভ সাবান", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "Piece / পিস", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
 ];
 
 const initialCustomers: Customer[] = [
@@ -547,11 +584,11 @@ const initialSuppliers: Supplier[] = [
 ];
 
 const initialPurchases: Purchase[] = [
-  { id: "PUR-0042", supplier: "Pran-RFL Group", date: "Dec 13, 2024", items: [{ product: "Chanachur", qty: 50, cost: 45 }, { product: "Frooto", qty: 100, cost: 18 }], itemCount: 8, total: 18500, paid: 18500, due: 0, status: "paid", invoiceNo: "PRAN-9921" },
-  { id: "PUR-0041", supplier: "Meghna Group", date: "Dec 12, 2024", items: [{ product: "Fresh Sunflower Oil", qty: 40, cost: 250 }], itemCount: 4, total: 12000, paid: 8000, due: 4000, status: "partial", invoiceNo: "MEG-412" },
+  { id: "PUR-0042", supplier: "Pran-RFL Group", date: "Dec 13, 2024", items: [{ product: "Ruchi Chanachur", qty: 50, cost: 45 }, { product: "Frooto 250ml", qty: 100, cost: 18 }], itemCount: 8, total: 18500, paid: 18500, due: 0, status: "paid", invoiceNo: "PRAN-9921" },
+  { id: "PUR-0041", supplier: "Meghna Group", date: "Dec 12, 2024", items: [{ product: "Sunflower Oil 5L", qty: 40, cost: 250 }], itemCount: 4, total: 12000, paid: 8000, due: 4000, status: "partial", invoiceNo: "MEG-412" },
   { id: "PUR-0040", supplier: "ACI Limited", date: "Dec 11, 2024", items: [{ product: "Salt & Spices", qty: 60, cost: 30 }], itemCount: 6, total: 8500, paid: 0, due: 8500, status: "credit", invoiceNo: "ACI-108" },
   { id: "PUR-0039", supplier: "Square Group BD", date: "Dec 10, 2024", items: [{ product: "Personal Care Bundle", qty: 100, cost: 250 }], itemCount: 12, total: 25000, paid: 25000, due: 0, status: "paid", invoiceNo: "SQ-551" },
-  { id: "PUR-0038", supplier: "Bashundhara Group", date: "Dec 9, 2024", items: [{ product: "Tissue Box Bulk", qty: 50, cost: 90 }], itemCount: 3, total: 6800, paid: 3000, due: 3800, status: "partial", invoiceNo: "BAS-882" },
+  { id: "PUR-0038", supplier: "Bashundhara Group", date: "Dec 9, 2024", items: [{ product: "Tissue Box", qty: 50, cost: 90 }], itemCount: 3, total: 6800, paid: 3000, due: 3800, status: "partial", invoiceNo: "BAS-882" },
 ];
 
 const initialExpenses: Expense[] = [
@@ -803,11 +840,23 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<"en" | "bn">("en");
 
-  // Load from localStorage or defaults
+  // Load from localStorage or defaults with auto-cleaning for short, understandable names
   const [products, setProducts] = useState<Product[]>(() => {
     try {
       const saved = localStorage.getItem("dukan_products");
-      return saved ? JSON.parse(saved) : initialProducts;
+      if (saved) {
+        const parsed: Product[] = JSON.parse(saved);
+        const cleaned = parsed.map(p => ({
+          ...p,
+          name: cleanProductName(p.name),
+          nameBn: cleanProductNameBn(p.nameBn),
+        }));
+        try {
+          localStorage.setItem("dukan_products", JSON.stringify(cleaned));
+        } catch {}
+        return cleaned;
+      }
+      return initialProducts;
     } catch {
       return initialProducts;
     }

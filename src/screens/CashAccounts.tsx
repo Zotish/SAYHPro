@@ -1,19 +1,38 @@
 import { useState } from "react";
-import { ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown, ArrowLeft } from "lucide-react";
+import { ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown, ArrowLeft, Receipt, ChevronRight, Eye, Calendar, User, FileText, CheckCircle2, DollarSign } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { useApp } from "../context/AppContext";
+import { useApp, Sale } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface CashAccountsProps {
   lang: "en" | "bn";
   onBack?: () => void;
+  setScreen?: (screen: string) => void;
 }
 
-export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
-  const { accounts, transactions, addCashDeposit, transferCash, tNum, formatTaka } = useApp();
+const incomeCategories = [
+  { id: "Sales", label: "Product Sale", labelBn: "পণ্য বিক্রয়" },
+  { id: "Service", label: "Service / Repair Fee", labelBn: "সার্ভিস / মেরামত ফি" },
+  { id: "Commission", label: "Commission & Brokerage", labelBn: "কমিশন ও পারিশ্রমিক" },
+  { id: "Delivery", label: "Delivery Charge", labelBn: "ডেলিভারি চার্জ" },
+  { id: "Scrap", label: "Scrap / Waste Sales", labelBn: "স্ক্র্যাপ / বর্জ্য বিক্রয়" },
+  { id: "Other", label: "Other Business Income", labelBn: "অন্যান্য বাণিজ্যিক আয়" },
+];
+
+export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsProps) {
+  const { accounts, transactions, sales, setCurrentInvoice, addCashDeposit, transferCash, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
-  const [showModal, setShowModal] = useState<"add" | "transfer" | null>(null);
+  const [showModal, setShowModal] = useState<"add" | "transfer" | "income" | null>(null);
+  const [selectedSale, setSelectedSale] = useState<Sale | null>(null);
+  const [activeTab, setActiveTab] = useState<"income" | "all">("income");
+
+  // Income entry state
+  const [incomeCategory, setIncomeCategory] = useState("Sales");
+  const [incomeSource, setIncomeSource] = useState("");
+  const [incomeAmount, setIncomeAmount] = useState("");
+  const [incomeAccountId, setIncomeAccountId] = useState(accounts[0]?.id || "cash");
+  const [incomeNote, setIncomeNote] = useState("");
 
   // Add deposit state
   const [depositAccId, setDepositAccId] = useState(accounts[0]?.id || "cash");
@@ -37,6 +56,27 @@ export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
     { day: "Thu", dayBn: "বৃহঃ", in: 31000, out: 28000 },
     { day: "Fri", dayBn: "শুক্র", in: totalIn, out: totalOut },
   ];
+
+  const handleIncomeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!incomeAmount || Number(incomeAmount) <= 0) return;
+
+    const catObj = incomeCategories.find(c => c.id === incomeCategory) || incomeCategories[0];
+    const catName = isBn ? catObj.labelBn : catObj.label;
+    const payerName = incomeSource.trim() || (isBn ? "সাধারণ গ্রাহক" : "Walk-in Customer");
+    const fullNote = `${catName} - ${payerName}${incomeNote ? ` (${incomeNote})` : ""}`;
+
+    addCashDeposit(incomeAccountId, Number(incomeAmount), fullNote);
+    setShowModal(null);
+    setIncomeAmount("");
+    setIncomeSource("");
+    setIncomeNote("");
+    toast({
+      type: "success",
+      title: isBn ? "ইনকাম এন্ট্রি সংরক্ষিত হয়েছে!" : "Income Entry Recorded!",
+      message: `${payerName}: ৳${Number(incomeAmount).toLocaleString()}`,
+    });
+  };
 
   const handleDepositSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,18 +120,24 @@ export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
             <ArrowLeft size={18} />
           </button>
         )}
-        <div className="ml-auto flex gap-2">
+        <div className="ml-auto flex items-center gap-2 flex-wrap justify-end">
+          <button
+            onClick={() => setShowModal("income")}
+            className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-2xs transition-fast"
+          >
+            <Receipt size={14} /> {isBn ? "+ ইনকাম এন্ট্রি" : "+ Income Entry"}
+          </button>
           <button
             onClick={() => setShowModal("transfer")}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"
+            className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"
           >
             <ArrowRightLeft size={14} /> {isBn ? "ট্রান্সফার" : "Transfer"}
           </button>
           <button
             onClick={() => setShowModal("add")}
-            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+            className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl text-xs sm:text-sm font-semibold border border-nv-200 transition-fast"
           >
-            <Plus size={16} /> {isBn ? "জমা" : "Deposit"}
+            <Plus size={16} /> {isBn ? "ক্যাশ জমা" : "Deposit"}
           </button>
         </div>
       </div>
@@ -102,7 +148,7 @@ export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
           <div>
             <p className="text-ink text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "মোট বর্তমান ব্যালেন্স" : "Total Combined Balance"}</p>
             <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">{formatTaka(totalBalance)}</div>
-            <p className="text-ink text-xs mt-1">{tNum(accounts.length)} active accounts monitored</p>
+            <p className="text-ink text-xs mt-1">{tNum(accounts.length)} {isBn ? "টি সক্রিয় অ্যাকাউন্ট মনিটর করা হচ্ছে" : "active accounts monitored"}</p>
           </div>
 
           <div className="flex items-center gap-6 sm:gap-8 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-em-200 md:pl-8">
@@ -174,50 +220,358 @@ export default function CashAccounts({ lang, onBack }: CashAccountsProps) {
           </div>
         </div>
 
-        {/* Transactions Table */}
+        {/* Transactions & Income Table / Card */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-nv-100">
-            <h3 className="font-display font-bold text-ink text-sm">
-              {isBn ? "সাম্প্রতিক ক্যাশ ট্রানজাকশন" : "Recent Account Transactions"}
-            </h3>
+          <div className="p-4 border-b border-nv-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="font-display font-bold text-ink text-sm">
+                {isBn ? "লেনদেন ও ইনকাম রেজিস্টার" : "Transactions & Income Register"}
+              </h3>
+              <p className="text-xs text-ink/60 mt-0.5">
+                {isBn ? "দৈনিক ক্যাশ ইনকাম ও অ্যাকাউন্টের লেনদেন" : "Daily cash entries and account transactions"}
+              </p>
+            </div>
+
+            <div className="inline-flex items-center p-1 bg-nv-100 border border-nv-200 rounded-xl self-start sm:self-auto">
+              <button
+                onClick={() => setActiveTab("income")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === "income"
+                    ? "bg-white text-ink shadow-xs"
+                    : "text-ink/70 hover:text-ink"
+                }`}
+              >
+                <Receipt size={14} />
+                <span>{isBn ? "ইনকাম এন্ট্রি" : "Income Entries"}</span>
+                <span className="num ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-em-100 text-em-800 font-bold">
+                  {tNum(sales.length)}
+                </span>
+              </button>
+              <button
+                onClick={() => setActiveTab("all")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === "all"
+                    ? "bg-white text-ink shadow-xs"
+                    : "text-ink/70 hover:text-ink"
+                }`}
+              >
+                <ArrowRightLeft size={14} />
+                <span>{isBn ? "ক্যাশ লেনদেন" : "Cash Ledger"}</span>
+                <span className="num ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-nv-200 text-ink font-bold">
+                  {tNum(transactions.length)}
+                </span>
+              </button>
+            </div>
           </div>
 
-          <div className="overflow-x-auto flex-1">
-            <table className="w-full text-left text-xs sm:text-sm">
-              <thead>
-                <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিবরণ" : "Description"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অ্যাকাউন্ট" : "Account"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সময়" : "Time"}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-nv-100">
-                {transactions.map(tx => (
-                  <tr key={tx.id} className="hover:bg-nv-50 transition-fast">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold
-                          ${tx.type === "in" ? "bg-em-100 text-ink" : tx.type === "out" ? "bg-red-100 text-ink" : "bg-nv-100 text-ink"}`}>
-                          {tx.type === "in" ? "+" : tx.type === "out" ? "-" : "⇄"}
-                        </div>
-                        <span className="font-semibold text-ink">{isBn ? tx.descBn || tx.desc : tx.desc}</span>
+          {/* Tab 1: Income Entries List */}
+          {activeTab === "income" ? (
+            <div className="divide-y divide-nv-100 flex-1 overflow-y-auto max-h-[420px]">
+              {sales.length === 0 ? (
+                <div className="p-8 text-center text-ink/60 text-xs">
+                  {isBn ? "কোনো ইনকাম এন্ট্রি পাওয়া যায়নি" : "No income entries found"}
+                </div>
+              ) : (
+                sales.map(sale => (
+                  <div
+                    key={sale.id}
+                    className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-nv-50/70 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-xl bg-nv-100 border border-nv-200/80 flex items-center justify-center text-ink flex-shrink-0">
+                        <Receipt size={19} />
                       </div>
-                    </td>
-                    <td className="px-4 py-3 text-xs font-mono text-ink">{tx.account}</td>
-                    <td className="px-4 py-3">
-                      <span className={`num font-bold ${tx.type === "in" ? "text-ink" : tx.type === "out" ? "text-ink" : "text-ink"}`}>
-                        {tx.type === "in" ? "+" : tx.type === "out" ? "-" : ""}{formatTaka(tx.amount)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-ink">{tNum(tx.time)}</td>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-xs sm:text-sm text-ink">
+                            {isBn ? "ইনকাম এন্ট্রি" : "Income entry"}
+                          </span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-em-50 text-em-700 border border-em-200/70 font-semibold uppercase">
+                            {sale.paymentMethod}
+                          </span>
+                          <span className="text-[11px] text-ink/50 font-mono hidden md:inline">
+                            #{sale.invoiceNo}
+                          </span>
+                        </div>
+                        <div className="text-xs text-ink/70 mt-0.5 truncate">
+                          {tNum(sale.time)} · {sale.customer}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+                      <div className="text-right">
+                        <div className="num font-bold text-ink text-sm sm:text-base">
+                          +{formatTaka(sale.grandTotal)}
+                        </div>
+                        <div className="text-[10px] text-ink/60">
+                          {tNum(sale.date)}
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedSale(sale)}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-ink hover:text-ink px-2.5 py-1.5 rounded-lg border border-nv-200 hover:bg-nv-100 active:bg-nv-200 transition-colors"
+                      >
+                        <span>{isBn ? "বিস্তারিত" : "See more"}</span>
+                        <ChevronRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          ) : (
+            /* Tab 2: Manual Cash & Transfer Transactions */
+            <div className="overflow-x-auto flex-1">
+              <table className="w-full text-left text-xs sm:text-sm">
+                <thead>
+                  <tr className="bg-nv-50 border-b border-nv-200">
+                    <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিবরণ" : "Description"}</th>
+                    <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অ্যাকাউন্ট" : "Account"}</th>
+                    <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
+                    <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সময়" : "Time"}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-nv-100">
+                  {transactions.map(tx => (
+                    <tr key={tx.id} className="hover:bg-nv-50 transition-fast">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold
+                            ${tx.type === "in" ? "bg-em-100 text-ink" : tx.type === "out" ? "bg-red-100 text-ink" : "bg-nv-100 text-ink"}`}>
+                            {tx.type === "in" ? "+" : tx.type === "out" ? "-" : "⇄"}
+                          </div>
+                          <span className="font-semibold text-ink">{isBn ? tx.descBn || tx.desc : tx.desc}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-xs font-mono text-ink">{tx.account}</td>
+                      <td className="px-4 py-3">
+                        <span className="num font-bold text-ink">
+                          {tx.type === "in" ? "+" : tx.type === "out" ? "-" : ""}{formatTaka(tx.amount)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-ink">{tNum(tx.time)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* New Income Entry Modal */}
+      {showModal === "income" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-2 border-b border-nv-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-em-100 text-em-700 flex items-center justify-center">
+                  <Receipt size={17} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-ink text-base">{isBn ? "নতুন ইনকাম এন্ট্রি" : "New Income Entry"}</h3>
+                  <p className="text-[11px] text-ink/60">{isBn ? "ব্যবসায়িক আয় ও নগদ প্রাপ্তি রেকর্ড করুন" : "Record business revenue & cash receipts"}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowModal(null)} className="text-ink/60 hover:text-ink">
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleIncomeSubmit} className="space-y-3.5 text-xs sm:text-sm">
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "আয়ের ধরন / ক্যাটাগরি" : "Income Category"} *</label>
+                <select
+                  value={incomeCategory}
+                  onChange={e => setIncomeCategory(e.target.value)}
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500 font-medium text-ink"
+                >
+                  {incomeCategories.map(c => (
+                    <option key={c.id} value={c.id}>
+                      {isBn ? c.labelBn : c.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "গ্রাহক বা উৎস" : "Customer / Source"}</label>
+                <input
+                  type="text"
+                  value={incomeSource}
+                  onChange={e => setIncomeSource(e.target.value)}
+                  placeholder={isBn ? "যেমন: করিম আহমেদ / শোরুম ক্যাশ..." : "e.g. Karim Ahmed / Showroom Cash"}
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 text-ink focus:border-em-500"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "আয়ের পরিমাণ" : "Income Amount"} (৳) *</label>
+                <input
+                  type="number"
+                  required
+                  value={incomeAmount}
+                  onChange={e => setIncomeAmount(e.target.value)}
+                  placeholder="0"
+                  className="num w-full border border-nv-200 rounded-xl px-3 py-2 text-base font-bold text-ink focus:border-em-500"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "জমা হওয়ার অ্যাকাউন্ট" : "Deposit To Account"} *</label>
+                <select
+                  value={incomeAccountId}
+                  onChange={e => setIncomeAccountId(e.target.value)}
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500 font-medium text-ink"
+                >
+                  {accounts.map(a => (
+                    <option key={a.id} value={a.id}>
+                      {a.name} ({formatTaka(a.balance)})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "বিবরণ / নোট" : "Note / Remarks"}</label>
+                <input
+                  type="text"
+                  value={incomeNote}
+                  onChange={e => setIncomeNote(e.target.value)}
+                  placeholder={isBn ? "প্রয়োজনীয় কোনো নোট..." : "Any additional notes..."}
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
+                />
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(null)}
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
+                >
+                  {isBn ? "বাতিল" : "Cancel"}
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-2.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold shadow-md transition-fast"
+                >
+                  {isBn ? "ইনকাম নিশ্চিত করুন" : "Save Income Entry"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Sale / Income Entry Details Modal */}
+      {selectedSale && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-nv-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-em-50 border border-em-200 text-em-700 flex items-center justify-center">
+                  <Receipt size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-ink text-base">{isBn ? "ইনকাম রসিদ বিবরণ" : "Income Receipt Details"}</h3>
+                  <p className="text-[11px] text-ink/60 font-mono">#{selectedSale.invoiceNo} • {tNum(selectedSale.date)} {tNum(selectedSale.time)}</p>
+                </div>
+              </div>
+              <button onClick={() => setSelectedSale(null)} className="text-ink/60 hover:text-ink">
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs sm:text-sm">
+              {/* Customer & Payment details */}
+              <div className="p-3 bg-nv-50 rounded-xl border border-nv-200/70 space-y-1.5">
+                <div className="flex justify-between">
+                  <span className="text-ink/70">{isBn ? "গ্রাহক:" : "Customer:"}</span>
+                  <span className="font-bold text-ink">{selectedSale.customer}</span>
+                </div>
+                {selectedSale.customerPhone && (
+                  <div className="flex justify-between">
+                    <span className="text-ink/70">{isBn ? "ফোন নম্বর:" : "Phone:"}</span>
+                    <span className="font-mono text-ink">{selectedSale.customerPhone}</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span className="text-ink/70">{isBn ? "পেমেন্ট মাধ্যম:" : "Payment Method:"}</span>
+                  <span className="font-semibold text-ink uppercase">{selectedSale.paymentMethod}</span>
+                </div>
+              </div>
+
+              {/* Items breakdown */}
+              <div>
+                <div className="font-semibold text-ink mb-1.5">{isBn ? "পণ্যের তালিকা:" : "Purchased Items:"}</div>
+                <div className="divide-y divide-nv-100 border border-nv-200 rounded-xl overflow-hidden">
+                  {selectedSale.items.map((item, idx) => (
+                    <div key={idx} className="p-2.5 flex items-center justify-between text-xs">
+                      <div>
+                        <div className="font-medium text-ink">{isBn ? item.nameBn : item.name}</div>
+                        <div className="text-[10px] text-ink/60">{formatTaka(item.price)} × {tNum(item.qty)}</div>
+                      </div>
+                      <div className="num font-bold text-ink">
+                        {formatTaka(item.price * item.qty)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Summary table */}
+              <div className="space-y-1.5 pt-1 border-t border-nv-100 text-xs">
+                <div className="flex justify-between text-ink/70">
+                  <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+                  <span className="num font-semibold">{formatTaka(selectedSale.subtotal)}</span>
+                </div>
+                {selectedSale.discount > 0 && (
+                  <div className="flex justify-between text-ink/70">
+                    <span>{isBn ? "ছাড় (Discount):" : "Discount:"}</span>
+                    <span className="num font-semibold">-{formatTaka(selectedSale.discount)}</span>
+                  </div>
+                )}
+                {selectedSale.vat > 0 && (
+                  <div className="flex justify-between text-ink/70">
+                    <span>{isBn ? "ভ্যাট (VAT):" : "VAT:"}</span>
+                    <span className="num font-semibold">+{formatTaka(selectedSale.vat)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm font-bold text-ink pt-2 border-t border-nv-200">
+                  <span>{isBn ? "মোট আয় (Grand Total):" : "Grand Total:"}</span>
+                  <span className="num text-base font-extrabold text-em-700">+{formatTaka(selectedSale.grandTotal)}</span>
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedSale(null)}
+                  className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
+                >
+                  {isBn ? "বন্ধ করুন" : "Close"}
+                </button>
+                {setScreen && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentInvoice(selectedSale);
+                      setSelectedSale(null);
+                      setScreen("invoice");
+                    }}
+                    className="flex-1 py-2.5 bg-ink text-white rounded-xl font-bold hover:bg-ink/90 flex items-center justify-center gap-1.5"
+                  >
+                    <FileText size={15} />
+                    <span>{isBn ? "ইনভয়েস দেখুন" : "View Invoice"}</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Deposit Modal */}
       {showModal === "add" && (

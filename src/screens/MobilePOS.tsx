@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, ChevronDown, Receipt, Smartphone, Banknote, CreditCard, ArrowLeft, ArrowRight
 } from "lucide-react";
-import { useApp, Product, CartItem } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface MobilePOSProps {
@@ -32,15 +32,22 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
   const [cashGiven, setCashGiven] = useState("");
   const [lastSale, setLastSale] = useState<any>(null);
 
-  const filtered = products.filter(p =>
-    p.name.toLowerCase().includes(search.toLowerCase()) ||
-    p.nameBn.includes(search) ||
-    p.sku.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = products.filter(p => {
+    const cleanName = cleanProductName(p.name).toLowerCase();
+    const cleanNameBn = cleanProductNameBn(p.nameBn);
+    const searchLower = search.toLowerCase();
+    return (
+      p.name.toLowerCase().includes(searchLower) ||
+      cleanName.includes(searchLower) ||
+      p.nameBn.includes(search) ||
+      cleanNameBn.includes(search) ||
+      p.sku.toLowerCase().includes(searchLower)
+    );
+  });
 
   const addToCart = (p: Product) => {
     if (p.stock <= 0) {
-      toast({ type: "error", title: "Out of Stock" });
+      toast({ type: "error", title: isBn ? "স্টক শেষ" : "Out of Stock" });
       return;
     }
 
@@ -50,7 +57,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
         if (ex.qty >= p.stock) return prev;
         return prev.map(i => i.id === p.id ? { ...i, qty: i.qty + 1 } : i);
       }
-      return [...prev, { id: p.id, name: p.name, nameBn: p.nameBn, price: p.sellPrice, buyPrice: p.buyPrice, qty: 1, discount: 0, image: p.image }];
+      return [...prev, { id: p.id, name: cleanProductName(p.name), nameBn: cleanProductNameBn(p.nameBn), price: p.sellPrice, buyPrice: p.buyPrice, qty: 1, discount: 0, image: p.image }];
     });
   };
 
@@ -200,7 +207,9 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                     )}
                     <div>
                       <div className="text-3xl text-center py-1">{p.image || "📦"}</div>
-                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem]">{isBn ? p.nameBn : p.name}</div>
+                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug">
+                        {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
+                      </div>
                     </div>
                     <div className="flex items-center justify-between mt-2 pt-1 border-t border-nv-100">
                       <span className="num font-bold text-ink text-sm">{formatTaka(p.sellPrice)}</span>
@@ -244,7 +253,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                 <div className="flex items-center gap-2.5 min-w-0">
                   <span className="text-2xl">{item.image || "📦"}</span>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-ink truncate">{isBn ? item.nameBn : item.name}</div>
+                    <div className="text-xs font-bold text-ink truncate">{isBn ? cleanProductNameBn(item.nameBn) : cleanProductName(item.name)}</div>
                     <div className="num text-[11px] text-ink">{formatTaka(item.price)} each</div>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Search, ChevronDown, Calendar, Package, Truck, CheckCircle, Clock, X, Trash2, ArrowRight } from "lucide-react";
+import { Plus, Search, ChevronDown, Calendar, Package, Truck, CheckCircle, Clock, X, Trash2, ArrowRight, AlertTriangle } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
 interface PurchasesProps {
@@ -32,7 +32,7 @@ export default function Purchases({ lang }: PurchasesProps) {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [paidAmount, setPaidAmount] = useState<string>("");
   const [items, setItems] = useState<{ product: string; qty: number; cost: number }[]>([
-    { product: products[0]?.name || "Fresh Sunflower Oil", qty: 10, cost: 250 },
+    { product: products[0]?.name || "Sunflower Oil 5L", qty: 10, cost: 250 },
   ]);
   const [search, setSearch] = useState("");
 
@@ -110,6 +110,50 @@ export default function Purchases({ lang }: PurchasesProps) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Color-Coded Purchasing Advisory Strip */}
+      <div className="bg-gradient-to-r from-red-50/70 via-amber-50/50 to-white border border-red-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center text-red-700 flex-shrink-0">
+            <AlertTriangle size={20} />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-xs sm:text-sm text-ink">
+                {isBn ? "স্মার্ট ক্রয় অ্যানালিটিক্স: " : "Smart Purchasing Advisory: "}
+              </span>
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-600 text-white font-bold">
+                🔴 {tNum(products.filter(p => p.status === "low-stock" || p.status === "out-of-stock").length)} {isBn ? "টি জরুরি কেনা দরকার" : "Urgent Restock"}
+              </span>
+            </div>
+            <p className="text-xs text-ink/70 mt-0.5">
+              {isBn
+                ? "বিক্রির গতির ভিত্তিতে এই পণ্যগুলোর স্টক শেষ বা বিপদসীমায়। সাপ্লায়ার অর্ডারে দ্রুত অন্তর্ভুক্ত করুন।"
+                : "High-demand inventory running critically low. Automatically prefill urgent items into this order."}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            const urgentItems = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock");
+            if (urgentItems.length > 0) {
+              setItems(
+                urgentItems.map(p => ({
+                  product: p.name,
+                  qty: Math.max(15, p.min * 2 - p.stock),
+                  cost: p.buyPrice,
+                }))
+              );
+              setShowForm(true);
+            }
+          }}
+          className="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors self-start sm:self-auto flex items-center gap-1.5"
+        >
+          <Plus size={14} />
+          {isBn ? "জরুরি পণ্যগুলো অর্ডারে আনুন" : "Auto-Fill Urgent Items"}
+        </button>
       </div>
 
       {/* New Purchase Modal / Card */}

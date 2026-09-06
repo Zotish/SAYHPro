@@ -22,8 +22,8 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
     customer: "Karim Ahmed",
     customerPhone: "01712-345678",
     items: [
-      { name: "Fresh Sunflower Oil 5L", nameBn: "ফ্রেশ সানফ্লাওয়ার অয়েল ৫লি", qty: 2, price: 300, discount: 0 },
-      { name: "Pran RUCHI Chanachur 200g", nameBn: "প্রাণ রুচি চানাচুর ২০০গ্রাম", qty: 3, price: 60, discount: 0 },
+      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", qty: 2, price: 300, discount: 0 },
+      { name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", qty: 3, price: 60, discount: 0 },
     ],
     subtotal: 780,
     discount: 0,

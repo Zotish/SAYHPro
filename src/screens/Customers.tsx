@@ -266,8 +266,15 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
                 className="flex-1 py-2.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5"
               >
                 <Phone size={14} />
-                <span>{isBn ? "কল করুন" : "Call"}</span>
+                <span>{isBn ? "কল" : "Call"}</span>
               </a>
+              <button
+                onClick={() => setScreen("messages")}
+                className="flex-1 py-2.5 bg-em-50 hover:bg-em-100 text-em-800 border border-em-200 rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5"
+              >
+                <MessageSquare size={14} />
+                <span>{isBn ? "চ্যাট" : "Chat"}</span>
+              </button>
             </div>
 
             <div className="pt-2 border-t border-nv-100 flex justify-between items-center">

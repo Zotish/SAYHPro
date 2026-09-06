@@ -28,6 +28,7 @@ import FintechBanking from "./screens/FintechBanking";
 import Reselling from "./screens/Reselling";
 import WebsiteBuilder from "./screens/WebsiteBuilder";
 import MonitoringAlerts from "./screens/MonitoringAlerts";
+import Messaging from "./screens/Messaging";
 
 type AppState = "login" | "onboarding" | "app";
 type Screen =
@@ -35,7 +36,8 @@ type Screen =
   | "customers" | "suppliers" | "dues" | "expenses" | "cash" | "employees"
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
   | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice"
-  | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts";
+  | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts"
+  | "messages";
 
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
@@ -163,13 +165,13 @@ function MainApp() {
       case "customers":
         return <Customers lang={lang} setScreen={setScreen} />;
       case "suppliers":
-        return <Suppliers lang={lang} />;
+        return <Suppliers lang={lang} setScreen={setScreen} />;
       case "purchases":
         return <Purchases lang={lang} />;
       case "expenses":
         return <Expenses lang={lang} />;
       case "cash":
-        return <CashAccounts lang={lang} onBack={goBack} />;
+        return <CashAccounts lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "reports":
         return <Reports lang={lang} setScreen={setScreen} />;
       case "profitloss":
@@ -192,6 +194,8 @@ function MainApp() {
         return <WebsiteBuilder lang={lang} setScreen={setScreen} />;
       case "alerts":
         return <MonitoringAlerts lang={lang} setScreen={setScreen} />;
+      case "messages":
+        return <Messaging lang={lang} setScreen={setScreen} />;
       default:
         return <Dashboard lang={lang} setScreen={setScreen} />;
     }

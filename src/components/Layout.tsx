@@ -4,7 +4,7 @@ import {
   CreditCard, Receipt, Wallet, UserCheck, BarChart2, Bell, Settings,
   Search, Globe, LogOut, Menu, X, Home, ArrowLeft,
   Plus, ChevronDown, Check,
-  MessageSquare, Landmark, Store, Globe2, ShieldAlert
+  MessageSquare, Landmark, Store, Globe2, ShieldAlert, MessageCircle
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import GlobalSearchModal from "./GlobalSearchModal";
@@ -15,7 +15,7 @@ type Screen = string;
  *  nothing on the left (CustomerDue's "Add Due Entry", Inventory's "Add
  *  Stock") — the mobile back arrow overlays into that empty space instead
  *  of taking its own row, so it lines up with the button. */
-const screensWithInlineBack = ["dues", "inventory", "cash"];
+const screensWithInlineBack = ["dues", "inventory", "cash", "messages"];
 
 interface LayoutProps {
   currentScreen: Screen;
@@ -76,6 +76,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
   const navItems = [
     { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "ড্যাশবোর্ড" },
     { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "বিক্রি করুন", highlight: true },
+    { id: "messages", icon: MessageCircle, label: "Messaging & Chat", labelBn: "মেসেজিং ও চ্যাট", badge: 3, badgeColor: "bg-em-600" },
     { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস" },
     { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল" },
     { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন" },
@@ -319,6 +320,18 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             <span>{isBn ? "English" : "বাংলা"}</span>
           </button>
 
+          {/* Messaging Shortcut */}
+          <button
+            onClick={() => setScreen("messages")}
+            className="relative w-9 h-9 flex items-center justify-center rounded-xl hover:bg-nv-100 text-ink transition-fast border border-nv-200"
+            title={isBn ? "মেসেজিং ও চ্যাট" : "Messaging & Chat"}
+          >
+            <MessageCircle size={18} />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-em-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+              {tNum(3)}
+            </span>
+          </button>
+
           {/* Notifications Dropdown */}
           <div className="relative" ref={notifRef}>
             <button
@@ -448,7 +461,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto bg-nv-50">
+        <main className={`flex-1 ${currentScreen === "messages" ? "overflow-hidden flex flex-col h-full" : "overflow-y-auto"} bg-nv-50`}>
           {/* Back button — mobile only. Desktop keeps the full sidebar as its
               nav model and doesn't need a "back", but on a phone this is the
               only way out of a feature screen since the header is hidden.
@@ -474,7 +487,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
       </div>
 
       {/* Mobile Bottom Navigation Bar (Screens < 1024px) */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-nv-200 z-30 lg:hidden shadow-lg">
+      {currentScreen !== "messages" && (
+        <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-nv-200 z-30 lg:hidden shadow-lg">
         <div className="flex items-center justify-around h-16 px-1">
           {mobileNavItems.map(item => {
             const isActive = currentScreen === item.id;
@@ -506,6 +520,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           </button>
         </div>
       </nav>
+      )}
 
       {/* Mobile More Sheet / Drawer */}
       {mobileMoreOpen && (
@@ -535,6 +550,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                 { id: "dues", icon: CreditCard, label: "Dues", labelBn: "বাকির হিসাব", color: "bg-red-50 text-ink" },
                 { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", color: "bg-ac-50 text-ink" },
                 { id: "products", icon: Package, label: "Products", labelBn: "পণ্য" },
+                { id: "messages", icon: MessageCircle, label: "Messages", labelBn: "মেসেজিং", color: "bg-em-50 text-ink" },
                 { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক" },
                 { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং" },
                 { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার" },

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Search, Plus, Phone, Truck, AlertCircle, CheckCircle, Calendar, X, CreditCard } from "lucide-react";
+import { Search, Plus, Phone, Truck, AlertCircle, CheckCircle, Calendar, X, CreditCard, MessageCircle } from "lucide-react";
 import { useApp, Supplier } from "../context/AppContext";
 
 interface SuppliersProps {
   lang: "en" | "bn";
+  setScreen?: (s: string) => void;
 }
 
-export default function Suppliers({ lang }: SuppliersProps) {
+export default function Suppliers({ lang, setScreen }: SuppliersProps) {
   const { suppliers, addSupplier, recordSupplierPayment, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -172,6 +173,15 @@ export default function Suppliers({ lang }: SuppliersProps) {
                       >
                         <Phone size={14} />
                       </a>
+                      {setScreen && (
+                        <button
+                          onClick={() => setScreen("messages")}
+                          className="p-1.5 bg-em-50 text-em-700 hover:bg-em-100 rounded-lg transition-fast border border-em-200"
+                          title={isBn ? "চ্যাট করুন" : "Chat with supplier"}
+                        >
+                          <MessageCircle size={14} />
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

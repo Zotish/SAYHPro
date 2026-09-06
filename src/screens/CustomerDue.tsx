@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Plus, Phone, MessageSquare, X, Send, ArrowLeft } from "lucide-react";
+import { Search, Plus, Phone, MessageSquare, MessageCircle, X, Send, ArrowLeft } from "lucide-react";
 import { useApp, Customer } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
@@ -209,6 +209,13 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                             title="SMS Reminder"
                           >
                             <MessageSquare size={14} />
+                          </button>
+                          <button
+                            onClick={() => setScreen("messages")}
+                            className="p-1.5 bg-em-50 text-em-700 hover:bg-em-100 rounded-lg transition-fast border border-em-200"
+                            title={isBn ? "চ্যাট করুন" : "Chat"}
+                          >
+                            <MessageCircle size={14} />
                           </button>
                         </>
                       )}

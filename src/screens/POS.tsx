@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, CreditCard, Banknote, Smartphone, Receipt, ChevronDown, RefreshCw, ShoppingCart
 } from "lucide-react";
-import { useApp, Product, CartItem } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface POSProps {
@@ -47,10 +47,15 @@ export default function POS({ lang, setScreen }: POSProps) {
 
   const filteredProducts = products.filter(p => {
     const matchesCat = selectedCategory === "All" || p.category === selectedCategory;
+    const cleanName = cleanProductName(p.name).toLowerCase();
+    const cleanNameBn = cleanProductNameBn(p.nameBn);
+    const searchLower = search.toLowerCase();
     const matchesSearch =
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
+      p.name.toLowerCase().includes(searchLower) ||
+      cleanName.includes(searchLower) ||
       p.nameBn.includes(search) ||
-      p.sku.toLowerCase().includes(search.toLowerCase());
+      cleanNameBn.includes(search) ||
+      p.sku.toLowerCase().includes(searchLower);
     return matchesCat && matchesSearch;
   });
 
@@ -59,7 +64,7 @@ export default function POS({ lang, setScreen }: POSProps) {
       toast({
         type: "error",
         title: isBn ? "স্টক শেষ!" : "Out of Stock!",
-        message: `${product.name} is currently out of stock.`,
+        message: `${cleanProductName(product.name)} is currently out of stock.`,
       });
       return;
     }
@@ -83,8 +88,8 @@ export default function POS({ lang, setScreen }: POSProps) {
         ...prev,
         {
           id: product.id,
-          name: product.name,
-          nameBn: product.nameBn,
+          name: cleanProductName(product.name),
+          nameBn: cleanProductNameBn(product.nameBn),
           price: product.sellPrice,
           buyPrice: product.buyPrice,
           qty: 1,
@@ -253,8 +258,8 @@ export default function POS({ lang, setScreen }: POSProps) {
                     <div className="text-3xl text-center py-1.5 group-hover:scale-110 transition-transform">
                       {p.image || "📦"}
                     </div>
-                    <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2 min-h-[2rem]">
-                      {isBn ? p.nameBn : p.name}
+                    <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2 min-h-[2rem] leading-snug">
+                      {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                     </h4>
                   </div>
 
@@ -312,7 +317,7 @@ export default function POS({ lang, setScreen }: POSProps) {
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-xl">{item.image || "📦"}</span>
                 <div className="min-w-0">
-                  <h5 className="font-bold text-xs text-ink truncate">{isBn ? item.nameBn : item.name}</h5>
+                  <h5 className="font-bold text-xs text-ink truncate">{isBn ? cleanProductNameBn(item.nameBn) : cleanProductName(item.name)}</h5>
                   <div className="num text-[11px] text-ink">{formatTaka(item.price)} each</div>
                 </div>
               </div>
@@ -458,7 +463,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-xl">{item.image || "📦"}</span>
                     <div className="min-w-0">
-                      <h5 className="font-bold text-xs text-ink truncate">{isBn ? item.nameBn : item.name}</h5>
+                      <h5 className="font-bold text-xs text-ink truncate">{isBn ? cleanProductNameBn(item.nameBn) : cleanProductName(item.name)}</h5>
                       <div className="num text-[11px] text-ink">{formatTaka(item.price)} each</div>
                     </div>
                   </div>
