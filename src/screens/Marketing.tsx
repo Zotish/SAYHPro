@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   MessageSquare, Share2, Send, Plus, Users, Sparkles, CheckCircle2,
   TrendingUp, RefreshCw, Smartphone, ExternalLink,
-  Target, DollarSign, BarChart3, AlertCircle, ShoppingCart
+  Target, DollarSign, BarChart3, AlertCircle, ShoppingCart, ArrowLeft
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -16,9 +16,10 @@ const FacebookIcon = ({ size = 20 }: { size?: number }) => (
 interface MarketingProps {
   lang: "en" | "bn";
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
-export default function Marketing({ lang, setScreen }: MarketingProps) {
+export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
   const {
     smsCampaigns,
     smsBalance,
@@ -120,18 +121,18 @@ export default function Marketing({ lang, setScreen }: MarketingProps) {
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "মার্কেটিং ও প্রচারণা হাব" : "Marketing & Growth Hub"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-nv-100 text-ink">SMS + Meta</span>
-          </div>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "গ্রাহকদের বাল্ক এসএমএস পাঠান এবং ফেসবুক শপ ক্যাটালগ ও পিক্সেল সিঙ্ক করুন" : "Target customers with high-converting SMS campaigns & Meta/Facebook Catalog sync"}
-          </p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
 
-        <div className="flex flex-wrap gap-2 self-start sm:self-auto">
+        <div className="ml-auto flex items-center gap-2 flex-wrap">
           <button
             onClick={() => setShowTopupModal(true)}
             className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"

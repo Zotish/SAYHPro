@@ -17,6 +17,7 @@ interface ReportsProps {
   lang: "en" | "bn";
   showPL?: boolean;
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
 interface TaxMonthRecord {
@@ -90,7 +91,7 @@ const initialTaxRecords: TaxMonthRecord[] = [
   },
 ];
 
-export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
+export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProps) {
   const { sales, expenses, products, customers, suppliers, accounts, settings, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -265,18 +266,18 @@ export default function Reports({ lang, showPL, setScreen }: ReportsProps) {
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">
-            {isBn ? "আর্থিক ও ব্যবসায়িক অ্যানালিটিক্স" : "Financial & Business Analytics"}
-          </h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn
-              ? "লাভ-ক্ষতি, ভ্যাট ও কর পরিশোধ, এবং স্টক ক্রয়ের স্মার্ট পরামর্শ"
-              : "P&L Statements, NBR Tax compliance & payment, and color-coded stock reorder advisory"}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
+        <div className="ml-auto flex items-center gap-2 flex-wrap">
           <button
             onClick={handlePrint}
             className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"

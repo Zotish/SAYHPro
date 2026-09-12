@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Plus, Phone, TrendingUp, Users, DollarSign, Award, Edit, Trash2, CheckCircle, X, CreditCard } from "lucide-react";
+import { Plus, Phone, TrendingUp, Edit, Trash2, X, CreditCard, ArrowLeft, User, Camera } from "lucide-react";
 import { useApp, Employee } from "../context/AppContext";
 
 interface EmployeesProps {
   lang: "en" | "bn";
+  onBack?: () => void;
 }
 
 const roleColors: Record<string, string> = {
@@ -13,7 +14,7 @@ const roleColors: Record<string, string> = {
   "Inventory Staff": "bg-ac-50 text-ink border border-ac-200",
 };
 
-export default function Employees({ lang }: EmployeesProps) {
+export default function Employees({ lang, onBack }: EmployeesProps) {
   const { employees, addEmployee, updateEmployee, deleteEmployee, paySalary, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -28,6 +29,7 @@ export default function Employees({ lang }: EmployeesProps) {
   const [phone, setPhone] = useState("");
   const [salary, setSalary] = useState("");
   const [joined, setJoined] = useState("Today");
+  const [photo, setPhoto] = useState("");
 
   const totalSalary = employees.reduce((s, e) => s + e.salary, 0);
 
@@ -43,6 +45,7 @@ export default function Employees({ lang }: EmployeesProps) {
       phone,
       salary: Number(salary),
       joined: joined || "Dec 2024",
+      photo: photo || undefined,
     });
 
     setShowAddModal(false);
@@ -50,6 +53,7 @@ export default function Employees({ lang }: EmployeesProps) {
     setNameBn("");
     setPhone("");
     setSalary("");
+    setPhoto("");
   };
 
   const handlePaySalarySubmit = (e: React.FormEvent) => {
@@ -63,14 +67,20 @@ export default function Employees({ lang }: EmployeesProps) {
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "কর্মচারী ও বেতন" : "Employees & Payroll"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">{tNum(employees.length)} {isBn ? "জন কর্মী তালিকাভুক্ত" : "staff members registered"}</p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md self-start sm:self-auto"
+          className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} /> {isBn ? "নতুন কর্মচারী" : "Add Employee"}
         </button>
@@ -79,19 +89,14 @@ export default function Employees({ lang }: EmployeesProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Staff", labelBn: "মোট কর্মচারী", value: `${tNum(employees.length)} ${isBn ? "জন" : "Staff"}`, icon: Users, color: "bg-nv-50 text-ink" },
-          { label: "Monthly Payroll", labelBn: "মাসিক মোট বেতন", value: formatTaka(totalSalary), icon: DollarSign, color: "bg-red-50 text-ink" },
-          { label: "Active Roles", labelBn: "সক্রিয় পদবী", value: `${tNum(4)} ${isBn ? "টি পদ" : "Roles"}`, icon: Award, color: "bg-nv-50 text-ink" },
-          { label: "Status", labelBn: "সবাই সক্রিয়", value: isBn ? "সবাই সক্রিয়" : "All Active", icon: CheckCircle, color: "bg-em-50 text-ink" },
+          { label: "Total Staff", labelBn: "মোট কর্মচারী", value: tNum(employees.length) },
+          { label: "Monthly Payroll", labelBn: "মাসিক মোট বেতন", value: formatTaka(totalSalary) },
+          { label: "Active Roles", labelBn: "সক্রিয় পদবী", value: tNum(4) },
+          { label: "Status", labelBn: "স্ট্যাটাস", value: isBn ? "সবাই সক্রিয়" : "All Active" },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
-              <s.icon size={18} />
-            </div>
-            <div>
-              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
-            </div>
+          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
+            <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
           </div>
         ))}
       </div>
@@ -108,8 +113,39 @@ export default function Employees({ lang }: EmployeesProps) {
               <div>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-em-600 text-white font-bold text-lg flex items-center justify-center shadow-xs">
-                      {emp.avatar}
+                    <div className="relative group flex-shrink-0">
+                      {emp.photo ? (
+                        <img
+                          src={emp.photo}
+                          alt={emp.name}
+                          className="w-12 h-12 rounded-2xl object-cover shadow-xs border border-nv-200"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-2xl bg-em-600 text-white flex items-center justify-center shadow-xs">
+                          <User size={22} />
+                        </div>
+                      )}
+                      <label
+                        className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white border border-nv-200 shadow-xs flex items-center justify-center text-ink cursor-pointer hover:bg-nv-50 transition-fast"
+                        title={isBn ? "ছবি পরিবর্তন / আপলোড করুন" : "Upload / change photo"}
+                      >
+                        <Camera size={11} className="text-ink" />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                updateEmployee(emp.id, { photo: reader.result as string });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
                     </div>
                     <div>
                       <h3 className="font-bold text-base text-ink">{isBn ? emp.nameBn : emp.name}</h3>
@@ -229,6 +265,48 @@ export default function Employees({ lang }: EmployeesProps) {
                   placeholder="12000"
                   className="num w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink focus:border-em-500"
                 />
+              </div>
+
+              <div>
+                <label className="block font-medium text-ink mb-1">{isBn ? "কর্মচারীর ছবি (ঐচ্ছিক)" : "Employee Photo (Optional)"}</label>
+                <div className="flex items-center gap-3">
+                  {photo ? (
+                    <div className="relative w-12 h-12 rounded-2xl overflow-hidden border border-nv-200 shadow-xs flex-shrink-0">
+                      <img src={photo} alt="Preview" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setPhoto("")}
+                        className="absolute top-0 right-0 bg-black/60 text-white p-0.5 rounded-bl-lg hover:bg-black/80"
+                        title="Remove"
+                      >
+                        <X size={10} />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-2xl bg-em-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                      <User size={22} />
+                    </div>
+                  )}
+                  <label className="cursor-pointer px-3 py-2 border border-nv-200 rounded-xl text-xs font-semibold text-ink bg-white hover:bg-nv-50 flex items-center gap-1.5 transition-fast shadow-2xs">
+                    <Camera size={13} className="text-ink/70" />
+                    <span>{photo ? (isBn ? "ছবি পরিবর্তন" : "Change Photo") : (isBn ? "ছবি আপলোড করুন" : "Upload Photo")}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setPhoto(reader.result as string);
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
               </div>
 
               <div className="flex gap-2 pt-2">

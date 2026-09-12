@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Package, Barcode, Grid, List } from "lucide-react";
+import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
@@ -7,6 +7,7 @@ interface ProductsProps {
   lang: "en" | "bn";
   showAdd?: boolean;
   setScreen?: (s: string) => void;
+  onBack?: () => void;
 }
 
 const statusBadge = (status: Product["status"], isBn: boolean) => {
@@ -23,7 +24,7 @@ const statusBadge = (status: Product["status"], isBn: boolean) => {
   );
 };
 
-export default function Products({ lang, showAdd = false, setScreen }: ProductsProps) {
+export default function Products({ lang, showAdd = false, setScreen, onBack }: ProductsProps) {
   const { products, addProduct, updateProduct, deleteProduct, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -61,7 +62,6 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
     return matchCat && matchStatus && matchSearch;
   });
 
-  const totalValuation = products.reduce((s, p) => s + p.sellPrice * p.stock, 0);
 
   const handleCreateProduct = (e: React.FormEvent) => {
     e.preventDefault();
@@ -167,15 +167,18 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "পণ্য ও ক্যাটালগ" : "Products"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {tNum(products.length)} {isBn ? "টি পণ্য তালিকাভুক্ত · মোট স্টক মূল্য: " : "products registered · Total Stock Value: "}
-            <span className="num font-bold text-ink">{formatTaka(totalValuation)}</span>
-          </p>
-        </div>
-        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
+        <div className="ml-auto flex items-center gap-2 flex-wrap">
           <button
             onClick={handleExportCSV}
             className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
@@ -199,19 +202,14 @@ export default function Products({ lang, showAdd = false, setScreen }: ProductsP
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length), icon: Package, color: "bg-nv-100 text-ink" },
-          { label: "In Stock Items", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(p => p.status === "in-stock").length), icon: CheckCircle, color: "bg-em-50 text-ink" },
-          { label: "Low Stock Items", labelBn: "কম স্টক", value: tNum(products.filter(p => p.status === "low-stock").length), icon: AlertTriangle, color: "bg-ac-50 text-ink" },
-          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length), icon: X, color: "bg-red-50 text-ink" },
+          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length) },
+          { label: "In Stock Items", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(p => p.status === "in-stock").length) },
+          { label: "Low Stock Items", labelBn: "কম স্টক", value: tNum(products.filter(p => p.status === "low-stock").length) },
+          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
-              <s.icon size={18} />
-            </div>
-            <div>
-              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
-            </div>
+          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
+            <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
           </div>
         ))}
       </div>

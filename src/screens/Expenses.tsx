@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Plus, Receipt, Home, Zap, Users, Truck, Coffee, Wrench, Megaphone, Grid, Trash2, X, Search, DollarSign } from "lucide-react";
+import { Plus, Receipt, Home, Zap, Users, Truck, Coffee, Wrench, Megaphone, Grid, Trash2, X, Search, DollarSign, ArrowLeft } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { useApp } from "../context/AppContext";
 
 interface ExpensesProps {
   lang: "en" | "bn";
+  onBack?: () => void;
 }
 
 const expenseCategories = [
@@ -18,7 +19,7 @@ const expenseCategories = [
   { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#CBD5E1" },
 ];
 
-export default function Expenses({ lang }: ExpensesProps) {
+export default function Expenses({ lang, onBack }: ExpensesProps) {
   const { expenses, addExpense, deleteExpense, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -72,17 +73,20 @@ export default function Expenses({ lang }: ExpensesProps) {
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "খরচ ব্যবস্থাপনা" : "Expense Management"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "মোট মাসিক খরচ: " : "Total Expenses: "}
-            <span className="num font-bold text-ink">{formatTaka(totalExpense)}</span>
-          </p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md self-start sm:self-auto"
+          className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} /> {isBn ? "নতুন খরচ যোগ করুন" : "Add Expense"}
         </button>

@@ -153,9 +153,9 @@ function MainApp() {
       case "sales":
         return <POS lang={lang} setScreen={setScreen} />;
       case "products":
-        return <Products lang={lang} setScreen={setScreen} />;
+        return <Products lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "addproduct":
-        return <Products lang={lang} showAdd setScreen={setScreen} />;
+        return <Products lang={lang} showAdd setScreen={setScreen} onBack={goBack} />;
       case "inventory":
         return <Inventory lang={lang} onBack={goBack} />;
       case "dues":
@@ -163,29 +163,29 @@ function MainApp() {
       case "customerdetail":
         return <CustomerDue lang={lang} showDetail setScreen={setScreen} onBack={goBack} />;
       case "customers":
-        return <Customers lang={lang} setScreen={setScreen} />;
+        return <Customers lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "suppliers":
-        return <Suppliers lang={lang} setScreen={setScreen} />;
+        return <Suppliers lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "purchases":
         return <Purchases lang={lang} />;
       case "expenses":
-        return <Expenses lang={lang} />;
+        return <Expenses lang={lang} onBack={goBack} />;
       case "cash":
         return <CashAccounts lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "reports":
-        return <Reports lang={lang} setScreen={setScreen} />;
+        return <Reports lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "profitloss":
-        return <Reports lang={lang} showPL setScreen={setScreen} />;
+        return <Reports lang={lang} showPL setScreen={setScreen} onBack={goBack} />;
       case "settings":
         return <Settings lang={lang} setLang={setLang} />;
       case "employees":
-        return <Employees lang={lang} />;
+        return <Employees lang={lang} onBack={goBack} />;
       case "notifications":
         return <Notifications lang={lang} />;
       case "marketing":
-        return <Marketing lang={lang} setScreen={setScreen} />;
+        return <Marketing lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "delivery":
-        return <DeliveryAggregator lang={lang} setScreen={setScreen} />;
+        return <DeliveryAggregator lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "fintech":
         return <FintechBanking lang={lang} setScreen={setScreen} />;
       case "reselling":

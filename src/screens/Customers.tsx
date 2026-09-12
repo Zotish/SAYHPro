@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Search, Plus, Phone, ShoppingCart, CreditCard, ChevronRight, Users, Star, MessageSquare, Trash2, Edit, X, ArrowLeft } from "lucide-react";
+import { Search, Plus, Phone, CreditCard, ChevronRight, MessageSquare, Trash2, Edit, X, ArrowLeft } from "lucide-react";
 import { useApp, Customer } from "../context/AppContext";
 
 interface CustomersProps {
   lang: "en" | "bn";
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
 const statusConfig = {
@@ -14,7 +15,7 @@ const statusConfig = {
   due: { label: "Has Due", labelBn: "বাকি আছে", cls: "bg-red-50 text-ink border border-red-200" },
 };
 
-export default function Customers({ lang, setScreen }: CustomersProps) {
+export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
   const { customers, addCustomer, updateCustomer, deleteCustomer, recordCustomerPayment, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -81,14 +82,20 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "গ্রাহক ব্যবস্থাপনা" : "Customers"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">{tNum(customers.length)} {isBn ? "জন নিবন্ধিত গ্রাহক" : "customers registered"}</p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md self-start sm:self-auto"
+          className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} /> {isBn ? "গ্রাহক যোগ করুন" : "Add Customer"}
         </button>
@@ -97,19 +104,14 @@ export default function Customers({ lang, setScreen }: CustomersProps) {
       {/* Stats Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}`, icon: Users, color: "bg-nv-50 text-ink" },
-          { label: "Total Purchases", labelBn: "মোট বিক্রয়", value: formatTaka(totalPurchases), icon: ShoppingCart, color: "bg-em-50 text-ink" },
-          { label: "Outstanding Dues", labelBn: "মোট বাকি", value: formatTaka(totalDue), icon: CreditCard, color: "bg-red-50 text-ink" },
-          { label: "VIP Customers", labelBn: "ভিআইপি গ্রাহক", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}`, icon: Star, color: "bg-ac-50 text-ink" },
+          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}` },
+          { label: "Total Purchases", labelBn: "মোট বিক্রয়", value: formatTaka(totalPurchases) },
+          { label: "Outstanding Dues", labelBn: "মোট বাকি", value: formatTaka(totalDue) },
+          { label: "VIP Customers", labelBn: "ভিআইপি গ্রাহক", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}` },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
-              <s.icon size={18} />
-            </div>
-            <div>
-              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
-            </div>
+          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
+            <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
           </div>
         ))}
       </div>

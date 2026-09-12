@@ -176,6 +176,7 @@ export interface Employee {
   salesThisMonth: number;
   joined: string;
   avatar: string;
+  photo?: string;
   status: "active" | "inactive";
   lastPaid?: string;
 }

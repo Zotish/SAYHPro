@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Search, ChevronDown, Calendar, Package, Truck, CheckCircle, Clock, X, Trash2, ArrowRight, AlertTriangle } from "lucide-react";
+import { Plus, Search, ChevronDown, Calendar, Truck, CheckCircle, Clock, X, Trash2, ArrowRight } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
 interface PurchasesProps {
@@ -74,19 +74,29 @@ export default function Purchases({ lang }: PurchasesProps) {
   const totalPurchasesAmount = purchases.reduce((s, p) => s + p.total, 0);
   const totalDueToSuppliers = purchases.reduce((s, p) => s + p.due, 0);
 
+  const urgentCount = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock").length;
+
+  const handleAutoFillUrgent = () => {
+    const urgentItems = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock");
+    if (urgentItems.length > 0) {
+      setItems(
+        urgentItems.map(p => ({
+          product: p.name,
+          qty: Math.max(15, p.min * 2 - p.stock),
+          cost: p.buyPrice,
+        }))
+      );
+      setShowForm(true);
+    }
+  };
+
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "ক্রয় ও স্টক ইন" : "Purchases & Stock In"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "সাপ্লায়ার থেকে স্টক ক্রয় ও দেনা হিসাব" : "Supplier purchase orders and inventory additions"}
-          </p>
-        </div>
+      <div className="flex justify-end">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md"
         >
           <Plus size={16} /> {isBn ? "নতুন ক্রয় অর্ডার" : "New Purchase"}
         </button>
@@ -95,65 +105,40 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount), icon: Truck, color: "bg-nv-50 text-ink" },
-          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers), icon: Clock, color: "bg-red-50 text-ink" },
-          { label: "Total Orders", labelBn: "মোট অর্ডার", value: `${tNum(purchases.length)} ${isBn ? "টি" : "Orders"}`, icon: Package, color: "bg-nv-100 text-ink" },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: CheckCircle, color: "bg-em-50 text-ink" },
+          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount) },
+          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers) },
+          { label: "Total Orders", labelBn: "মোট অর্ডার", value: tNum(purchases.length) },
+          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: tNum(suppliers.length) },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
-              <s.icon size={18} />
-            </div>
-            <div>
-              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
-            </div>
+          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
+            <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
           </div>
         ))}
       </div>
 
       {/* Color-Coded Purchasing Advisory Strip */}
-      <div className="bg-gradient-to-r from-red-50/70 via-amber-50/50 to-white border border-red-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center text-red-700 flex-shrink-0">
-            <AlertTriangle size={20} />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-xs sm:text-sm text-ink">
-                {isBn ? "স্মার্ট ক্রয় অ্যানালিটিক্স: " : "Smart Purchasing Advisory: "}
-              </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-600 text-white font-bold">
-                🔴 {tNum(products.filter(p => p.status === "low-stock" || p.status === "out-of-stock").length)} {isBn ? "টি জরুরি কেনা দরকার" : "Urgent Restock"}
-              </span>
-            </div>
-            <p className="text-xs text-ink/70 mt-0.5">
-              {isBn
-                ? "বিক্রির গতির ভিত্তিতে এই পণ্যগুলোর স্টক শেষ বা বিপদসীমায়। সাপ্লায়ার অর্ডারে দ্রুত অন্তর্ভুক্ত করুন।"
-                : "High-demand inventory running critically low. Automatically prefill urgent items into this order."}
-            </p>
-          </div>
+      <div className="bg-gradient-to-r from-em-50/60 via-nv-50/30 to-white border border-em-200 rounded-2xl p-4 flex flex-col gap-2.5 shadow-2xs">
+        <div className="font-bold text-xs sm:text-sm text-ink">
+          {isBn ? "স্মার্ট ক্রয় অ্যানালিটিক্স:" : "Smart Purchasing Advisory:"}
         </div>
 
-        <button
-          onClick={() => {
-            const urgentItems = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock");
-            if (urgentItems.length > 0) {
-              setItems(
-                urgentItems.map(p => ({
-                  product: p.name,
-                  qty: Math.max(15, p.min * 2 - p.stock),
-                  cost: p.buyPrice,
-                }))
-              );
-              setShowForm(true);
-            }
-          }}
-          className="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors self-start sm:self-auto flex items-center gap-1.5"
-        >
-          <Plus size={14} />
-          {isBn ? "জরুরি পণ্যগুলো অর্ডারে আনুন" : "Auto-Fill Urgent Items"}
-        </button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={handleAutoFillUrgent}
+            className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>{tNum(urgentCount)} {isBn ? "টি জরুরি" : "Urgent"}</span>
+          </button>
+
+          <button
+            onClick={handleAutoFillUrgent}
+            className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <Plus size={14} />
+            <span>{isBn ? "অটো-ফিল" : "Auto-Fill"}</span>
+          </button>
+        </div>
       </div>
 
       {/* New Purchase Modal / Card */}

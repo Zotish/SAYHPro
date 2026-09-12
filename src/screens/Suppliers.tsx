@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Search, Plus, Phone, Truck, AlertCircle, CheckCircle, Calendar, X, CreditCard, MessageCircle } from "lucide-react";
+import { Search, Plus, Phone, CheckCircle, X, CreditCard, MessageCircle, ArrowLeft } from "lucide-react";
 import { useApp, Supplier } from "../context/AppContext";
 
 interface SuppliersProps {
   lang: "en" | "bn";
   setScreen?: (s: string) => void;
+  onBack?: () => void;
 }
 
-export default function Suppliers({ lang, setScreen }: SuppliersProps) {
+export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
   const { suppliers, addSupplier, recordSupplierPayment, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -71,14 +72,20 @@ export default function Suppliers({ lang, setScreen }: SuppliersProps) {
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "সাপ্লায়ার ব্যবস্থাপনা" : "Suppliers Directory"}</h1>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">{tNum(suppliers.length)} {isBn ? "জন রেজিস্টার্ড সাপ্লায়ার" : "registered suppliers"}</p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md self-start sm:self-auto"
+          className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} /> {isBn ? "সাপ্লায়ার যোগ করুন" : "Add Supplier"}
         </button>
@@ -87,19 +94,14 @@ export default function Suppliers({ lang, setScreen }: SuppliersProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Payable Due", labelBn: "মোট সাপ্লায়ার দেনা", value: formatTaka(totalDue), icon: AlertCircle, color: "bg-red-50 text-ink" },
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchases), icon: Truck, color: "bg-nv-50 text-ink" },
-          { label: "Total Paid", labelBn: "মোট পরিশোধ", value: formatTaka(totalPaid), icon: CheckCircle, color: "bg-em-50 text-ink" },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: `${tNum(suppliers.length)} ${isBn ? "টি" : "Companies"}`, icon: Calendar, color: "bg-ac-50 text-ink" },
+          { label: "Total Payable Due", labelBn: "মোট সাপ্লায়ার দেনা", value: formatTaka(totalDue) },
+          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchases) },
+          { label: "Total Paid", labelBn: "মোট পরিশোধ", value: formatTaka(totalPaid) },
+          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: tNum(suppliers.length) },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>
-              <s.icon size={18} />
-            </div>
-            <div>
-              <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-              <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
-            </div>
+          <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
+            <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
           </div>
         ))}
       </div>

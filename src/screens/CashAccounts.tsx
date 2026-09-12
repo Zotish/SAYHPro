@@ -110,12 +110,12 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
       {/* Header — the back arrow and the button group are real flex
           siblings on the same row (not overlaid), so neither can ever
           cover the other no matter how narrow the screen gets. */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         {onBack && (
           <button
             onClick={onBack}
             aria-label={isBn ? "পেছনে যান" : "Go back"}
-            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 self-start"
           >
             <ArrowLeft size={18} />
           </button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   Truck, Package, Plus, Search, CheckCircle, Clock, MapPin,
   Phone, User, ArrowRight, ExternalLink, RefreshCw, Filter,
-  DollarSign, AlertCircle, Navigation
+  DollarSign, AlertCircle, Navigation, ArrowLeft
 } from "lucide-react";
 import { useApp, CourierParcel } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -10,9 +10,10 @@ import { toast } from "../components/Toast";
 interface DeliveryAggregatorProps {
   lang: "en" | "bn";
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
-export default function DeliveryAggregator({ lang, setScreen }: DeliveryAggregatorProps) {
+export default function DeliveryAggregator({ lang, setScreen, onBack }: DeliveryAggregatorProps) {
   const {
     courierParcels,
     bookCourierParcel,
@@ -78,26 +79,24 @@ export default function DeliveryAggregator({ lang, setScreen }: DeliveryAggregat
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "কুরিয়ার ও ডেলিভারি এগ্রিগেটর" : "Delivery Aggregator Hub"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-em-100 text-ink">4 Couriers Connected</span>
-          </div>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "Steadfast, Pathao, RedX ও eCourier এর মাধ্যমে ১-ক্লিকে পার্সেল বুকিং ও ট্র্যাকিং" : "1-Click multi-courier parcel booking, automated COD reconciliation & live tracking"}
-          </p>
-        </div>
-
-        <div className="flex gap-2 self-start sm:self-auto">
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
           <button
-            onClick={() => setShowBookModal(true)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
-            <Plus size={16} />
-            <span>{isBn ? "নতুন পার্সেল বুক করুন" : "Book New Parcel"}</span>
+            <ArrowLeft size={18} />
           </button>
-        </div>
+        ) : <div />}
+
+        <button
+          onClick={() => setShowBookModal(true)}
+          className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+        >
+          <Plus size={16} />
+          <span>{isBn ? "নতুন পার্সেল বুক করুন" : "Book New Parcel"}</span>
+        </button>
       </div>
 
       {/* KPI Metrics */}

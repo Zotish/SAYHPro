@@ -15,7 +15,7 @@ type Screen = string;
  *  nothing on the left (CustomerDue's "Add Due Entry", Inventory's "Add
  *  Stock") — the mobile back arrow overlays into that empty space instead
  *  of taking its own row, so it lines up with the button. */
-const screensWithInlineBack = ["dues", "inventory", "cash", "messages"];
+const screensWithInlineBack = ["dues", "inventory", "cash", "messages", "products", "addproduct", "expenses", "customers", "suppliers", "employees", "delivery", "reports", "profitloss", "marketing"];
 
 interface LayoutProps {
   currentScreen: Screen;
