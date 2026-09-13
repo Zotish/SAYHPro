@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft } from "lucide-react";
+import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import AIProductScannerModal from "../components/AIProductScannerModal";
 
 interface ProductsProps {
   lang: "en" | "bn";
@@ -35,6 +36,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
 
   // Modals
   const [showAddModal, setShowAddModal] = useState(showAdd);
+  const [showAIScanner, setShowAIScanner] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [barcodePreviewProduct, setBarcodePreviewProduct] = useState<Product | null>(null);
 
@@ -185,6 +187,13 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           >
             <Download size={15} />
             <span>{isBn ? "এক্সপোর্ট" : "Export CSV"}</span>
+          </button>
+          <button
+            onClick={() => setShowAIScanner(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-em-700 via-em-600 to-emerald-600 hover:from-em-800 hover:to-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+          >
+            <Sparkles size={15} className="text-amber-300" />
+            <span>{isBn ? "এআই ক্যামেরা স্ক্যান" : "AI Camera Scan"}</span>
           </button>
           <button
             onClick={() => {
@@ -388,6 +397,34 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               </button>
             </div>
 
+            {/* AI Camera Quick Fill Banner */}
+            {!editingProduct && (
+              <div
+                onClick={() => {
+                  setShowAddModal(false);
+                  setShowAIScanner(true);
+                }}
+                className="p-3 rounded-2xl bg-gradient-to-r from-em-50 via-emerald-50/50 to-white border border-em-200 flex items-center justify-between cursor-pointer hover:border-em-500 transition-colors group"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-em-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                    <Sparkles size={16} />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-ink group-hover:text-em-700">
+                      {isBn ? "ক্যামেরা দিয়ে প্যাকেট স্ক্যান করে অটো-ফিল করুন" : "Scan packet with camera to auto-fill form"}
+                    </div>
+                    <div className="text-[10px] text-ink/60">
+                      {isBn ? "নাম, ওজন, মার্কেট প্রাইস ও ছবি স্বয়ংক্রিয়ভাবে শনাক্ত হবে" : "Auto-detects name, weight, market price & photo"}
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-em-700 flex items-center gap-0.5 flex-shrink-0">
+                  {isBn ? "স্ক্যান করুন" : "Scan"} <ChevronRight size={14} />
+                </span>
+              </div>
+            )}
+
             <form onSubmit={editingProduct ? handleUpdateProduct : handleCreateProduct} className="space-y-4 text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
@@ -551,6 +588,14 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           </div>
         </div>
       )}
+
+      {/* AI Product Scanner Modal */}
+      <AIProductScannerModal
+        isOpen={showAIScanner}
+        onClose={() => setShowAIScanner(false)}
+        lang={lang}
+        mode="add-product"
+      />
     </div>
   );
 }

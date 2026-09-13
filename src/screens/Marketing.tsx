@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   MessageSquare, Share2, Send, Plus, Users, Sparkles, CheckCircle2,
   TrendingUp, RefreshCw, Smartphone, ExternalLink,
-  Target, DollarSign, BarChart3, AlertCircle, ShoppingCart, ArrowLeft
+  DollarSign, BarChart3, AlertCircle, ShoppingCart, ArrowLeft
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -121,31 +121,37 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3">
-        {onBack ? (
-          <button
-            onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
-            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
-          >
-            <ArrowLeft size={18} />
-          </button>
-        ) : <div />}
+      <div className="flex items-center justify-between gap-2 sm:gap-4 flex-nowrap w-full">
+        <div className="flex-shrink-0">
+          {onBack ? (
+            <button
+              onClick={onBack}
+              aria-label={isBn ? "পেছনে যান" : "Go back"}
+              className="lg:hidden flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+            >
+              <ArrowLeft size={18} />
+            </button>
+          ) : <div className="w-0" />}
+        </div>
 
-        <div className="ml-auto flex items-center gap-2 flex-wrap">
+        {/* Center: SMS Balance */}
+        <div className="flex-1 flex justify-center min-w-0">
           <button
             onClick={() => setShowTopupModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"
+            className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 border border-nv-200 rounded-xl text-[11px] sm:text-xs font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap"
           >
-            <Smartphone size={14} className="text-ink" />
+            <Smartphone size={13} className="text-ink flex-shrink-0" />
             <span>{isBn ? "ব্যালেন্স: " : "SMS Balance: "} <strong className="text-ink">{tNum(smsBalance)}</strong></span>
           </button>
+        </div>
 
+        {/* Right: New Campaign */}
+        <div className="flex-shrink-0">
           <button
             onClick={() => setShowNewSmsModal(true)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+            className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast whitespace-nowrap"
           >
-            <Plus size={16} />
+            <Plus size={15} />
             <span>{isBn ? "নতুন ক্যাম্পেইন" : "New Campaign"}</span>
           </button>
         </div>
@@ -154,100 +160,74 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
       {/* KPI Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "মোট প্রেরিত এসএমএস" : "Total SMS Sent"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <MessageSquare size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "প্রেরিত এসএমএস" : "SMS Sent"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(smsCampaigns.reduce((sum, c) => sum + c.recipientCount, 0))}
           </div>
-          <div className="text-[11px] text-ink mt-0.5">{tNum(smsCampaigns.length)} {isBn ? "টি ক্যাম্পেইনে" : "campaigns"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "উপলব্ধ এসএমএস ক্রেডিট" : "Available SMS Credits"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <Smartphone size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "এসএমএস ক্রেডিট" : "SMS Credits"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum(smsBalance)} <span className="text-xs font-semibold text-ink">SMS</span>
-          </div>
-          <div className="text-[11px] text-ink mt-0.5">৳০.৪০ / {isBn ? "প্রতি এসএমএস" : "SMS rate"}</div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "মেটা ক্যাটালগ সিঙ্ক" : "Facebook Catalog Sync"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <FacebookIcon size={16} />
-            </div>
-          </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum(products.length)} {isBn ? "টি পণ্য সিঙ্কড" : "Products"}
-          </div>
-          <div className="text-[11px] text-ink flex items-center gap-1 mt-0.5 font-bold">
-            <CheckCircle2 size={12} /> {isBn ? "পিক্সেল সক্রিয়" : "Pixel Active"}
+            {tNum(smsBalance)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "প্রচারণা থেকে রূপান্তর" : "Ad Conversions"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <Target size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum(metaAdSync.conversions)} {isBn ? "টি অর্ডার" : "Orders"}
+            {tNum(products.length)}
           </div>
-          <div className="text-[11px] text-ink font-bold mt-0.5">{tNum("4.8x")} ROI</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "বিজ্ঞাপনের অর্ডার" : "Ad Orders"}</div>
+          <div className="text-xl sm:text-2xl font-extrabold text-ink">
+            {tNum(metaAdSync.conversions)}
+          </div>
         </div>
       </div>
 
       {/* Tabs Switcher */}
-      <div className="flex gap-2 border-b border-nv-200 pb-1">
+      <div className="flex gap-2 overflow-x-auto pb-1 border-b border-nv-200">
         <button
           onClick={() => setTab("sms")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${tab === "sms" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <MessageSquare size={16} />
-          <span>{isBn ? "এসএমএস ক্যাম্পেইনসমূহ" : "SMS Campaigns"}</span>
+          <span>{isBn ? "এসএমএস" : "SMS"}</span>
         </button>
 
         <button
           onClick={() => setTab("facebook")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${tab === "facebook" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <FacebookIcon size={16} />
-          <span>{isBn ? "ফেসবুক ও মেটা বিজ্ঞাপন" : "Facebook & Meta Marketing"}</span>
+          <span>{isBn ? "ফেসবুক" : "Facebook"}</span>
         </button>
 
         <button
           onClick={() => setTab("templates")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${tab === "templates" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <Sparkles size={16} />
-          <span>{isBn ? "রেডি টেমপ্লেটস" : "Ready Templates"}</span>
+          <span>{isBn ? "টেমপ্লেট" : "Templates"}</span>
         </button>
       </div>
 
       {/* TAB 1: SMS CAMPAIGNS */}
       {tab === "sms" && (
         <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display font-bold text-ink text-base">{isBn ? "ক্যাম্পেইন ইতিহাস" : "Campaign Broadcast History"}</h3>
+          <div className="flex items-center justify-between gap-2">
+            <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাম্পেইন ইতিহাস" : "Campaign History"}</h3>
             <button
               onClick={() => setShowNewSmsModal(true)}
-              className="text-xs text-ink font-bold hover:underline flex items-center gap-1"
+              className="text-xs text-ink font-bold hover:underline flex items-center gap-1 whitespace-nowrap"
             >
-              <Plus size={14} /> {isBn ? "নতুন পাঠান" : "Broadcast New SMS"}
+              <Plus size={14} /> {isBn ? "এসএমএস পাঠান" : "Send SMS"}
             </button>
           </div>
 
@@ -303,38 +283,38 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Meta Catalog & Pixel Integration */}
           <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-nv-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-nv-600 text-white flex items-center justify-center shadow-md">
+            <div className="flex items-center justify-between pb-3 border-b border-nv-100 gap-2">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-10 h-10 rounded-2xl bg-nv-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
                   <FacebookIcon size={20} />
                 </div>
-                <div>
-                  <h3 className="font-display font-bold text-ink text-base">{isBn ? "মেটা ক্যাটালগ ও পিক্সেল সিঙ্ক" : "Meta Pixel & Catalog Sync"}</h3>
-                  <span className="text-xs text-ink font-semibold flex items-center gap-1">
-                    <CheckCircle2 size={12} /> {isBn ? "স্বয়ংক্রিয় সিঙ্ক চালু" : "Auto-Sync Active"}
+                <div className="min-w-0">
+                  <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</h3>
+                  <span className="text-xs text-ink font-semibold flex items-center gap-1 whitespace-nowrap">
+                    <CheckCircle2 size={12} /> {isBn ? "সিঙ্ক সক্রিয়" : "Sync Active"}
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => updateMetaSync({ catalogSynced: true })}
-                className="px-3 py-1.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl text-xs font-bold transition-fast flex items-center gap-1"
+                className="px-3 py-1.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl text-xs font-bold transition-fast flex items-center gap-1 whitespace-nowrap flex-shrink-0"
               >
-                <RefreshCw size={12} /> {isBn ? "পুনরায় সিঙ্ক" : "Resync Catalog"}
+                <RefreshCw size={12} /> {isBn ? "পুনরায় সিঙ্ক" : "Resync"}
               </button>
             </div>
 
             <div className="space-y-3 text-xs sm:text-sm">
-              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between">
-                <span className="text-ink">{isBn ? "মেটা পিক্সেল আইডি" : "Meta Pixel ID"}</span>
-                <span className="font-mono font-bold text-ink">{metaAdSync.pixelId}</span>
+              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
+                <span className="text-ink whitespace-nowrap">{isBn ? "পিক্সেল আইডি" : "Pixel ID"}</span>
+                <span className="font-mono font-bold text-ink whitespace-nowrap">{metaAdSync.pixelId}</span>
               </div>
-              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between">
-                <span className="text-ink">{isBn ? "সিঙ্ককৃত প্রোডাক্ট সংখ্যা" : "Synced Product Catalog"}</span>
-                <span className="font-bold text-ink">{tNum(products.length)} {isBn ? "টি পণ্য লাইভ" : "Products Live on FB Shop"}</span>
+              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
+                <span className="text-ink whitespace-nowrap">{isBn ? "সিঙ্ক পণ্য" : "Synced Products"}</span>
+                <span className="font-bold text-ink whitespace-nowrap">{tNum(products.length)} {isBn ? "টি পণ্য" : "Products"}</span>
               </div>
-              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between">
-                <span className="text-ink">{isBn ? "ফেসবুক শপ লিঙ্ক" : "Facebook Storefront Link"}</span>
-                <a href="#" className="text-ink font-bold flex items-center gap-1 hover:underline">
+              <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
+                <span className="text-ink whitespace-nowrap">{isBn ? "শপ লিঙ্ক" : "Shop Link"}</span>
+                <a href="#" className="text-ink font-bold flex items-center gap-1 hover:underline whitespace-nowrap">
                   fb.com/rahimstorebd <ExternalLink size={12} />
                 </a>
               </div>
@@ -344,27 +324,27 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
           {/* Ad Campaign Booster */}
           <div className="bg-nv-900 rounded-3xl p-6 text-white shadow-xl flex flex-col justify-between">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-nv-500/30 text-nv-200 text-xs font-bold mb-3 border border-nv-400/30">
-                <Sparkles size={13} /> {isBn ? "স্মার্ট ফেসবুক বিজ্ঞাপন" : "Automated Meta Ads"}
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-nv-500/30 text-nv-200 text-xs font-bold mb-3 border border-nv-400/30">
+                {isBn ? "মেটা বিজ্ঞাপন" : "Meta Ads"}
               </div>
-              <h3 className="font-display font-extrabold text-xl mb-2">{isBn ? "স্থানীয় কাস্টমারদের কাছে বিক্রয় বৃদ্ধি করুন" : "Boost Local Neighborhood Orders"}</h3>
+              <h3 className="font-display font-extrabold text-xl mb-2">{isBn ? "আপনার পণ্য বুস্ট করুন" : "Boost Your Product"}</h3>
               <p className="text-xs text-nv-100 leading-relaxed mb-4">
                 {isBn
-                  ? "ধানমন্ডি ও সংলগ্ন ২ কি.মি এলাকার সক্রিয় ফেসবুক ও ইনস্টাগ্রাম ব্যবহারকারীদের কাছে আপনার সেরা পণ্যের বিজ্ঞাপন পৌঁছান।"
-                  : "Target active Facebook & Instagram consumers in your 2km radius to drive direct home delivery orders."}
+                  ? "ফেসবুক ও ইনস্টাগ্রামে বিজ্ঞাপন দিয়ে বেশি কাস্টমার ও অর্ডার পান।"
+                  : "Run Facebook & Instagram ads to get more customers and orders."}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
               <div>
                 <span className="text-[10px] text-nv-200 uppercase">{isBn ? "আনুমানিক রিচ" : "Estimated Reach"}</span>
-                <div className="text-lg font-bold text-white">২৫,০০০ - ৫০,০০০ {isBn ? "জন" : "People"}</div>
+                <div className="text-lg font-bold text-white">{isBn ? "২৫,০০০ - ৫০,০০০" : "25,000 - 50,000"}</div>
               </div>
               <button
                 onClick={() => toast({ type: "success", title: isBn ? "বিজ্ঞাপন চালু হয়েছে!" : "Campaign Launched!", message: "Meta Ad will go live after review." })}
-                className="px-4 py-2.5 bg-nv-500 hover:bg-nv-600 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all"
+                className="px-4 py-2.5 bg-nv-500 hover:bg-nv-600 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all whitespace-nowrap"
               >
-                {isBn ? "বিজ্ঞাপন বুস্ট করুন" : "Launch Local Ad"} →
+                {isBn ? "বিজ্ঞাপন বুস্ট করুন" : "Launch Ad"} →
               </button>
             </div>
           </div>
@@ -377,11 +357,10 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
           {templates.map((tpl, i) => (
             <div key={i} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-em-400 transition-all flex flex-col justify-between space-y-3">
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="mb-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-em-50 text-ink">
                     {tpl.type.replace("_", " ")}
                   </span>
-                  <Sparkles size={16} className="text-ink" />
                 </div>
                 <h4 className="font-bold text-sm text-ink mb-1">{isBn ? tpl.titleBn : tpl.title}</h4>
                 <p className="text-xs text-ink bg-nv-50 p-3 rounded-2xl leading-relaxed">

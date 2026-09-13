@@ -1,8 +1,6 @@
 import { useState } from "react";
 import {
-  ShoppingBag, Plus, Check, Star, TrendingUp, DollarSign,
-  Truck, ShieldCheck, Sparkles, Filter, Search, ArrowRight,
-  Store, RefreshCw, Package
+  Plus, Check, Star, Search, Store, ArrowLeft
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -10,9 +8,10 @@ import { toast } from "../components/Toast";
 interface ResellingProps {
   lang: "en" | "bn";
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
-export default function Reselling({ lang, setScreen }: ResellingProps) {
+export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
   const {
     resellProducts,
     toggleResellProduct,
@@ -49,81 +48,55 @@ export default function Reselling({ lang, setScreen }: ResellingProps) {
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "রিসেলিং ও ড্রপ-শিপিং মার্কেট" : "Reselling & Drop-Shipping Hub"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-nv-100 text-ink">Zero Inventory Risk</span>
-          </div>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "শীর্ষ পাইকারি বিক্রেতাদের পণ্য ১-ক্লিকে নিজের দোকানে যোগ করুন ও বাড়তি মুনাফা আয় করুন" : "Add trending verified wholesale products directly into your store catalog with zero upfront investment"}
-          </p>
-        </div>
-
-        <div className="flex gap-2 self-start sm:self-auto">
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
           <button
-            onClick={() => setFilterMode(filterMode === "all" ? "added" : "all")}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
-              ${filterMode === "added" ? "bg-em-700 text-white" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
-            <Store size={16} />
-            <span>{isBn ? "আমার যুক্তকৃত পণ্য (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
+            <ArrowLeft size={18} />
           </button>
-        </div>
+        ) : <div />}
+
+        <button
+          onClick={() => setFilterMode(filterMode === "all" ? "added" : "all")}
+          className={`ml-auto flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-fast shadow-xs
+            ${filterMode === "added" ? "bg-em-700 text-white" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
+        >
+          <Store size={16} />
+          <span>{isBn ? "আমার রিসেল স্টোর (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
+        </button>
       </div>
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "দোকানে সক্রিয় রিসেল পণ্য" : "Active In Store"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <ShoppingBag size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "দোকানে সক্রিয় রিসেল পণ্য" : "Active In Store"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(totalAddedCount)} {isBn ? "টি পণ্য" : "Products"}
           </div>
-          <div className="text-[11px] text-ink mt-0.5">{isBn ? "জিরো ইনভেস্টমেন্ট" : "Zero capital required"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "সম্ভাব্য মুনাফা মার্জিন" : "Potential Resell Margin"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <DollarSign size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "সম্ভাব্য মুনাফা মার্জিন" : "Potential Resell Margin"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {formatTaka(totalEstimatedProfit)}
           </div>
-          <div className="text-[11px] text-ink mt-0.5">{isBn ? "প্রতি বিক্রয়ে সরাসরি লাভ" : "Per unit margin"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "সাপ্লায়ার সরাসরি ডেলিভারি" : "Direct Drop-Ship"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <Truck size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "সাপ্লায়ার সরাসরি ডেলিভারি" : "Direct Drop-Ship"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("100%")}
           </div>
-          <div className="text-[11px] text-ink font-bold mt-0.5">{isBn ? "সাপ্লায়ার প্যাক ও কুরিয়ার করে" : "Supplier handles packing"}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <ShieldCheck size={16} />
-            </div>
-          </div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("35-45%")}
           </div>
-          <div className="text-[11px] text-ink mt-0.5">{isBn ? "মার্কেট রেট থেকে কম" : "Below market price"}</div>
         </div>
       </div>
 

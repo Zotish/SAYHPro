@@ -1,8 +1,8 @@
 import { useState } from "react";
 import {
   Landmark, QrCode, CreditCard, DollarSign, CheckCircle2,
-  Plus, ArrowRight, ShieldCheck, Copy, ExternalLink, Sparkles,
-  Percent, FileText, Building2, Send, Smartphone, Clock
+  Plus, ArrowRight, Copy, ExternalLink, Sparkles,
+  Percent, FileText, Building2, Send, Smartphone, Clock, ArrowLeft
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -10,9 +10,10 @@ import { toast } from "../components/Toast";
 interface FintechBankingProps {
   lang: "en" | "bn";
   setScreen: (s: string) => void;
+  onBack?: () => void;
 }
 
-export default function FintechBanking({ lang, setScreen }: FintechBankingProps) {
+export default function FintechBanking({ lang, setScreen, onBack }: FintechBankingProps) {
   const {
     bankApplications,
     smeLoanOffers,
@@ -76,25 +77,39 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
     setShowLoanModal(false);
   };
 
+  const getShortBankName = (name: string) => {
+    if (name.includes("BRAC Bank")) return isBn ? "ব্র্যাক ব্যাংক" : "BRAC Bank";
+    if (name.includes("bKash")) return isBn ? "বিকাশ মার্চেন্ট" : "bKash Merchant";
+    if (name.includes("City Bank")) return isBn ? "সিটি ব্যাংক" : "City Bank";
+    return name;
+  };
+
+  const formatAccountType = (type: string) => {
+    if (type === "current") return isBn ? "কারেন্ট" : "Current";
+    if (type === "merchant_wallet") return isBn ? "মার্চেন্ট ওয়ালেট" : "Merchant Wallet";
+    if (type === "islamic_business") return isBn ? "ইসলামিক" : "Islamic Business";
+    return type.replace("_", " ");
+  };
+
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "ডিজিটাল ব্যাংকিং, ঋণ ও পেমেন্ট সার্ভিস" : "Fintech, Banking & SME Loans"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-em-100 text-ink">Bangla QR + Micro-Credit</span>
-          </div>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "কাগজপত্রহীন ব্যাংক অ্যাকাউন্ট, টার্নওভার ভিত্তিক ইনস্ট্যান্ট ব্যবসা ঋণ এবং ডিজিটাল পেমেন্ট গেটওয়ে" : "Paperless digital bank accounts, instant turnover-based SME loans, and dynamic Bangla QR payments"}
-          </p>
-        </div>
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
 
-        <div className="flex gap-2 self-start sm:self-auto">
+        <div className="ml-auto flex items-center gap-2">
           {activeTab === "banking" && (
             <button
               onClick={() => setShowKycModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+              className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast whitespace-nowrap"
             >
               <Plus size={16} />
               <span>{isBn ? "নতুন ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</span>
@@ -104,7 +119,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           {activeTab === "payments" && (
             <button
               onClick={() => setShowLinkModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+              className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast whitespace-nowrap"
             >
               <Plus size={16} />
               <span>{isBn ? "পেমেন্ট লিঙ্ক তৈরি করুন" : "Create Payment Link"}</span>
@@ -114,32 +129,29 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-nv-200 pb-1">
+      <div className="flex gap-2 overflow-x-auto pb-1 border-b border-nv-200">
         <button
           onClick={() => setActiveTab("banking")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${activeTab === "banking" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
-          <Landmark size={16} />
-          <span>{isBn ? "১. ডিজিটাল ব্যাংক অ্যাকাউন্ট" : "1. Digital Bank Accounts"}</span>
+          <span>{isBn ? "ব্যাংকিং" : "Banking"}</span>
         </button>
 
         <button
           onClick={() => setActiveTab("loans")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${activeTab === "loans" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
-          <Percent size={16} />
-          <span>{isBn ? "২. এসএমই ব্যবসা ঋণ (SME Loans)" : "2. Instant SME Loans"}</span>
+          <span>{isBn ? "লোন" : "Loans"}</span>
         </button>
 
         <button
           onClick={() => setActiveTab("payments")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all
+          className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${activeTab === "payments" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
-          <QrCode size={16} />
-          <span>{isBn ? "৩. বাংলা কিউআর ও পেমেন্ট সার্ভিস" : "3. Bangla QR & Payments"}</span>
+          <span>{isBn ? "পেমেন্ট" : "Payments"}</span>
         </button>
       </div>
 
@@ -150,48 +162,45 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
             {bankApplications.map(app => (
               <div key={app.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 space-y-4 hover:border-em-400 transition-all flex flex-col justify-between">
                 <div>
-                  <div className="flex items-start justify-between">
-                    <span className="text-3xl">{app.bankLogo}</span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-em-50 text-ink flex items-center gap-1">
-                      <CheckCircle2 size={12} /> {app.status}
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-bold text-base text-ink">{getShortBankName(app.bankName)}</h3>
+                      <span className="text-xs text-ink/70 capitalize block mt-0.5">{formatAccountType(app.accountType)}</span>
+                    </div>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-em-50 text-ink flex items-center gap-1 flex-shrink-0">
+                      <CheckCircle2 size={12} /> {isBn ? (app.status === "active" ? "সক্রিয়" : "অনুমোদিত") : app.status}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-base text-ink mt-3">{app.bankName}</h3>
-                  <span className="text-xs text-ink capitalize">{app.accountType.replace("_", " ")}</span>
-
                   <div className="mt-4 p-3 bg-nv-50 rounded-2xl space-y-1">
-                    <span className="text-[10px] text-ink uppercase font-semibold">{isBn ? "অ্যাকাউন্ট নম্বর" : "Account Number"}</span>
+                    <span className="text-[10px] text-ink/70 uppercase font-semibold">{isBn ? "অ্যাকাউন্ট নং" : "Account No"}</span>
                     <div className="font-mono font-bold text-sm text-ink">{app.accountNumber}</div>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-nv-100 flex items-center justify-between text-xs">
-                  <span className="text-ink">{isBn ? "কেওয়াইসি স্ট্যাটাস:" : "KYC Status:"}</span>
-                  <span className="font-bold text-ink">১০০% ভেরিফাইড</span>
+                  <span className="text-ink/70">{isBn ? "কেওয়াইসি:" : "KYC:"}</span>
+                  <span className="font-bold text-ink">{isBn ? "১০০% ভেরিফাইড" : "100% Verified"}</span>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="bg-nv-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-full bg-nv-500/20 text-nv-300 text-xs font-bold border border-nv-400/30">
-                PARTNER BANKING NETWORK
-              </span>
-              <h3 className="font-display font-extrabold text-xl">{isBn ? "ঘরে বসেই ৩ মিনিটে কারেন্ট অ্যাকাউন্ট খুলুন" : "Open Merchant Bank Account in 3 Minutes"}</h3>
+            <div className="space-y-1.5">
+              <h3 className="font-display font-extrabold text-xl">{isBn ? "ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</h3>
               <p className="text-xs text-nv-100 max-w-xl leading-relaxed">
                 {isBn
-                  ? "এনআইডি ও ট্রেড লাইসেন্স আপলোড করে ব্র্যাক ব্যাংক, সিটি ব্যাংক অথবা বিকাশ মার্চেন্ট অ্যাকাউন্ট সক্রিয় করুন। কোনো শাখা ভিজিটের প্রয়োজন নেই।"
-                  : "Zero branch visits. Upload NID and trade license to activate your high-limit merchant banking account instantly."}
+                  ? "এনআইডি ও ট্রেড লাইসেন্স দিয়ে দ্রুত অ্যাকাউন্ট চালু করুন।"
+                  : "Upload NID and trade license to activate your account instantly."}
               </p>
             </div>
 
             <button
               onClick={() => setShowKycModal(true)}
-              className="self-start md:self-auto px-5 py-3 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all"
+              className="self-start md:self-auto px-5 py-3 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all whitespace-nowrap"
             >
-              {isBn ? "অ্যাকাউন্ট খুলুন" : "Start 3-Min KYC"} →
+              {isBn ? "আবেদন করুন" : "Apply Now"} →
             </button>
           </div>
         </div>
@@ -211,20 +220,19 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
                     <span className="text-xs font-mono font-bold text-ink">{loan.interestRate}% Interest</span>
                   </div>
 
-                  <h3 className="font-bold text-base text-ink mt-2">{loan.bankPartner}</h3>
+                  <h3 className="font-bold text-base text-ink mt-3">{loan.bankPartner}</h3>
                   <div className="text-2xl font-extrabold text-ink mt-1">
                     {formatTaka(loan.eligibleAmount)}
                   </div>
-                  <span className="text-xs text-ink">{isBn ? "টার্নওভার ভিত্তিক লিমিট" : "Pre-qualified credit line"}</span>
 
-                  <div className="mt-4 pt-3 border-t border-nv-100 grid grid-cols-2 gap-2 text-xs">
+                  <div className="mt-4 pt-3 border-t border-nv-100 flex items-center justify-between text-xs">
                     <div>
-                      <span className="text-ink">{isBn ? "মেয়াদ" : "Tenure"}</span>
-                      <div className="font-bold text-ink">{tNum(loan.tenureMonths)} {isBn ? "মাস" : "Months"}</div>
+                      <span className="text-ink/70">{isBn ? "মেয়াদ" : "Tenure"}</span>
+                      <div className="font-bold text-ink text-sm mt-0.5">{tNum(loan.tenureMonths)} {isBn ? "মাস" : "Months"}</div>
                     </div>
-                    <div>
-                      <span className="text-ink">{isBn ? "মাসিক কিস্তি" : "Monthly EMI"}</span>
-                      <div className="font-bold text-ink">{formatTaka(loan.monthlyEMI)}</div>
+                    <div className="text-right">
+                      <span className="text-ink/70">{isBn ? "মাসিক কিস্তি" : "Monthly EMI"}</span>
+                      <div className="font-bold text-ink text-sm mt-0.5">{formatTaka(loan.monthlyEMI)}</div>
                     </div>
                   </div>
                 </div>
@@ -250,20 +258,9 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
       {activeTab === "payments" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Dynamic Bangla QR Card */}
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-nv-200 flex flex-col items-center text-center space-y-4">
-            <div className="w-12 h-12 rounded-2xl text-ink flex items-center justify-center">
-              <QrCode size={24} />
-            </div>
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-em-50 text-ink text-xs font-bold mb-1">
-                <ShieldCheck size={13} /> BANGLA QR INTEROPERABLE
-              </div>
-              <h3 className="font-display font-bold text-xl text-ink">
-                {isBn ? "দোকানের অফিসিয়াল বাংলা কিউআর" : "Official In-Store Bangla QR"}
-              </h3>
-              <p className="text-xs text-ink mt-1 max-w-sm">
-                bKash, Nagad, Rocket, Upay, Visa & Mastercard — এক কিউআর কোডেই সকল ডিজিটাল পেমেন্ট রিসিভ করুন।
-              </p>
+          <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 flex flex-col items-center text-center space-y-4">
+            <div className="inline-flex items-center px-3 py-0.5 rounded-full bg-white border border-nv-200 text-ink text-xs font-bold">
+              BANGLA QR
             </div>
 
             {/* QR Visual */}
@@ -288,7 +285,7 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
           </div>
 
           {/* Payment Links List */}
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-nv-200 space-y-4">
+          <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <h3 className="font-display font-bold text-ink text-base">{isBn ? "পেমেন্ট লিঙ্কসমূহ" : "Active Payment Links"}</h3>
               <button
@@ -301,17 +298,31 @@ export default function FintechBanking({ lang, setScreen }: FintechBankingProps)
 
             <div className="space-y-3">
               {paymentLinks.map(link => (
-                <div key={link.id} className="p-3.5 rounded-2xl bg-nv-50 border border-nv-200/60 flex items-center justify-between">
-                  <div>
-                    <div className="font-bold text-sm text-ink">{link.customerName}</div>
-                    <div className="text-xs text-ink">{link.purpose} ({tNum(link.createdDate)})</div>
-                    <div className="font-mono text-[11px] text-ink mt-1 flex items-center gap-1">
-                      {link.linkUrl} <Copy size={11} className="cursor-pointer" onClick={() => { navigator.clipboard?.writeText(link.linkUrl); toast({ type: "success", title: "Copied!", message: "Link copied to clipboard" }); }} />
+                <div
+                  key={link.id}
+                  className="p-4 rounded-2xl bg-nv-50 border border-nv-200/60 flex items-center justify-between gap-3 sm:gap-4"
+                >
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <div className="font-bold text-sm text-ink truncate">{link.customerName}</div>
+                    <div className="text-xs text-ink/70 truncate">{link.purpose} ({tNum(link.createdDate)})</div>
+                    <div className="font-mono text-[11px] text-ink mt-1 flex items-center gap-1.5 min-w-0">
+                      <span className="truncate">{link.linkUrl}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard?.writeText(link.linkUrl);
+                          toast({ type: "success", title: "Copied!", message: "Link copied to clipboard" });
+                        }}
+                        className="cursor-pointer text-ink/60 hover:text-ink flex-shrink-0"
+                        title="Copy link"
+                      >
+                        <Copy size={12} />
+                      </button>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-extrabold text-base text-ink">{formatTaka(link.amount)}</div>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase
+                  <div className="text-right flex-shrink-0 flex flex-col items-end justify-center">
+                    <div className="font-extrabold text-base text-ink whitespace-nowrap">{formatTaka(link.amount)}</div>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase inline-block mt-0.5 whitespace-nowrap
                       ${link.status === "paid" ? "bg-em-50 text-ink" : "bg-ac-50 text-ink"}`}>
                       {link.status}
                     </span>

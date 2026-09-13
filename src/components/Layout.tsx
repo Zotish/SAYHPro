@@ -15,7 +15,7 @@ type Screen = string;
  *  nothing on the left (CustomerDue's "Add Due Entry", Inventory's "Add
  *  Stock") — the mobile back arrow overlays into that empty space instead
  *  of taking its own row, so it lines up with the button. */
-const screensWithInlineBack = ["dues", "inventory", "cash", "messages", "products", "addproduct", "expenses", "customers", "suppliers", "employees", "delivery", "reports", "profitloss", "marketing"];
+const screensWithInlineBack = ["dues", "inventory", "cash", "messages", "products", "addproduct", "expenses", "customers", "suppliers", "employees", "delivery", "reports", "profitloss", "marketing", "fintech", "reselling", "alerts"];
 
 interface LayoutProps {
   currentScreen: Screen;
@@ -102,7 +102,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
   const mobileNavItems = [
     { id: "dashboard", icon: Home, label: "Home", labelBn: "হোম" },
     { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "বেচা-বিক্রি" },
-    { id: "fintech", icon: QrCode, label: "My QR", labelBn: "আমার QR" },
+    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "স্টক" },
     { id: "dues", icon: CreditCard, label: "Dues", labelBn: "দেনা-পে" },
   ];
 
@@ -496,9 +496,9 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
               <button
                 key={item.id}
                 onClick={() => setScreen(item.id)}
-                // Matches the mobile home nav: every label is full-strength
-                // black and bold, and stroke weight alone marks the active tab.
-                className="flex-1 flex flex-col items-center justify-center py-1 gap-0.5 text-ink touch-manipulation"
+                className={`flex-1 flex flex-col items-center justify-center py-1 gap-0.5 touch-manipulation transition-colors ${
+                  isActive ? "text-em-700" : "text-ink"
+                }`}
               >
                 <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
                 <span className={`text-[10px] leading-tight text-center ${isActive ? "font-extrabold" : "font-semibold"}`}>
@@ -511,11 +511,13 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           {/* More Menu Trigger */}
           <button
             onClick={() => setMobileMoreOpen(true)}
-            className="flex-1 flex flex-col items-center justify-center py-1 gap-0.5 text-ink touch-manipulation"
+            className={`flex-1 flex flex-col items-center justify-center py-1 gap-0.5 touch-manipulation transition-colors ${
+              mobileMoreOpen ? "text-em-700" : "text-ink"
+            }`}
           >
             <Menu size={20} strokeWidth={mobileMoreOpen ? 2.5 : 1.75} />
             <span className={`text-[10px] leading-tight text-center ${mobileMoreOpen ? "font-extrabold" : "font-semibold"}`}>
-              {isBn ? "মেনু" : "Menu"}
+              {isBn ? "আরও" : "More"}
             </span>
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Building2, Globe, Bell, Users, Shield, Printer, CreditCard, ChevronRight, Check, RotateCcw, Save } from "lucide-react";
+import { Building2, Globe, Bell, Users, Shield, Printer, CreditCard, ChevronRight, Check, RotateCcw, Save, Download } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import { toast } from "../components/Toast";
 
 interface SettingsProps {
   lang: "en" | "bn";
@@ -28,7 +29,19 @@ const businessTypes = [
 ];
 
 export default function Settings({ lang, setLang }: SettingsProps) {
-  const { settings, updateSettings, resetToDefaultData } = useApp();
+  const {
+    settings,
+    updateSettings,
+    resetToDefaultData,
+    products,
+    sales,
+    customers,
+    suppliers,
+    purchases,
+    expenses,
+    accounts,
+    employees,
+  } = useApp();
   const isBn = lang === "bn";
 
   const [activeSection, setActiveSection] = useState("shop");
@@ -61,13 +74,61 @@ export default function Settings({ lang, setLang }: SettingsProps) {
     });
   };
 
+  const handleExportData = () => {
+    try {
+      const exportData = {
+        app: "SAYHPro Retail OS",
+        version: "2.0.0",
+        exportDate: new Date().toISOString(),
+        shop: {
+          name: settings.shopName,
+          nameBn: settings.shopNameBn,
+          owner: settings.ownerName,
+          phone: settings.phone,
+          address: settings.address,
+          currency: settings.currency,
+        },
+        settings,
+        products,
+        sales,
+        customers,
+        suppliers,
+        purchases,
+        expenses,
+        accounts,
+        employees,
+      };
+
+      const jsonString = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const safeShopName = (settings.shopName || "shop").toLowerCase().replace(/[^a-z0-9]/g, "-");
+      link.href = url;
+      link.download = `${safeShopName}-data-export-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast({
+        type: "success",
+        title: isBn ? "ডেটা এক্সপোর্ট সম্পন্ন হয়েছে!" : "Data Exported Successfully!",
+        message: isBn
+          ? "দোকানের সমস্ত পণ্য, বিক্রয়, অ্যাকাউন্ট ও কাস্টমার ডেটা ব্যাকআপ হিসেবে ডাউনলোড হয়েছে।"
+          : "All shop products, sales, accounts, and customer data exported to JSON backup.",
+      });
+    } catch {
+      toast({
+        type: "error",
+        title: isBn ? "এক্সপোর্ট ব্যর্থ হয়েছে" : "Export Failed",
+        message: isBn ? "দয়া করে পুনরায় চেষ্টা করুন।" : "An error occurred while exporting data.",
+      });
+    }
+  };
+
   return (
     <div className="p-4 sm:p-6 pb-24 lg:pb-8 space-y-6">
-      <div>
-        <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "সিস্টেম ও দোকান সেটিংস" : "Shop & System Settings"}</h1>
-        <p className="text-ink text-xs sm:text-sm mt-0.5">{isBn ? "দোকানের প্রোফাইল, প্রিন্টার ও আঞ্চলিক পছন্দসমূহ কনফিগার করুন" : "Configure shop profile, printing, and regional preferences"}</p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Settings Navigation Menu */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-2.5 space-y-1 h-fit">
@@ -94,7 +155,6 @@ export default function Settings({ lang, setLang }: SettingsProps) {
             <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-5">
               <div className="border-b border-nv-100 pb-3">
                 <h3 className="font-display font-bold text-ink text-base">{isBn ? "দোকানের মূল তথ্য" : "Shop Information"}</h3>
-                <p className="text-xs text-ink">This information appears on your invoices and customer receipts</p>
               </div>
 
               <form onSubmit={handleSaveShopInfo} className="space-y-4 text-xs sm:text-sm">
@@ -305,14 +365,25 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                     {isBn ? "এটি সব বিক্রয়, নতুন পণ্য ও কাস্টমার রেকর্ড মুছে প্রাথমিক ডেমো অবস্থায় ফিরিয়ে আনবে।" : "This will reset all products, sales, accounts, and dues back to initial demo seeds."}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={resetToDefaultData}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-fast shadow-sm flex items-center gap-1.5"
-                >
-                  <RotateCcw size={14} />
-                  <span>{isBn ? "ডেমো ডেটা রিসেট করুন" : "Reset All Demo Data"}</span>
-                </button>
+                <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                  <button
+                    type="button"
+                    onClick={resetToDefaultData}
+                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-fast shadow-sm flex items-center gap-1.5"
+                  >
+                    <RotateCcw size={14} />
+                    <span>{isBn ? "ডেমো ডেটা রিসেট করুন" : "Reset All Demo Data"}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleExportData}
+                    className="px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold transition-fast shadow-sm flex items-center gap-1.5"
+                  >
+                    <Download size={14} />
+                    <span>{isBn ? "ডেটা এক্সপোর্ট করুন" : "Export Data"}</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}

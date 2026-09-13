@@ -298,33 +298,21 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-ink mb-1">{isBn ? "মোট আয় (Revenue)" : "Total Revenue"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
-          <div className="text-[11px] text-ink font-semibold mt-1">
-            {isBn ? `${tNum(sales.length)} টি বিক্রয় থেকে` : `From ${sales.length} Sales`}
-          </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-ink mb-1">{isBn ? "গ্রস লাভ (Gross Profit)" : "Gross Profit"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(grossProfit)}</div>
-          <div className="text-[11px] text-ink font-semibold mt-1">
-            {tNum(grossMargin)}% {isBn ? "মার্জিন" : "Margin"}
-          </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-ink mb-1">{isBn ? "নিট লাভ (Net Profit)" : "Net Profit"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(netProfit)}</div>
-          <div className="text-[11px] text-ink font-semibold mt-1">
-            {tNum(netMargin)}% {isBn ? "নিট মার্জিন" : "Net Margin"}
-          </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
           <div className="text-xs text-ink mb-1">{isBn ? "প্রদেয় ভ্যাট ও কর (Net Tax)" : "Net Tax / VAT Due"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-em-700">{formatTaka(currentNetVatPayable)}</div>
-          <div className="text-[11px] text-ink font-semibold mt-1">
-            {isBn ? "এনবিআর মূসক ৯.১ তৈরি" : "NBR Mushak 9.1 Ready"}
-          </div>
         </div>
       </div>
 
@@ -364,7 +352,6 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
                 <Receipt size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
-              <div className="text-[11px] text-ink/60 mt-1">{isBn ? "প্রযোজ্য ভ্যাট হার ৫%" : "Standard VAT 5% Rate"}</div>
             </div>
 
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
@@ -373,7 +360,6 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
                 <Landmark size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalSalesVatCollected)}</div>
-              <div className="text-[11px] text-ink/60 mt-1">{isBn ? "বিক্রয়ের সাথে সংযোজিত" : "Collected from Invoices"}</div>
             </div>
 
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
@@ -382,7 +368,6 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
                 <ShieldCheck size={15} className="text-em-600" />
               </div>
               <div className="num text-xl font-bold text-em-700">-{formatTaka(totalInputVatRebate)}</div>
-              <div className="text-[11px] text-ink/60 mt-1">{isBn ? "ক্রয় চালানের বিপরীতে হ্রাস" : "Purchases Input Credit"}</div>
             </div>
 
             <div className="bg-gradient-to-br from-em-50 via-white to-amber-50 rounded-2xl p-4 border border-em-300 shadow-xs">
@@ -391,11 +376,6 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               </div>
               <div className="num text-2xl font-black text-ink">{formatTaka(currentNetVatPayable)}</div>
-              <div className="text-[11px] text-ink/70 mt-1 flex items-center gap-1 font-semibold">
-                <CheckCircle size={12} className="text-em-600" />
-                {isBn ? "চলতি বছরে পরিশোধিত: " : "Paid YTD: "}
-                <span className="num font-bold">{formatTaka(totalTaxPaidThisYear)}</span>
-              </div>
             </div>
           </div>
 
@@ -403,15 +383,9 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
           <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-5 sm:p-6 space-y-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-nv-100">
               <div>
-                <h3 className="font-display font-bold text-ink text-base sm:text-lg flex items-center gap-2">
-                  <Landmark className="text-em-700" size={20} />
-                  {isBn ? "জাতীয় রাজস্ব বোর্ড (NBR) মূসক ৯.১ ও কর চালান" : "NBR Monthly VAT Returns (Mushak 9.1)"}
+                <h3 className="font-display font-bold text-ink text-base sm:text-lg">
+                  {isBn ? "জাতীয় রাজস্ব বোর্ড (NBR) ভ্যাট রিটার্ন" : "NBR Monthly VAT Returns"}
                 </h3>
-                <p className="text-xs text-ink/70">
-                  {isBn
-                    ? "অনলাইনে চালানের মাধ্যমে সরকারি কোষাগারে সরাসরি ভ্যাট ও আয়কর পরিশোধের ব্যবস্থা"
-                    : "Live NBR automated e-Challan and mobile banking tax payment gateway"}
-                </p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -816,16 +790,10 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
       {/* 3. Profit & Loss Statement */}
       {activeTab === "pl" && (
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-6">
-          <div className="border-b border-nv-100 pb-4 flex items-center justify-between">
-            <div>
-              <h3 className="font-display font-bold text-ink text-lg">
-                {isBn ? "লাভ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
-              </h3>
-              <p className="text-xs text-ink">Live generated from verified transactions</p>
-            </div>
-            <span className="text-xs px-3 py-1 bg-em-50 text-ink font-bold rounded-full border border-em-200">
-              Audited Ready
-            </span>
+          <div className="border-b border-nv-100 pb-4">
+            <h3 className="font-display font-bold text-ink text-lg">
+              {isBn ? "লাভ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
+            </h3>
           </div>
 
           <div className="space-y-4 max-w-2xl text-xs sm:text-sm">

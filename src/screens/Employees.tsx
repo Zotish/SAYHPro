@@ -121,7 +121,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                           className="w-12 h-12 rounded-2xl object-cover shadow-xs border border-nv-200"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-2xl bg-em-600 text-white flex items-center justify-center shadow-xs">
+                        <div className="w-12 h-12 rounded-2xl border border-nv-200 flex items-center justify-center text-ink">
                           <User size={22} />
                         </div>
                       )}
@@ -283,7 +283,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                       </button>
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-2xl bg-em-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                    <div className="w-12 h-12 rounded-2xl border border-nv-200 flex items-center justify-center text-ink flex-shrink-0">
                       <User size={22} />
                     </div>
                   )}

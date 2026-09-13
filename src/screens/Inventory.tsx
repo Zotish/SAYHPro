@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, Download, AlertTriangle, X, RotateCcw, Plus, Minus, ArrowRight, ArrowLeft } from "lucide-react";
+import { Search, Download, AlertTriangle, X, RotateCcw, Plus, Minus, ArrowRight, ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, Product } from "../context/AppContext";
+import AIProductScannerModal from "../components/AIProductScannerModal";
 
 interface InventoryProps {
   lang: "en" | "bn";
@@ -21,6 +22,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
   // Add Stock — a dedicated, simpler flow: pick any product and add quantity.
   // Reuses adjustStock rather than duplicating the adjustment logic.
   const [showAddStockModal, setShowAddStockModal] = useState(false);
+  const [showAIScanner, setShowAIScanner] = useState(false);
   const [addStockProductId, setAddStockProductId] = useState(products[0]?.id ?? 0);
   const [addStockQty, setAddStockQty] = useState("");
   const [addStockReason, setAddStockReason] = useState("");
@@ -91,6 +93,13 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
             </span>
           </div>
           <button
+            onClick={() => setShowAIScanner(true)}
+            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-em-700 via-em-600 to-emerald-600 hover:from-em-800 hover:to-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/30 transition-fast"
+          >
+            <Sparkles size={15} className="text-amber-300" />
+            <span>{isBn ? "এআই স্ক্যান স্টক ইন" : "AI Scan Stock In"}</span>
+          </button>
+          <button
             onClick={() => {
               setAddStockProductId(products[0]?.id ?? 0);
               setShowAddStockModal(true);
@@ -111,8 +120,8 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
           { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(i => i.status === "out-of-stock").length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
             <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-            <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
           </div>
         ))}
       </div>
@@ -339,6 +348,30 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
               </button>
             </div>
 
+            {/* AI Camera Quick Scan Banner */}
+            <div
+              onClick={() => {
+                setShowAddStockModal(false);
+                setShowAIScanner(true);
+              }}
+              className="p-2.5 rounded-xl bg-gradient-to-r from-em-50 to-white border border-em-200 flex items-center justify-between cursor-pointer hover:border-em-500 transition-colors group"
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-em-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                  <Sparkles size={14} />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-ink group-hover:text-em-700">
+                    {isBn ? "ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan packet with camera"}
+                  </div>
+                  <div className="text-[10px] text-ink/60">
+                    {isBn ? "পণ্য চিহ্নিত করে স্বয়ংক্রিয় স্টক ইন হবে" : "Instant product recognition & stock in"}
+                  </div>
+                </div>
+              </div>
+              <ChevronRight size={14} className="text-em-700 flex-shrink-0" />
+            </div>
+
             <form onSubmit={handleAddStockSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
                 <label className="block font-medium text-ink mb-1">{isBn ? "পণ্য নির্বাচন" : "Product"} *</label>
@@ -398,6 +431,14 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
           </div>
         </div>
       )}
+
+      {/* AI Product / Stock Scanner Modal */}
+      <AIProductScannerModal
+        isOpen={showAIScanner}
+        onClose={() => setShowAIScanner(false)}
+        lang={lang}
+        mode="add-stock"
+      />
     </div>
   );
 }

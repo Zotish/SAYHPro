@@ -70,41 +70,28 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold text-ink">{isBn ? "নো-কোড ওয়েবসাইট ও অনলাইন স্টোর বিল্ডার" : "No-Code Website & Online Store"}</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-em-100 text-ink">1-Click Live</span>
-          </div>
-          <p className="text-ink text-xs sm:text-sm mt-0.5">
-            {isBn ? "কোনো কোডিং জ্ঞান ছাড়াই কয়েক মিনিটে নিজের দোকানের আধুনিক ই-কমার্স ওয়েবসাইট তৈরি করুন" : "Create and publish a professional mobile-first e-commerce store with zero coding in minutes"}
+      <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
+        <div className="min-w-0">
+          <h1 className="font-display text-xl sm:text-2xl font-bold text-ink">{isBn ? "আপনার স্টোর চালু করুন" : "Launch Your Store"}</h1>
+          <p className="text-ink/70 text-xs sm:text-sm mt-0.5">
+            {isBn ? "কোডিং ছাড়াই সহজে আপনার অনলাইন স্টোর তৈরি ও চালু করুন।" : "Publish your online store in minutes with zero coding."}
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 self-start sm:self-auto">
-          <a
-            href={publicUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => {
-              e.preventDefault();
-              toast({ type: "info", title: isBn ? "লাইভ প্রিভিউ সক্রিয়!" : "Live Storefront!", message: `${publicUrl} is active with POS integration.` });
-            }}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs"
-          >
-            <Globe size={14} className="text-ink" />
-            <span className="font-mono">{subdomain}.sayhpro.com</span>
-            <ExternalLink size={12} />
-          </a>
-
-          <button
-            onClick={handleSave}
-            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
-          >
-            <Save size={16} />
-            <span>{isBn ? "পরিবর্তন সংরক্ষণ করুন" : "Save Changes"}</span>
-          </button>
-        </div>
+        <a
+          href={publicUrl}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => {
+            e.preventDefault();
+            toast({ type: "info", title: isBn ? "লাইভ প্রিভিউ সক্রিয়!" : "Live Storefront!", message: `${publicUrl} is active with POS integration.` });
+          }}
+          className="ml-auto sm:ml-0 flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap"
+        >
+          <Globe size={14} className="text-ink" />
+          <span className="font-mono">{subdomain}.sayhpro.com</span>
+          <ExternalLink size={12} />
+        </a>
       </div>
 
       {/* Main Builder Grid: Editor Sidebar + Live Interactive Device Preview */}

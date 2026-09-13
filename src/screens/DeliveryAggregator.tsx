@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  Truck, Package, Plus, Search, CheckCircle, Clock, MapPin,
+  Truck, Plus, Search, CheckCircle, MapPin,
   Phone, User, ArrowRight, ExternalLink, RefreshCw, Filter,
   DollarSign, AlertCircle, Navigation, ArrowLeft
 } from "lucide-react";
@@ -74,8 +74,6 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
     .filter(p => !p.codSettled)
     .reduce((sum, p) => sum + p.codAmount, 0);
 
-  const totalDelivered = courierParcels.filter(p => p.status === "delivered").length;
-
   return (
     <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
       {/* Header */}
@@ -101,56 +99,32 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "মোট বুককৃত পার্সেল" : "Total Parcels"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <Package size={16} />
-            </div>
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "মোট পার্সেল" : "Total Parcels"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">
+            {tNum(courierParcels.length)}
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum(courierParcels.length)} {isBn ? "টি" : "Parcels"}
-          </div>
-          <div className="text-[11px] text-ink mt-0.5">{tNum(totalDelivered)} {isBn ? "টি সফল ডেলিভারি" : "delivered"}</div>
         </div>
 
-        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "অপেক্ষমান সিওডি কালেকশন" : "Pending COD Remittance"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <DollarSign size={16} />
-            </div>
-          </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-ink">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "বকেয়া সিওডি" : "Pending COD"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">
             {formatTaka(totalCodPending)}
           </div>
-          <div className="text-[11px] text-ink mt-0.5">{isBn ? "কুরিয়ারের কাছ থেকে পাওনা" : "Receivable from couriers"}</div>
         </div>
 
-        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "ডেলিভারি সাকসেস রেট" : "Success Delivery Rate"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <CheckCircle size={16} />
-            </div>
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ডেলিভারি রেট" : "Success Rate"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">
+            {tNum("96.8")}
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum("96.8%")}
-          </div>
-          <div className="text-[11px] text-ink font-bold mt-0.5">{isBn ? "০.২% রিটার্ন রেট" : "Ultra-low return rate"}</div>
         </div>
 
-        <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="flex items-center justify-between text-ink mb-2">
-            <span className="text-xs font-medium">{isBn ? "গড় ডেলিভারি সময়" : "Avg Delivery Time"}</span>
-            <div className="w-8 h-8 rounded-xl text-ink flex items-center justify-center">
-              <Clock size={16} />
-            </div>
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ডেলিভারি সময়" : "Delivery Time"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">
+            {tNum("24")}
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-ink">
-            {tNum("24")} {isBn ? "ঘণ্টা" : "Hours"}
-          </div>
-          <div className="text-[11px] text-ink mt-0.5">{isBn ? "ঢাকায় দ্রুততম সার্ভিস" : "Next-day nationwide"}</div>
         </div>
       </div>
 
@@ -160,11 +134,10 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
           <button
             key={c.id}
             onClick={() => setActiveCourier(c.id)}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
+            className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
               ${activeCourier === c.id ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
           >
-            <span>{c.logo}</span>
-            <span>{isBn ? c.nameBn : c.name}</span>
+            {isBn ? c.nameBn : c.name}
           </button>
         ))}
       </div>
@@ -172,7 +145,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
       {/* Parcels List Table */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-bold text-ink text-base">{isBn ? "পার্সেল ট্র্যাকিং ও বুকিং তালিকা" : "Live Parcels & Tracking Dispatch"}</h3>
+          <h3 className="font-display font-bold text-ink text-base">{isBn ? "ট্র্যাকিং" : "Tracking"}</h3>
           <span className="text-xs text-ink font-semibold">{tNum(filteredParcels.length)} {isBn ? "টি পার্সেল" : "parcels"}</span>
         </div>
 

@@ -135,8 +135,8 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
           { label: "Collection Account", labelBn: "ডিফল্ট জমা", value: "Cash (নগদ)" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+            <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
             <div className="num text-lg sm:text-xl font-bold text-ink">{s.value}</div>
-            <div className="text-[11px] text-ink">{isBn ? s.labelBn : s.label}</div>
           </div>
         ))}
       </div>

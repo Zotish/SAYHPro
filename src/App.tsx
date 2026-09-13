@@ -187,13 +187,13 @@ function MainApp() {
       case "delivery":
         return <DeliveryAggregator lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "fintech":
-        return <FintechBanking lang={lang} setScreen={setScreen} />;
+        return <FintechBanking lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "reselling":
-        return <Reselling lang={lang} setScreen={setScreen} />;
+        return <Reselling lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "website":
         return <WebsiteBuilder lang={lang} setScreen={setScreen} />;
       case "alerts":
-        return <MonitoringAlerts lang={lang} setScreen={setScreen} />;
+        return <MonitoringAlerts lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "messages":
         return <Messaging lang={lang} setScreen={setScreen} />;
       default:
