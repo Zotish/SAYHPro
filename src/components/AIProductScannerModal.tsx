@@ -367,29 +367,11 @@ export default function AIProductScannerModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white rounded-3xl w-full max-w-xl shadow-2xl border border-nv-200 overflow-hidden flex flex-col max-h-[92vh]">
         {/* Modal Header */}
-        <div className="px-5 py-4 bg-nv-900 text-white flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-em-500 to-ac-400 flex items-center justify-center text-white shadow-sm">
-              <Sparkles size={16} />
-            </div>
-            <div>
-              <div className="font-display font-bold text-sm sm:text-base flex items-center gap-1.5">
-                <span>{isBn ? "স্মার্ট এআই প্রোডাক্ট ক্যামেরা স্ক্যানার" : "Smart AI Packet Scanner"}</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-em-500/30 text-em-300 font-bold uppercase tracking-wider">
-                  Vision AI
-                </span>
-              </div>
-              <p className="text-[11px] text-nv-300">
-                {mode === "add-stock"
-                  ? (isBn ? "প্যাকেট স্ক্যান করে সরাসরি স্টক ইন করুন" : "Scan product packet to instantly replenish stock")
-                  : (isBn ? "প্যাকেটের ছবি তুললেই নাম, ওজন ও মার্কেট মূল্য সহ যুক্ত হবে" : "Capture product packet to auto-fill name, weight & market price")}
-              </p>
-            </div>
-          </div>
-
+        <div className="px-5 pt-4 pb-1 bg-white flex items-center justify-end">
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label={isBn ? "বন্ধ করুন" : "Close"}
+            className="w-8 h-8 rounded-full bg-nv-100 hover:bg-nv-200 text-ink flex items-center justify-center transition-colors"
           >
             <X size={18} />
           </button>

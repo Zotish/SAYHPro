@@ -6,12 +6,11 @@ import {
   Truck, BarChart2, Home, QrCode, Menu, TrendingUp, TrendingDown,
   Landmark, MessageSquare, Store, Globe2, ShieldAlert, UserCheck, Settings,
   Star, ShieldCheck, MessageCircle, AlertTriangle, Sparkles, ChevronRight,
-  FileText, Building2, Camera
+  FileText, Building2
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, toBnDigits } from "../context/AppContext";
 import BusinessRatingModal from "../components/BusinessRatingModal";
-import AIProductScannerModal from "../components/AIProductScannerModal";
 
 interface MobileProps {
   lang: "en" | "bn";
@@ -46,7 +45,6 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
   const isBn = lang === "bn";
 
   const [period, setPeriod] = useState<"day" | "week" | "month">("day");
-  const [showAIScanner, setShowAIScanner] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreSubView, setMoreSubView] = useState<"advisory" | "analytics" | null>(null);
   const [showRatingModal, setShowRatingModal] = useState(false);
@@ -438,32 +436,6 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               ))}
             </div>
           )}
-        </div>
-
-        {/* ---------- AI Packet Scanner Quick Banner ---------- */}
-        <div
-          onClick={() => setShowAIScanner(true)}
-          className="p-3.5 rounded-2xl bg-gradient-to-r from-em-900 via-em-800 to-nv-900 text-white flex items-center justify-between cursor-pointer active:scale-98 transition-all shadow-md"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-em-500 to-ac-400 flex items-center justify-center text-white shadow-inner flex-shrink-0">
-              <Camera size={20} />
-            </div>
-            <div>
-              <div className="font-display text-xs sm:text-sm font-bold flex items-center gap-1.5">
-                <span>{isBn ? "স্মার্ট এআই প্যাকেট স্ক্যানার" : "Smart AI Packet Scanner"}</span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-ac-400 text-nv-900 font-extrabold uppercase">
-                  {isBn ? "নতুন" : "NEW"}
-                </span>
-              </div>
-              <p className="text-[11px] text-em-200 leading-tight mt-0.5">
-                {isBn ? "ক্যামেরা দিয়ে পণ্যের ছবি তুললেই নাম ও দাম সহ সেভ হবে" : "Point camera at any packet to auto-detect & add"}
-              </p>
-            </div>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-            <Sparkles size={16} className="text-ac-300" />
-          </div>
         </div>
 
         {/* ---------- Services ---------- */}
@@ -937,14 +909,6 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
           </div>
         </div>
       )}
-
-      {/* AI Product Scanner Modal */}
-      <AIProductScannerModal
-        isOpen={showAIScanner}
-        onClose={() => setShowAIScanner(false)}
-        lang={lang}
-        mode="add-product"
-      />
     </div>
   );
 }

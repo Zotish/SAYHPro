@@ -94,17 +94,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
           </div>
           <button
             onClick={() => setShowAIScanner(true)}
-            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-em-700 via-em-600 to-emerald-600 hover:from-em-800 hover:to-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/30 transition-fast"
-          >
-            <Sparkles size={15} className="text-amber-300" />
-            <span>{isBn ? "এআই স্ক্যান স্টক ইন" : "AI Scan Stock In"}</span>
-          </button>
-          <button
-            onClick={() => {
-              setAddStockProductId(products[0]?.id ?? 0);
-              setShowAddStockModal(true);
-            }}
-            className="flex-shrink-0 flex items-center gap-1 px-3 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast"
+            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast"
           >
             <Plus size={16} /> {isBn ? "স্টক যোগ করুন" : "Add Stock"}
           </button>
