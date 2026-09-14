@@ -2,7 +2,8 @@ import { useState } from "react";
 import {
   Globe, Smartphone, Monitor, ExternalLink, QrCode, Sparkles,
   Save, Eye, ShoppingBag, MessageCircle, Check, Copy, Palette,
-  Settings, ChevronRight, Share2, Plus, ArrowRight
+  Settings, ChevronRight, Share2, Plus, ArrowRight, X, Minus,
+  Trash2, Star, ShieldCheck, Truck, CreditCard, Lock, CheckCircle
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -25,6 +26,13 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
   const isBn = lang === "bn";
   const [viewDevice, setViewDevice] = useState<"mobile" | "desktop">("mobile");
   const [activeTab, setActiveTab] = useState<"design" | "content" | "settings">("design");
+  const [showLiveModal, setShowLiveModal] = useState(false);
+  const [cart, setCart] = useState<{ id: number; name: string; nameBn?: string; price: number; qty: number; image: string }[]>([]);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "bkash">("cod");
 
   // Form State
   const [subdomain, setSubdomain] = useState(storefront.subdomain);
@@ -41,6 +49,24 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
   const [announcementBn, setAnnouncementBn] = useState(storefront.announcementTextBn);
 
   const publicUrl = `https://${subdomain}.sayhpro.com`;
+
+  const addToCart = (product: typeof products[0]) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === product.id);
+      if (existing) {
+        return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i);
+      }
+      return [...prev, { id: product.id, name: product.name, nameBn: product.nameBn, price: product.sellPrice, qty: 1, image: product.image || "📦" }];
+    });
+    toast({
+      type: "success",
+      title: isBn ? "কার্টে যোগ হয়েছে!" : "Added to Cart!",
+      message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "কার্টে যুক্ত হয়েছে।" : "added to cart."}`,
+    });
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
   const handleSave = () => {
     updateStorefront({
@@ -78,20 +104,23 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           </p>
         </div>
 
-        <a
-          href={publicUrl}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => {
-            e.preventDefault();
-            toast({ type: "info", title: isBn ? "লাইভ প্রিভিউ সক্রিয়!" : "Live Storefront!", message: `${publicUrl} is active with POS integration.` });
-          }}
-          className="ml-auto sm:ml-0 flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap"
-        >
-          <Globe size={14} className="text-ink" />
-          <span className="font-mono">{subdomain}.sayhpro.com</span>
-          <ExternalLink size={12} />
-        </a>
+        <div className="ml-auto sm:ml-0 flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setShowLiveModal(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+          >
+            <Eye size={14} />
+            <span>{isBn ? "লাইভ স্টোর দেখুন" : "Preview Live Store"}</span>
+          </button>
+          <button
+            onClick={() => setShowLiveModal(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
+          >
+            <Globe size={14} className="text-em-700" />
+            <span className="font-mono font-bold text-xs">{subdomain}.sayhpro.com</span>
+            <ExternalLink size={12} />
+          </button>
+        </div>
       </div>
 
       {/* Main Builder Grid: Editor Sidebar + Live Interactive Device Preview */}
@@ -379,6 +408,441 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           </div>
         </div>
       </div>
+      {/* ========================================================================= */}
+      {/* FULL-SCREEN LIVE CUSTOMER STOREFRONT PREVIEW MODAL                        */}
+      {/* ========================================================================= */}
+      {showLiveModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] border border-nv-300">
+            {/* Browser Address Bar Header */}
+            <div className="bg-nv-900 text-white px-4 py-3 flex items-center justify-between gap-3 border-b border-nv-800 flex-shrink-0">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-green-500 inline-block" />
+              </div>
+
+              {/* URL address pill */}
+              <div className="flex-1 max-w-lg bg-nv-800 border border-nv-700 rounded-full px-4 py-1.5 flex items-center justify-center gap-2 text-xs font-mono text-nv-200">
+                <Lock size={12} className="text-em-400" />
+                <span className="text-white font-semibold">https://{subdomain}.sayhpro.com</span>
+                <span className="px-2 py-0.2 bg-em-600/30 text-em-300 rounded-full text-[10px] font-bold">LIVE STORE</span>
+              </div>
+
+              <button
+                onClick={() => setShowLiveModal(false)}
+                className="w-8 h-8 rounded-full bg-nv-800 hover:bg-nv-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+                title={isBn ? "বন্ধ করুন" : "Close Preview"}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Scrollable Live Customer Storefront Body */}
+            <div className="flex-1 overflow-y-auto bg-nv-50/50 relative">
+              {/* 1. Announcement Bar */}
+              <div
+                style={{ backgroundColor: themeColor }}
+                className="text-white text-xs font-bold text-center py-2 px-4 shadow-xs flex items-center justify-center gap-2"
+              >
+                <span>{isBn ? announcementBn || announcement : announcement}</span>
+              </div>
+
+              {/* 2. Customer Navigation Header */}
+              <header className="bg-white border-b border-nv-200 px-4 sm:px-6 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div
+                    style={{ backgroundColor: themeColor }}
+                    className="w-10 h-10 rounded-2xl text-white font-extrabold flex items-center justify-center text-sm shadow-sm"
+                  >
+                    {storefront.logo || settings.shopName.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <h2 className="font-display font-bold text-sm sm:text-base text-ink leading-none">
+                        {settings.shopName}
+                      </h2>
+                      <span className="inline-flex items-center gap-0.5 text-[10px] bg-em-50 text-em-800 font-bold px-1.5 py-0.5 rounded-full">
+                        <ShieldCheck size={11} className="text-em-600" />
+                        <span>Verified</span>
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-ink/60">
+                      {isBn ? "বিশ্বস্ত অনলাইন শপ" : "Trusted Online Store"} • {settings.phone}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <button
+                    onClick={() => setShowCheckoutModal(true)}
+                    className="relative flex items-center gap-2 px-3.5 py-2 rounded-xl border border-nv-200 bg-nv-50 hover:bg-nv-100 text-ink font-bold text-xs transition-colors cursor-pointer"
+                  >
+                    <ShoppingBag size={17} className="text-ink" />
+                    <span className="hidden sm:inline">{isBn ? "কার্ট" : "Cart"}</span>
+                    {cartCount > 0 && (
+                      <span className="w-5 h-5 rounded-full bg-em-600 text-white text-[10px] font-extrabold flex items-center justify-center">
+                        {tNum(cartCount)}
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </header>
+
+              {/* 3. Hero Section */}
+              <div
+                style={{ backgroundColor: themeColor }}
+                className="px-5 py-8 sm:py-12 text-white space-y-3 relative overflow-hidden"
+              >
+                <div className="inline-block text-[11px] uppercase tracking-wider font-extrabold bg-white/20 backdrop-blur-xs px-3 py-1 rounded-full">
+                  {isBn ? "অফিসিয়াল অনলাইন স্টোর" : "OFFICIAL ONLINE STORE"}
+                </div>
+                <h1 className="font-display font-extrabold text-xl sm:text-3xl leading-tight max-w-xl">
+                  {isBn ? headlineBn || headline : headline}
+                </h1>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed max-w-lg">
+                  {isBn ? subheadlineBn || subheadline : subheadline}
+                </p>
+                <div className="pt-2 flex items-center gap-3">
+                  <a
+                    href="#products-section"
+                    className="px-5 py-2.5 bg-white text-ink hover:bg-nv-50 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-1.5"
+                  >
+                    <span>{isBn ? "এখনই কেনাকাটা করুন" : "Shop Featured Items"}</span>
+                    <ArrowRight size={14} />
+                  </a>
+                </div>
+              </div>
+
+              {/* 4. Trust Pillars Strip */}
+              <div className="bg-white border-b border-nv-200 px-4 py-3 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-ink">
+                <div className="flex items-center justify-center gap-1.5">
+                  <Truck size={15} className="text-em-600" />
+                  <span>{isBn ? "দ্রুত ডেলিভারি" : "Fast Delivery"}</span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5 border-x border-nv-100">
+                  <CreditCard size={15} className="text-em-600" />
+                  <span>{isBn ? "ক্যাশ অন ডেলিভারি" : "Cash on Delivery"}</span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5">
+                  <ShieldCheck size={15} className="text-em-600" />
+                  <span>{isBn ? "১০০% খাঁটি পণ্য" : "Authentic Goods"}</span>
+                </div>
+              </div>
+
+              {/* 5. Product Catalog Grid */}
+              <div id="products-section" className="p-4 sm:p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-display font-bold text-base sm:text-lg text-ink">
+                      {isBn ? "আমাদের সেরা পণ্যসমূহ" : "Featured Products"}
+                    </h3>
+                    <p className="text-xs text-ink/60">
+                      {isBn ? "তাজা ও নির্ভরযোগ্য পণ্য সরাসরি আপনার ঠিকানায়" : "Quality items delivered straight to your door"}
+                    </p>
+                  </div>
+                  <span className="text-xs font-semibold text-ink/70 bg-white px-2.5 py-1 rounded-lg border border-nv-200">
+                    {tNum(products.length)} {isBn ? "টি পণ্য" : "items"}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+                  {products.map(p => (
+                    <div
+                      key={p.id}
+                      className="bg-white rounded-2xl p-3 border border-nv-200 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between group"
+                    >
+                      <div>
+                        <div className="w-full h-28 rounded-xl bg-nv-50 flex items-center justify-center text-4xl mb-2.5 group-hover:scale-105 transition-transform">
+                          {p.image}
+                        </div>
+                        <div className="font-bold text-xs sm:text-sm text-ink line-clamp-1">
+                          {isBn ? p.nameBn || p.name : p.name}
+                        </div>
+                        <div className="text-[11px] text-ink/60 mt-0.5">
+                          {isBn ? (p.unit === "Piece" ? "১ পিস" : p.unit === "KG" ? "১ কেজি" : p.unit === "Liter" ? "১ লিটার" : p.unit) : `1 ${p.unit}`}
+                        </div>
+                      </div>
+
+                      <div className="mt-3 pt-2 border-t border-nv-100 flex items-center justify-between gap-2">
+                        <div className="num font-extrabold text-sm sm:text-base text-ink">
+                          {formatTaka(p.sellPrice)}
+                        </div>
+                        <button
+                          onClick={() => addToCart(p)}
+                          style={{ backgroundColor: themeColor }}
+                          className="px-3 py-1.5 text-white text-xs font-bold rounded-xl transition-transform active:scale-95 shadow-xs cursor-pointer flex items-center gap-1"
+                        >
+                          <Plus size={13} />
+                          <span>{isBn ? "অর্ডার" : "Add"}</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 6. Customer Reviews & Ratings */}
+              {showReviews && (
+                <div className="px-4 sm:px-6 py-6 bg-white border-t border-nv-200 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-display font-bold text-sm sm:text-base text-ink">
+                        {isBn ? "গ্রাহক সন্তুষ্টি ও রিভিউ" : "Customer Reviews & Ratings"}
+                      </h4>
+                      <p className="text-xs text-ink/60">
+                        {isBn ? "১২০+ সন্তুষ্ট গ্রাহকদের মতামত" : "Based on verified customer orders"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full text-xs font-extrabold">
+                      <Star size={14} className="fill-amber-500 text-amber-500" />
+                      <span>৪.৯ / ৫.০</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { name: isBn ? "তানভীর হোসেন" : "Tanvir Hossain", comment: isBn ? "পণ্য একদম খাঁটি ও দ্রুত হোম ডেলিভারি পেয়েছি!" : "Fast delivery and authentic goods!", time: "2 days ago" },
+                      { name: isBn ? "নুসরাত জাহান" : "Nusrat Jahan", comment: isBn ? "দোকানদার খুব আন্তরিক এবং ক্যাশ অন ডেলিভারি সুবিধা চমৎকার।" : "Courteous merchant & convenient COD.", time: "4 days ago" },
+                      { name: isBn ? "রফিকুল ইসলাম" : "Rafiqul Islam", comment: isBn ? "হোয়াটসঅ্যাপে অর্ডার করেই দ্রুত নিশ্চিত হয়েছে।" : "Smooth 1-click WhatsApp order experience!", time: "1 week ago" },
+                    ].map((r, idx) => (
+                      <div key={idx} className="p-3 bg-nv-50 rounded-xl border border-nv-200/80 space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-bold text-ink">{r.name}</span>
+                          <span className="text-[10px] text-ink/50">{r.time}</span>
+                        </div>
+                        <div className="flex text-amber-500 text-[10px]">★★★★★</div>
+                        <p className="text-xs text-ink/70 leading-relaxed">{r.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 7. Store Footer */}
+              <footer className="bg-nv-900 text-white px-4 sm:px-6 py-8 space-y-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-nv-800 pb-6">
+                  <div className="flex items-center gap-3">
+                    <div
+                      style={{ backgroundColor: themeColor }}
+                      className="w-10 h-10 rounded-2xl text-white font-extrabold flex items-center justify-center text-sm"
+                    >
+                      {storefront.logo || settings.shopName.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm">{settings.shopName}</h4>
+                      <p className="text-xs text-nv-300">{settings.address || "Dhaka, Bangladesh"}</p>
+                    </div>
+                  </div>
+
+                  <div className="text-center sm:text-right text-xs text-nv-300 space-y-1">
+                    <div>{isBn ? "সহায়তা ও হেল্পলাইন" : "Customer Support"}: {whatsAppNumber || settings.phone}</div>
+                    <div>{isBn ? "ক্যাশ অন ডেলিভারি ও দ্রুত পার্সেল ডেলিভারি" : "Cash on Delivery & Courier Shipping"}</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-nv-400">
+                  <span>© 2026 {settings.shopName}. Powered by SAYHPro.</span>
+                  <div className="flex items-center gap-3">
+                    <span>bKash</span>
+                    <span>•</span>
+                    <span>Nagad</span>
+                    <span>•</span>
+                    <span>Cash on Delivery</span>
+                  </div>
+                </div>
+              </footer>
+
+              {/* Floating WhatsApp Chat Pill */}
+              {showWhatsApp && (
+                <div className="sticky bottom-4 right-4 flex justify-end px-4 pointer-events-none z-40">
+                  <a
+                    href={`https://wa.me/${whatsAppNumber.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toast({
+                        type: "success",
+                        title: "WhatsApp Chat Triggered!",
+                        message: `Connecting to merchant WhatsApp: ${whatsAppNumber}`,
+                      });
+                    }}
+                    className="pointer-events-auto flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-4 py-2.5 rounded-full shadow-lg font-bold text-xs transition-transform active:scale-95"
+                  >
+                    <MessageCircle size={18} />
+                    <span>{isBn ? "হোয়াটসঅ্যাপে অর্ডার করুন" : "Chat on WhatsApp"}</span>
+                  </a>
+                </div>
+              )}
+
+              {/* Floating Bottom Cart Bar */}
+              {cartCount > 0 && (
+                <div className="sticky bottom-0 left-0 right-0 p-3 bg-white/95 backdrop-blur-md border-t border-nv-200 shadow-xl flex items-center justify-between gap-3 z-40">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-xl bg-em-100 text-em-800 flex items-center justify-center font-bold text-xs">
+                      {tNum(cartCount)}
+                    </div>
+                    <div>
+                      <div className="text-xs text-ink/60">{isBn ? "মোট বিল" : "Cart Total"}</div>
+                      <div className="num font-extrabold text-sm text-ink">{formatTaka(cartTotal)}</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setShowCheckoutModal(true)}
+                    style={{ backgroundColor: themeColor }}
+                    className="px-5 py-2.5 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-1.5 transition-transform active:scale-95 cursor-pointer"
+                  >
+                    <span>{isBn ? "অর্ডার সম্পন্ন করুন" : "Proceed to Checkout"}</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout Drawer / Modal */}
+      {showCheckoutModal && (
+        <div className="fixed inset-0 z-60 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+          <div className="w-full max-w-md bg-white rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-nv-100">
+              <h3 className="font-display font-bold text-base text-ink">
+                {isBn ? "চেকআউট ও ডেলিভারি তথ্য" : "Checkout & Delivery"}
+              </h3>
+              <button
+                onClick={() => setShowCheckoutModal(false)}
+                className="w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink hover:bg-nv-200"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Cart Items Summary */}
+            <div className="space-y-2 max-h-40 overflow-y-auto divide-y divide-nv-100">
+              {cart.map(item => (
+                <div key={item.id} className="pt-2 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-lg">{item.image}</span>
+                    <span className="font-semibold text-ink truncate">{isBn ? item.nameBn || item.name : item.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="text-ink/60">× {tNum(item.qty)}</span>
+                    <span className="num font-bold text-ink">{formatTaka(item.price * item.qty)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Price Calculations */}
+            <div className="p-3 bg-nv-50 rounded-xl space-y-1.5 text-xs">
+              <div className="flex justify-between text-ink/70">
+                <span>{isBn ? "পণ্যের মোট মূল্য" : "Subtotal"}</span>
+                <span className="num font-bold">{formatTaka(cartTotal)}</span>
+              </div>
+              <div className="flex justify-between text-ink/70">
+                <span>{isBn ? "হোম ডেলিভারি চার্জ" : "Delivery Charge"}</span>
+                <span className="font-bold text-em-700">{isBn ? "ফ্রি" : "Free"}</span>
+              </div>
+              <div className="flex justify-between text-sm font-bold text-ink pt-1.5 border-t border-nv-200">
+                <span>{isBn ? "সর্বমোট প্রদেয়" : "Grand Total"}</span>
+                <span className="num text-em-700">{formatTaka(cartTotal)}</span>
+              </div>
+            </div>
+
+            {/* Customer Inputs */}
+            <div className="space-y-2.5 text-xs">
+              <div>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "আপনার নাম" : "Full Name"} *</label>
+                <input
+                  type="text"
+                  value={customerName}
+                  onChange={e => setCustomerName(e.target.value)}
+                  placeholder={isBn ? "যেমন: তানভীর আহমেদ" : "e.g. Tanvir Ahmed"}
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+                <input
+                  type="tel"
+                  value={customerPhone}
+                  onChange={e => setCustomerPhone(e.target.value)}
+                  placeholder="017XXXXXXXX"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 text-xs font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "ডেলিভারি ঠিকানা" : "Delivery Address"} *</label>
+                <textarea
+                  rows={2}
+                  value={customerAddress}
+                  onChange={e => setCustomerAddress(e.target.value)}
+                  placeholder={isBn ? "বাসা নং, রোড নং, এলাকা, জেলা" : "House, road, area, district"}
+                  className="w-full border border-nv-200 rounded-xl p-2.5 text-xs"
+                />
+              </div>
+
+              {/* Payment Method */}
+              <div>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "পেমেন্ট পদ্ধতি" : "Payment Method"}</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("cod")}
+                    className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                      paymentMethod === "cod" ? "border-em-600 bg-em-50 text-em-900 font-bold" : "border-nv-200 text-ink"
+                    }`}
+                  >
+                    💵 {isBn ? "ক্যাশ অন ডেলিভারি" : "Cash on Delivery"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("bkash")}
+                    className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                      paymentMethod === "bkash" ? "border-em-600 bg-em-50 text-em-900 font-bold" : "border-nv-200 text-ink"
+                    }`}
+                  >
+                    📱 {isBn ? "বিকাশ / অনলাইন" : "bKash / Online"}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                if (!customerName || !customerPhone || !customerAddress) {
+                  toast({
+                    type: "warning",
+                    title: isBn ? "তথ্য অসম্পূর্ণ" : "Missing Details",
+                    message: isBn ? "অনুগ্রহ করে আপনার নাম, ফোন নম্বর ও ঠিকানা পূরণ করুন।" : "Please enter your name, phone and address.",
+                  });
+                  return;
+                }
+                toast({
+                  type: "success",
+                  title: isBn ? "🎉 অর্ডার সফল হয়েছে!" : "🎉 Order Placed Successfully!",
+                  message: isBn
+                    ? `ধন্যবাদ ${customerName}, আপনার অর্ডারটি দোকানে নথিভুক্ত হয়েছে। ডেলিভারির সময় যোগাযোগ করা হবে।`
+                    : `Thank you ${customerName}, your order has been received by ${settings.shopName}!`,
+                });
+                setCart([]);
+                setShowCheckoutModal(false);
+                setShowLiveModal(false);
+              }}
+              style={{ backgroundColor: themeColor }}
+              className="w-full py-3 text-white rounded-2xl font-bold text-sm shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+            >
+              <CheckCircle size={16} />
+              <span>{isBn ? "অর্ডার নিশ্চিত করুন" : "Confirm Order"}</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

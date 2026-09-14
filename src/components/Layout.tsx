@@ -15,7 +15,7 @@ type Screen = string;
  *  nothing on the left (CustomerDue's "Add Due Entry", Inventory's "Add
  *  Stock") — the mobile back arrow overlays into that empty space instead
  *  of taking its own row, so it lines up with the button. */
-const screensWithInlineBack = ["dues", "inventory", "cash", "messages", "products", "addproduct", "expenses", "customers", "suppliers", "employees", "delivery", "reports", "profitloss", "marketing", "fintech", "reselling", "alerts"];
+const screensWithInlineBack = ["dues", "inventory", "cash", "messages", "products", "addproduct", "expenses", "customers", "suppliers", "employees", "delivery", "reports", "profitloss", "marketing", "fintech", "reselling", "alerts", "advisory", "analytics"];
 
 interface LayoutProps {
   currentScreen: Screen;
@@ -92,6 +92,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
     { id: "purchases", icon: Truck, label: "Purchases", labelBn: "ক্রয়" },
     { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার" },
     { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
+    { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত" },
+    { id: "analytics", icon: BarChart2, label: "Business Analytics", labelBn: "অ্যানালিটিক্স" },
     { id: "reports", icon: BarChart2, label: "Reports & P&L", labelBn: "রিপোর্ট" },
     { id: "notifications", icon: Bell, label: "Notifications", labelBn: "বিজ্ঞপ্তি", badge: unreadNotifs.length > 0 ? unreadNotifs.length : undefined, badgeColor: "bg-red-600" },
     { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
@@ -565,6 +567,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                 { id: "cash", icon: Wallet, label: "Accounts", labelBn: "ক্যাশ হিসাব" },
                 { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার" },
                 { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
+                { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত", color: "bg-amber-50 text-ink" },
+                { id: "analytics", icon: BarChart2, label: "Analytics", labelBn: "অ্যানালিটিক্স", color: "bg-em-50 text-ink" },
                 { id: "reports", icon: BarChart2, label: "Reports", labelBn: "রিপোর্ট" },
                 { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
               ].map(item => (

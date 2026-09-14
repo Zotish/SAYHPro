@@ -29,6 +29,8 @@ import Reselling from "./screens/Reselling";
 import WebsiteBuilder from "./screens/WebsiteBuilder";
 import MonitoringAlerts from "./screens/MonitoringAlerts";
 import Messaging from "./screens/Messaging";
+import BuyAdvisory from "./screens/BuyAdvisory";
+import BusinessAnalytics from "./screens/BusinessAnalytics";
 
 type AppState = "login" | "onboarding" | "app";
 type Screen =
@@ -37,7 +39,7 @@ type Screen =
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
   | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice"
   | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts"
-  | "messages";
+  | "messages" | "advisory" | "analytics";
 
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
@@ -196,6 +198,10 @@ function MainApp() {
         return <MonitoringAlerts lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "messages":
         return <Messaging lang={lang} setScreen={setScreen} />;
+      case "advisory":
+        return <BuyAdvisory lang={lang} setScreen={setScreen} onBack={goBack} />;
+      case "analytics":
+        return <BusinessAnalytics lang={lang} setScreen={setScreen} onBack={goBack} />;
       default:
         return <Dashboard lang={lang} setScreen={setScreen} />;
     }

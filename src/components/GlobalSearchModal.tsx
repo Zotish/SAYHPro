@@ -73,6 +73,8 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
     { id: "customers", label: "Customers", labelBn: "গ্রাহক", icon: Users },
     { id: "cash", label: "Cash & Accounts", labelBn: "ক্যাশ ও হিসাব", icon: Wallet },
     { id: "employees", label: "Employees", labelBn: "কর্মচারী", icon: UserCheck },
+    { id: "advisory", label: "Buy Advisory - What to Buy Next", labelBn: "কোনটি কেনা উচিত (ক্রয় পরামর্শ)", icon: Package },
+    { id: "analytics", label: "Business Analytics & Insights", labelBn: "ব্যবসায়িক অ্যানালিটিক্স", icon: BarChart2 },
     { id: "reports", label: "Reports & Profit/Loss", labelBn: "রিপোর্ট", icon: BarChart2 },
     { id: "settings", label: "Settings", labelBn: "সেটিংস", icon: Settings },
   ].filter(item =>

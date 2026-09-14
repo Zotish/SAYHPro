@@ -8,7 +8,6 @@ import {
   Star, ShieldCheck, MessageCircle, AlertTriangle, Sparkles, ChevronRight,
   FileText, Building2
 } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, toBnDigits } from "../context/AppContext";
 import BusinessRatingModal from "../components/BusinessRatingModal";
 
@@ -46,9 +45,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
 
   const [period, setPeriod] = useState<"day" | "week" | "month">("day");
   const [moreOpen, setMoreOpen] = useState(false);
-  const [moreSubView, setMoreSubView] = useState<"advisory" | "analytics" | null>(null);
   const [showRatingModal, setShowRatingModal] = useState(false);
-  const [advisoryTab, setAdvisoryTab] = useState<"urgent" | "soon">("urgent");
 
   // Promo carousel
   const [promoIndex, setPromoIndex] = useState(0);
@@ -98,30 +95,6 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
 
   const urgentAdvisory = buyAdvisoryItems.filter(i => i.tier === "urgent");
   const soonAdvisory = buyAdvisoryItems.filter(i => i.tier === "soon");
-
-  // Analytics helper metrics
-  const salesTrendData = [
-    { day: "Mon", dayBn: "সোম", sales: 42000, profit: 12000 },
-    { day: "Tue", dayBn: "মঙ্গল", sales: 38000, profit: 10500 },
-    { day: "Wed", dayBn: "বুধ", sales: 55000, profit: 18000 },
-    { day: "Thu", dayBn: "বৃহঃ", sales: 31000, profit: 8900 },
-    { day: "Fri", dayBn: "শুক্র", sales: 62000, profit: 21000 },
-    { day: "Sat", dayBn: "শনি", sales: 48000, profit: 15400 },
-    { day: "Sun", dayBn: "রবি", sales: income || 51200, profit: Math.abs(profit) || 16200 },
-  ];
-
-  const categoryAnalytics = [
-    { name: isBn ? "মুদি ও খাদ্যপণ্য" : "Grocery & Staples", percent: 45, color: "bg-em-600" },
-    { name: isBn ? "প্রসাধন ও স্বাস্থ্য" : "Personal Care", percent: 28, color: "bg-amber-500" },
-    { name: isBn ? "দুগ্ধজাত ও পানীয়" : "Dairy & Beverages", percent: 27, color: "bg-ac-600" },
-  ];
-
-  const topProducts = products.slice(0, 3).map((p, idx) => ({
-    ...p,
-    rank: idx + 1,
-    soldQty: (idx + 1) * 24 + 18,
-    revenue: ((idx + 1) * 24 + 18) * (p.sellPrice || 0),
-  }));
 
   // Core services: The 6 highest-frequency, most critical daily operations for merchants
   const services: ServiceItem[] = [
@@ -472,23 +445,11 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
                 key={item.id}
                 onClick={() => {
                   if (item.id === "more") {
-                    if (moreOpen) {
-                      setMoreOpen(false);
-                      setMoreSubView(null);
-                    } else {
-                      setMoreSubView(null);
-                      setMoreOpen(true);
-                    }
+                    setMoreOpen(!moreOpen);
                   } else if (item.id === "home") {
-                    if (moreOpen) {
-                      setMoreOpen(false);
-                      setMoreSubView(null);
-                    }
+                    setMoreOpen(false);
                   } else {
-                    if (moreOpen) {
-                      setMoreOpen(false);
-                      setMoreSubView(null);
-                    }
+                    setMoreOpen(false);
                     setScreen(item.id);
                   }
                 }}
@@ -521,391 +482,46 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
           <button
             className="flex-1"
             aria-label={isBn ? "বন্ধ করুন" : "Close"}
-            onClick={() => {
-              setMoreOpen(false);
-              setMoreSubView(null);
-            }}
+            onClick={() => setMoreOpen(false)}
           />
           <div className="bg-white rounded-t-3xl p-4 sm:p-5 max-h-[calc(85vh-5rem)] overflow-y-auto space-y-3.5 shadow-2xl border-t border-nv-200">
             {/* Header */}
-            {moreSubView === null ? (
-              <div className="relative flex items-center justify-center pt-0.5 pb-1">
-                <div className="w-10 h-1 bg-nv-200 rounded-full" />
+            <div className="relative flex items-center justify-center pt-0.5 pb-1">
+              <div className="w-10 h-1 bg-nv-200 rounded-full" />
+              <button
+                onClick={() => setMoreOpen(false)}
+                className="absolute right-0 top-0 w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 hover:bg-nv-150 transition-colors cursor-pointer"
+                aria-label={isBn ? "বন্ধ করুন" : "Close"}
+              >
+                <X size={17} />
+              </button>
+            </div>
+
+            {/* Direct Services Grid */}
+            <div className="grid grid-cols-3 gap-2.5 pt-1">
+              {moreServices.map(item => (
                 <button
+                  key={item.id + item.label}
                   onClick={() => {
+                    setScreen(item.id);
                     setMoreOpen(false);
-                    setMoreSubView(null);
                   }}
-                  className="absolute right-0 top-0 w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 hover:bg-nv-150 transition-colors"
-                  aria-label={isBn ? "বন্ধ করুন" : "Close"}
+                  className="relative flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-2xl active:bg-nv-100/60 active:scale-95 transition-all group cursor-pointer"
                 >
-                  <X size={17} />
+                  {item.badge ? (
+                    <span className="absolute top-1 right-3 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
+                      {tNum(item.badge)}
+                    </span>
+                  ) : null}
+                  <div className="w-10 h-10 flex items-center justify-center text-ink group-hover:text-em-700 transition-colors">
+                    <item.icon size={24} strokeWidth={1.6} />
+                  </div>
+                  <span className="text-[11px] font-medium text-ink text-center leading-tight">
+                    {isBn ? item.labelBn : item.label}
+                  </span>
                 </button>
-              </div>
-            ) : (
-              <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setMoreSubView(null)}
-                    className="w-8 h-8 rounded-xl bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 hover:bg-nv-150 transition-colors"
-                    title={isBn ? "সেবা তালিকায় ফিরুন" : "Back to Services"}
-                  >
-                    <ArrowLeft size={18} />
-                  </button>
-                  <div>
-                    <span className="font-display font-semibold text-ink text-base">
-                      {moreSubView === "advisory"
-                        ? (isBn ? "কোনটি কেনা উচিত" : "Buy Advisory")
-                        : (isBn ? "ব্যবসায়িক অ্যানালিটিক্স" : "Business Analytics")}
-                    </span>
-                    <p className="text-[11px] text-ink/60">
-                      {moreSubView === "advisory"
-                        ? (isBn ? "স্মার্ট স্টক কেনাকাটার পরামর্শ" : "Stock replenishment advisory")
-                        : (isBn ? "বিক্রয় ট্রেন্ড ও পারফরম্যান্স বিশ্লেষণ" : "Revenue, trends & performance insights")}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => {
-                    setMoreOpen(false);
-                    setMoreSubView(null);
-                  }}
-                  className="w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
-                >
-                  <X size={17} />
-                </button>
-              </div>
-            )}
-
-            {/* If moreSubView is null: Direct Services Grid (No top tabs) */}
-            {moreSubView === null ? (
-              <div className="grid grid-cols-3 gap-2.5 pt-1">
-                {moreServices.map(item => (
-                  <button
-                    key={item.id + item.label}
-                    onClick={() => {
-                      if (item.id === "advisory") {
-                        setMoreSubView("advisory");
-                      } else if (item.id === "analytics") {
-                        setMoreSubView("analytics");
-                      } else {
-                        setScreen(item.id);
-                        setMoreOpen(false);
-                      }
-                    }}
-                    className="relative flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-2xl active:bg-nv-100/60 active:scale-95 transition-all group"
-                  >
-                    {item.badge ? (
-                      <span className="absolute top-1 right-3 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
-                        {tNum(item.badge)}
-                      </span>
-                    ) : null}
-                    <div className="w-10 h-10 flex items-center justify-center text-ink group-hover:text-em-700 transition-colors">
-                      <item.icon size={24} strokeWidth={1.6} />
-                    </div>
-                    <span className="text-[11px] font-medium text-ink text-center leading-tight">
-                      {isBn ? item.labelBn : item.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            ) : moreSubView === "advisory" ? (
-              <div className="space-y-3">
-                <div className="bg-white rounded-2xl border border-nv-200 p-3.5 space-y-3 shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <Package size={18} className="text-em-700" />
-                      <h3 className="font-display text-sm font-semibold text-ink">
-                        {isBn ? "কোনটি কেনা উচিত (ক্রয় পরামর্শ)" : "What to Buy Next (Advisory)"}
-                      </h3>
-                    </div>
-                    <button
-                      onClick={() => setMoreSubView("analytics")}
-                      className="text-[11px] font-bold text-em-700 hover:underline flex items-center gap-0.5"
-                    >
-                      {isBn ? "অ্যানালিটিক্স" : "Analytics"} →
-                    </button>
-                  </div>
-
-                  {/* Color Tiers Mini Strip */}
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => setAdvisoryTab("urgent")}
-                      className={`p-2.5 rounded-xl border text-left transition-colors ${
-                        advisoryTab === "urgent"
-                          ? "border-red-500 bg-red-50 text-red-900 shadow-2xs"
-                          : "border-red-200 bg-red-50/40 text-red-800"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold">🔴 {isBn ? "জরুরি কিনুন" : "Urgent Buy"}</span>
-                        <span className="num text-[10px] font-bold px-1.5 py-0.2 bg-red-200 text-red-900 rounded-full">
-                          {tNum(urgentAdvisory.length)}
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-ink/70 mt-0.5 truncate">
-                        {isBn ? "স্টক শেষ / ব্যাপক চাহিদা" : "Out of stock / high demand"}
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => setAdvisoryTab("soon")}
-                      className={`p-2.5 rounded-xl border text-left transition-colors ${
-                        advisoryTab === "soon"
-                          ? "border-amber-500 bg-amber-50 text-amber-900 shadow-2xs"
-                          : "border-amber-200 bg-amber-50/40 text-amber-800"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold">🟡 {isBn ? "শীঘ্রই কিনুন" : "Buy Soon"}</span>
-                        <span className="num text-[10px] font-bold px-1.5 py-0.2 bg-amber-200 text-amber-900 rounded-full">
-                          {tNum(soonAdvisory.length)}
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-ink/70 mt-0.5 truncate">
-                        {isBn ? "৭ দিনের মধ্যে ফুরিয়ে যাবে" : "Runs out within 7 days"}
-                      </div>
-                    </button>
-                  </div>
-
-                  {/* Product Cards */}
-                  <div className="space-y-2">
-                    {(advisoryTab === "urgent" ? urgentAdvisory : soonAdvisory).map(({ product: p, daysOfStockLeft, suggestedBuyQty, tier }) => (
-                      <div
-                        key={p.id}
-                        className={`p-2.5 rounded-xl border flex items-center justify-between gap-2 ${
-                          tier === "urgent"
-                            ? "bg-red-50/60 border-red-200"
-                            : "bg-amber-50/60 border-amber-200"
-                        }`}
-                      >
-                        <div className="min-w-0">
-                          <div className="font-semibold text-ink text-xs truncate">
-                            {p.name}
-                          </div>
-                          <div className="text-[11px] text-ink/70 flex items-center gap-1.5 mt-0.5">
-                            <span className="num font-bold text-ink">{tNum(p.stock)} {p.unit}</span>
-                            <span>•</span>
-                            <span className={`font-semibold ${tier === "urgent" ? "text-red-700" : "text-amber-700"}`}>
-                              {isBn ? `${tNum(daysOfStockLeft)} দিনের মজুদ বাকি` : `${tNum(daysOfStockLeft)}d stock left`}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="text-right flex-shrink-0">
-                          <div className="text-[10px] text-ink/60">{isBn ? "প্রস্তাবিত ক্রয়" : "Suggested"}</div>
-                          <div className="num font-bold text-xs text-em-800">
-                            +{tNum(suggestedBuyQty)} {p.unit}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-1">
-                    <button
-                      onClick={() => setMoreSubView(null)}
-                      className="flex-1 py-2.5 bg-nv-100 active:bg-nv-200 border border-nv-200 rounded-xl text-xs font-semibold text-ink text-center flex items-center justify-center gap-1 transition-colors"
-                    >
-                      <ArrowLeft size={14} />
-                      <span>{isBn ? "সকল সেবা" : "All Services"}</span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setScreen("purchases");
-                        setMoreOpen(false);
-                        setMoreSubView(null);
-                      }}
-                      className="flex-2 py-2.5 bg-em-700 active:bg-em-800 text-white rounded-xl text-xs font-semibold text-center flex items-center justify-center gap-1 transition-colors shadow-2xs"
-                    >
-                      <span>{isBn ? "সাপ্লায়ার অর্ডার এন্ট্রি করুন" : "Order from Supplier"}</span>
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-3.5">
-                {/* Analytics Header Card */}
-                <div className="bg-gradient-to-r from-em-50/80 via-white to-amber-50/50 p-3.5 rounded-2xl border border-em-200/90 shadow-2xs">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-xl bg-em-100 border border-em-200 text-em-800 flex items-center justify-center flex-shrink-0">
-                        <BarChart2 size={18} />
-                      </div>
-                      <div>
-                        <h3 className="font-display text-sm font-bold text-ink">
-                          {isBn ? "ব্যবসায়িক অ্যানালিটিক্স ও পারফরম্যান্স" : "Business Analytics & Insights"}
-                        </h3>
-                        <p className="text-[10px] text-ink/60">
-                          {isBn ? "বিক্রয় ট্রেন্ড, লাভের মার্জিন ও ক্যাটাগরি বিশ্লেষণ" : "Sales velocity, profit margins & category trends"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Period filter buttons */}
-                  <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-em-100">
-                    <span className="text-[10px] font-semibold text-ink/70 mr-1">{isBn ? "সময়কাল:" : "Period:"}</span>
-                    {[
-                      { id: "day" as const, label: "Today", labelBn: "আজ" },
-                      { id: "week" as const, label: "7 Days", labelBn: "৭ দিন" },
-                      { id: "month" as const, label: "30 Days", labelBn: "৩০ দিন" },
-                    ].map(p => (
-                      <button
-                        key={p.id}
-                        onClick={() => setPeriod(p.id)}
-                        className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-colors ${
-                          period === p.id
-                            ? "bg-em-700 text-white shadow-2xs"
-                            : "bg-white text-ink border border-nv-200"
-                        }`}
-                      >
-                        {isBn ? p.labelBn : p.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 4 KPI Metrics Grid */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="p-3 bg-white rounded-xl border border-nv-200 shadow-2xs">
-                    <div className="flex items-center justify-between text-[11px] text-ink/70 mb-1">
-                      <span>{isBn ? "মোট বিক্রয়" : "Total Revenue"}</span>
-                      <span className="text-[10px] font-bold text-em-700 bg-em-50 px-1.5 py-0.2 rounded-md">+১৮.৪%</span>
-                    </div>
-                    <div className="num text-base font-extrabold text-ink">{formatTaka(income)}</div>
-                    <div className="text-[10px] text-ink/50 mt-0.5">{tNum(sales.length)} {isBn ? "টি সফল চালান" : "completed sales"}</div>
-                  </div>
-
-                  <div className="p-3 bg-white rounded-xl border border-nv-200 shadow-2xs">
-                    <div className="flex items-center justify-between text-[11px] text-ink/70 mb-1">
-                      <span>{isBn ? "নিট মুনাফা" : "Net Profit"}</span>
-                      <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded-md">{tNum(32.5)}%</span>
-                    </div>
-                    <div className="num text-base font-extrabold text-ink">{formatTaka(Math.abs(profit))}</div>
-                    <div className="text-[10px] text-ink/50 mt-0.5">{inProfit ? (isBn ? "লাভজনক অবস্থানে" : "Positive margin") : (isBn ? "ব্যয় সমন্বয় প্রয়োজন" : "Deficit")}</div>
-                  </div>
-
-                  <div className="p-3 bg-white rounded-xl border border-nv-200 shadow-2xs">
-                    <div className="text-[11px] text-ink/70 mb-1">{isBn ? "গড় অর্ডার মূল্য" : "Avg Order Value"}</div>
-                    <div className="num text-base font-extrabold text-ink">
-                      {formatTaka(Math.round(income / Math.max(1, sales.length)))}
-                    </div>
-                    <div className="text-[10px] text-ink/50 mt-0.5">{isBn ? "প্রতি ক্রয়ে গড় বিক্রয়" : "Per transaction"}</div>
-                  </div>
-
-                  <div className="p-3 bg-white rounded-xl border border-nv-200 shadow-2xs">
-                    <div className="flex items-center justify-between text-[11px] text-ink/70 mb-1">
-                      <span>{isBn ? "বাকি অনুপাত" : "Dues Ratio"}</span>
-                      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded-md">৮৪% আদায়</span>
-                    </div>
-                    <div className="num text-base font-extrabold text-ink">{formatTaka(totalDues)}</div>
-                    <div className="text-[10px] text-ink/50 mt-0.5">{tNum(dueCount)} {isBn ? "জন গ্রাহকের বাকি" : "customers with due"}</div>
-                  </div>
-                </div>
-
-                {/* Mini Weekly Sales Bar Chart */}
-                <div className="bg-white p-3.5 rounded-2xl border border-nv-200 shadow-2xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-xs font-bold text-ink">
-                      {isBn ? "সাপ্তাহিক বিক্রয় ট্রেন্ড (৳)" : "Weekly Revenue Trend (৳)"}
-                    </span>
-                    <span className="text-[10px] text-ink/60 font-medium">
-                      {isBn ? "গত ৭ দিনের রেকর্ড" : "Last 7 days"}
-                    </span>
-                  </div>
-
-                  <div className="h-40 w-full pt-1">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={salesTrendData}>
-                        <XAxis dataKey={isBn ? "dayBn" : "day"} tick={{ fontSize: 10, fill: "#64748B" }} axisLine={false} tickLine={false} />
-                        <YAxis tick={{ fontSize: 9, fill: "#64748B" }} tickFormatter={v => tNum(v)} axisLine={false} tickLine={false} />
-                        <Tooltip formatter={(v: any) => [formatTaka(Number(v)), isBn ? "বিক্রয়" : "Sales"]} />
-                        <Bar dataKey="sales" fill="#16A34A" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                {/* Category Share Progress */}
-                <div className="bg-white p-3.5 rounded-2xl border border-nv-200 shadow-2xs space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-xs font-bold text-ink">
-                      {isBn ? "ক্যাটাগরি অনুযায়ী বিক্রয় অবদান" : "Category Sales Contribution"}
-                    </span>
-                    <span className="text-[10px] text-em-700 font-semibold">{tNum(100)}%</span>
-                  </div>
-
-                  <div className="space-y-2">
-                    {categoryAnalytics.map(cat => (
-                      <div key={cat.name} className="space-y-1">
-                        <div className="flex justify-between text-[11px]">
-                          <span className="font-medium text-ink">{cat.name}</span>
-                          <span className="num font-bold text-ink">{tNum(cat.percent)}%</span>
-                        </div>
-                        <div className="h-1.5 w-full bg-nv-100 rounded-full overflow-hidden">
-                          <div className={`h-full ${cat.color} rounded-full`} style={{ width: `${cat.percent}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Top Selling Products */}
-                <div className="bg-white p-3.5 rounded-2xl border border-nv-200 shadow-2xs space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-xs font-bold text-ink">
-                      {isBn ? "শীর্ষ বিক্রিত পণ্যসমূহ" : "Top Performing Products"}
-                    </span>
-                    <span className="text-[10px] text-ink/60">{isBn ? "চাহিদা অনুযায়ী" : "By volume"}</span>
-                  </div>
-
-                  <div className="divide-y divide-nv-100">
-                    {topProducts.map(tp => (
-                      <div key={tp.id} className="py-2 flex items-center justify-between">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="w-5 h-5 rounded-full bg-nv-100 text-ink text-[10px] font-bold flex items-center justify-center flex-shrink-0">
-                            #{tNum(tp.rank)}
-                          </span>
-                          <div className="min-w-0">
-                            <div className="text-xs font-medium text-ink truncate">{isBn ? tp.nameBn : tp.name}</div>
-                            <div className="text-[10px] text-ink/60">{tNum(tp.soldQty)} {isBn ? "টি বিক্রি হয়েছে" : "units sold"}</div>
-                          </div>
-                        </div>
-                        <div className="text-right flex-shrink-0">
-                          <div className="num font-bold text-xs text-ink">{formatTaka(tp.revenue)}</div>
-                          <span className="text-[9px] text-em-700 font-semibold">{isBn ? "শীর্ষ আয়" : "High revenue"}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Action buttons at bottom */}
-                <div className="flex items-center gap-2 pt-1">
-                  <button
-                    onClick={() => setMoreSubView(null)}
-                    className="flex-1 py-2.5 bg-nv-100 active:bg-nv-200 border border-nv-200 rounded-xl text-xs font-semibold text-ink text-center flex items-center justify-center gap-1 transition-colors"
-                  >
-                    <ArrowLeft size={14} />
-                    <span>{isBn ? "সকল সেবা" : "All Services"}</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setScreen("reports");
-                      setMoreOpen(false);
-                      setMoreSubView(null);
-                    }}
-                    className="flex-2 py-2.5 bg-ink text-white rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1.5 hover:bg-ink/90 transition-colors shadow-sm"
-                  >
-                    <BarChart2 size={15} />
-                    <span>{isBn ? "পূর্ণাঙ্গ P&L রিপোর্ট" : "View Full Report"}</span>
-                    <ChevronRight size={15} />
-                  </button>
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </div>
       )}
