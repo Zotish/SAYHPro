@@ -31,6 +31,7 @@ import MonitoringAlerts from "./screens/MonitoringAlerts";
 import Messaging from "./screens/Messaging";
 import BuyAdvisory from "./screens/BuyAdvisory";
 import BusinessAnalytics from "./screens/BusinessAnalytics";
+import CustomerStorefront from "./screens/CustomerStorefront";
 
 type AppState = "login" | "onboarding" | "app";
 type Screen =
@@ -39,7 +40,7 @@ type Screen =
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
   | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice"
   | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts"
-  | "messages" | "advisory" | "analytics";
+  | "messages" | "advisory" | "analytics" | "storefront";
 
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
@@ -131,6 +132,19 @@ function MainApp() {
       <>
         <PWAInstallPrompt lang={lang} />
         <MobilePOS lang={lang} setScreen={setScreen} />
+      </>
+    );
+  }
+
+  if (screenRaw === "storefront") {
+    return (
+      <>
+        <PWAInstallPrompt lang={lang} />
+        <CustomerStorefront
+          lang={lang}
+          onBack={() => setScreen("website")}
+          previewMode={true}
+        />
       </>
     );
   }

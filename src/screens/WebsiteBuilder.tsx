@@ -106,15 +106,16 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
 
         <div className="ml-auto sm:ml-0 flex items-center gap-2 flex-wrap">
           <button
-            onClick={() => setShowLiveModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+            onClick={() => setScreen("storefront")}
+            className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-transform active:scale-95 cursor-pointer"
           >
-            <Eye size={14} />
-            <span>{isBn ? "লাইভ স্টোর দেখুন" : "Preview Live Store"}</span>
+            <Eye size={15} />
+            <span>{isBn ? "লাইভ কাস্টমার স্টোর দেখুন" : "Preview Live Store"}</span>
           </button>
           <button
-            onClick={() => setShowLiveModal(true)}
+            onClick={() => setScreen("storefront")}
             className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
+            title={isBn ? "লাইভ স্টোরফ্রন্ট খুলুন" : "Open Live Storefront"}
           >
             <Globe size={14} className="text-em-700" />
             <span className="font-mono font-bold text-xs">{subdomain}.sayhpro.com</span>

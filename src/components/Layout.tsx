@@ -249,7 +249,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             </p>
             {[
               { id: "invoice", label: "Invoice & Receipt", labelBn: "ইনভয়েস ভিউ" },
-                            { id: "mobile-pos", label: "Mobile POS View", labelBn: "মোবাইল বিক্রয়" },
+              { id: "mobile-pos", label: "Mobile POS View", labelBn: "মোবাইল বিক্রয়" },
+              { id: "storefront", label: "Customer Storefront (Live)", labelBn: "লাইভ কাস্টমার শপ" },
             ].map(item => (
               <button
                 key={item.id}
