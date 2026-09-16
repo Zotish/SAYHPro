@@ -364,7 +364,6 @@ export default function CustomerStorefront({
   const [isIOS, setIsIOS] = useState(false);
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
-  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
 
   useEffect(() => {
     // Check if already in standalone mode (already installed as PWA)
@@ -383,8 +382,9 @@ export default function CustomerStorefront({
 
     const handlePrompt = (e?: any) => {
       const p = e?.detail || e || (window as any).deferredInstallPrompt;
-      if (p && p.prompt) {
+      if (p && typeof p.prompt === "function") {
         setInstallPrompt(p);
+        setShowInstallBanner(true);
       }
     };
 
@@ -403,7 +403,9 @@ export default function CustomerStorefront({
       setIsStandalone(true);
       setShowInstallBanner(false);
       setInstallPrompt(null);
-      (window as any).deferredInstallPrompt = null;
+      if (typeof window !== "undefined") {
+        (window as any).deferredInstallPrompt = null;
+      }
       toast({
         type: "success",
         title: isBn ? "স্টোর অ্যাপ সফলভাবে ডাউনলোড ও ইনস্টল হয়েছে!" : "Store App Downloaded & Installed!",
@@ -434,38 +436,24 @@ export default function CustomerStorefront({
       return;
     }
 
-    let p = installPrompt || (typeof window !== "undefined" ? (window as any).deferredInstallPrompt : null);
+    const promptEvent = installPrompt || (typeof window !== "undefined" ? (window as any).deferredInstallPrompt : null);
 
-    // If prompt is not ready at this exact millisecond, wait a short moment to capture it
-    if (!p && typeof window !== "undefined") {
-      p = await new Promise<BeforeInstallPromptEvent | null>((resolve) => {
-        let timer: any;
-        const onPrompt = (e: Event) => {
-          e.preventDefault();
-          window.removeEventListener("beforeinstallprompt", onPrompt);
-          window.removeEventListener("pwa-prompt-ready", onPrompt);
-          clearTimeout(timer);
-          resolve((e as any).detail || (e as BeforeInstallPromptEvent));
-        };
-        window.addEventListener("beforeinstallprompt", onPrompt);
-        window.addEventListener("pwa-prompt-ready", onPrompt);
-        timer = setTimeout(() => {
-          window.removeEventListener("beforeinstallprompt", onPrompt);
-          window.removeEventListener("pwa-prompt-ready", onPrompt);
-          resolve((window as any).deferredInstallPrompt || null);
-        }, 800);
-      });
-    }
-
-    if (p) {
+    if (promptEvent && typeof promptEvent.prompt === "function") {
       try {
-        await p.prompt();
-        const choice = await p.userChoice;
+        await promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
         if (choice && choice.outcome === "accepted") {
           setShowInstallBanner(false);
           setInstallPrompt(null);
-          (window as any).deferredInstallPrompt = null;
+          if (typeof window !== "undefined") {
+            (window as any).deferredInstallPrompt = null;
+          }
           setIsStandalone(true);
+          toast({
+            type: "success",
+            title: isBn ? "অ্যাপ ইনস্টল হচ্ছে..." : "App Installing...",
+            message: isBn ? "অ্যাপটি আপনার ফোনের হোম স্ক্রিনে যুক্ত হচ্ছে।" : "Rahim Store is being added to your home screen.",
+          });
         }
       } catch (err) {
         console.warn("PWA install prompt error:", err);
@@ -473,29 +461,14 @@ export default function CustomerStorefront({
       return;
     }
 
-    // Fallback if prompt is suppressed (e.g. inside Android Custom Tab or in-app webview)
-    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      openInRealChrome();
-      return;
-    }
-    setIsPwaModalOpen(true);
-  };
-
-  // Helper to open real Google Chrome on Android (escaping In-App browsers and Custom Tabs)
-  const openInRealChrome = (customUrl?: string) => {
-    const targetUrl = customUrl || `${window.location.origin}/?screen=storefront`;
-    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      const rawUrl = targetUrl.replace(/^https?:\/\//, "");
-      const intentUrl = `intent://${rawUrl}#Intent;scheme=https;package=com.android.chrome;end`;
-      window.location.href = intentUrl;
-      setTimeout(() => {
-        window.open(targetUrl, "_blank");
-      }, 1200);
-      return;
-    }
-    window.open(targetUrl, "_blank");
+    // If installPrompt is not available (e.g. app already installed, or browser menu needed)
+    toast({
+      type: "info",
+      title: isBn ? "ব্রাউজার থেকে ইনস্টল করুন" : "Install via Browser",
+      message: isBn
+        ? "উপরে ডানের ৩-ডট (⋮) মেন্যু চেপে 'Install app' বা 'Add to Home screen' চাপুন।"
+        : "Tap the 3-dot menu (⋮) in your browser and select 'Install app' or 'Add to Home screen'.",
+    });
   };
 
   return (
@@ -2244,123 +2217,7 @@ export default function CustomerStorefront({
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 11. PWA INSTALLATION MODAL & STEP-BY-STEP VISUAL GUIDE                    */}
-      {/* ========================================================================= */}
-      {isPwaModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl border border-gray-200 relative">
-            <button
-              onClick={() => setIsPwaModalOpen(false)}
-              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center cursor-pointer"
-            >
-              <X size={16} />
-            </button>
 
-            <div className="text-center space-y-2">
-              <div className="w-14 h-14 bg-amber-50 text-[#f08804] rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-xs border border-amber-200">
-                📲
-              </div>
-              <h3 className="text-base font-extrabold text-[#0f1111]">
-                {isBn ? `${settings.shopName} PWA অ্যাপ ইনস্টল` : `Install ${settings.shopName} App`}
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                {isBn
-                  ? "কাস্টমারদের হোম স্ক্রিনে সরাসরি অ্যাপের মতো ব্যবহার করতে নিচের বাটনে চাপ দিয়ে আসল ব্রাউজারে খুলুন বা নিয়ম দেখুন:"
-                  : "Install as a standalone app on your mobile home screen for faster ordering:"}
-              </p>
-            </div>
-
-            {/* ERP Preview Notice vs External Customer */}
-            {previewMode && typeof window !== "undefined" && !window.location.search.includes("screen=storefront") && (
-              <div className="bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5 text-[11px] text-amber-950 flex items-start gap-2">
-                <span className="text-sm flex-shrink-0 mt-0.5">💡</span>
-                <p className="leading-relaxed">
-                  {isBn
-                    ? "আপনি বর্তমানে ERP অ্যাডমিনের ভেতর থেকে ইন-অ্যাপ প্রিভিউ দেখছেন। কাস্টমাররা আসল মোবাইল ব্রাউজারে (Chrome/Safari) যেভাবে সরাসরি অ্যাপ ইনস্টল করতে পারবে, তা টেস্ট করতে নিচের বাটনে চাপ দিন।"
-                    : "You are previewing inside the ERP admin. To test the native 1-tap browser PWA install prompt as customers experience it, open in an external browser tab."}
-                </p>
-              </div>
-            )}
-
-            {/* Native 1-Click Install Button */}
-            {!isStandalone && (
-              <button
-                onClick={handleInstallApp}
-                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-full flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
-              >
-                <Download size={14} />
-                <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ডাউনলোড করুন (Install Now)" : "Install Store App Now"}</span>
-              </button>
-            )}
-
-            {/* Custom Tab / In-App Browser Guidance Banner */}
-            <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 text-xs text-amber-950 space-y-1.5 shadow-2xs">
-              <div className="font-extrabold text-amber-900 flex items-center gap-1.5">
-                <span>📱 ফোন অ্যাপ ডাউনলোড/ইনস্টল করার উপায়:</span>
-              </div>
-              <p className="text-[11px] leading-relaxed text-gray-700">
-                আপনি বর্তমানে ইন-অ্যাপ প্রিভিউতে আছেন (উপরে বামে <strong>[X]</strong> দেখুন)। সরাসরি অ্যাপ ইনস্টল পেতে নিচের বাটনে চাপ দিয়ে <strong>Google Chrome</strong>-এ খুলুন অথবা উপরে ডানের <strong>৩-ডট (⋮)</strong> মেন্যু চেপে <strong>'Install app'</strong> নির্বাচন করুন।
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              {/* Direct Launch in Real Google Chrome via Intent */}
-              <button
-                onClick={() => {
-                  openInRealChrome();
-                  setIsPwaModalOpen(false);
-                }}
-                className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-black text-xs rounded-full border border-[#fcd200] flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-all active:scale-98"
-              >
-                <ExternalLink size={15} />
-                <span>{isBn ? "🚀 সরাসরি Google Chrome-এ খুলুন ও ইনস্টল করুন" : "Open in Google Chrome & Install"}</span>
-              </button>
-
-              {/* Copy Storefront Link for Customers */}
-              <button
-                onClick={() => {
-                  const externalUrl = `${window.location.origin}/?screen=storefront`;
-                  navigator.clipboard.writeText(externalUrl);
-                  toast({
-                    type: "success",
-                    title: isBn ? "কাস্টমার লিংক কপি হয়েছে!" : "Customer Link Copied!",
-                    message: externalUrl,
-                  });
-                }}
-                className="w-full py-2.5 bg-white hover:bg-gray-50 active:bg-gray-100 text-[#0f1111] font-bold text-xs rounded-full border border-gray-300 flex items-center justify-center gap-2 shadow-2xs cursor-pointer transition-colors"
-              >
-                <Copy size={13} />
-                <span>{isBn ? "📋 কাস্টমার শেয়ার লিংক কপি করুন" : "Copy Customer Store Link"}</span>
-              </button>
-
-              {/* Instructions for Android & iOS */}
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 text-[11px] text-gray-700">
-                <div className="font-bold text-[#0f1111]">
-                  {isBn ? "📌 ব্রাউজার ৩-ডট থেকে ইনস্টল নিয়ম:" : "📌 Browser Steps:"}
-                </div>
-                <div className="space-y-1.5 leading-relaxed">
-                  <div className="flex items-start gap-1.5">
-                    <span className="font-bold text-emerald-800 flex-shrink-0">Android:</span>
-                    <span>উপরে ডানের ৩-ডট <strong>(⋮)</strong> মেন্যুতে চাপ দিয়ে <strong>'Install app'</strong> বা <strong>'Open in Chrome'</strong> চাপলে হোমস্ক্রিনে অ্যাপ ইনস্টল হয়ে যাবে।</span>
-                  </div>
-                  <div className="flex items-start gap-1.5">
-                    <span className="font-bold text-blue-700 flex-shrink-0">iPhone:</span>
-                    <span>সাফারি ব্রাউজারের নিচে শেয়ার <strong>(↑)</strong> বাটনে চাপ দিয়ে <strong>'Add to Home Screen'</strong> চাপলেই ইনস্টল হয়ে যাবে।</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setIsPwaModalOpen(false)}
-              className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-full cursor-pointer"
-            >
-              {isBn ? "ঠিক আছে, বুঝতে পেরেছি" : "Got It"}
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* ========================================================================= */}
       {/* 12. FLOATING PWA INSTALL BANNER (DIRECTLY IN FRONT OF MOBILE APP VIEW)    */}

@@ -1,12 +1,13 @@
 {
-  "name": "Rahim Store — Online Shop",
+  "name": "Rahim Store - Online Shop",
   "short_name": "Rahim Store",
   "description": "Smart Retail, Online Store & PWA Management Platform",
   "start_url": "/?screen=storefront",
   "scope": "/",
+  "id": "/?screen=storefront",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#EAEDED",
+  "background_color": "#FFFFFF",
   "theme_color": "#84d8d8",
   "categories": ["shopping", "business", "lifestyle"],
   "icons": [
