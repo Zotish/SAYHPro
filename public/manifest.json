@@ -3,7 +3,7 @@
   "short_name": "Rahim Store",
   "description": "Smart Retail, Online Store & PWA Management Platform",
   "start_url": "/?screen=storefront",
-  "id": "/?screen=storefront",
+  "id": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#EAEDED",

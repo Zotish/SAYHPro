@@ -3,7 +3,7 @@
   "short_name": "Rahim Store",
   "description": "Order groceries, snacks, beverages and daily essentials online with fast delivery.",
   "start_url": "/?screen=storefront",
-  "id": "/?screen=storefront",
+  "id": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#EAEDED",
