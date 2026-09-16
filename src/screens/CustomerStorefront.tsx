@@ -435,23 +435,40 @@ export default function CustomerStorefront({
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       if (params.get("auto_install") === "true") {
-        const attemptPrompt = () => {
-          const p = pwaPrompt || (window as any).deferredPwaPrompt;
+        let attempts = 0;
+        const checkAndPrompt = async () => {
+          attempts++;
+          const p = (window as any).deferredPwaPrompt || pwaPrompt;
           if (p) {
             try {
-              p.prompt();
+              await p.prompt();
+              const choice = await p.userChoice;
+              if (choice && choice.outcome === "accepted") {
+                toast({
+                  type: "success",
+                  title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+                });
+                setPwaPrompt(null);
+                (window as any).deferredPwaPrompt = null;
+                setCanInstallPWA(false);
+              }
             } catch (err) {
               console.warn("Auto prompt error:", err);
             }
+          } else if (attempts < 12) {
+            setTimeout(checkAndPrompt, 350);
           }
         };
-        window.addEventListener("pwa-prompt-ready", attemptPrompt);
-        if ((window as any).deferredPwaPrompt || pwaPrompt) {
-          attemptPrompt();
-        }
+
+        window.addEventListener("pwa-prompt-ready", checkAndPrompt);
+        setTimeout(checkAndPrompt, 300);
+
+        return () => {
+          window.removeEventListener("pwa-prompt-ready", checkAndPrompt);
+        };
       }
     }
-  }, [pwaPrompt]);
+  }, [pwaPrompt, isBn]);
 
   const triggerPWAInstall = async () => {
     const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
@@ -471,19 +488,38 @@ export default function CustomerStorefront({
           return;
         }
       } catch (e) {
-        console.warn("PWA prompt error, opening guide modal:", e);
+        console.warn("PWA prompt error:", e);
       }
     }
 
     // If inside in-app browser or Custom Tab on Android without prompt
     const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
-    if (isAndroid && !promptEvent) {
-      // Auto launch in real Chrome with auto_install intent
+    if (isAndroid) {
+      toast({
+        type: "info",
+        title: isBn ? "Google Chrome-এ ইনস্টল ডায়ালগ চালু হচ্ছে..." : "Launching Chrome Install...",
+      });
+      // Force launch in real Chrome with auto_install intent (DO NOT OPEN MODAL)
       openInRealChrome();
+      return;
     }
 
-    // Open interactive PWA guide modal
-    setIsPwaModalOpen(true);
+    // If on iPhone (iOS)
+    const isIOS = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (isIOS) {
+      toast({
+        type: "info",
+        title: isBn ? "হোম স্ক্রিনে যোগ করুন" : "Add to Home Screen",
+        message: isBn ? "সাফারির নিচে [↑] শেয়ার আইকন চেপে 'Add to Home Screen' চাপুন" : "Tap Safari Share [↑] and select 'Add to Home Screen'",
+      });
+      return;
+    }
+
+    toast({
+      type: "info",
+      title: isBn ? "অ্যাপ ইনস্টল করুন" : "Install App",
+      message: isBn ? "ব্রাউজারের অ্যাড্রেস বারের ডান পাশে থাকা Install বাটনে ক্লিক করুন" : "Click the Install icon in your browser address bar",
+    });
   };
 
   return (
