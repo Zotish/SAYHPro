@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rahim-store-pwa-v6';
+const CACHE_NAME = 'rahim-store-pwa-v7';
 const STATIC_ASSETS = [
   '/',
   '/?screen=storefront',
@@ -13,16 +13,22 @@ const STATIC_ASSETS = [
   '/icons/icon.svg'
 ];
 
-// Install: Cache essential app shell
+// Install: Cache essential app shell with fault-tolerant Promise.allSettled
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+      return Promise.allSettled(
+        STATIC_ASSETS.map((url) =>
+          cache.add(url).catch((err) => {
+            console.warn('Cache asset skipped:', url, err);
+          })
+        )
+      );
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate: Clean up older caches
+// Activate: Clean up older caches and claim clients immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {

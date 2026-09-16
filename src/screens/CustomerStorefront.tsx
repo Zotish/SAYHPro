@@ -375,14 +375,25 @@ export default function CustomerStorefront({
     const dismissed = localStorage.getItem("storefront_pwa_dismissed");
     const isDismissedRecently = dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000;
 
-    const handler = (e: Event) => {
-      e.preventDefault();
-      const p = e as BeforeInstallPromptEvent;
-      (window as any).deferredInstallPrompt = p;
-      setInstallPrompt(p);
-      if (!isDismissedRecently) {
-        setShowInstallBanner(true);
+    const handlePrompt = (e?: any) => {
+      const p = e?.detail || e || (window as any).deferredInstallPrompt;
+      if (p && p.prompt) {
+        setInstallPrompt(p);
+        if (!isDismissedRecently) {
+          setShowInstallBanner(true);
+        }
       }
+    };
+
+    // Check if prompt was captured early by index.html
+    if (typeof window !== "undefined" && (window as any).deferredInstallPrompt) {
+      handlePrompt((window as any).deferredInstallPrompt);
+    }
+
+    const beforeInstallHandler = (e: Event) => {
+      e.preventDefault();
+      (window as any).deferredInstallPrompt = e as BeforeInstallPromptEvent;
+      handlePrompt(e);
     };
 
     const installedHandler = () => {
@@ -396,7 +407,8 @@ export default function CustomerStorefront({
       });
     };
 
-    window.addEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", beforeInstallHandler);
+    window.addEventListener("pwa-prompt-ready", handlePrompt);
     window.addEventListener("appinstalled", installedHandler);
 
     // If iOS and not dismissed, show banner after delay
@@ -404,13 +416,15 @@ export default function CustomerStorefront({
       const timer = setTimeout(() => setShowInstallBanner(true), 3000);
       return () => {
         clearTimeout(timer);
-        window.removeEventListener("beforeinstallprompt", handler);
+        window.removeEventListener("beforeinstallprompt", beforeInstallHandler);
+        window.removeEventListener("pwa-prompt-ready", handlePrompt);
         window.removeEventListener("appinstalled", installedHandler);
       };
     }
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("beforeinstallprompt", beforeInstallHandler);
+      window.removeEventListener("pwa-prompt-ready", handlePrompt);
       window.removeEventListener("appinstalled", installedHandler);
     };
   }, [isBn]);
@@ -435,14 +449,17 @@ export default function CustomerStorefront({
         const onPrompt = (e: Event) => {
           e.preventDefault();
           window.removeEventListener("beforeinstallprompt", onPrompt);
+          window.removeEventListener("pwa-prompt-ready", onPrompt);
           clearTimeout(timer);
-          resolve(e as BeforeInstallPromptEvent);
+          resolve((e as any).detail || (e as BeforeInstallPromptEvent));
         };
         window.addEventListener("beforeinstallprompt", onPrompt);
+        window.addEventListener("pwa-prompt-ready", onPrompt);
         timer = setTimeout(() => {
           window.removeEventListener("beforeinstallprompt", onPrompt);
+          window.removeEventListener("pwa-prompt-ready", onPrompt);
           resolve((window as any).deferredInstallPrompt || null);
-        }, 1000);
+        }, 800);
       });
     }
 
@@ -459,7 +476,16 @@ export default function CustomerStorefront({
       } catch (err) {
         console.warn("PWA install prompt error:", err);
       }
+      return;
     }
+
+    // Fallback if prompt is suppressed (e.g. inside Android Custom Tab or in-app webview)
+    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      openInRealChrome();
+      return;
+    }
+    setIsPwaModalOpen(true);
   };
 
   // Helper to open real Google Chrome on Android (escaping In-App browsers and Custom Tabs)
