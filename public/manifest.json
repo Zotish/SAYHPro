@@ -57,6 +57,13 @@
       "description": "View profit and loss financial statements",
       "url": "/?screen=reports",
       "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Online Storefront",
+      "short_name": "Store",
+      "description": "Online customer e-commerce store",
+      "url": "/?screen=storefront",
+      "icons": [{ "src": "/icons/icon-192.svg", "sizes": "192x192" }]
     }
   ]
 }

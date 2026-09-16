@@ -1,11 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Search, ShoppingCart, Heart, Star, ShieldCheck, Truck, CreditCard,
   Phone, MessageCircle, X, Plus, Minus, Trash2, ArrowRight, Check,
   CheckCircle, ChevronRight, Share2, Copy, Sparkles, Filter, ExternalLink,
   MapPin, Clock, ArrowLeft, RefreshCw, Smartphone, Monitor, AlertCircle,
   Tag, ChevronDown, Camera, Mic, Home, User, Menu, SlidersHorizontal,
-  Package, CheckSquare, Zap, Eye, HelpCircle, Gift, Navigation, Store
+  Package, CheckSquare, Zap, Eye, HelpCircle, Gift, Navigation, Store, Download
 } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -15,6 +15,33 @@ interface CustomerStorefrontProps {
   onBack?: () => void;
   previewMode?: boolean;
 }
+
+// Robust Product Image Renderer (Handles URLs, Unsplash images, local paths & emojis cleanly)
+const renderProductImage = (
+  img?: string,
+  sizeClass = "text-4xl",
+  imgClass = "w-full h-full object-contain p-1 rounded-md"
+) => {
+  if (!img) return <span className={sizeClass}>📦</span>;
+  const isUrl = img.startsWith("http://") || img.startsWith("https://") || img.startsWith("/") || img.startsWith("data:");
+  if (isUrl) {
+    return (
+      <img
+        src={img}
+        alt="Product"
+        className={imgClass}
+        loading="lazy"
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+          if (e.currentTarget.parentElement) {
+            e.currentTarget.parentElement.innerHTML = `<span class="${sizeClass}">📦</span>`;
+          }
+        }}
+      />
+    );
+  }
+  return <span className={sizeClass}>{img}</span>;
+};
 
 export default function CustomerStorefront({
   lang: initialLang = "bn",
@@ -313,83 +340,113 @@ export default function CustomerStorefront({
     setCheckoutStep("details");
   };
 
+  // PWA Install State for Storefront
+  const [pwaPrompt, setPwaPrompt] = useState<any>(null);
+  const [canInstallPWA, setCanInstallPWA] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      setPwaPrompt(e);
+      setCanInstallPWA(true);
+    };
+    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+  }, []);
+
+  const triggerPWAInstall = async () => {
+    if (!pwaPrompt) {
+      toast({
+        type: "info",
+        title: isBn ? "হোম স্ক্রিনে অ্যাপ ইনস্টল" : "Install Web App",
+        message: isBn
+          ? "ব্রাউজারের থ্রি-ডট (⋮) মেন্যু থেকে 'Add to Home screen' বা 'Install app' নির্বাচন করুন।"
+          : "Tap browser menu (⋮) and select 'Add to Home screen' or 'Install App'.",
+      });
+      return;
+    }
+    pwaPrompt.prompt();
+    const { outcome } = await pwaPrompt.userChoice;
+    if (outcome === "accepted") {
+      toast({
+        type: "success",
+        title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+      });
+      setCanInstallPWA(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col font-sans select-none antialiased text-[#0f1111]">
       {/* ========================================================================= */}
-      {/* 1. TOP BAR: TEAL GRADIENT MATCHING THE HEADER BELOW                       */}
-      {/* ========================================================================= */}
-      {previewMode && onBack && (
-        <div className="bg-gradient-to-r from-[#84d8d8] via-[#88ded9] to-[#99e2d0] px-3 sm:px-4 py-2 flex items-center border-b border-[#74cccc]/40 flex-shrink-0 z-50">
-          <div className="w-full max-w-md mx-auto flex items-center">
-            <button
-              onClick={onBack}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-black/10 hover:bg-black/20 active:bg-black/30 text-[#0f1111] transition-colors cursor-pointer"
-              title={isBn ? "পূর্ববর্তী পৃষ্ঠায় ফিরুন" : "Back"}
-            >
-              <ArrowLeft size={18} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 2. MAIN MOBILE WEB CONTAINER (CLEAN, AUTHENTIC MOBILE WEB EXPERIENCE)    */}
+      {/* MAIN MOBILE WEB CONTAINER                                                 */}
       {/* ========================================================================= */}
       <div className="flex-1 flex justify-center w-full bg-white">
         <div className="w-full max-w-md min-h-screen bg-white flex flex-col shadow-sm relative pb-16">
 
           {/* ========================================================================= */}
-          {/* 3. AMAZON MOBILE APP HEADER (ICONIC TEAL GRADIENT)                        */}
+          {/* AMAZON MOBILE APP HEADER (STICKY WITH INTEGRATED TOP-LEFT BACK ARROW)     */}
           {/* ========================================================================= */}
           <header className="bg-gradient-to-r from-[#84d8d8] via-[#88ded9] to-[#99e2d0] text-[#0f1111] shadow-xs flex-shrink-0 z-30 sticky top-0">
-            {/* Top row: Shop Brand Identity & Search bar */}
-            <div className="px-3 pt-2.5 pb-2 flex items-center gap-2">
+            {/* Top row: Back arrow, Shop Brand Identity & Search bar */}
+            <div className="px-2.5 sm:px-3 pt-2 pb-1.5 flex items-center gap-1.5">
+              {/* ALWAYS VISIBLE BACK ARROW BUTTON DIRECTLY IN HEADER */}
+              {onBack && (
+                <button
+                  onClick={onBack}
+                  className="w-8 h-8 rounded-lg bg-black/15 hover:bg-black/25 active:bg-black/35 text-[#0f1111] flex items-center justify-center flex-shrink-0 cursor-pointer shadow-2xs transition-colors"
+                  title={isBn ? "পূর্ববর্তী পৃষ্ঠায় ফিরুন" : "Back to Admin"}
+                >
+                  <ArrowLeft size={18} />
+                </button>
+              )}
+
               {/* Store Name Badge */}
               <div
                 onClick={() => setActiveTab("home")}
-                className="flex items-center flex-shrink-0 bg-[#131921] text-[#febd69] px-2.5 py-1.5 rounded-md shadow-xs border border-white/15 cursor-pointer hover:bg-black transition-colors"
+                className="flex items-center flex-shrink-0 bg-[#131921] text-[#febd69] px-2 py-1.5 rounded-md shadow-xs border border-white/15 cursor-pointer hover:bg-black transition-colors"
                 title={settings.shopName}
               >
-                <span className="text-xs font-black tracking-tight truncate max-w-[95px] sm:max-w-[130px]">
+                <span className="text-xs font-black tracking-tight truncate max-w-[70px] sm:max-w-[100px]">
                   {settings.shopName}
                 </span>
               </div>
 
               {/* Amazon App Search Box with Camera & Mic */}
-              <div className="flex-1 relative">
-                <div className="flex items-center bg-white rounded-lg shadow-xs border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-[#f08804] px-2.5 py-1.5 transition-all">
-                  <Search size={17} className="text-gray-600 mr-2 flex-shrink-0" />
+              <div className="flex-1 relative min-w-0">
+                <div className="flex items-center bg-white rounded-lg shadow-xs border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-[#f08804] px-2 py-1.5 transition-all">
+                  <Search size={15} className="text-gray-600 mr-1.5 flex-shrink-0" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     placeholder={
                       isBn
-                        ? `Search ${settings.shopName} (পণ্য খুঁজুন)`
+                        ? `Search ${settings.shopName}`
                         : `Search ${settings.shopName}`
                     }
-                    className="w-full bg-transparent text-xs text-[#0f1111] placeholder-gray-500 outline-none font-normal"
+                    className="w-full bg-transparent text-xs text-[#0f1111] placeholder-gray-500 outline-none font-normal min-w-0"
                   />
                   {searchQuery && (
-                    <button onClick={() => setSearchQuery("")} className="text-gray-400 hover:text-gray-700 mr-1.5">
-                      <X size={14} />
+                    <button onClick={() => setSearchQuery("")} className="text-gray-400 hover:text-gray-700 mr-1">
+                      <X size={13} />
                     </button>
                   )}
                   {/* Camera / Scan icon */}
                   <button
                     onClick={() => setIsMediaSearchOpen("camera")}
-                    className="p-1 text-gray-500 hover:text-[#0f1111] transition-colors"
+                    className="p-0.5 text-gray-500 hover:text-[#0f1111] transition-colors flex-shrink-0"
                     title="Scan image or barcode"
                   >
-                    <Camera size={16} />
+                    <Camera size={15} />
                   </button>
                   {/* Mic / Alexa icon */}
                   <button
                     onClick={() => setIsMediaSearchOpen("voice")}
-                    className="p-1 text-gray-500 hover:text-[#0f1111] transition-colors"
+                    className="p-0.5 text-gray-500 hover:text-[#0f1111] transition-colors flex-shrink-0"
                     title="Voice search"
                   >
-                    <Mic size={16} />
+                    <Mic size={15} />
                   </button>
                 </div>
               </div>
@@ -404,10 +461,10 @@ export default function CustomerStorefront({
                     message: storeUrl,
                   });
                 }}
-                className="w-8 h-8 flex items-center justify-center text-gray-800 hover:text-black flex-shrink-0"
+                className="w-7 h-7 flex items-center justify-center text-gray-800 hover:text-black flex-shrink-0"
                 title="Share Store Link"
               >
-                <Share2 size={18} />
+                <Share2 size={16} />
               </button>
             </div>
 
@@ -417,7 +474,7 @@ export default function CustomerStorefront({
               className="bg-[#c4eded] hover:bg-[#b5e7e7] px-3 py-1.5 flex items-center justify-between text-xs text-[#0f1111] cursor-pointer transition-colors border-t border-[#b1e3e3]"
             >
               <div className="flex items-center gap-1.5 min-w-0">
-                <MapPin size={14} className="text-[#0f1111] flex-shrink-0" />
+                <MapPin size={13} className="text-[#0f1111] flex-shrink-0" />
                 <span className="truncate text-[11px] font-medium">
                   {isBn ? "ডেলিভারি এলাকা:" : "Deliver to"}{" "}
                   {customer.isRegistered && customer.name ? (
@@ -433,6 +490,22 @@ export default function CustomerStorefront({
                 <Zap size={10} className="fill-amber-500 text-amber-500" />
                 <span>{isBn ? "৪৫-৬০ মিনিট" : "45m Express"}</span>
               </div>
+            </div>
+
+            {/* PWA Install Strip (Instant App Experience) */}
+            <div className="bg-[#131921] text-[#febd69] px-3 py-1 flex items-center justify-between text-[11px] font-bold">
+              <div className="flex items-center gap-1.5 truncate">
+                <Smartphone size={13} className="text-[#febd69] animate-pulse flex-shrink-0" />
+                <span className="text-white truncate">
+                  {isBn ? `${settings.shopName} মোবাইল অ্যাপ ইনস্টল করুন` : `Install ${settings.shopName} PWA App`}
+                </span>
+              </div>
+              <button
+                onClick={triggerPWAInstall}
+                className="bg-[#febd69] hover:bg-[#f08804] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full flex-shrink-0 cursor-pointer shadow-xs ml-2"
+              >
+                {isBn ? "ইনস্টল" : "Install"}
+              </button>
             </div>
           </header>
 
@@ -562,9 +635,9 @@ export default function CustomerStorefront({
                         {/* Image Thumbnail */}
                         <div
                           onClick={() => setQuickViewProduct(deal)}
-                          className="h-24 bg-[#f7f7f7] rounded-md flex items-center justify-center text-4xl cursor-pointer mb-2 hover:scale-105 transition-transform"
+                          className="h-24 bg-[#f7f7f7] rounded-md flex items-center justify-center text-4xl cursor-pointer mb-2 hover:scale-105 transition-transform overflow-hidden"
                         >
-                          {deal.image || "📦"}
+                          {renderProductImage(deal.image, "text-4xl")}
                         </div>
 
                         {/* Title & Price */}
@@ -693,11 +766,9 @@ export default function CustomerStorefront({
                           {/* Product Image Box */}
                           <div
                             onClick={() => setQuickViewProduct(product)}
-                            className="h-32 bg-[#f8f8f8] rounded-md flex items-center justify-center text-5xl relative cursor-pointer group mb-2"
+                            className="h-32 bg-[#f8f8f8] rounded-md flex items-center justify-center text-5xl relative cursor-pointer group mb-2 overflow-hidden"
                           >
-                            <span className="group-hover:scale-110 transition-transform duration-200">
-                              {product.image || "📦"}
-                            </span>
+                            {renderProductImage(product.image, "text-5xl group-hover:scale-110 transition-transform duration-200")}
                             {product.stock <= 5 && product.stock > 0 && (
                               <span className="absolute bottom-1 left-1 bg-red-100 text-red-700 text-[8px] font-bold px-1 rounded">
                                 {isBn ? `মাত্র ${tNum(product.stock)}টি বাকি` : `Only ${product.stock} left`}
@@ -1007,8 +1078,8 @@ export default function CustomerStorefront({
                           <div className="text-xs text-gray-600 space-y-1 pt-1">
                             {order.items.map((item, idx) => (
                               <div key={idx} className="flex justify-between items-center text-[11px]">
-                                <span className="truncate max-w-[200px]">
-                                  {item.image || "📦"} {item.name} × {tNum(item.qty)}
+                                <span className="truncate max-w-[200px] flex items-center gap-1">
+                                  {renderProductImage(item.image, "text-xs", "w-4 h-4 object-contain inline-block")} {item.name} × {tNum(item.qty)}
                                 </span>
                                 <span className="font-bold text-[#0f1111]">
                                   {formatTaka(item.price * item.qty)}
@@ -1260,8 +1331,8 @@ export default function CustomerStorefront({
                         className="bg-white p-3 rounded-xl border border-gray-200 flex gap-3 relative shadow-2xs"
                       >
                         {/* Thumbnail */}
-                        <div className="w-20 h-20 bg-[#f8f8f8] rounded-lg border border-gray-200 flex items-center justify-center text-3xl flex-shrink-0">
-                          {product.image || "📦"}
+                        <div className="w-20 h-20 bg-[#f8f8f8] rounded-lg border border-gray-200 flex items-center justify-center text-3xl flex-shrink-0 overflow-hidden">
+                          {renderProductImage(product.image, "text-3xl")}
                         </div>
 
                         {/* Details */}
@@ -1539,8 +1610,8 @@ export default function CustomerStorefront({
               </div>
 
               {/* Product Big Image */}
-              <div className="h-48 sm:h-56 bg-[#f8f8f8] rounded-xl flex items-center justify-center text-7xl relative shadow-inner">
-                <span>{quickViewProduct.image || "📦"}</span>
+              <div className="h-48 sm:h-56 bg-[#f8f8f8] rounded-xl flex items-center justify-center text-7xl relative shadow-inner overflow-hidden">
+                {renderProductImage(quickViewProduct.image, "text-7xl")}
                 <div className="absolute top-2 left-2 bg-[#232f3e] text-white text-[10px] font-black px-2 py-0.5 rounded">
                   Store's Choice
                 </div>
