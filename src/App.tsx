@@ -42,8 +42,6 @@ type Screen =
   | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts"
   | "messages" | "advisory" | "analytics" | "storefront";
 
-import PWAInstallPrompt from "./components/PWAInstallPrompt";
-
 /** Tracks the same breakpoint Layout uses to swap to its mobile chrome (lg). */
 function useIsMobile() {
   const query = "(max-width: 1023px)";
@@ -108,30 +106,24 @@ function MainApp() {
 
   if (appState === "login") {
     return (
-      <>
-        <PWAInstallPrompt lang={lang} />
-        <Login
-          lang={lang}
-          setLang={setLang}
-          onLogin={() => setAppState("app")}
-        />
-      </>
+      <Login
+        lang={lang}
+        setLang={setLang}
+        onLogin={() => setAppState("app")}
+      />
     );
   }
 
   if (appState === "onboarding") {
     return (
-      <>
-        <PWAInstallPrompt lang={lang} />
-        <Onboarding
-          lang={lang}
-          setLang={setLang}
-          onComplete={() => {
-            setAppState("app");
-            setScreen("dashboard");
-          }}
-        />
-      </>
+      <Onboarding
+        lang={lang}
+        setLang={setLang}
+        onComplete={() => {
+          setAppState("app");
+          setScreen("dashboard");
+        }}
+      />
     );
   }
 
@@ -139,7 +131,6 @@ function MainApp() {
   if (screenRaw === "invoice") {
     return (
       <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
-        <PWAInstallPrompt lang={lang} />
         <Invoice lang={lang} setScreen={setScreen} />
       </Layout>
     );
@@ -147,10 +138,7 @@ function MainApp() {
 
   if (screenRaw === "mobile-pos") {
     return (
-      <>
-        <PWAInstallPrompt lang={lang} />
-        <MobilePOS lang={lang} setScreen={setScreen} />
-      </>
+      <MobilePOS lang={lang} setScreen={setScreen} />
     );
   }
 
@@ -159,10 +147,7 @@ function MainApp() {
   // doubling up on chrome. Desktop keeps the wide analytics dashboard.
   if (screenRaw === "mobile-dashboard" || (screenRaw === "dashboard" && isMobile)) {
     return (
-      <>
-        <PWAInstallPrompt lang={lang} />
-        <MobileDashboard lang={lang} setScreen={setScreen} />
-      </>
+      <MobileDashboard lang={lang} setScreen={setScreen} />
     );
   }
 
@@ -228,7 +213,6 @@ function MainApp() {
 
   return (
     <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
-      <PWAInstallPrompt lang={lang} />
       {renderScreen()}
     </Layout>
   );

@@ -17,19 +17,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/icons/favicon.png" />
 
-    <!-- Early PWA beforeinstallprompt capture -->
-    <script>
-      window.deferredInstallPrompt = null;
-      window.addEventListener('beforeinstallprompt', function (e) {
-        e.preventDefault();
-        window.deferredInstallPrompt = e;
-        window.dispatchEvent(new CustomEvent('pwa-prompt-ready', { detail: e }));
-      });
-      window.addEventListener('appinstalled', function () {
-        window.deferredInstallPrompt = null;
-        window.dispatchEvent(new CustomEvent('pwa-installed'));
-      });
-    </script>
+
   </head>
   <body>
     <div id="root"></div>
