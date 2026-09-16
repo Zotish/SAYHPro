@@ -343,6 +343,7 @@ export default function CustomerStorefront({
   // PWA Install State for Storefront
   const [pwaPrompt, setPwaPrompt] = useState<any>(null);
   const [canInstallPWA, setCanInstallPWA] = useState(false);
+  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
 
   useEffect(() => {
     const handleBeforeInstall = (e: Event) => {
@@ -355,25 +356,24 @@ export default function CustomerStorefront({
   }, []);
 
   const triggerPWAInstall = async () => {
-    if (!pwaPrompt) {
-      toast({
-        type: "info",
-        title: isBn ? "হোম স্ক্রিনে অ্যাপ ইনস্টল" : "Install Web App",
-        message: isBn
-          ? "ব্রাউজারের থ্রি-ডট (⋮) মেন্যু থেকে 'Add to Home screen' বা 'Install app' নির্বাচন করুন।"
-          : "Tap browser menu (⋮) and select 'Add to Home screen' or 'Install App'.",
-      });
-      return;
+    if (pwaPrompt) {
+      try {
+        pwaPrompt.prompt();
+        const { outcome } = await pwaPrompt.userChoice;
+        if (outcome === "accepted") {
+          toast({
+            type: "success",
+            title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+          });
+          setCanInstallPWA(false);
+          return;
+        }
+      } catch (e) {
+        // fallback to modal
+      }
     }
-    pwaPrompt.prompt();
-    const { outcome } = await pwaPrompt.userChoice;
-    if (outcome === "accepted") {
-      toast({
-        type: "success",
-        title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
-      });
-      setCanInstallPWA(false);
-    }
+    // Open interactive PWA guide modal
+    setIsPwaModalOpen(true);
   };
 
   return (
@@ -451,17 +451,30 @@ export default function CustomerStorefront({
                 </div>
               </div>
 
-              {/* Share Store */}
+              {/* Share Store with native mobile sheet support */}
               <button
-                onClick={() => {
-                  navigator.clipboard.writeText(storeUrl);
+                onClick={async () => {
+                  const liveCustomerUrl = `${window.location.origin}/?screen=storefront`;
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: settings.shopName,
+                        text: isBn ? `${settings.shopName}-এর অনলাইন শপ থেকে কেনাকাটা করুন:` : `Shop online from ${settings.shopName}:`,
+                        url: liveCustomerUrl,
+                      });
+                      return;
+                    } catch (e) {
+                      // user cancelled
+                    }
+                  }
+                  navigator.clipboard.writeText(liveCustomerUrl);
                   toast({
-                    type: "info",
-                    title: isBn ? "স্টোর লিংক কপি হয়েছে" : "Store Link Copied",
-                    message: storeUrl,
+                    type: "success",
+                    title: isBn ? "কাস্টমার লিংক কপি হয়েছে!" : "Customer Link Copied!",
+                    message: liveCustomerUrl,
                   });
                 }}
-                className="w-7 h-7 flex items-center justify-center text-gray-800 hover:text-black flex-shrink-0"
+                className="w-7 h-7 flex items-center justify-center text-gray-800 hover:text-black flex-shrink-0 cursor-pointer"
                 title="Share Store Link"
               >
                 <Share2 size={16} />
@@ -492,20 +505,33 @@ export default function CustomerStorefront({
               </div>
             </div>
 
-            {/* PWA Install Strip (Instant App Experience) */}
+            {/* PWA Install Strip (Instant App Experience & External Browser Link) */}
             <div className="bg-[#131921] text-[#febd69] px-3 py-1 flex items-center justify-between text-[11px] font-bold">
               <div className="flex items-center gap-1.5 truncate">
                 <Smartphone size={13} className="text-[#febd69] animate-pulse flex-shrink-0" />
                 <span className="text-white truncate">
-                  {isBn ? `${settings.shopName} মোবাইল অ্যাপ ইনস্টল করুন` : `Install ${settings.shopName} PWA App`}
+                  {isBn ? `${settings.shopName} PWA অ্যাপ ইনস্টল` : `Install ${settings.shopName} App`}
                 </span>
               </div>
-              <button
-                onClick={triggerPWAInstall}
-                className="bg-[#febd69] hover:bg-[#f08804] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full flex-shrink-0 cursor-pointer shadow-xs ml-2"
-              >
-                {isBn ? "ইনস্টল" : "Install"}
-              </button>
+              <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                <button
+                  onClick={() => {
+                    const externalUrl = `${window.location.origin}/?screen=storefront`;
+                    window.open(externalUrl, "_blank");
+                  }}
+                  className="bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 cursor-pointer"
+                  title="Open in External Browser"
+                >
+                  <ExternalLink size={10} />
+                  <span>{isBn ? "ব্রাউজার" : "Browser"}</span>
+                </button>
+                <button
+                  onClick={triggerPWAInstall}
+                  className="bg-[#febd69] hover:bg-[#f08804] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full cursor-pointer shadow-xs"
+                >
+                  {isBn ? "ইনস্টল" : "Install"}
+                </button>
+              </div>
             </div>
           </header>
 
@@ -2121,6 +2147,104 @@ export default function CustomerStorefront({
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 11. PWA INSTALLATION MODAL & STEP-BY-STEP VISUAL GUIDE                    */}
+      {/* ========================================================================= */}
+      {isPwaModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl border border-gray-200 relative">
+            <button
+              onClick={() => setIsPwaModalOpen(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center cursor-pointer"
+            >
+              <X size={16} />
+            </button>
+
+            <div className="text-center space-y-2">
+              <div className="w-14 h-14 bg-amber-50 text-[#f08804] rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-xs border border-amber-200">
+                📲
+              </div>
+              <h3 className="text-base font-extrabold text-[#0f1111]">
+                {isBn ? `${settings.shopName} PWA অ্যাপ ইনস্টল` : `Install ${settings.shopName} App`}
+              </h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {isBn
+                  ? "কাস্টমারদের হোম স্ক্রিনে সরাসরি অ্যাপের মতো ব্যবহার করতে নিচের বাটনে চাপ দিয়ে আসল ব্রাউজারে খুলুন বা নিয়ম দেখুন:"
+                  : "Install as a standalone app on your mobile home screen for faster ordering:"}
+              </p>
+            </div>
+
+            {/* ERP Preview Notice vs External Customer */}
+            {previewMode && typeof window !== "undefined" && !window.location.search.includes("screen=storefront") && (
+              <div className="bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5 text-[11px] text-amber-950 flex items-start gap-2">
+                <span className="text-sm flex-shrink-0 mt-0.5">💡</span>
+                <p className="leading-relaxed">
+                  {isBn
+                    ? "আপনি বর্তমানে ERP অ্যাডমিনের ভেতর থেকে ইন-অ্যাপ প্রিভিউ দেখছেন। কাস্টমাররা আসল মোবাইল ব্রাউজারে (Chrome/Safari) যেভাবে সরাসরি অ্যাপ ইনস্টল করতে পারবে, তা টেস্ট করতে নিচের বাটনে চাপ দিন।"
+                    : "You are previewing inside the ERP admin. To test the native 1-tap browser PWA install prompt as customers experience it, open in an external browser tab."}
+                </p>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              {/* Launch in real external browser */}
+              <button
+                onClick={() => {
+                  const externalUrl = `${window.location.origin}/?screen=storefront`;
+                  window.open(externalUrl, "_blank");
+                  setIsPwaModalOpen(false);
+                }}
+                className="w-full py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-bold text-xs rounded-full border border-[#fcd200] flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-colors"
+              >
+                <ExternalLink size={14} />
+                <span>{isBn ? "🌐 আসল ব্রাউজারে খুলুন (Open in Chrome/Safari)" : "Open in External Browser"}</span>
+              </button>
+
+              {/* Copy Storefront Link for Customers */}
+              <button
+                onClick={() => {
+                  const externalUrl = `${window.location.origin}/?screen=storefront`;
+                  navigator.clipboard.writeText(externalUrl);
+                  toast({
+                    type: "success",
+                    title: isBn ? "কাস্টমার লিংক কপি হয়েছে!" : "Customer Link Copied!",
+                    message: externalUrl,
+                  });
+                }}
+                className="w-full py-2.5 bg-white hover:bg-gray-50 active:bg-gray-100 text-[#0f1111] font-bold text-xs rounded-full border border-gray-300 flex items-center justify-center gap-2 shadow-2xs cursor-pointer transition-colors"
+              >
+                <Copy size={13} />
+                <span>{isBn ? "📋 কাস্টমার শেয়ার লিংক কপি করুন" : "Copy Customer Store Link"}</span>
+              </button>
+
+              {/* Instructions for Android & iOS */}
+              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 text-[11px] text-gray-700">
+                <div className="font-bold text-[#0f1111]">
+                  {isBn ? "📌 আসল ব্রাউজার থেকে ইনস্টল নিয়ম:" : "📌 Browser Install Steps:"}
+                </div>
+                <div className="space-y-1.5 leading-relaxed">
+                  <div className="flex items-start gap-1.5">
+                    <span className="font-bold text-emerald-800 flex-shrink-0">Android:</span>
+                    <span>ব্রাউজারের ৩-ডট <strong>(⋮)</strong> মেন্যুতে চাপ দিয়ে <strong>'Install app'</strong> বা <strong>'Add to Home screen'</strong> চাপলে হোমস্ক্রিনে অ্যাপ ইনস্টল হয়ে যাবে।</span>
+                  </div>
+                  <div className="flex items-start gap-1.5">
+                    <span className="font-bold text-blue-700 flex-shrink-0">iPhone:</span>
+                    <span>সাফারি ব্রাউজারের নিচে শেয়ার <strong>(↑)</strong> বাটনে চাপ দিয়ে <strong>'Add to Home Screen'</strong> চাপলেই ইনস্টল হয়ে যাবে।</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsPwaModalOpen(false)}
+              className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-full cursor-pointer"
+            >
+              {isBn ? "ঠিক আছে, বুঝতে পেরেছি" : "Got It"}
+            </button>
           </div>
         </div>
       )}

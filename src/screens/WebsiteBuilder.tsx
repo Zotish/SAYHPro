@@ -110,16 +110,35 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
             className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-transform active:scale-95 cursor-pointer"
           >
             <Eye size={15} />
-            <span>{isBn ? "লাইভ কাস্টমার স্টোর দেখুন" : "Preview Live Store"}</span>
+            <span>{isBn ? "অভ্যন্তরীণ প্রিভিউ" : "In-App Preview"}</span>
           </button>
           <button
-            onClick={() => setScreen("storefront")}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
-            title={isBn ? "লাইভ স্টোরফ্রন্ট খুলুন" : "Open Live Storefront"}
+            onClick={() => {
+              const liveUrl = `${window.location.origin}/?screen=storefront`;
+              window.open(liveUrl, "_blank");
+            }}
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-em-300 bg-em-50 hover:bg-em-100 rounded-xl text-xs sm:text-sm font-bold text-em-800 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
+            title={isBn ? "আসল ব্রাউজারে কাস্টমার স্টোর খুলুন (External Browser)" : "Open Live Storefront in Real Browser"}
           >
             <Globe size={14} className="text-em-700" />
-            <span className="font-mono font-bold text-xs">{subdomain}.sayhpro.com</span>
+            <span className="font-mono text-xs">{subdomain}.sayhpro.com</span>
             <ExternalLink size={12} />
+          </button>
+          <button
+            onClick={() => {
+              const liveUrl = `${window.location.origin}/?screen=storefront`;
+              navigator.clipboard.writeText(liveUrl);
+              toast({
+                type: "success",
+                title: isBn ? "কাস্টমার স্টোর লিংক কপি হয়েছে!" : "Storefront Link Copied!",
+                message: liveUrl,
+              });
+            }}
+            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 bg-white hover:bg-nv-50 rounded-xl text-xs sm:text-sm font-semibold text-ink transition-fast shadow-2xs cursor-pointer"
+            title={isBn ? "কাস্টমারদের সাথে শেয়ার করতে লিংক কপি করুন" : "Copy Customer Store Link"}
+          >
+            <Copy size={13} />
+            <span>{isBn ? "কপি লিংক" : "Copy Link"}</span>
           </button>
         </div>
       </div>

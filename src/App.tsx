@@ -63,7 +63,14 @@ function useIsMobile() {
 function MainApp() {
   const { lang, setLang } = useApp();
   const [appState, setAppState] = useState<AppState>("app");
-  const [screenRaw, setScreenRaw] = useState<Screen>("dashboard");
+  const [screenRaw, setScreenRaw] = useState<Screen>(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlScreen = params.get("screen");
+      if (urlScreen) return urlScreen as Screen;
+    }
+    return "dashboard";
+  });
   // A plain history stack so every screen can offer a real "back", not just
   // "return to home" — every setScreen call that actually changes screen
   // pushes the screen it left.
@@ -87,6 +94,17 @@ function MainApp() {
       return h.slice(0, -1);
     });
   };
+
+  // Direct Customer Storefront Route (bypasses merchant login for external customers)
+  if (screenRaw === "storefront") {
+    return (
+      <CustomerStorefront
+        lang={lang}
+        onBack={screenHistory.length > 0 ? goBack : () => setScreen("website")}
+        previewMode={screenHistory.length > 0}
+      />
+    );
+  }
 
   if (appState === "login") {
     return (
@@ -132,19 +150,6 @@ function MainApp() {
       <>
         <PWAInstallPrompt lang={lang} />
         <MobilePOS lang={lang} setScreen={setScreen} />
-      </>
-    );
-  }
-
-  if (screenRaw === "storefront") {
-    return (
-      <>
-        <PWAInstallPrompt lang={lang} />
-        <CustomerStorefront
-          lang={lang}
-          onBack={() => setScreen("website")}
-          previewMode={true}
-        />
       </>
     );
   }
