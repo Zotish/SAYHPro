@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
-import PWAInstallBanner from "../components/PWAInstallBanner";
 
 interface CustomerStorefrontProps {
   lang: "en" | "bn";
@@ -341,156 +340,141 @@ export default function CustomerStorefront({
     setCheckoutStep("details");
   };
 
-  // PWA Install State for Storefront
-  const [pwaPrompt, setPwaPrompt] = useState<any>(() => {
-    if (typeof window !== "undefined" && (window as any).deferredPwaPrompt) {
-      return (window as any).deferredPwaPrompt;
+  // PWA Install State for Storefront (Direct native install matching BikePos)
+  interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+  }
+
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(() => {
+    if (typeof window !== "undefined" && (window as any).deferredInstallPrompt) {
+      return (window as any).deferredInstallPrompt;
     }
     return null;
   });
-  const [canInstallPWA, setCanInstallPWA] = useState(() => {
-    return typeof window !== "undefined" && Boolean((window as any).deferredPwaPrompt);
-  });
-  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+  const [showIOSGuide, setShowIOSGuide] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
-    // Check if early prompt already captured
-    if (typeof window !== "undefined" && (window as any).deferredPwaPrompt) {
-      setPwaPrompt((window as any).deferredPwaPrompt);
-      setCanInstallPWA(true);
+    // Check if already in standalone mode (already installed as PWA)
+    const standalone = window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as any).standalone === true;
+    if (standalone) {
+      setIsStandalone(true);
+      return;
     }
 
-    const handleBeforeInstall = (e: Event) => {
-      e.preventDefault();
-      (window as any).deferredPwaPrompt = e;
-      setPwaPrompt(e);
-      setCanInstallPWA(true);
-    };
+    // Detect iOS
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isIosDevice = /iphone|ipad|ipod/.test(userAgent) && !(window as any).MSStream;
+    setIsIOS(isIosDevice);
 
-    const handlePromptReady = (e: any) => {
-      if (e.detail) {
-        setPwaPrompt(e.detail);
-        setCanInstallPWA(true);
+    const dismissed = localStorage.getItem("storefront_pwa_dismissed");
+    const isDismissedRecently = dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000;
+
+    const handler = (e: Event) => {
+      e.preventDefault();
+      const p = e as BeforeInstallPromptEvent;
+      (window as any).deferredInstallPrompt = p;
+      setInstallPrompt(p);
+      if (!isDismissedRecently) {
+        setShowInstallBanner(true);
       }
     };
 
-    const handleInstalled = () => {
-      setPwaPrompt(null);
-      if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
-      setCanInstallPWA(false);
-      setIsPwaModalOpen(false);
+    const installedHandler = () => {
+      setIsStandalone(true);
+      setShowInstallBanner(false);
+      setInstallPrompt(null);
+      (window as any).deferredInstallPrompt = null;
       toast({
         type: "success",
-        title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+        title: isBn ? "স্টোর অ্যাপ সফলভাবে ডাউনলোড ও ইনস্টল হয়েছে!" : "Store App Downloaded & Installed!",
       });
     };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
-    window.addEventListener("pwa-prompt-ready", handlePromptReady);
-    window.addEventListener("pwa-installed", handleInstalled);
-    // Set page title to shop name
-    const prevTitle = document.title;
-    document.title = `${settings.shopName || "Rahim Store"} — Online Shop`;
+    window.addEventListener("beforeinstallprompt", handler);
+    window.addEventListener("appinstalled", installedHandler);
+
+    // If iOS and not dismissed, show banner after delay
+    if (isIosDevice && !isDismissedRecently) {
+      const timer = setTimeout(() => setShowInstallBanner(true), 3000);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("beforeinstallprompt", handler);
+        window.removeEventListener("appinstalled", installedHandler);
+      };
+    }
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
-      window.removeEventListener("pwa-prompt-ready", handlePromptReady);
-      window.removeEventListener("pwa-installed", handleInstalled);
-      window.removeEventListener("appinstalled", handleInstalled);
-      document.title = prevTitle;
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installedHandler);
     };
-  }, [settings.shopName, isBn]);
+  }, [isBn]);
+
+  const handleDismissBanner = () => {
+    setShowInstallBanner(false);
+    localStorage.setItem("storefront_pwa_dismissed", Date.now().toString());
+  };
+
+  const handleInstallApp = async () => {
+    if (isIOS) {
+      setShowIOSGuide(true);
+      return;
+    }
+
+    let p = installPrompt || (typeof window !== "undefined" ? (window as any).deferredInstallPrompt : null);
+
+    // If prompt is not ready at this exact millisecond, wait a short moment to capture it
+    if (!p && typeof window !== "undefined") {
+      p = await new Promise<BeforeInstallPromptEvent | null>((resolve) => {
+        let timer: any;
+        const onPrompt = (e: Event) => {
+          e.preventDefault();
+          window.removeEventListener("beforeinstallprompt", onPrompt);
+          clearTimeout(timer);
+          resolve(e as BeforeInstallPromptEvent);
+        };
+        window.addEventListener("beforeinstallprompt", onPrompt);
+        timer = setTimeout(() => {
+          window.removeEventListener("beforeinstallprompt", onPrompt);
+          resolve((window as any).deferredInstallPrompt || null);
+        }, 1000);
+      });
+    }
+
+    if (p) {
+      try {
+        await p.prompt();
+        const choice = await p.userChoice;
+        if (choice && choice.outcome === "accepted") {
+          setShowInstallBanner(false);
+          setInstallPrompt(null);
+          (window as any).deferredInstallPrompt = null;
+          setIsStandalone(true);
+        }
+      } catch (err) {
+        console.warn("PWA install prompt error:", err);
+      }
+    }
+  };
 
   // Helper to open real Google Chrome on Android (escaping In-App browsers and Custom Tabs)
   const openInRealChrome = (customUrl?: string) => {
-    const targetUrl = customUrl || `${window.location.origin}/?screen=storefront&auto_install=true`;
+    const targetUrl = customUrl || `${window.location.origin}/?screen=storefront`;
     const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
     if (isAndroid) {
       const rawUrl = targetUrl.replace(/^https?:\/\//, "");
-      // Android intent forcing Chrome app launch
       const intentUrl = `intent://${rawUrl}#Intent;scheme=https;package=com.android.chrome;end`;
       window.location.href = intentUrl;
-      // Fallback
       setTimeout(() => {
         window.open(targetUrl, "_blank");
       }, 1200);
       return;
     }
     window.open(targetUrl, "_blank");
-  };
-
-  // Auto-install trigger if opened with auto_install=true
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("auto_install") === "true") {
-        let attempts = 0;
-        const checkAndPrompt = async () => {
-          attempts++;
-          const p = (window as any).deferredPwaPrompt || pwaPrompt;
-          if (p) {
-            try {
-              await p.prompt();
-              const choice = await p.userChoice;
-              if (choice && choice.outcome === "accepted") {
-                toast({
-                  type: "success",
-                  title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
-                });
-                setPwaPrompt(null);
-                (window as any).deferredPwaPrompt = null;
-                setCanInstallPWA(false);
-              }
-            } catch (err) {
-              console.warn("Auto prompt error:", err);
-            }
-          } else if (attempts < 12) {
-            setTimeout(checkAndPrompt, 350);
-          }
-        };
-
-        window.addEventListener("pwa-prompt-ready", checkAndPrompt);
-        setTimeout(checkAndPrompt, 300);
-
-        return () => {
-          window.removeEventListener("pwa-prompt-ready", checkAndPrompt);
-        };
-      }
-    }
-  }, [pwaPrompt, isBn]);
-
-  const triggerPWAInstall = async () => {
-    // Detect iOS
-    const isIOS = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
-    if (isIOS) {
-      setIsPwaModalOpen(true);
-      return;
-    }
-
-    const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
-    if (promptEvent) {
-      try {
-        await promptEvent.prompt();
-        const choice = await promptEvent.userChoice;
-        if (choice && choice.outcome === "accepted") {
-          setPwaPrompt(null);
-          if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
-          setCanInstallPWA(false);
-          setIsPwaModalOpen(false);
-        }
-      } catch (e) {
-        console.warn("PWA prompt error:", e);
-      }
-      return;
-    }
-
-    // If Custom Tab or Webview where prompt cannot show:
-    const isCustomTabOrWebview = typeof navigator !== "undefined" && 
-      (/wv|Version\/4\.0|FB_IAB|FBAV|Instagram|Telegram/i.test(navigator.userAgent) || !window.chrome);
-    if (isCustomTabOrWebview) {
-      openInRealChrome();
-      return;
-    }
   };
 
   return (
@@ -622,28 +606,20 @@ export default function CustomerStorefront({
               </div>
             </div>
 
-            {/* PWA Install Strip (Instant App Experience & External Browser Link) */}
+            {/* PWA Install Strip (Direct App Download & Install) */}
             <div className="bg-[#131921] text-[#febd69] px-3 py-1 flex items-center justify-between text-[11px] font-bold">
               <div className="flex items-center gap-1.5 truncate">
                 <Smartphone size={13} className="text-[#febd69] animate-pulse flex-shrink-0" />
                 <span className="text-white truncate">
-                  {isBn ? `${settings.shopName} PWA অ্যাপ ইনস্টল` : `Install ${settings.shopName} App`}
+                  {isBn ? `${settings.shopName} অ্যাপ ডাউনলোড` : `Install ${settings.shopName} App`}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
                 <button
-                  onClick={() => openInRealChrome()}
-                  className="bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 cursor-pointer"
-                  title="Open in Google Chrome"
+                  onClick={handleInstallApp}
+                  className="bg-[#febd69] hover:bg-[#f08804] text-black text-[11px] font-black px-3 py-1 rounded-full cursor-pointer shadow-xs active:scale-95 transition-all"
                 >
-                  <ExternalLink size={10} />
-                  <span>{isBn ? "ক্রোম" : "Chrome"}</span>
-                </button>
-                <button
-                  onClick={triggerPWAInstall}
-                  className="bg-[#febd69] hover:bg-[#f08804] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full cursor-pointer shadow-xs"
-                >
-                  {isBn ? "ইনস্টল" : "Install"}
+                  {isStandalone ? (isBn ? "ইনস্টলড" : "Installed") : (isBn ? "ইনস্টল" : "Install")}
                 </button>
               </div>
             </div>
@@ -2304,14 +2280,14 @@ export default function CustomerStorefront({
               </div>
             )}
 
-            {/* Native 1-Click Install Button if Prompt Ready */}
-            {(canInstallPWA || (typeof window !== "undefined" && (window as any).deferredPwaPrompt)) && (
+            {/* Native 1-Click Install Button */}
+            {!isStandalone && (
               <button
-                onClick={triggerPWAInstall}
+                onClick={handleInstallApp}
                 className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-full flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
               >
                 <Download size={14} />
-                <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ইনস্টল করুন (Install Now)" : "Install Store App Now"}</span>
+                <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ডাউনলোড করুন (Install Now)" : "Install Store App Now"}</span>
               </button>
             )}
 
@@ -2383,8 +2359,93 @@ export default function CustomerStorefront({
         </div>
       )}
 
-      {/* BikePos style Automatic PWA Install Banner */}
-      <PWAInstallBanner shopName={settings.shopName} isBn={isBn} />
+      {/* ========================================================================= */}
+      {/* 12. FLOATING PWA INSTALL BANNER (SLIDE-IN FROM BOTTOM MATCHING BIKEPOS)   */}
+      {/* ========================================================================= */}
+      {showInstallBanner && !isStandalone && (
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white border border-[#E5E7EB] rounded-2xl shadow-2xl p-3.5 sm:p-4 animate-in slide-in-from-bottom-5 duration-300">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#febd69] flex items-center justify-center shrink-0 shadow-xs">
+              <Smartphone className="text-black" size={20} />
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-sm font-bold text-[#111827]">
+                  {isBn ? `${settings.shopName} অ্যাপ ডাউনলোড করুন` : `Install ${settings.shopName} App`}
+                </h4>
+                <button
+                  onClick={handleDismissBanner}
+                  className="text-[#9CA3AF] hover:text-[#111827] p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                  aria-label="Close"
+                >
+                  <X size={15} />
+                </button>
+              </div>
+              <p className="text-xs text-[#6B7280] mt-0.5 leading-relaxed">
+                {isBn
+                  ? `হোম স্ক্রিনে সরাসরি অ্যাপের মতো ব্যবহার করতে এবং দ্রুত অর্ডারের জন্য অ্যাপটি ডাউনলোড করুন।`
+                  : `Install ${settings.shopName} for full offline access, faster ordering, and a native app experience.`}
+              </p>
+
+              <div className="flex items-center gap-2 mt-3">
+                <button
+                  onClick={handleInstallApp}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#febd69] hover:bg-[#f08804] text-black text-xs font-black shadow-xs transition-colors cursor-pointer"
+                >
+                  <Download size={14} />
+                  <span>{isIOS ? (isBn ? "ইনস্টল নিয়ম" : "How to Install") : (isBn ? "এখনই ডাউনলোড করুন" : "Install Now")}</span>
+                </button>
+                <button
+                  onClick={handleDismissBanner}
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#6B7280] hover:text-[#111827] hover:bg-gray-100 transition-colors"
+                >
+                  {isBn ? "পরে" : "Maybe later"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* iOS Installation Instruction Modal */}
+      {showIOSGuide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-[#E5E7EB] space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold text-[#111827] text-base">
+                {isBn ? "iOS (iPhone / iPad) এ ইনস্টল করুন" : "Install on iOS (iPhone / iPad)"}
+              </h3>
+              <button onClick={() => setShowIOSGuide(false)} className="text-[#9CA3AF] hover:text-[#111827]">
+                <X size={18} />
+              </button>
+            </div>
+            <div className="text-xs text-[#4B5563] space-y-3">
+              <div className="flex items-center gap-2.5 p-2.5 bg-gray-50 rounded-xl">
+                <span className="w-5 h-5 rounded-full bg-[#febd69] text-black font-bold text-[11px] flex items-center justify-center shrink-0">1</span>
+                <span>{isBn ? "Safari ব্রাউজারের নিচের Share বাটনে ট্যাপ করুন।" : "Tap the Share button in Safari (bottom toolbar)."}</span>
+              </div>
+              <div className="flex items-center gap-2.5 p-2.5 bg-gray-50 rounded-xl">
+                <span className="w-5 h-5 rounded-full bg-[#febd69] text-black font-bold text-[11px] flex items-center justify-center shrink-0">2</span>
+                <span>{isBn ? "নিচে স্ক্রল করে Add to Home Screen নির্বাচন করুন।" : "Scroll down and tap Add to Home Screen."}</span>
+              </div>
+              <div className="flex items-center gap-2.5 p-2.5 bg-gray-50 rounded-xl">
+                <span className="w-5 h-5 rounded-full bg-[#febd69] text-black font-bold text-[11px] flex items-center justify-center shrink-0">3</span>
+                <span>{isBn ? "উপরে ডানের Add চাপলেই অ্যাপ ইনস্টল হয়ে যাবে।" : "Tap Add in the top-right corner."}</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setShowIOSGuide(false);
+                setShowInstallBanner(false);
+              }}
+              className="w-full py-2 bg-[#febd69] hover:bg-[#f08804] text-black font-bold text-xs rounded-xl transition-colors cursor-pointer"
+            >
+              {isBn ? "বুঝেছি" : "Got it!"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

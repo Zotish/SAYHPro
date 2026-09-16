@@ -6,8 +6,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#FFFFFF",
-  "theme_color": "#131921",
+  "background_color": "#EAEDED",
+  "theme_color": "#84d8d8",
   "categories": ["shopping", "business", "lifestyle"],
   "icons": [
     {
@@ -61,6 +61,20 @@
       "short_name": "Dues",
       "description": "View outstanding customer dues and collect payments",
       "url": "/?screen=dues",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Products & Stock",
+      "short_name": "Products",
+      "description": "View inventory and stock levels",
+      "url": "/?screen=products",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Reports & P&L",
+      "short_name": "Reports",
+      "description": "View profit and loss financial statements",
+      "url": "/?screen=reports",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]

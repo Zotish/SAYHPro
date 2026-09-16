@@ -1,6 +1,7 @@
 const CACHE_NAME = 'rahim-store-pwa-v6';
 const STATIC_ASSETS = [
   '/',
+  '/?screen=storefront',
   '/index.html',
   '/manifest.json',
   '/favicon.svg',
@@ -57,7 +58,7 @@ self.addEventListener('fetch', (event) => {
           const cache = await caches.open(CACHE_NAME);
           const cached = await cache.match(request);
           if (cached) return cached;
-          return cache.match('/index.html');
+          return cache.match('/index.html') || cache.match('/');
         })
     );
     return;
