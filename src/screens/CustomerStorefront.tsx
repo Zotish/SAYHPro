@@ -352,7 +352,15 @@ export default function CustomerStorefront({
     }
     return null;
   });
-  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showInstallBanner, setShowInstallBanner] = useState(() => {
+    if (typeof window !== "undefined") {
+      const standalone = window.matchMedia("(display-mode: standalone)").matches ||
+        (window.navigator as any).standalone === true;
+      if (standalone) return false;
+      return sessionStorage.getItem("storefront_pwa_dismissed") !== "true";
+    }
+    return true;
+  });
   const [isIOS, setIsIOS] = useState(false);
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
@@ -364,6 +372,7 @@ export default function CustomerStorefront({
       (window.navigator as any).standalone === true;
     if (standalone) {
       setIsStandalone(true);
+      setShowInstallBanner(false);
       return;
     }
 
@@ -372,16 +381,10 @@ export default function CustomerStorefront({
     const isIosDevice = /iphone|ipad|ipod/.test(userAgent) && !(window as any).MSStream;
     setIsIOS(isIosDevice);
 
-    const dismissed = localStorage.getItem("storefront_pwa_dismissed");
-    const isDismissedRecently = dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000;
-
     const handlePrompt = (e?: any) => {
       const p = e?.detail || e || (window as any).deferredInstallPrompt;
       if (p && p.prompt) {
         setInstallPrompt(p);
-        if (!isDismissedRecently) {
-          setShowInstallBanner(true);
-        }
       }
     };
 
@@ -411,17 +414,6 @@ export default function CustomerStorefront({
     window.addEventListener("pwa-prompt-ready", handlePrompt);
     window.addEventListener("appinstalled", installedHandler);
 
-    // If iOS and not dismissed, show banner after delay
-    if (isIosDevice && !isDismissedRecently) {
-      const timer = setTimeout(() => setShowInstallBanner(true), 3000);
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener("beforeinstallprompt", beforeInstallHandler);
-        window.removeEventListener("pwa-prompt-ready", handlePrompt);
-        window.removeEventListener("appinstalled", installedHandler);
-      };
-    }
-
     return () => {
       window.removeEventListener("beforeinstallprompt", beforeInstallHandler);
       window.removeEventListener("pwa-prompt-ready", handlePrompt);
@@ -431,7 +423,9 @@ export default function CustomerStorefront({
 
   const handleDismissBanner = () => {
     setShowInstallBanner(false);
-    localStorage.setItem("storefront_pwa_dismissed", Date.now().toString());
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("storefront_pwa_dismissed", "true");
+    }
   };
 
   const handleInstallApp = async () => {
