@@ -23,10 +23,9 @@ export default function CustomerStorefront({
 }: CustomerStorefrontProps) {
   const { products, storefront, settings, formatTaka, tNum } = useApp();
 
-  // Local Language & Device Frame View
+  // Local Language
   const [lang, setLang] = useState<"en" | "bn">(initialLang);
   const isBn = lang === "bn";
-  const [deviceView, setDeviceView] = useState<"desktop" | "mobile">("mobile");
 
   // Amazon Mobile App Active Bottom Navigation Tab: 'home' | 'you' | 'cart' | 'menu'
   const [activeTab, setActiveTab] = useState<"home" | "you" | "cart" | "menu">("home");
@@ -315,106 +314,29 @@ export default function CustomerStorefront({
   };
 
   return (
-    <div className="min-h-screen bg-[#eaeded] flex flex-col font-sans select-none antialiased text-[#0f1111]">
+    <div className="min-h-screen bg-white flex flex-col font-sans select-none antialiased text-[#0f1111]">
       {/* ========================================================================= */}
-      {/* 1. TOP SIMULATION / MERCHANT PREVIEW BAR                                 */}
+      {/* 1. TOP BAR: TEAL GRADIENT MATCHING THE HEADER BELOW                       */}
       {/* ========================================================================= */}
-      {previewMode && (
-        <div className="bg-[#131921] text-white px-3 sm:px-6 py-2 flex items-center justify-between gap-3 text-xs border-b border-gray-800 flex-shrink-0 z-50">
-          <div className="flex items-center gap-2 min-w-0">
-            {onBack && (
-              <button
-                onClick={onBack}
-                className="flex items-center gap-1.5 px-2.5 py-1 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-md text-white font-semibold transition-colors cursor-pointer"
-                title={isBn ? "অ্যাডমিন ড্যাশবোর্ডে ফিরুন" : "Back to Admin Dashboard"}
-              >
-                <ArrowLeft size={13} />
-                <span className="hidden sm:inline">{isBn ? "অ্যাডমিন প্যানেল" : "Admin Panel"}</span>
-              </button>
-            )}
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 bg-black/40 border border-white/10 rounded-full font-mono text-[11px] text-gray-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>AMAZON APP STORE:</span>
-              <span className="text-[#febd69] font-bold underline">{storeUrl}</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {/* View Switcher: Mobile App UI vs Desktop View */}
-            <div className="flex items-center bg-black/40 border border-white/10 rounded-md p-0.5">
-              <button
-                onClick={() => setDeviceView("mobile")}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${
-                  deviceView === "mobile" ? "bg-[#febd69] text-black font-bold shadow-xs" : "text-gray-300 hover:text-white"
-                }`}
-                title="Amazon App Mobile View"
-              >
-                <Smartphone size={13} />
-                <span>Amazon App</span>
-              </button>
-              <button
-                onClick={() => setDeviceView("desktop")}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${
-                  deviceView === "desktop" ? "bg-[#febd69] text-black font-bold shadow-xs" : "text-gray-300 hover:text-white"
-                }`}
-                title="Amazon Web Desktop View"
-              >
-                <Monitor size={13} />
-                <span className="hidden sm:inline">Desktop</span>
-              </button>
-            </div>
-
-            {/* Language Switcher */}
+      {previewMode && onBack && (
+        <div className="bg-gradient-to-r from-[#84d8d8] via-[#88ded9] to-[#99e2d0] px-3 sm:px-4 py-2 flex items-center border-b border-[#74cccc]/40 flex-shrink-0 z-50">
+          <div className="w-full max-w-md mx-auto flex items-center">
             <button
-              onClick={() => setLang(l => (l === "bn" ? "en" : "bn"))}
-              className="flex items-center gap-1 px-2 py-1 bg-white/10 hover:bg-white/20 text-white rounded text-xs font-bold transition-colors cursor-pointer"
+              onClick={onBack}
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-black/10 hover:bg-black/20 active:bg-black/30 text-[#0f1111] transition-colors cursor-pointer"
+              title={isBn ? "পূর্ববর্তী পৃষ্ঠায় ফিরুন" : "Back"}
             >
-              <span>🌐 {isBn ? "EN" : "বাংলা"}</span>
-            </button>
-
-            {/* Share / Copy Link */}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(storeUrl);
-                toast({
-                  type: "success",
-                  title: isBn ? "লিংক কপি হয়েছে!" : "Link Copied!",
-                  message: isBn ? "কাস্টমার স্টোর লিংক কপি করা হয়েছে।" : "Store link copied to clipboard.",
-                });
-              }}
-              className="flex items-center gap-1 px-2.5 py-1 bg-[#f08804] hover:bg-[#fa8900] text-black font-bold rounded transition-colors cursor-pointer"
-            >
-              <Copy size={13} />
-              <span className="hidden sm:inline">{isBn ? "কপি লিংক" : "Copy Link"}</span>
+              <ArrowLeft size={18} />
             </button>
           </div>
         </div>
       )}
 
       {/* ========================================================================= */}
-      {/* 2. MAIN CONTAINER: PHONE FRAME (MOBILE) OR FULL DESKTOP                   */}
+      {/* 2. MAIN MOBILE WEB CONTAINER (CLEAN, AUTHENTIC MOBILE WEB EXPERIENCE)    */}
       {/* ========================================================================= */}
-      <div className={`flex-1 flex justify-center ${deviceView === "mobile" ? "p-2 sm:p-5 bg-gradient-to-b from-[#232f3e] to-[#131921]" : ""}`}>
-        <div
-          className={`w-full bg-white transition-all flex flex-col relative ${
-            deviceView === "mobile"
-              ? "max-w-[420px] rounded-[40px] shadow-2xl overflow-hidden border-[10px] border-[#0f1111] ring-2 ring-white/10 my-auto h-[90vh] flex flex-col"
-              : "max-w-7xl mx-auto shadow-md min-h-screen"
-          }`}
-        >
-          {/* Mobile Notch / Speaker Bar (Only in Mobile App View) */}
-          {deviceView === "mobile" && (
-            <div className="bg-[#84d8d8] pt-2 pb-1 px-6 flex justify-between items-center text-[10px] font-bold text-gray-800 select-none z-40">
-              <span>9:41</span>
-              <div className="w-20 h-4 bg-[#0f1111] rounded-full mx-auto -mt-1 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-gray-800" />
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>5G</span>
-                <span className="text-xs">100%</span>
-              </div>
-            </div>
-          )}
+      <div className="flex-1 flex justify-center w-full bg-white">
+        <div className="w-full max-w-md min-h-screen bg-white flex flex-col shadow-sm relative pb-16">
 
           {/* ========================================================================= */}
           {/* 3. AMAZON MOBILE APP HEADER (ICONIC TEAL GRADIENT)                        */}
@@ -1508,9 +1430,9 @@ export default function CustomerStorefront({
           </main>
 
           {/* ========================================================================= */}
-          {/* 5. AMAZON MOBILE APP BOTTOM 4-TAB NAVIGATION BAR                          */}
+          {/* 5. AMAZON MOBILE WEB BOTTOM 4-TAB NAVIGATION BAR                          */}
           {/* ========================================================================= */}
-          <nav className="bg-white border-t border-gray-300 py-1.5 px-3 flex items-center justify-around flex-shrink-0 z-40 shadow-lg select-none">
+          <nav className="fixed bottom-0 max-w-md w-full bg-white border-t border-gray-300 py-1.5 px-3 flex items-center justify-around z-40 shadow-lg select-none">
             {/* Tab 1: Home */}
             <button
               onClick={() => setActiveTab("home")}
