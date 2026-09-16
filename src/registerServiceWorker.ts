@@ -1,13 +1,13 @@
 /**
- * Service Worker Registration for SAYHPro PWA
+ * Service Worker Registration for SAYHPro & Storefront PWA
  */
 export function registerServiceWorker() {
   if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
+    const doRegister = () => {
       navigator.serviceWorker
         .register("/sw.js")
         .then((reg) => {
-          console.log("SAYHPro PWA ServiceWorker registered with scope:", reg.scope);
+          console.log("PWA ServiceWorker registered with scope:", reg.scope);
 
           // Listen for new service worker updates
           reg.onupdatefound = () => {
@@ -28,6 +28,13 @@ export function registerServiceWorker() {
         .catch((error) => {
           console.warn("PWA ServiceWorker registration failed:", error);
         });
-    });
+    };
+
+    // Ensure immediate registration if window has already loaded
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      doRegister();
+    } else {
+      window.addEventListener("load", doRegister);
+    }
   }
 }

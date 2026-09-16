@@ -1,8 +1,12 @@
-const CACHE_NAME = "sayhpro-pwa-v2";
+const CACHE_NAME = "sayhpro-pwa-v3";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
   "/manifest.json",
+  "/storefront-manifest.json",
+  "/icons/icon-192.png",
+  "/icons/icon-512.png",
+  "/icons/icon-maskable.png",
   "/icons/icon-192.svg",
   "/icons/icon-512.svg",
   "/icons/icon-maskable.svg"

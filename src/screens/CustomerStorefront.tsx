@@ -341,35 +341,96 @@ export default function CustomerStorefront({
   };
 
   // PWA Install State for Storefront
-  const [pwaPrompt, setPwaPrompt] = useState<any>(null);
-  const [canInstallPWA, setCanInstallPWA] = useState(false);
+  const [pwaPrompt, setPwaPrompt] = useState<any>(() => {
+    if (typeof window !== "undefined" && (window as any).deferredPwaPrompt) {
+      return (window as any).deferredPwaPrompt;
+    }
+    return null;
+  });
+  const [canInstallPWA, setCanInstallPWA] = useState(() => {
+    return typeof window !== "undefined" && Boolean((window as any).deferredPwaPrompt);
+  });
   const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
 
   useEffect(() => {
+    // Check if early prompt already captured
+    if (typeof window !== "undefined" && (window as any).deferredPwaPrompt) {
+      setPwaPrompt((window as any).deferredPwaPrompt);
+      setCanInstallPWA(true);
+    }
+
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault();
+      (window as any).deferredPwaPrompt = e;
       setPwaPrompt(e);
       setCanInstallPWA(true);
     };
+
+    const handlePromptReady = (e: any) => {
+      if (e.detail) {
+        setPwaPrompt(e.detail);
+        setCanInstallPWA(true);
+      }
+    };
+
+    const handleInstalled = () => {
+      setPwaPrompt(null);
+      if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
+      setCanInstallPWA(false);
+      setIsPwaModalOpen(false);
+      toast({
+        type: "success",
+        title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+      });
+    };
+
     window.addEventListener("beforeinstallprompt", handleBeforeInstall);
-    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
-  }, []);
+    window.addEventListener("pwa-prompt-ready", handlePromptReady);
+    window.addEventListener("pwa-installed", handleInstalled);
+    window.addEventListener("appinstalled", handleInstalled);
+
+    // Switch manifest to dedicated storefront-manifest.json
+    const manifestEl = document.getElementById("app-manifest") as HTMLLinkElement | null;
+    const prevManifestHref = manifestEl ? manifestEl.href : null;
+    if (manifestEl) {
+      manifestEl.href = "/storefront-manifest.json";
+    }
+
+    // Set page title to shop name
+    const prevTitle = document.title;
+    document.title = `${settings.shopName || "Rahim Store"} — Online Shop`;
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+      window.removeEventListener("pwa-prompt-ready", handlePromptReady);
+      window.removeEventListener("pwa-installed", handleInstalled);
+      window.removeEventListener("appinstalled", handleInstalled);
+      if (manifestEl && prevManifestHref) {
+        manifestEl.href = prevManifestHref;
+      }
+      document.title = prevTitle;
+    };
+  }, [settings.shopName, isBn]);
 
   const triggerPWAInstall = async () => {
-    if (pwaPrompt) {
+    const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
+    if (promptEvent) {
       try {
-        pwaPrompt.prompt();
-        const { outcome } = await pwaPrompt.userChoice;
-        if (outcome === "accepted") {
+        await promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
+        if (choice && choice.outcome === "accepted") {
           toast({
             type: "success",
             title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
           });
+          setPwaPrompt(null);
+          if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
           setCanInstallPWA(false);
+          setIsPwaModalOpen(false);
           return;
         }
       } catch (e) {
-        // fallback to modal
+        console.warn("PWA prompt error, opening guide modal:", e);
       }
     }
     // Open interactive PWA guide modal
@@ -2191,6 +2252,17 @@ export default function CustomerStorefront({
             )}
 
             <div className="space-y-2">
+              {/* Native 1-Click Install Button if Prompt Ready */}
+              {(canInstallPWA || (typeof window !== "undefined" && (window as any).deferredPwaPrompt)) && (
+                <button
+                  onClick={triggerPWAInstall}
+                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-full flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
+                >
+                  <Download size={14} />
+                  <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ইনস্টল করুন (Install Now)" : "Install Store App Now"}</span>
+                </button>
+              )}
+
               {/* Launch in real external browser */}
               <button
                 onClick={() => {
