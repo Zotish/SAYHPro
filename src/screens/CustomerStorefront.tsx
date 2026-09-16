@@ -412,6 +412,47 @@ export default function CustomerStorefront({
     };
   }, [settings.shopName, isBn]);
 
+  // Helper to open real Google Chrome on Android (escaping In-App browsers and Custom Tabs)
+  const openInRealChrome = (customUrl?: string) => {
+    const targetUrl = customUrl || `${window.location.origin}/?screen=storefront&auto_install=true`;
+    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      const rawUrl = targetUrl.replace(/^https?:\/\//, "");
+      // Android intent forcing Chrome app launch
+      const intentUrl = `intent://${rawUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+      window.location.href = intentUrl;
+      // Fallback
+      setTimeout(() => {
+        window.open(targetUrl, "_blank");
+      }, 1200);
+      return;
+    }
+    window.open(targetUrl, "_blank");
+  };
+
+  // Auto-install trigger if opened with auto_install=true
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("auto_install") === "true") {
+        const attemptPrompt = () => {
+          const p = pwaPrompt || (window as any).deferredPwaPrompt;
+          if (p) {
+            try {
+              p.prompt();
+            } catch (err) {
+              console.warn("Auto prompt error:", err);
+            }
+          }
+        };
+        window.addEventListener("pwa-prompt-ready", attemptPrompt);
+        if ((window as any).deferredPwaPrompt || pwaPrompt) {
+          attemptPrompt();
+        }
+      }
+    }
+  }, [pwaPrompt]);
+
   const triggerPWAInstall = async () => {
     const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
     if (promptEvent) {
@@ -433,6 +474,14 @@ export default function CustomerStorefront({
         console.warn("PWA prompt error, opening guide modal:", e);
       }
     }
+
+    // If inside in-app browser or Custom Tab on Android without prompt
+    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+    if (isAndroid && !promptEvent) {
+      // Auto launch in real Chrome with auto_install intent
+      openInRealChrome();
+    }
+
     // Open interactive PWA guide modal
     setIsPwaModalOpen(true);
   };
@@ -576,15 +625,12 @@ export default function CustomerStorefront({
               </div>
               <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
                 <button
-                  onClick={() => {
-                    const externalUrl = `${window.location.origin}/?screen=storefront`;
-                    window.open(externalUrl, "_blank");
-                  }}
+                  onClick={() => openInRealChrome()}
                   className="bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 cursor-pointer"
-                  title="Open in External Browser"
+                  title="Open in Google Chrome"
                 >
                   <ExternalLink size={10} />
-                  <span>{isBn ? "ব্রাউজার" : "Browser"}</span>
+                  <span>{isBn ? "ক্রোম" : "Chrome"}</span>
                 </button>
                 <button
                   onClick={triggerPWAInstall}
@@ -2251,29 +2297,38 @@ export default function CustomerStorefront({
               </div>
             )}
 
-            <div className="space-y-2">
-              {/* Native 1-Click Install Button if Prompt Ready */}
-              {(canInstallPWA || (typeof window !== "undefined" && (window as any).deferredPwaPrompt)) && (
-                <button
-                  onClick={triggerPWAInstall}
-                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs rounded-full flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
-                >
-                  <Download size={14} />
-                  <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ইনস্টল করুন (Install Now)" : "Install Store App Now"}</span>
-                </button>
-              )}
+            {/* Native 1-Click Install Button if Prompt Ready */}
+            {(canInstallPWA || (typeof window !== "undefined" && (window as any).deferredPwaPrompt)) && (
+              <button
+                onClick={triggerPWAInstall}
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs rounded-full flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
+              >
+                <Download size={14} />
+                <span>{isBn ? "📥 এখনই স্টোর অ্যাপ ইনস্টল করুন (Install Now)" : "Install Store App Now"}</span>
+              </button>
+            )}
 
-              {/* Launch in real external browser */}
+            {/* Custom Tab / In-App Browser Guidance Banner */}
+            <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 text-xs text-amber-950 space-y-1.5 shadow-2xs">
+              <div className="font-extrabold text-amber-900 flex items-center gap-1.5">
+                <span>📱 ফোন অ্যাপ ডাউনলোড/ইনস্টল করার উপায়:</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-gray-700">
+                আপনি বর্তমানে ইন-অ্যাপ প্রিভিউতে আছেন (উপরে বামে <strong>[X]</strong> দেখুন)। সরাসরি অ্যাপ ইনস্টল পেতে নিচের বাটনে চাপ দিয়ে <strong>Google Chrome</strong>-এ খুলুন অথবা উপরে ডানের <strong>৩-ডট (⋮)</strong> মেন্যু চেপে <strong>'Install app'</strong> নির্বাচন করুন।
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              {/* Direct Launch in Real Google Chrome via Intent */}
               <button
                 onClick={() => {
-                  const externalUrl = `${window.location.origin}/?screen=storefront`;
-                  window.open(externalUrl, "_blank");
+                  openInRealChrome();
                   setIsPwaModalOpen(false);
                 }}
-                className="w-full py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-bold text-xs rounded-full border border-[#fcd200] flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-colors"
+                className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-black text-xs rounded-full border border-[#fcd200] flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-all active:scale-98"
               >
-                <ExternalLink size={14} />
-                <span>{isBn ? "🌐 আসল ব্রাউজারে খুলুন (Open in Chrome/Safari)" : "Open in External Browser"}</span>
+                <ExternalLink size={15} />
+                <span>{isBn ? "🚀 সরাসরি Google Chrome-এ খুলুন ও ইনস্টল করুন" : "Open in Google Chrome & Install"}</span>
               </button>
 
               {/* Copy Storefront Link for Customers */}
@@ -2296,12 +2351,12 @@ export default function CustomerStorefront({
               {/* Instructions for Android & iOS */}
               <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 text-[11px] text-gray-700">
                 <div className="font-bold text-[#0f1111]">
-                  {isBn ? "📌 আসল ব্রাউজার থেকে ইনস্টল নিয়ম:" : "📌 Browser Install Steps:"}
+                  {isBn ? "📌 ব্রাউজার ৩-ডট থেকে ইনস্টল নিয়ম:" : "📌 Browser Steps:"}
                 </div>
                 <div className="space-y-1.5 leading-relaxed">
                   <div className="flex items-start gap-1.5">
                     <span className="font-bold text-emerald-800 flex-shrink-0">Android:</span>
-                    <span>ব্রাউজারের ৩-ডট <strong>(⋮)</strong> মেন্যুতে চাপ দিয়ে <strong>'Install app'</strong> বা <strong>'Add to Home screen'</strong> চাপলে হোমস্ক্রিনে অ্যাপ ইনস্টল হয়ে যাবে।</span>
+                    <span>উপরে ডানের ৩-ডট <strong>(⋮)</strong> মেন্যুতে চাপ দিয়ে <strong>'Install app'</strong> বা <strong>'Open in Chrome'</strong> চাপলে হোমস্ক্রিনে অ্যাপ ইনস্টল হয়ে যাবে।</span>
                   </div>
                   <div className="flex items-start gap-1.5">
                     <span className="font-bold text-blue-700 flex-shrink-0">iPhone:</span>

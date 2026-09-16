@@ -1,14 +1,15 @@
 {
-  "name": "SAYHPro — SaaS Management Platform",
-  "short_name": "SAYHPro",
-  "description": "Smart Retail, POS, Inventory, Due & Expense Management Platform",
-  "start_url": "/",
-  "id": "/",
+  "name": "Rahim Store — Online Shop",
+  "short_name": "Rahim Store",
+  "description": "Smart Retail, Online Store & PWA Management Platform",
+  "start_url": "/?screen=storefront",
+  "id": "/?screen=storefront",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#064E3B",
-  "theme_color": "#064E3B",
+  "background_color": "#EAEDED",
+  "theme_color": "#84d8d8",
   "orientation": "any",
-  "categories": ["business", "productivity", "finance", "shopping"],
+  "categories": ["shopping", "business", "lifestyle"],
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -49,6 +50,13 @@
   ],
   "shortcuts": [
     {
+      "name": "Online Storefront",
+      "short_name": "Store",
+      "description": "Online customer e-commerce store",
+      "url": "/?screen=storefront",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
       "name": "POS / New Sale",
       "short_name": "New Sale",
       "description": "Quickly start a new retail POS transaction",
@@ -74,13 +82,6 @@
       "short_name": "Reports",
       "description": "View profit and loss financial statements",
       "url": "/?screen=reports",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Online Storefront",
-      "short_name": "Store",
-      "description": "Online customer e-commerce store",
-      "url": "/?screen=storefront",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
