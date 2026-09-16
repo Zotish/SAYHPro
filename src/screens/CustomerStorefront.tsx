@@ -356,6 +356,7 @@ export default function CustomerStorefront({
   const [isIOS, setIsIOS] = useState(false);
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
+  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
 
   useEffect(() => {
     // Check if already in standalone mode (already installed as PWA)
