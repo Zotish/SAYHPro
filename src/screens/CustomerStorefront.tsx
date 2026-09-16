@@ -632,24 +632,6 @@ export default function CustomerStorefront({
                 <span>{isBn ? "৪৫-৬০ মিনিট" : "45m Express"}</span>
               </div>
             </div>
-
-            {/* PWA Install Strip (Direct App Download & Install) */}
-            <div className="bg-[#131921] text-[#febd69] px-3 py-1 flex items-center justify-between text-[11px] font-bold">
-              <div className="flex items-center gap-1.5 truncate">
-                <Smartphone size={13} className="text-[#febd69] animate-pulse flex-shrink-0" />
-                <span className="text-white truncate">
-                  {isBn ? `${settings.shopName} অ্যাপ ডাউনলোড` : `Install ${settings.shopName} App`}
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
-                <button
-                  onClick={handleInstallApp}
-                  className="bg-[#febd69] hover:bg-[#f08804] text-black text-[11px] font-black px-3 py-1 rounded-full cursor-pointer shadow-xs active:scale-95 transition-all"
-                >
-                  {isStandalone ? (isBn ? "ইনস্টলড" : "Installed") : (isBn ? "ইনস্টল" : "Install")}
-                </button>
-              </div>
-            </div>
           </header>
 
           {/* ========================================================================= */}
@@ -2387,48 +2369,50 @@ export default function CustomerStorefront({
       )}
 
       {/* ========================================================================= */}
-      {/* 12. FLOATING PWA INSTALL BANNER (SLIDE-IN FROM BOTTOM MATCHING BIKEPOS)   */}
+      {/* 12. FLOATING PWA INSTALL BANNER (DIRECTLY IN FRONT OF MOBILE APP VIEW)    */}
       {/* ========================================================================= */}
       {showInstallBanner && !isStandalone && (
-        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white border border-[#E5E7EB] rounded-2xl shadow-2xl p-3.5 sm:p-4 animate-in slide-in-from-bottom-5 duration-300">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#febd69] flex items-center justify-center shrink-0 shadow-xs">
-              <Smartphone className="text-black" size={20} />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between gap-2">
-                <h4 className="text-sm font-bold text-[#111827]">
-                  {isBn ? `${settings.shopName} অ্যাপ ডাউনলোড করুন` : `Install ${settings.shopName} App`}
-                </h4>
-                <button
-                  onClick={handleDismissBanner}
-                  className="text-[#9CA3AF] hover:text-[#111827] p-1 rounded-lg hover:bg-gray-100 transition-colors"
-                  aria-label="Close"
-                >
-                  <X size={15} />
-                </button>
+        <div className="fixed bottom-16 left-0 right-0 max-w-md mx-auto px-3 z-50 pointer-events-none animate-in slide-in-from-bottom-5 duration-300">
+          <div className="bg-white/98 backdrop-blur-md border border-gray-200 shadow-2xl rounded-2xl p-3.5 pointer-events-auto ring-4 ring-black/5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#febd69] flex items-center justify-center shrink-0 shadow-xs">
+                <Smartphone className="text-black" size={20} />
               </div>
-              <p className="text-xs text-[#6B7280] mt-0.5 leading-relaxed">
-                {isBn
-                  ? `হোম স্ক্রিনে সরাসরি অ্যাপের মতো ব্যবহার করতে এবং দ্রুত অর্ডারের জন্য অ্যাপটি ডাউনলোড করুন।`
-                  : `Install ${settings.shopName} for full offline access, faster ordering, and a native app experience.`}
-              </p>
 
-              <div className="flex items-center gap-2 mt-3">
-                <button
-                  onClick={handleInstallApp}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#febd69] hover:bg-[#f08804] text-black text-xs font-black shadow-xs transition-colors cursor-pointer"
-                >
-                  <Download size={14} />
-                  <span>{isIOS ? (isBn ? "ইনস্টল নিয়ম" : "How to Install") : (isBn ? "এখনই ডাউনলোড করুন" : "Install Now")}</span>
-                </button>
-                <button
-                  onClick={handleDismissBanner}
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#6B7280] hover:text-[#111827] hover:bg-gray-100 transition-colors"
-                >
-                  {isBn ? "পরে" : "Maybe later"}
-                </button>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <h4 className="text-sm font-bold text-[#111827]">
+                    {isBn ? `${settings.shopName} অ্যাপ ডাউনলোড করুন` : `Install ${settings.shopName} App`}
+                  </h4>
+                  <button
+                    onClick={handleDismissBanner}
+                    className="text-[#9CA3AF] hover:text-[#111827] p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                    aria-label="Close"
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
+                <p className="text-xs text-[#4B5563] mt-0.5 leading-relaxed font-medium">
+                  {isBn
+                    ? `হোম স্ক্রিনে সরাসরি অ্যাপের মতো ব্যবহার করতে এবং দ্রুত অর্ডারের জন্য অ্যাপটি ডাউনলোড করুন।`
+                    : `Install ${settings.shopName} for full offline access, faster ordering, and a native app experience.`}
+                </p>
+
+                <div className="flex items-center gap-2 mt-3">
+                  <button
+                    onClick={handleInstallApp}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#febd69] hover:bg-[#f08804] text-black text-xs font-black shadow-xs transition-all active:scale-98 cursor-pointer"
+                  >
+                    <Download size={14} />
+                    <span>{isIOS ? (isBn ? "ইনস্টল নিয়ম" : "How to Install") : (isBn ? "এখনই ডাউনলোড করুন" : "Install Now")}</span>
+                  </button>
+                  <button
+                    onClick={handleDismissBanner}
+                    className="px-3 py-2 rounded-xl text-xs font-medium text-[#6B7280] hover:text-[#111827] hover:bg-gray-100 transition-colors cursor-pointer"
+                  >
+                    {isBn ? "পরে" : "Maybe later"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
