@@ -387,15 +387,6 @@ export default function CustomerStorefront({
     window.addEventListener("beforeinstallprompt", handleBeforeInstall);
     window.addEventListener("pwa-prompt-ready", handlePromptReady);
     window.addEventListener("pwa-installed", handleInstalled);
-    window.addEventListener("appinstalled", handleInstalled);
-
-    // Switch manifest to dedicated storefront-manifest.json
-    const manifestEl = document.getElementById("app-manifest") as HTMLLinkElement | null;
-    const prevManifestHref = manifestEl ? manifestEl.href : null;
-    if (manifestEl) {
-      manifestEl.href = "/storefront-manifest.json";
-    }
-
     // Set page title to shop name
     const prevTitle = document.title;
     document.title = `${settings.shopName || "Rahim Store"} — Online Shop`;
@@ -405,9 +396,6 @@ export default function CustomerStorefront({
       window.removeEventListener("pwa-prompt-ready", handlePromptReady);
       window.removeEventListener("pwa-installed", handleInstalled);
       window.removeEventListener("appinstalled", handleInstalled);
-      if (manifestEl && prevManifestHref) {
-        manifestEl.href = prevManifestHref;
-      }
       document.title = prevTitle;
     };
   }, [settings.shopName, isBn]);
@@ -471,7 +459,33 @@ export default function CustomerStorefront({
   }, [pwaPrompt, isBn]);
 
   const triggerPWAInstall = async () => {
-    const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
+    // 1. First check if prompt is already available
+    let promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
+
+    // 2. If prompt is not ready immediately, wait up to 1.5 seconds for it
+    if (!promptEvent && typeof window !== "undefined") {
+      toast({
+        type: "info",
+        title: isBn ? "অ্যাপ ইনস্টল প্রস্তুত হচ্ছে..." : "Preparing app install...",
+      });
+
+      promptEvent = await new Promise((resolve) => {
+        let attempts = 0;
+        const interval = setInterval(() => {
+          attempts++;
+          const p = (window as any).deferredPwaPrompt;
+          if (p) {
+            clearInterval(interval);
+            resolve(p);
+          } else if (attempts >= 8) {
+            clearInterval(interval);
+            resolve(null);
+          }
+        }, 200);
+      });
+    }
+
+    // 3. If promptEvent is available, call it immediately!
     if (promptEvent) {
       try {
         await promptEvent.prompt();
@@ -479,7 +493,7 @@ export default function CustomerStorefront({
         if (choice && choice.outcome === "accepted") {
           toast({
             type: "success",
-            title: isBn ? "স্টোর অ্যাপ ইনস্টল সম্পন্ন!" : "Store App Installed!",
+            title: isBn ? "🎉 স্টোর অ্যাপ সফলভাবে ডাউনলোড ও ইনস্টল হয়েছে!" : "App Downloaded & Installed!",
           });
           setPwaPrompt(null);
           if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
@@ -492,33 +506,23 @@ export default function CustomerStorefront({
       }
     }
 
-    // If inside in-app browser or Custom Tab on Android without prompt
-    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      toast({
-        type: "info",
-        title: isBn ? "Google Chrome-এ ইনস্টল ডায়ালগ চালু হচ্ছে..." : "Launching Chrome Install...",
-      });
-      // Force launch in real Chrome with auto_install intent (DO NOT OPEN MODAL)
+    // 4. If on Android: check if we are in an in-app browser vs real Chrome
+    const isCustomTabOrWebview = typeof navigator !== "undefined" && 
+      (/wv|Version\/4\.0|FB_IAB|FBAV|Instagram|Telegram/i.test(navigator.userAgent) || !window.chrome);
+
+    if (isCustomTabOrWebview) {
+      // In-app webview: launch real Chrome app
       openInRealChrome();
       return;
     }
 
-    // If on iPhone (iOS)
-    const isIOS = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
-    if (isIOS) {
-      toast({
-        type: "info",
-        title: isBn ? "হোম স্ক্রিনে যোগ করুন" : "Add to Home Screen",
-        message: isBn ? "সাফারির নিচে [↑] শেয়ার আইকন চেপে 'Add to Home Screen' চাপুন" : "Tap Safari Share [↑] and select 'Add to Home Screen'",
-      });
-      return;
-    }
-
+    // 5. If in real Chrome and prompt was not fired yet, guide to 3-dot menu directly
     toast({
       type: "info",
-      title: isBn ? "অ্যাপ ইনস্টল করুন" : "Install App",
-      message: isBn ? "ব্রাউজারের অ্যাড্রেস বারের ডান পাশে থাকা Install বাটনে ক্লিক করুন" : "Click the Install icon in your browser address bar",
+      title: isBn ? "উপরে ডানে ৩-ডট (⋮) চাপুন" : "Tap the (⋮) menu",
+      message: isBn 
+        ? "ব্রাউজারের ৩-ডট (⋮) মেন্যু থেকে 'Install app' বা 'Add to Home screen' চাপুন, সাথে সাথে অ্যাপ ডাউনলোড হবে।"
+        : "Tap (⋮) in Chrome menu and tap 'Install app' to download.",
     });
   };
 

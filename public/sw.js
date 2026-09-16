@@ -1,15 +1,10 @@
-const CACHE_NAME = "sayhpro-pwa-v3";
+const CACHE_NAME = "rahim-store-pwa-v5";
 const STATIC_ASSETS = [
   "/",
-  "/index.html",
   "/manifest.json",
-  "/storefront-manifest.json",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
-  "/icons/icon-maskable.png",
-  "/icons/icon-192.svg",
-  "/icons/icon-512.svg",
-  "/icons/icon-maskable.svg"
+  "/icons/icon-maskable.png"
 ];
 
 // Install: pre-cache static assets
@@ -62,7 +57,7 @@ self.addEventListener("fetch", (event) => {
         .catch(async () => {
           const cached = await caches.match(request);
           if (cached) return cached;
-          return caches.match("/index.html");
+          return caches.match("/");
         })
     );
     return;
