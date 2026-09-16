@@ -2,37 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Rahim Store — Online Shop</title>
-
-    <!-- PWA & Mobile Meta Tags -->
-    <meta name="theme-color" content="#84d8d8" />
     <meta name="description" content="Rahim Store Online Shop - Order Groceries & Essentials with Fast Delivery" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Rahim Store" />
-    
-    <!-- Icons & Manifest -->
-    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
-    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-    <link rel="manifest" id="app-manifest" href="/manifest.json" />
 
-    <!-- Early PWA beforeinstallprompt capture -->
-    <script>
-      window.deferredPwaPrompt = null;
-      window.addEventListener("beforeinstallprompt", function(e) {
-        e.preventDefault();
-        window.deferredPwaPrompt = e;
-        window.dispatchEvent(new CustomEvent("pwa-prompt-ready", { detail: e }));
-        console.log("Global beforeinstallprompt captured!");
-      });
-      window.addEventListener("appinstalled", function() {
-        window.deferredPwaPrompt = null;
-        window.dispatchEvent(new CustomEvent("pwa-installed"));
-        console.log("PWA Installed successfully!");
-      });
-    </script>
+    <!-- PWA & Mobile Web App Settings -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#131921" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Rahim Store" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/icons/favicon.png" />
   </head>
   <body>
     <div id="root"></div>

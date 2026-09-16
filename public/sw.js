@@ -1,84 +1,94 @@
-const CACHE_NAME = "rahim-store-pwa-v5";
+const CACHE_NAME = 'rahim-store-pwa-v6';
 const STATIC_ASSETS = [
-  "/",
-  "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png",
-  "/icons/icon-maskable.png"
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/favicon.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-maskable-192.png',
+  '/icons/icon-maskable-512.png',
+  '/icons/apple-touch-icon.png',
+  '/icons/icon.svg'
 ];
 
-// Install: pre-cache static assets
-self.addEventListener("install", (event) => {
+// Install: Cache essential app shell
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch((err) => {
-        console.warn("PWA pre-cache warning:", err);
-      });
-    })
+      return cache.addAll(STATIC_ASSETS);
+    }).then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-// Activate: clean up old caches & take control immediately
-self.addEventListener("activate", (event) => {
+// Activate: Clean up older caches
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch: Network-first with Cache fallback for HTML / Cache-first for assets
-self.addEventListener("fetch", (event) => {
+// Fetch: Strategy depending on request type
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests & extensions/chrome schemes
-  if (request.method !== "GET" || !url.protocol.startsWith("http")) {
+  // Skip non-GET requests or chrome-extension schemes
+  if (request.method !== 'GET' || !url.protocol.startsWith('http')) {
     return;
   }
 
-  // For HTML navigation requests (Network-first)
-  if (request.mode === "navigate") {
+  // Navigation requests: Network-first, fall back to cached index.html
+  if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const copy = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
-          return networkResponse;
+          return response;
         })
         .catch(async () => {
-          const cached = await caches.match(request);
+          const cache = await caches.open(CACHE_NAME);
+          const cached = await cache.match(request);
           if (cached) return cached;
-          return caches.match("/");
+          return cache.match('/index.html');
         })
     );
     return;
   }
 
-  // For static assets (JS, CSS, Images, Fonts) - Stale-while-revalidate / Cache-first
+  // Static assets: Cache-first with network background revalidation
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
-      const fetchPromise = fetch(request)
-        .then((networkResponse) => {
+      if (cachedResponse) {
+        // Fetch in background to update cache
+        fetch(request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            const copy = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, networkResponse));
           }
-          return networkResponse;
-        })
-        .catch(() => {
-          // offline, return cached or nothing
-        });
+        }).catch(() => {/* Offline, ignore */});
+        return cachedResponse;
+      }
 
-      return cachedResponse || fetchPromise;
+      return fetch(request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
+        }
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(request, responseToCache);
+        });
+        return networkResponse;
+      }).catch(async () => {
+        // Fallback for offline images or assets
+        return caches.match(request);
+      });
     })
   );
 });

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import PWAInstallBanner from "../components/PWAInstallBanner";
 
 interface CustomerStorefrontProps {
   lang: "en" | "bn";
@@ -459,71 +460,37 @@ export default function CustomerStorefront({
   }, [pwaPrompt, isBn]);
 
   const triggerPWAInstall = async () => {
-    // 1. First check if prompt is already available
-    let promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
-
-    // 2. If prompt is not ready immediately, wait up to 1.5 seconds for it
-    if (!promptEvent && typeof window !== "undefined") {
-      toast({
-        type: "info",
-        title: isBn ? "অ্যাপ ইনস্টল প্রস্তুত হচ্ছে..." : "Preparing app install...",
-      });
-
-      promptEvent = await new Promise((resolve) => {
-        let attempts = 0;
-        const interval = setInterval(() => {
-          attempts++;
-          const p = (window as any).deferredPwaPrompt;
-          if (p) {
-            clearInterval(interval);
-            resolve(p);
-          } else if (attempts >= 8) {
-            clearInterval(interval);
-            resolve(null);
-          }
-        }, 200);
-      });
+    // Detect iOS
+    const isIOS = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (isIOS) {
+      setIsPwaModalOpen(true);
+      return;
     }
 
-    // 3. If promptEvent is available, call it immediately!
+    const promptEvent = pwaPrompt || (typeof window !== "undefined" ? (window as any).deferredPwaPrompt : null);
     if (promptEvent) {
       try {
         await promptEvent.prompt();
         const choice = await promptEvent.userChoice;
         if (choice && choice.outcome === "accepted") {
-          toast({
-            type: "success",
-            title: isBn ? "🎉 স্টোর অ্যাপ সফলভাবে ডাউনলোড ও ইনস্টল হয়েছে!" : "App Downloaded & Installed!",
-          });
           setPwaPrompt(null);
           if (typeof window !== "undefined") (window as any).deferredPwaPrompt = null;
           setCanInstallPWA(false);
           setIsPwaModalOpen(false);
-          return;
         }
       } catch (e) {
         console.warn("PWA prompt error:", e);
       }
-    }
-
-    // 4. If on Android: check if we are in an in-app browser vs real Chrome
-    const isCustomTabOrWebview = typeof navigator !== "undefined" && 
-      (/wv|Version\/4\.0|FB_IAB|FBAV|Instagram|Telegram/i.test(navigator.userAgent) || !window.chrome);
-
-    if (isCustomTabOrWebview) {
-      // In-app webview: launch real Chrome app
-      openInRealChrome();
       return;
     }
 
-    // 5. If in real Chrome and prompt was not fired yet, guide to 3-dot menu directly
-    toast({
-      type: "info",
-      title: isBn ? "উপরে ডানে ৩-ডট (⋮) চাপুন" : "Tap the (⋮) menu",
-      message: isBn 
-        ? "ব্রাউজারের ৩-ডট (⋮) মেন্যু থেকে 'Install app' বা 'Add to Home screen' চাপুন, সাথে সাথে অ্যাপ ডাউনলোড হবে।"
-        : "Tap (⋮) in Chrome menu and tap 'Install app' to download.",
-    });
+    // If Custom Tab or Webview where prompt cannot show:
+    const isCustomTabOrWebview = typeof navigator !== "undefined" && 
+      (/wv|Version\/4\.0|FB_IAB|FBAV|Instagram|Telegram/i.test(navigator.userAgent) || !window.chrome);
+    if (isCustomTabOrWebview) {
+      openInRealChrome();
+      return;
+    }
   };
 
   return (
@@ -2415,6 +2382,9 @@ export default function CustomerStorefront({
           </div>
         </div>
       )}
+
+      {/* BikePos style Automatic PWA Install Banner */}
+      <PWAInstallBanner shopName={settings.shopName} isBn={isBn} />
     </div>
   );
 }
