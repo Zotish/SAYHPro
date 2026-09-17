@@ -180,31 +180,36 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           </button>
         ) : <div />}
 
-        <div className="ml-auto flex items-center gap-2 flex-wrap">
+        <div className="ml-auto flex items-center gap-2 shrink-0">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
+            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shrink-0"
           >
             <Download size={15} />
             <span>{isBn ? "এক্সপোর্ট" : "Export CSV"}</span>
           </button>
-          <button
-            onClick={() => setShowAIScanner(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-em-700 via-em-600 to-emerald-600 hover:from-em-800 hover:to-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
-          >
-            <Sparkles size={15} className="text-amber-300" />
-            <span>{isBn ? "এআই ক্যামেরা স্ক্যান" : "AI Camera Scan"}</span>
-          </button>
-          <button
-            onClick={() => {
-              resetForm();
-              setShowAddModal(true);
-            }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
-          >
-            <Plus size={16} />
-            <span>{isBn ? "নতুন পণ্য যোগ করুন" : "Add Product"}</span>
-          </button>
+
+          {/* Unified Add Product Button with Integrated AI Camera Scan */}
+          <div className="inline-flex items-stretch rounded-xl bg-em-700 hover:bg-em-800 text-white shadow-md transition-fast overflow-hidden shrink-0">
+            <button
+              onClick={() => {
+                resetForm();
+                setShowAddModal(true);
+              }}
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold hover:bg-em-800 transition-fast cursor-pointer whitespace-nowrap"
+            >
+              <Plus size={16} />
+              <span>{isBn ? "নতুন পণ্য যোগ করুন" : "Add Product"}</span>
+            </button>
+            <button
+              onClick={() => setShowAIScanner(true)}
+              className="px-2.5 py-2 bg-em-800/90 hover:bg-em-900 border-l border-white/20 transition-fast cursor-pointer flex items-center gap-1 text-amber-300"
+              title={isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "AI Camera Scan"}
+            >
+              <Sparkles size={15} className="animate-pulse" />
+              <span className="text-xs font-bold hidden sm:inline">{isBn ? "স্ক্যান" : "Scan"}</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -404,23 +409,24 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                   setShowAddModal(false);
                   setShowAIScanner(true);
                 }}
-                className="p-3 rounded-2xl bg-gradient-to-r from-em-50 via-emerald-50/50 to-white border border-em-200 flex items-center justify-between cursor-pointer hover:border-em-500 transition-colors group"
+                className="p-3.5 rounded-2xl bg-gradient-to-r from-em-50 via-emerald-50/70 to-amber-50/40 border border-em-200 hover:border-em-500 hover:shadow-xs transition-all flex items-center justify-between cursor-pointer group"
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-em-600 text-white flex items-center justify-center shadow-xs flex-shrink-0">
-                    <Sparkles size={16} />
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-em-600 to-emerald-700 text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                    <Sparkles size={17} className="text-amber-300 animate-pulse" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-ink group-hover:text-em-700">
-                      {isBn ? "ক্যামেরা দিয়ে প্যাকেট স্ক্যান করে অটো-ফিল করুন" : "Scan packet with camera to auto-fill form"}
+                    <div className="text-xs font-bold text-ink group-hover:text-em-800 flex items-center gap-1.5">
+                      <span>{isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan Product with AI Camera"}</span>
+                      <span className="text-[10px] bg-em-100 text-em-800 font-extrabold px-1.5 py-0.5 rounded-full">AI Smart</span>
                     </div>
-                    <div className="text-[10px] text-ink/60">
-                      {isBn ? "নাম, ওজন, মার্কেট প্রাইস ও ছবি স্বয়ংক্রিয়ভাবে শনাক্ত হবে" : "Auto-detects name, weight, market price & photo"}
+                    <div className="text-[11px] text-ink/65 mt-0.5">
+                      {isBn ? "নাম, ওজন, ক্যাটাগরি ও মার্কেট প্রাইস স্বয়ংক্রিয়ভাবে ফিল হবে" : "Auto-detects name, weight, category & market price"}
                     </div>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-em-700 flex items-center gap-0.5 flex-shrink-0">
-                  {isBn ? "স্ক্যান করুন" : "Scan"} <ChevronRight size={14} />
+                <span className="text-xs font-extrabold text-em-700 flex items-center gap-1 flex-shrink-0 bg-white px-2.5 py-1.5 rounded-xl border border-em-200 shadow-2xs group-hover:bg-em-600 group-hover:text-white transition-colors">
+                  {isBn ? "ক্যামেরা স্ক্যান" : "Scan Now"} <ChevronRight size={13} />
                 </span>
               </div>
             )}
