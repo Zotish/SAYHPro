@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAYHPro (হিসাব প্রো) — Project Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090e17;
+      --card-dark: #111a2e;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #10b981;
+      --primary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --accent-cyan: #06b6d4;
+      --accent-amber: #f59e0b;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Top Controls Bar */
+    .deck-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(9, 14, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      color: white;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* Slides Container */
+    .presentation-container {
+      position: relative;
+      height: calc(100vh - 56px - 60px);
+      margin-top: 56px;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 60px;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.96) translateY(20px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.4s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    .slide-inner {
+      max-width: 1180px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Typography & Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 24px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      width: fit-content;
+    }
+
+    .slide-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 820px;
+    }
+
+    /* Cards Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-highlight {
+      margin-top: auto;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Highlight Pill List */
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .mini-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-dark);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    .compare-table th, .compare-table td {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .compare-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .highlight-col {
+      background: rgba(16, 185, 129, 0.08);
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    /* Bottom Bar */
+    .deck-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(9, 14, 23, 0.95);
+      border-top: 1px solid var(--card-border);
+      z-index: 100;
+    }
+
+    .progress-bar-container {
+      position: fixed;
+      top: 55px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 101;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-gradient);
+      width: 9%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-counter {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .nav-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Speaker Notes Drawer */
+    .notes-drawer {
+      position: fixed;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      background: #0f172a;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      transition: max-height 0.3s ease;
+      z-index: 99;
+      padding: 0 32px;
+    }
+
+    .notes-drawer.open {
+      max-height: 140px;
+      padding: 16px 32px;
+    }
+
+    .notes-title {
+      font-size: 0.75rem;
+      color: #38bdf8;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .notes-content {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        overflow: visible;
+        background: #090e17 !important;
+        -webkit-print-color-adjust: exact;
+      }
+      .deck-header, .deck-footer, .progress-bar-container, .notes-drawer {
+        display: none !important;
+      }
+      .presentation-container {
+        height: auto;
+        margin-top: 0;
+      }
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        page-break-after: always;
+        height: 100vh;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .slide { padding: 20px; }
+      .slide-title { font-size: 2rem; }
+      .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="deck-header">
+    <div class="brand">
+      <div class="brand-logo">SP</div>
+      <span>SAYHPro <span style="font-weight:400; color:var(--text-muted); font-size:0.9rem;">| হিসাব প্রো</span></span>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-pill" id="langToggleBtn" onclick="toggleLanguage()">
+        <span>🌐</span> <span id="langLabel">বাংলা / EN</span>
+      </button>
+      <button class="btn-pill" onclick="toggleNotes()">
+        <span>📝</span> <span>Presenter Notes [N]</span>
+      </button>
+      <button class="btn-pill btn-primary" onclick="toggleFullscreen()">
+        <span>⛶</span> <span>Fullscreen [F]</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Slides Container -->
+  <main class="presentation-container">
+
+    <!-- SLIDE 1: Cover & Vision -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-inner" style="text-align: center; align-items: center; gap: 24px;">
+        <div class="badge">🚀 Retail SaaS Operating System</div>
+        <h1 class="slide-title" style="font-size: 3.5rem; max-width: 900px;">
+          SAYHPro (হিসাব প্রো)
+        </h1>
+        <p class="slide-subtitle" style="font-size: 1.35rem; max-width: 780px;">
+          The Next-Generation All-in-One Cloud SaaS Business Management & Retail OS for Emerging Markets.
+        </p>
+
+        <div style="display: flex; gap: 14px; margin-top: 10px;">
+          <div class="mini-pill" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
+            ✓ Smart Cloud POS & Billing
+          </div>
+          <div class="mini-pill" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(6, 182, 212, 0.4); color: #38bdf8;">
+            ✓ AI Camera Ingestion
+          </div>
+          <div class="mini-pill" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
+            ✓ 1-Click Online Storefront
+          </div>
+          <div class="mini-pill" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(139, 92, 246, 0.4); color: #c084fc;">
+            ✓ Fintech & Micro-Loans
+          </div>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted);">
+          Use <kbd style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:4px;">←</kbd> <kbd style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:4px;">→</kbd> or Spacebar to navigate
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: The Problem -->
+    <section class="slide" data-slide="2">
+      <div class="slide-inner">
+        <div class="badge" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #f87171;">
+          ⚠️ The Problem
+        </div>
+        <h2 class="slide-title">Traditional Retail Crises in Emerging Markets</h2>
+        <p class="slide-subtitle">Small shop owners lose time, profit, and growth potential every day due to disconnected, manual workflows.</p>
+
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(239, 68, 68, 0.1); color: #f87171;">📒</div>
+            <h3 class="card-title">Trap of Uncollected Dues (বাকি)</h3>
+            <p class="card-desc">Over 30% of operating capital remains stuck in paper khata without polite SMS reminders or digital tracking.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); color: #fbbf24;">📦</div>
+            <h3 class="card-title">Inventory Blindspots</h3>
+            <p class="card-desc">No real-time stock alerts lead to running out of bestsellers and wasting money on slow-moving expiry products.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(59, 130, 246, 0.1); color: #60a5fa;">🚪</div>
+            <h3 class="card-title">Trapped Within 4 Walls</h3>
+            <p class="card-desc">Unable to sell online because setting up an eCommerce website or custom mobile app is too expensive and complex.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(139, 92, 246, 0.1); color: #a78bfa;">🏦</div>
+            <h3 class="card-title">Denied Formal Bank Credit</h3>
+            <p class="card-desc">Banks reject small merchant loans due to lack of verifiable digital cashflow records and balance sheets.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(236, 72, 153, 0.1); color: #f472b6;">⏳</div>
+            <h3 class="card-title">Slow Manual Billing</h3>
+            <p class="card-desc">Writing paper slips causes long customer queues during peak hours and frequent calculation errors.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #34d399;">🧩</div>
+            <h3 class="card-title">Fragmented Apps</h3>
+            <p class="card-desc">Using separate apps for billing, accounting, delivery, and marketing causes chaos and data silos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: The Solution -->
+    <section class="slide" data-slide="3">
+      <div class="slide-inner">
+        <div class="badge">💡 The Solution</div>
+        <h2 class="slide-title">SAYHPro: The Complete Retail Operating System</h2>
+        <p class="slide-subtitle">An all-in-one cloud platform that eliminates paperwork, automates daily operations, and connects shops to the digital economy.</p>
+
+        <div class="grid-2" style="margin-top: 10px;">
+          <div class="feature-card" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div class="card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">⚡</div>
+            <h3 class="card-title">Unified In-Store & Online Commerce</h3>
+            <p class="card-desc">Sell in-store using ultra-fast Cloud POS and barcode scanning, while your instant online storefront takes customer orders 24/7 with synchronized inventory.</p>
+            <div class="pill-list">
+              <span class="mini-pill">Cloud POS</span>
+              <span class="mini-pill">Instant Website</span>
+              <span class="mini-pill">Sync Inventory</span>
+            </div>
+          </div>
+
+          <div class="feature-card" style="border-color: rgba(6, 182, 212, 0.3);">
+            <div class="card-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">✨</div>
+            <h3 class="card-title">AI-Powered Zero-Effort Ingestion</h3>
+            <p class="card-desc">No tedious manual typing. Shopkeepers scan product packets with their smartphone camera to auto-fill product name, weight, category, price, and photo.</p>
+            <div class="pill-list">
+              <span class="mini-pill">AI Packet Scan</span>
+              <span class="mini-pill">Auto OCR</span>
+              <span class="mini-pill">Smart Pricing</span>
+            </div>
+          </div>
+
+          <div class="feature-card" style="border-color: rgba(245, 158, 11, 0.3);">
+            <div class="card-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">📒</div>
+            <h3 class="card-title">Digital বাকির খাতা & Automated Reminders</h3>
+            <p class="card-desc">Track every customer's credit balance. Send 1-click polite SMS reminders with payment details, recovering up to 90% of overdue amounts.</p>
+            <div class="pill-list">
+              <span class="mini-pill">1-Click SMS Alerts</span>
+              <span class="mini-pill">Customer Ledger</span>
+              <span class="mini-pill">bKash/Nagad Link</span>
+            </div>
+          </div>
+
+          <div class="feature-card" style="border-color: rgba(139, 92, 246, 0.3);">
+            <div class="card-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">🚚</div>
+            <h3 class="card-title">Embedded Logistics & Fintech</h3>
+            <p class="card-desc">Book couriers (Pathao, Steadfast, RedX) in 1 click with automated COD reconciliation. Build a digital credit score to unlock fast bank micro-loans.</p>
+            <div class="pill-list">
+              <span class="mini-pill">Courier Aggregator</span>
+              <span class="mini-pill">COD Tracking</span>
+              <span class="mini-pill">Loan Eligibility</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Core Pillars -->
+    <section class="slide" data-slide="4">
+      <div class="slide-inner">
+        <div class="badge">🎯 Core Architecture</div>
+        <h2 class="slide-title">The 4 Functional Pillars of SAYHPro</h2>
+        <p class="slide-subtitle">Engineered specifically for micro and small retailers, eliminating software complexity.</p>
+
+        <div class="grid-4">
+          <div class="feature-card">
+            <div class="card-icon" style="color:#10b981;">🛒</div>
+            <h3 class="card-title">1. Smart POS</h3>
+            <p class="card-desc">Fast checkout under 5 seconds. Supports Barcode/QR, multi-payment (Cash, bKash, Card, Due), and bilingual thermal receipts.</p>
+            <span class="card-highlight">⚡ Ultra-Low Latency</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#06b6d4;">📷</div>
+            <h3 class="card-title">2. AI Scanner</h3>
+            <p class="card-desc">Point phone camera at any FMCG packet. Computer vision extracts brand, weight, MRP, and creates the inventory item instantly.</p>
+            <span class="card-highlight">✨ 10x Faster Ingestion</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#f59e0b;">📒</div>
+            <h3 class="card-title">3. Due Ledger</h3>
+            <p class="card-desc">Complete customer credit profiles, transaction histories, credit limit enforcement, and automated SMS collection notices.</p>
+            <span class="card-highlight">💰 90% Dues Recovered</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#ec4899;">🌐</div>
+            <h3 class="card-title">4. Online Store</h3>
+            <p class="card-desc">Instant online storefront for customers. Zero-login order placement, direct WhatsApp sharing, and mobile-first experience.</p>
+            <span class="card-highlight">🚀 Launch in 60s</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Ecosystem Expansion -->
+    <section class="slide" data-slide="5">
+      <div class="slide-inner">
+        <div class="badge">🌐 Advanced Ecosystem</div>
+        <h2 class="slide-title">Beyond POS: Building the Merchant Super-App</h2>
+        <p class="slide-subtitle">Connecting retail shops to supply chains, logistics providers, and financial institutions.</p>
+
+        <div class="grid-2">
+          <div class="feature-card">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="card-icon" style="color:#38bdf8;">🚚</div>
+              <div>
+                <h3 class="card-title">Courier & Logistics Aggregator</h3>
+                <p class="card-desc">Single API for Pathao, Steadfast, and RedX with live parcel tracking.</p>
+              </div>
+            </div>
+            <ul style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>One-click consignment creation directly from customer orders</li>
+              <li>Automated Cash-on-Delivery (COD) reconciliation to cash balance</li>
+              <li>SMS tracking links automatically sent to end-customers</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="card-icon" style="color:#a855f7;">🏦</div>
+              <div>
+                <h3 class="card-title">Embedded Fintech & Micro-Loans</h3>
+                <p class="card-desc">Cashflow-based underwriting unlocking formal institutional finance.</p>
+              </div>
+            </div>
+            <ul style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>Real-time merchant credit scoring based on daily sales velocity</li>
+              <li>Pre-approved micro-loans from partner banks without collateral</li>
+              <li>Integrated bank account reconciliation & expense tracking</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="card-icon" style="color:#f59e0b;">🤝</div>
+              <div>
+                <h3 class="card-title">B2B Reselling & Wholesale Network</h3>
+                <p class="card-desc">Empowering retailers to source inventory at bulk prices.</p>
+              </div>
+            </div>
+            <ul style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>Direct ordering from verified FMCG manufacturers and wholesalers</li>
+              <li>Commission-based reselling: sell catalog items without holding stock</li>
+              <li>Automated stock replenishment suggestions (Buy Advisory)</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="card-icon" style="color:#10b981;">📢</div>
+              <div>
+                <h3 class="card-title">Omnichannel Marketing & Loyalty</h3>
+                <p class="card-desc">Turn one-time shoppers into lifelong loyal customers.</p>
+              </div>
+            </div>
+            <ul style="margin-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>Targeted SMS campaigns for Eid, Puja, and seasonal festivals</li>
+              <li>Customer reward points and loyalty discounts at checkout</li>
+              <li>Automated WhatsApp notification for receipt and order updates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Tech Stack -->
+    <section class="slide" data-slide="6">
+      <div class="slide-inner">
+        <div class="badge">⚙️ Tech Architecture</div>
+        <h2 class="slide-title">Modern, Scalable & Offline-Ready Stack</h2>
+        <p class="slide-subtitle">Engineered with modern web technologies for sub-second response times and high reliability.</p>
+
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="card-icon" style="color:#38bdf8;">⚛️</div>
+            <h3 class="card-title">React 19 + TypeScript</h3>
+            <p class="card-desc">Strict type safety, concurrent rendering, and reactive state management for zero UI stutter during high-speed billing.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#a855f7;">⚡</div>
+            <h3 class="card-title">Vite 8 + Tailwind CSS v4</h3>
+            <p class="card-desc">Instant HMR, tree-shaken CSS bundle under 90KB, and blazing fast mobile rendering on budget smartphones.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#10b981;">📱</div>
+            <h3 class="card-title">PWA & Offline Capability</h3>
+            <p class="card-desc">Service Worker caching allows the POS to continue sales and receipt printing even during internet disruptions.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#f59e0b;">📊</div>
+            <h3 class="card-title">Interactive BI with Recharts</h3>
+            <p class="card-desc">Real-time financial charts, profit & loss analysis, sales velocity, and inventory turnover visualization.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#06b6d4;">👁️</div>
+            <h3 class="card-title">Multimodal AI Vision</h3>
+            <p class="card-desc">Camera-based packet OCR and image processing for instant item recognition and metadata extraction.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#ec4899;">🔒</div>
+            <h3 class="card-title">Enterprise Security</h3>
+            <p class="card-desc">Role-based access control (Admin vs Staff), audit logs, secure session tokens, and encrypted local storage.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Localization & UX -->
+    <section class="slide" data-slide="7">
+      <div class="slide-inner">
+        <div class="badge">🇧🇩 Built for Emerging Markets</div>
+        <h2 class="slide-title">Designed for Real-World Local Shopkeepers</h2>
+        <p class="slide-subtitle">Technology is useless if the shopkeeper cannot understand it. SAYHPro is designed with zero learning barrier.</p>
+
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="card-icon" style="color:#10b981;">🗣️</div>
+            <h3 class="card-title">Fluid Native বাংলা Support</h3>
+            <p class="card-desc">Every button, report, invoice, and SMS is natively crafted in clear Bengali and English with 1-click language toggling.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#38bdf8;">৳</div>
+            <h3 class="card-title">Automatic Taka Digit Formatting</h3>
+            <p class="card-desc">Seamless display of Bengali digits (০-৯) and Taka symbol (৳) across receipts, POS totals, and financial summaries.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#f59e0b;">📱</div>
+            <h3 class="card-title">100% Smartphone Friendly</h3>
+            <p class="card-desc">Full touch optimization, thumb-zone bottom navigation, and compact UI designed for 5-inch to 6.5-inch Android phones.</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: #fff;">Hardware Independence</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Works on existing Android phones, tablets, laptops, and POS thermal printer hardware without expensive proprietary terminals.</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span class="mini-pill" style="color:#34d399;">Bluetooth Printer</span>
+            <span class="mini-pill" style="color:#38bdf8;">USB Barcode</span>
+            <span class="mini-pill" style="color:#fbbf24;">Touch POS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Business Model -->
+    <section class="slide" data-slide="8">
+      <div class="slide-inner">
+        <div class="badge">💼 Business Model</div>
+        <h2 class="slide-title">Multi-Layered Monetization Strategy</h2>
+        <p class="slide-subtitle">Diverse revenue streams creating strong unit economics and high customer lifetime value (LTV).</p>
+
+        <div class="grid-4">
+          <div class="feature-card">
+            <div class="card-icon" style="color:#10b981;">💳</div>
+            <h3 class="card-title">1. SaaS Subscriptions</h3>
+            <p class="card-desc">Freemium model. Pro tier at ৳499/mo with unlimited products, staff accounts, SMS packages, and advanced analytics.</p>
+            <span class="card-highlight">Recurring MRR</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#38bdf8;">🚚</div>
+            <h3 class="card-title">2. Courier Margin</h3>
+            <p class="card-desc">Small fee per parcel booked through integrated courier aggregators (Pathao, Steadfast, RedX).</p>
+            <span class="card-highlight">Per-Delivery Fee</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#f59e0b;">🏦</div>
+            <h3 class="card-title">3. Loan Origination</h3>
+            <p class="card-desc">1% to 2% referral commission on bank micro-loans sanctioned using SAYHPro's proprietary credit scoring.</p>
+            <span class="card-highlight">High Value Fintech</span>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon" style="color:#ec4899;">📦</div>
+            <h3 class="card-title">4. B2B Wholesale Cut</h3>
+            <p class="card-desc">Marketplace commission on bulk stock reorders placed directly from certified distributors.</p>
+            <span class="card-highlight">GMV Percentage</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Competitive Advantages -->
+    <section class="slide" data-slide="9">
+      <div class="slide-inner">
+        <div class="badge">🏆 Competitive Landscape</div>
+        <h2 class="slide-title">Why SAYHPro Wins Against Competitors</h2>
+        <p class="slide-subtitle">A clear leap beyond traditional desktop software and single-feature mobile apps.</p>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Legacy Desktop POS</th>
+              <th>Generic Accounting Apps</th>
+              <th class="highlight-col">SAYHPro (হিসাব প্রো)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI Camera Product Ingestion</td>
+              <td>❌ No</td>
+              <td>❌ No</td>
+              <td class="highlight-col">✅ 1-Tap Camera Scan</td>
+            </tr>
+            <tr>
+              <td>Instant Customer Storefront</td>
+              <td>❌ No</td>
+              <td>❌ No</td>
+              <td class="highlight-col">✅ Built-in 1-Click Launch</td>
+            </tr>
+            <tr>
+              <td>Automated SMS Due Alerts</td>
+              <td>❌ No</td>
+              <td>⚠️ Partial</td>
+              <td class="highlight-col">✅ Automated with bKash Link</td>
+            </tr>
+            <tr>
+              <td>Courier Aggregator (Pathao/Steadfast)</td>
+              <td>❌ No</td>
+              <td>❌ No</td>
+              <td class="highlight-col">✅ Integrated Hub</td>
+            </tr>
+            <tr>
+              <td>Device Freedom</td>
+              <td>❌ Expensive PC Required</td>
+              <td>⚠️ Mobile Only</td>
+              <td class="highlight-col">✅ Phone, Tablet & PC</td>
+            </tr>
+            <tr>
+              <td>Bilingual (বাংলা & English)</td>
+              <td>⚠️ Broken Fonts</td>
+              <td>⚠️ Partial</td>
+              <td class="highlight-col">✅ Native & Fluid</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Future Roadmap -->
+    <section class="slide" data-slide="10">
+      <div class="slide-inner">
+        <div class="badge">🗺️ Future Roadmap</div>
+        <h2 class="slide-title">Vision 2026+: The Future of Connected Retail</h2>
+        <p class="slide-subtitle">Continuously innovating to empower shopkeepers with cutting-edge AI and fintech.</p>
+
+        <div class="grid-4">
+          <div class="feature-card">
+            <span style="font-size:0.75rem; font-weight:800; color:#10b981;">Q1 2026</span>
+            <h3 class="card-title">Voice-Assisted POS</h3>
+            <p class="card-desc">"কথা বলে বিক্রি" — Speak into the phone in Bengali ("১ কেজি চিনি, ২ প্যাকেট চা") to auto-create the invoice.</p>
+          </div>
+
+          <div class="feature-card">
+            <span style="font-size:0.75rem; font-weight:800; color:#06b6d4;">Q2 2026</span>
+            <h3 class="card-title">Bangla QR Integration</h3>
+            <p class="card-desc">Direct Bangladesh Bank Interoperable QR integration accepting payments from all mobile banks & cards.</p>
+          </div>
+
+          <div class="feature-card">
+            <span style="font-size:0.75rem; font-weight:800; color:#f59e0b;">Q3 2026</span>
+            <h3 class="card-title">Predictive AI Reordering</h3>
+            <p class="card-desc">Predictive stock exhaustion algorithms that automatically prepare supplier draft purchase orders.</p>
+          </div>
+
+          <div class="feature-card">
+            <span style="font-size:0.75rem; font-weight:800; color:#8b5cf6;">Q4 2026</span>
+            <h3 class="card-title">Regional Expansion</h3>
+            <p class="card-desc">Extending the SAYHPro retail operating platform to neighbouring South Asian emerging markets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Conclusion & CTA -->
+    <section class="slide" data-slide="11">
+      <div class="slide-inner" style="text-align: center; align-items: center; gap: 28px;">
+        <div class="badge" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #34d399;">
+          🎯 Ready for Scale
+        </div>
+        <h2 class="slide-title" style="font-size: 3.2rem; max-width: 850px;">
+          Empowering Millions of Retailers to Grow Digitally
+        </h2>
+        <p class="slide-subtitle" style="font-size: 1.3rem; max-width: 750px;">
+          "দোকান এখন স্মার্ট, ব্যবসা এখন ডিজিটালি এগিয়ে!"
+        </p>
+
+        <div style="display: flex; gap: 16px; margin-top: 10px;">
+          <a href="/?screen=dashboard" target="_blank" class="btn-pill btn-primary" style="padding: 12px 28px; font-size: 1rem; border-radius: 12px; text-decoration: none;">
+            🚀 Open Live Platform
+          </a>
+          <a href="/?screen=storefront" target="_blank" class="btn-pill" style="padding: 12px 28px; font-size: 1rem; border-radius: 12px; text-decoration: none;">
+            🌐 View Customer Storefront
+          </a>
+        </div>
+
+        <div style="margin-top: 30px; padding: 18px 32px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 16px; display: inline-flex; gap: 32px; text-align: left;">
+          <div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">Platform Status</div>
+            <div style="font-size:1rem; font-weight:700; color:#34d399; margin-top:2px;">● Production Ready</div>
+          </div>
+          <div style="border-left: 1px solid var(--card-border); padding-left: 32px;">
+            <div style="font-size:0.8rem; color:var(--text-muted);">Architecture</div>
+            <div style="font-size:1rem; font-weight:700; color:#fff; margin-top:2px;">React 19 + Vite 8 + PWA</div>
+          </div>
+          <div style="border-left: 1px solid var(--card-border); padding-left: 32px;">
+            <div style="font-size:0.8rem; color:var(--text-muted);">Deployment</div>
+            <div style="font-size:1rem; font-weight:700; color:#38bdf8; margin-top:2px;">Cloud Vercel Ready</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Presenter Notes Drawer -->
+  <div class="notes-drawer" id="notesDrawer">
+    <div class="notes-title">Presenter Notes (Slide <span id="notesSlideNum">1</span>)</div>
+    <div class="notes-content" id="notesContent">
+      Welcome everyone. Today we are presenting SAYHPro (হিসাব প্রো) — a revolutionary all-in-one retail operating system designed for micro and small merchants.
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Footer -->
+  <footer class="deck-footer">
+    <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-muted);">
+      <span>Slide</span>
+      <span class="slide-counter" id="slideCounter">1 / 11</span>
+    </div>
+
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Previous Slide (Left Arrow)">◀</button>
+      <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Next Slide (Right Arrow or Space)">▶</button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 11;
+    let isBengali = true;
+
+    const speakerNotes = {
+      1: "Welcome everyone. Today we present SAYHPro (হিসাব প্রো) — an all-in-one cloud retail operating system tailored specifically for small and medium retail merchants in emerging markets.",
+      2: "Traditional retailers face five major bottlenecks: unpaid customer credit (বাকির টাকা), zero real-time inventory visibility, inability to sell online, lack of formal credit from banks, and slow manual billing.",
+      3: "SAYHPro solves all these with one unified platform: combining super-fast Cloud POS, AI Camera Product Ingestion, Automated SMS Due Reminders, and a 1-Click Instant Online Storefront.",
+      4: "These are the 4 main operational pillars: POS checkout takes under 5 seconds, AI Camera Ingestion eliminates manual typing, Digital Due Ledger recovers up to 90% of credit, and Storefront lets customers order 24/7.",
+      5: "Beyond basic POS, we build the entire merchant super-app: integrating delivery couriers (Pathao, Steadfast, RedX), embedded fintech micro-loans, B2B wholesale reordering, and omnichannel marketing.",
+      6: "Under the hood, SAYHPro is powered by React 19, TypeScript, Vite 8, and Tailwind CSS v4. It features offline PWA capability so shops can continue selling during internet outages.",
+      7: "Localization is at the core: fluid Bangla and English support, automatic Taka formatting (৳), thumb-friendly mobile layouts, and compatibility with standard Bluetooth thermal printers.",
+      8: "Our monetization model is diversified: recurring SaaS subscriptions (৳499/mo), courier delivery margins, bank loan origination fees, and wholesale B2B marketplace commissions.",
+      9: "Compared to legacy desktop POS and mobile-only accounting apps, SAYHPro provides an unmatched all-in-one platform with AI vision, instant web storefront, and logistics aggregation.",
+      10: "Our 2026 roadmap includes voice-assisted POS (কথা বলে বিক্রি), Bangladesh Bank Bangla QR integration, predictive AI stock reordering, and regional expansion.",
+      11: "Thank you! You can now explore the live platform or test the customer storefront. We are ready to take any questions."
+    };
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlide) activeSlide.classList.add('active');
+
+      // Update counter and progress bar
+      document.getElementById('slideCounter').innerText = `${currentSlide} / ${totalSlides}`;
+      document.getElementById('progressFill').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+      // Update buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+      // Update speaker notes
+      document.getElementById('notesSlideNum').innerText = currentSlide;
+      document.getElementById('notesContent').innerText = speakerNotes[currentSlide] || "No notes for this slide.";
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function toggleNotes() {
+      const drawer = document.getElementById('notesDrawer');
+      drawer.classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleLanguage() {
+      isBengali = !isBengali;
+      document.getElementById('langLabel').innerText = isBengali ? "বাংলা" : "English";
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      } else if (e.key === 'Home') {
+        currentSlide = 1;
+        updateSlide();
+      } else if (e.key === 'End') {
+        currentSlide = totalSlides;
+        updateSlide();
+      }
+    });
+
+    // Touch Swipe Navigation for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    }, false);
+
+    // Initial setup
+    updateSlide();
+  </script>
+</body>
+</html>
