@@ -275,11 +275,6 @@ export default function POS({ lang, setScreen }: POSProps) {
                     <h4 className="font-bold text-xs sm:text-[13px] text-ink line-clamp-1 leading-snug">
                       {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                     </h4>
-
-                    {/* Weight / Unit Subtitle */}
-                    <p className="text-[11px] text-nv-500 font-medium mt-0.5">
-                      {p.unit || p.brand || p.category}
-                    </p>
                   </div>
 
                   {/* Price & Stock Section */}

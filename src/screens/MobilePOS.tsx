@@ -230,10 +230,6 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                       <div className="text-xs font-bold text-ink line-clamp-1 leading-snug">
                         {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                       </div>
-
-                      <p className="text-[10px] text-nv-500 font-medium mt-0.5">
-                        {p.unit || p.brand || p.category}
-                      </p>
                     </div>
 
                     <div className="w-full flex items-center justify-between mt-2.5 pt-2 border-t border-nv-100">
