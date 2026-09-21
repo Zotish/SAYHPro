@@ -56,8 +56,8 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
   const handleOpenSMS = (c: Customer) => {
     setSelectedCustomer(c);
     const template = isBn
-      ? `প্রিয় ${c.name}, রহিম স্টোরে আপনার বকেয়া ৳${tNum(c.due)} দ্রুত পরিশোধ করার জন্য বিনীত অনুরোধ করা হচ্ছে। ধন্যবাদ!`
-      : `Dear ${c.name}, your outstanding due at Rahim Store is ৳${tNum(c.due)}. Please settle it at your earliest convenience. Thank you!`;
+      ? `Dear ${c.name}, nkaebɔ a ɛfa wo bosea a ɛda hɔ wɔ ${settings.shopName} ho. Ɛyɛ GH₵${c.due}. Yɛsrɛ wo tua wɔ MTN MoMo so kɔ ${settings.phone}. Medaase!`
+      : `Dear ${c.name}, friendly reminder that your outstanding balance at ${settings.shopName} is GH₵${c.due}. Kindly settle via MTN MoMo to ${settings.phone}. Thank you!`;
     setSmsMessage(template);
     setShowSMSModal(true);
   };
@@ -177,7 +177,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                       </div>
                       <div>
                         <div className="font-bold text-ink">{isBn ? c.nameBn : c.name}</div>
-                        <div className="text-[10px] text-ink">{c.address || "Dhaka"}</div>
+                        <div className="text-[10px] text-ink">{c.address || "Accra"}</div>
                       </div>
                     </div>
                   </td>
@@ -185,7 +185,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(c.totalPurchases)}</td>
                   <td className="px-4 py-3">
                     <span className={`num font-bold text-sm ${c.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {c.due > 0 ? formatTaka(c.due) : "৳০"}
+                      {c.due > 0 ? formatTaka(c.due) : "GH₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3">
@@ -256,7 +256,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "জমার পরিমাণ (৳)" : "Collected Amount (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika a Wɔatua (GH₵)" : "Collected Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -351,13 +351,13 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   type="text"
                   value={dueCustomerAddress}
                   onChange={e => setDueCustomerAddress(e.target.value)}
-                  placeholder={isBn ? "যেমন: হাউজ ১২, রোড ৫, ধানমন্ডি" : "e.g. House 12, Road 5, Dhanmondi"}
+                  placeholder={isBn ? "e.g. Oxford Street, Osu, Accra" : "e.g. Oxford Street, Osu, Accra"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "মোট ক্রয় (৳)" : "Total Purchases (৳)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma Nyinaa (GH₵)" : "Total Purchases (GH₵)"}</label>
                 <input
                   type="number"
                   value={dueTotalPurchases}
@@ -368,7 +368,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "বকেয়া বাকি (৳)" : "Current Due (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Aka / Bosea (GH₵)" : "Current Due (GH₵)"} *</label>
                 <input
                   type="number"
                   required

@@ -74,7 +74,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
     toast({
       type: "success",
       title: isBn ? "ইনকাম এন্ট্রি সংরক্ষিত হয়েছে!" : "Income Entry Recorded!",
-      message: `${payerName}: ৳${Number(incomeAmount).toLocaleString()}`,
+      message: `${payerName}: GH₵ ${Number(incomeAmount).toLocaleString()}`,
     });
   };
 
@@ -402,13 +402,13 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   type="text"
                   value={incomeSource}
                   onChange={e => setIncomeSource(e.target.value)}
-                  placeholder={isBn ? "যেমন: করিম আহমেদ / শোরুম ক্যাশ..." : "e.g. Karim Ahmed / Showroom Cash"}
+                  placeholder={isBn ? "e.g. Kwame Mensah / Showroom Cash" : "e.g. Kwame Mensah / Showroom Cash"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 text-ink focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "আয়ের পরিমাণ" : "Income Amount"} (৳) *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Income Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -601,7 +601,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "জমার পরিমাণ" : "Deposit Amount"} (৳) *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Regu Mu (GH₵)" : "Deposit Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -686,7 +686,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "ট্রান্সফার পরিমাণ" : "Transfer Amount"} (৳) *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Rekɔ (GH₵)" : "Transfer Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required

@@ -250,19 +250,19 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   required
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  placeholder="01712-000000"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
+                  placeholder="024 000 0000"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "মাসিক বেতন (৳)" : "Monthly Salary (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua / Bosome (GH₵)" : "Monthly Salary (GH₵)"} *</label>
                 <input
                   type="number"
                   required
                   value={salary}
                   onChange={e => setSalary(e.target.value)}
-                  placeholder="12000"
+                  placeholder="1200"
                   className="num w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink focus:border-em-500"
                 />
               </div>

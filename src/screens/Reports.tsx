@@ -71,23 +71,23 @@ const initialTaxRecords: TaxMonthRecord[] = [
     inputRebate: 7700,
     netPayable: 11550,
     status: "paid",
-    challanNo: "A-CHL-7719201",
+    challanNo: "GRA-CHL-7719201",
     paidDate: "Jul 12, 2026",
-    paymentMethod: "bKash NBR e-Payment",
+    paymentMethod: "MTN MoMo GRA e-Payment",
   },
   {
     id: "TAX-2026-06",
     month: "June",
-    monthBn: "জুন",
+    monthBn: "June",
     year: 2026,
     turnover: 350000,
     outputVat: 17500,
     inputRebate: 7000,
     netPayable: 10500,
     status: "paid",
-    challanNo: "A-CHL-6610382",
+    challanNo: "GRA-CHL-6610382",
     paidDate: "Jun 11, 2026",
-    paymentMethod: "Bangladesh Bank Core Gateway",
+    paymentMethod: "Bank of Ghana / Ecobank GRA Gateway",
   },
 ];
 
@@ -246,7 +246,7 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
               status: "paid",
               challanNo: generatedChallan,
               paidDate: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-              paymentMethod: taxPayChannel === "a-challan" ? "NBR Automated A-Challan" : "bKash NBR e-Payment",
+              paymentMethod: taxPayChannel === "a-challan" ? "GRA Ghana.gov Portal" : "MTN MoMo GRA e-Payment",
             }
           : t
       )
@@ -986,8 +986,8 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
-                    { id: "a-challan", label: "NBR A-Challan", sub: "Sonali / BB" },
-                    { id: "bkash", label: "bKash NBR", sub: "e-Tax Direct" },
+                    { id: "a-challan", label: "GRA Ghana.gov", sub: "GCB / BoG Portal" },
+                    { id: "bkash", label: "MTN MoMo GRA", sub: "e-Tax Direct" },
                   ].map(ch => (
                     <button
                       key={ch.id}
@@ -1009,17 +1009,17 @@ export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProp
               {/* Challan No / Trx ID */}
               <div>
                 <label className="block font-semibold text-ink mb-1">
-                  {isBn ? "চালান নম্বর বা ট্রানজ্যাকশন আইডি" : "A-Challan / Transaction Reference No."}
+                  {isBn ? "GRA Challan / MoMo Reference No." : "GRA Challan / MoMo Reference No."}
                 </label>
                 <input
                   type="text"
                   value={taxChallanInput}
                   onChange={e => setTaxChallanInput(e.target.value)}
-                  placeholder="e.g. A-CHL-9982710 or BKASH-TXN"
+                  placeholder="e.g. GRA-CHL-9982710 or MOMO-GRA"
                   className="w-full border border-nv-200 rounded-xl px-3.5 py-2 font-mono text-xs focus:border-em-500 bg-white"
                 />
                 <span className="text-[10px] text-ink/50 mt-1 block">
-                  {isBn ? "খালি রাখলে স্বয়ংক্রিয় ডিজিটাল চালান তৈরি হবে।" : "Leave blank to auto-generate a valid NBR A-Challan ID."}
+                  {isBn ? "Kora no afie sɛ wobɛnya GRA Tax Receipt ID automatic." : "Leave blank to auto-generate a valid GRA Tax Receipt ID."}
                 </span>
               </div>
 

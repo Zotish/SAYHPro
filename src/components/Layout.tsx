@@ -74,44 +74,44 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
   }, []);
 
   const navItems = [
-    { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "ড্যাশবোর্ড" },
-    { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "বিক্রি করুন", highlight: true },
-    { id: "messages", icon: MessageCircle, label: "Messaging & Chat", labelBn: "মেসেজিং ও চ্যাট", badge: 3, badgeColor: "bg-em-600" },
-    { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "মার্কেটিং ও এসএমএস" },
-    { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "কুরিয়ার পার্সেল" },
-    { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "ব্যাংকিং ও লোন" },
-    { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "রিসেলিং মার্কেট" },
-    { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "অনলাইন ওয়েবসাইট" },
-    { id: "alerts", icon: ShieldAlert, label: "Monitoring & Alerts", labelBn: "মনিটরিং ও অ্যালার্ট" },
-    { id: "products", icon: Package, label: "Products", labelBn: "পণ্য", badge: products.length },
-    { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "ইনভেন্টরি", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-ac-600" },
-    { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক", badge: customers.length },
-    { id: "dues", icon: CreditCard, label: "Customer Dues", labelBn: "বাকির হিসাব", badge: dueCustomersCount > 0 ? dueCustomersCount : undefined, badgeColor: "bg-red-600" },
-    { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচ" },
-    { id: "cash", icon: Wallet, label: "Cash & Accounts", labelBn: "ক্যাশ ও হিসাব" },
-    { id: "purchases", icon: Truck, label: "Purchases", labelBn: "ক্রয়" },
-    { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "সাপ্লায়ার" },
-    { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
-    { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত" },
-    { id: "analytics", icon: BarChart2, label: "Business Analytics", labelBn: "অ্যানালিটিক্স" },
-    { id: "reports", icon: BarChart2, label: "Reports & P&L", labelBn: "রিপোর্ট" },
-    { id: "notifications", icon: Bell, label: "Notifications", labelBn: "বিজ্ঞপ্তি", badge: unreadNotifs.length > 0 ? unreadNotifs.length : undefined, badgeColor: "bg-red-600" },
-    { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
+    { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", labelBn: "Dwumadibea" },
+    { id: "pos", icon: Scan, label: "POS / New Sale", labelBn: "Tua Ka / POS", highlight: true },
+    { id: "messages", icon: MessageCircle, label: "Messaging & Chat", labelBn: "Nkitahodie & Nkɔmbɔ", badge: 3, badgeColor: "bg-em-600" },
+    { id: "marketing", icon: MessageSquare, label: "Marketing (SMS & FB)", labelBn: "Dawubɔ (SMS & FB)" },
+    { id: "delivery", icon: Truck, label: "Delivery Aggregator", labelBn: "Kɔmafoɔ / Delivery" },
+    { id: "fintech", icon: Landmark, label: "Banking & Loans", labelBn: "Sikakorabea & Bosea" },
+    { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "Tɔ Na Tɔn / Reselling" },
+    { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "Intanɛte Dukan" },
+    { id: "alerts", icon: ShieldAlert, label: "Monitoring & Alerts", labelBn: "Ahwɛso & Kɔkɔbɔ" },
+    { id: "products", icon: Package, label: "Products", labelBn: "Nnoɔma (Products)", badge: products.length },
+    { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "Akorae (Stock)", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-ac-600" },
+    { id: "customers", icon: Users, label: "Customers", labelBn: "Atɔfoɔ (Customers)", badge: customers.length },
+    { id: "dues", icon: CreditCard, label: "Customer Dues", labelBn: "Aka / Bosea (Dues)", badge: dueCustomersCount > 0 ? dueCustomersCount : undefined, badgeColor: "bg-red-600" },
+    { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "Ka a Wɔabɔ (Expenses)" },
+    { id: "cash", icon: Wallet, label: "Cash & Accounts", labelBn: "Sika & Akawnt" },
+    { id: "purchases", icon: Truck, label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ" },
+    { id: "suppliers", icon: Users, label: "Suppliers", labelBn: "Agorɔfoɔ (Suppliers)" },
+    { id: "employees", icon: UserCheck, label: "Employees", labelBn: "Adwumayɛfoɔ (Staff)" },
+    { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "Afotu / Advisory" },
+    { id: "analytics", icon: BarChart2, label: "Business Analytics", labelBn: "Nhwehwɛmu (Analytics)" },
+    { id: "reports", icon: BarChart2, label: "Reports & P&L", labelBn: "Amanneɛbɔ (Reports)" },
+    { id: "notifications", icon: Bell, label: "Notifications", labelBn: "Nkaebɔ (Alerts)", badge: unreadNotifs.length > 0 ? unreadNotifs.length : undefined, badgeColor: "bg-red-600" },
+    { id: "settings", icon: Settings, label: "Settings", labelBn: "Nhyehyɛeɛ (Settings)" },
   ];
 
   // Kept in step with the mobile home screen's own nav so the bar does not
   // change shape when you leave the home screen.
   const mobileNavItems = [
-    { id: "dashboard", icon: Home, label: "Home", labelBn: "হোম" },
-    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "বেচা-বিক্রি" },
-    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "স্টক" },
-    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "দেনা-পে" },
+    { id: "dashboard", icon: Home, label: "Home", labelBn: "Ofie (Home)" },
+    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "Tɔn (Sell)" },
+    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "Akorae (Stock)" },
+    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "Aka (Dues)" },
   ];
 
   const branches = [
-    "Main Branch (Dhanmondi)",
-    "Mirpur Outlet",
-    "Uttara Branch",
+    "Accra Central (Osu)",
+    "Kumasi Adum Branch",
+    "Tema Community 1",
   ];
 
   return (
@@ -317,7 +317,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-nv-200 text-xs font-medium text-ink hover:bg-nv-50 hover:text-ink bg-white transition-colors"
           >
             <Globe size={14} className="text-ink" />
-            <span>{isBn ? "English" : "বাংলা"}</span>
+            <span>{isBn ? "English" : "Twi (Akan)"}</span>
           </button>
 
           {/* Messaging Shortcut */}

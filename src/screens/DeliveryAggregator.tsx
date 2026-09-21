@@ -35,7 +35,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
   const [codAmount, setCodAmount] = useState("");
   const [zone, setZone] = useState<"inside_dhaka" | "sub_dhaka" | "outside_dhaka">("inside_dhaka");
 
-  const deliveryFee = zone === "inside_dhaka" ? 60 : zone === "sub_dhaka" ? 100 : 130;
+  const deliveryFee = zone === "inside_dhaka" ? 20 : zone === "sub_dhaka" ? 30 : 45;
 
   const handleBookParcel = (e: React.FormEvent) => {
     e.preventDefault();
@@ -231,78 +231,78 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
                     onChange={e => setCourier(e.target.value as any)}
                     className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white font-semibold"
                   >
-                    <option value="steadfast">Steadfast Courier (Fastest COD)</option>
-                    <option value="pathao">Pathao Courier</option>
-                    <option value="redx">RedX Delivery</option>
-                    <option value="ecourier">eCourier BD</option>
+                    <option value="steadfast">Yango Delivery (Express COD)</option>
+                    <option value="pathao">Bolt Courier Ghana</option>
+                    <option value="redx">Glovo Business Logistics</option>
+                    <option value="ecourier">Swift Ghana Delivery</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "ডেলিভারি জোন" : "Delivery Zone"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Kɔmafoɔ Beaeɛ" : "Delivery Zone"}</label>
                   <select
                     value={zone}
                     onChange={e => setZone(e.target.value as any)}
-                    className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white"
+                    className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white font-medium"
                   >
-                    <option value="inside_dhaka">Inside Dhaka (৳60)</option>
-                    <option value="sub_dhaka">Sub-Dhaka / Savar / Gazipur (৳100)</option>
-                    <option value="outside_dhaka">Outside Dhaka (৳130)</option>
+                    <option value="inside_dhaka">Inside Accra (GH₵ 20)</option>
+                    <option value="sub_dhaka">Greater Accra / Tema / Spintex (GH₵ 30)</option>
+                    <option value="outside_dhaka">Upcountry / Kumasi / Takoradi (GH₵ 45)</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Otɔfo Din" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
                   value={customerName}
                   onChange={e => setCustomerName(e.target.value)}
-                  placeholder="e.g. Tanvir Hasan"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
+                  placeholder="e.g. Kwame Mensah"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500 font-medium"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "গ্রাহকের মোবাইল নম্বর" : "Customer Phone"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Otɔfo Fon Nɔmba" : "Customer Phone"} *</label>
                 <input
                   type="tel"
                   required
                   value={customerPhone}
                   onChange={e => setCustomerPhone(e.target.value)}
-                  placeholder="01711-XXXXXX"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
+                  placeholder="024 412 3456"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "সম্পূর্ণ ডেলিভারি ঠিকানা" : "Full Delivery Address"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Beaeɛ Pɔtee a Yɛde Bɛkɔ" : "Full Delivery Address"} *</label>
                 <textarea
                   rows={2}
                   required
                   value={destination}
                   onChange={e => setDestination(e.target.value)}
-                  placeholder="House, Road, Area, Thana, District..."
+                  placeholder="House No, Street name, Area (e.g. Osu, East Legon, Cantonments, Accra)..."
                   className="w-full border border-nv-200 rounded-xl p-3 focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাশ অন ডেলিভারি (COD) পরিমাণ" : "Cash on Delivery (COD) Amount"} (৳) *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Cash on Delivery (COD) Sika Dodoɔ (GH₵) *" : "Cash on Delivery (COD) Amount (GH₵) *"}</label>
                 <input
                   type="number"
                   required
                   value={codAmount}
                   onChange={e => setCodAmount(e.target.value)}
-                  placeholder="e.g. 1850"
+                  placeholder="e.g. 240"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink text-base"
                 />
               </div>
 
               <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between text-xs font-semibold">
-                <span>{isBn ? "ডেলিভারি চার্জ:" : "Courier Charge:"} {formatTaka(deliveryFee)}</span>
-                <span className="text-ink">{isBn ? "অটোমেটিক ট্র্যাকিং এসএমএস পাঠানো হবে" : "Auto SMS tracking enabled"}</span>
+                <span>{isBn ? "Kɔmafoɔ Ka:" : "Courier Charge:"} {formatTaka(deliveryFee)}</span>
+                <span className="text-ink">{isBn ? "SMS tracking bɛkɔ otɔfo nkyɛn" : "Auto SMS tracking enabled"}</span>
               </div>
 
               <div className="flex gap-2 pt-2">

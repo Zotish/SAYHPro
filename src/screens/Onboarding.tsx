@@ -9,17 +9,17 @@ import { useApp } from "../context/AppContext";
 // Mirrors the app's real module list one-to-one — this is a feature summary,
 // not marketing copy for capabilities that don't exist.
 const featureList = [
-  { id: "pos", icon: ShoppingCart, label: "Mobile POS with inventory", labelBn: "মোবাইল POS ও ইনভেন্টরি" },
-  { id: "dues", icon: CreditCard, label: "Due management", labelBn: "বাকি ব্যবস্থাপনা" },
-  { id: "cash", icon: Wallet, label: "Accounting", labelBn: "হিসাবরক্ষণ" },
-  { id: "marketing", icon: MessageSquare, label: "SMS & Facebook marketing", labelBn: "এসএমএস ও ফেসবুক মার্কেটিং" },
-  { id: "delivery", icon: Truck, label: "Delivery aggregator", labelBn: "ডেলিভারি এগ্রিগেটর" },
-  { id: "alerts", icon: ShieldAlert, label: "Monitoring & alert system", labelBn: "মনিটরিং ও অ্যালার্ট সিস্টেম" },
-  { id: "bank", icon: Landmark, label: "Bank account creation", labelBn: "ব্যাংক অ্যাকাউন্ট খোলা" },
-  { id: "loan", icon: Banknote, label: "Loan", labelBn: "লোন" },
-  { id: "payments", icon: Smartphone, label: "Digital payment services", labelBn: "ডিজিটাল পেমেন্ট সেবা" },
-  { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং" },
-  { id: "website", icon: Globe2, label: "Create website without any coding knowledge", labelBn: "কোনো কোডিং ছাড়াই ওয়েবসাইট তৈরি" },
+  { id: "pos", icon: ShoppingCart, label: "Mobile POS with inventory", labelBn: "Mobile POS & Akorae (Stock)" },
+  { id: "dues", icon: CreditCard, label: "Due management", labelBn: "Aka / Bosea Sohwɛ (Dues)" },
+  { id: "cash", icon: Wallet, label: "Accounting", labelBn: "Akontabuo (Accounting)" },
+  { id: "marketing", icon: MessageSquare, label: "SMS & Facebook marketing", labelBn: "SMS & Social Dawubɔ" },
+  { id: "delivery", icon: Truck, label: "Delivery aggregator", labelBn: "Kɔmafoɔ Nkabom (Delivery)" },
+  { id: "alerts", icon: ShieldAlert, label: "Monitoring & alert system", labelBn: "Ahwɛsoɔ & Kɔkɔbɔ Nhyehyɛeɛ" },
+  { id: "bank", icon: Landmark, label: "Bank account creation", labelBn: "Sikakorabea Akawnt Bue" },
+  { id: "loan", icon: Banknote, label: "Loan & Working Capital", labelBn: "Sika Bosea (Loans)" },
+  { id: "payments", icon: Smartphone, label: "Digital payment services (MoMo & GhQR)", labelBn: "MTN MoMo & GhQR Tua Ka" },
+  { id: "reselling", icon: Store, label: "Reselling network", labelBn: "Tɔ Na Tɔn (Reselling)" },
+  { id: "website", icon: Globe2, label: "Create website without any coding knowledge", labelBn: "Bue Wɔn Dukan Wɔ Intanɛte So" },
 ];
 
 interface OnboardingProps {
@@ -29,29 +29,29 @@ interface OnboardingProps {
 }
 
 const businessTypes = [
-  { id: "grocery", emoji: "🛒", label: "Grocery", labelBn: "মুদি দোকান" },
-  { id: "clothing", emoji: "👕", label: "Clothing", labelBn: "কাপড়ের দোকান" },
-  { id: "electronics", emoji: "📱", label: "Electronics", labelBn: "ইলেকট্রনিক্স" },
-  { id: "pharmacy", emoji: "💊", label: "Pharmacy", labelBn: "ফার্মেসি" },
-  { id: "hardware", emoji: "🔧", label: "Hardware", labelBn: "হার্ডওয়্যার" },
-  { id: "cosmetics", emoji: "💄", label: "Cosmetics", labelBn: "কসমেটিক্স" },
-  { id: "mobile", emoji: "📲", label: "Mobile Shop", labelBn: "মোবাইল শপ" },
-  { id: "wholesale", emoji: "🏪", label: "Wholesale", labelBn: "পাইকারি" },
-  { id: "other", emoji: "🏬", label: "Other", labelBn: "অন্যান্য" },
+  { id: "grocery", emoji: "🛒", label: "Provisions & Grocery", labelBn: "Provisions & Nnuane" },
+  { id: "clothing", emoji: "👕", label: "Clothing & Boutique", labelBn: "Atadeɛ & Ntomago" },
+  { id: "electronics", emoji: "📱", label: "Electronics & Tech", labelBn: "Anyinam Nnoɔma" },
+  { id: "pharmacy", emoji: "💊", label: "Pharmacy & Chemists", labelBn: "Aduro Dukan (Pharmacy)" },
+  { id: "hardware", emoji: "🔧", label: "Hardware & Building", labelBn: "Nnoɔma Den & Hardware" },
+  { id: "cosmetics", emoji: "💄", label: "Cosmetics & Beauty", labelBn: "Ahoɔfɛ Nnoɔma" },
+  { id: "mobile", emoji: "📲", label: "Mobile Phones & MoMo", labelBn: "Fon Dukan & MoMo" },
+  { id: "wholesale", emoji: "🏪", label: "Wholesale Depot", labelBn: "Bɔkisi So (Wholesale)" },
+  { id: "other", emoji: "🏬", label: "General Merchant", labelBn: "Foforɔ (General)" },
 ];
 
 export default function Onboarding({ lang, setLang, onComplete }: OnboardingProps) {
   const { updateSettings } = useApp();
   const [step, setStep] = useState(1);
-  const [shopNameInput, setShopNameInput] = useState("Rahim Store");
-  const [phoneInput, setPhoneInput] = useState("01712-345678");
-  const [addressInput, setAddressInput] = useState("House 42, Main Road, Dhanmondi, Dhaka");
-  const [selectedType, setSelectedType] = useState("Grocery");
+  const [shopNameInput, setShopNameInput] = useState("Kofi Provisions & Retail Mart");
+  const [phoneInput, setPhoneInput] = useState("024 412 3456");
+  const [addressInput, setAddressInput] = useState("Oxford Street, Osu, Accra, Ghana");
+  const [selectedType, setSelectedType] = useState("Provisions & Grocery");
   const isBn = lang === "bn";
   const totalSteps = 5;
 
   const stepLabels = isBn
-    ? ["স্বাগতম", "দোকানের তথ্য", "ব্যবসার ধরন", "ভাষা ও মুদ্রা", "প্রস্তুত!"]
+    ? ["Akwaaba", "Dukan Nsɛm", "Adwuma Su", "Kasa & Sika", "W'awie!"]
     : ["Welcome", "Shop Setup", "Business Type", "Language & Currency", "Ready!"];
 
   const handleFinish = () => {
@@ -72,17 +72,17 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
         <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
           <div className="pt-4">
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mb-1.5">
-              {isBn ? "DukanPro তে স্বাগতম! 🎉" : "Welcome to DukanPro! 🎉"}
+              {isBn ? "Akwaaba kɔ SAYHPro! 🎉" : "Welcome to SAYHPro! 🎉"}
             </h1>
             <p className="text-em-200 text-xs sm:text-sm leading-relaxed">
               {isBn
-                ? "একটি অ্যাপে আপনার দোকানের সব কিছু — বিক্রি, বাকি, হিসাব ও আরও অনেক কিছু।"
-                : "Everything your shop needs — sales, dues, accounting, and more — in one app."}
+                ? "Biribiara a wo dukan hia — tɔn, aka, akontabuo ne nea ɛkeka ho wɔ faako baako."
+                : "Everything your shop needs — sales, dues, accounting, and mobile money — in one app."}
             </p>
           </div>
 
           <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-8 mb-4">
-            {isBn ? "ফিচারসমূহ" : "Features"}
+            {isBn ? "Fitinsedie (Features)" : "Features"}
           </h2>
 
           <div className="flex-1 overflow-y-auto space-y-3.5 pr-1">
@@ -102,7 +102,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
             onClick={() => setStep(2)}
             className="w-full py-3.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold text-sm shadow-md transition-fast flex items-center justify-center gap-2 mt-6 flex-shrink-0"
           >
-            <span>{isBn ? "শুরু করুন" : "Get Started"}</span>
+            <span>{isBn ? "Firi Aseɛ (Get Started)" : "Get Started"}</span>
             <ArrowRight size={16} />
           </button>
         </div>
@@ -138,40 +138,40 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "দোকানের মূল বিবরণ" : "Your Shop Information"}</h3>
-                <p className="text-xs text-ink">{isBn ? "আপনার দোকানের নাম ও ঠিকানা দিন" : "Enter store name and location"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "Wo Dukan Nsɛm" : "Your Shop Information"}</h3>
+                <p className="text-xs text-ink">{isBn ? "Fa wo dukan din ne beaeɛ a ɛwɔ to hɔ" : "Enter store name and location"}</p>
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "দোকানের নাম" : "Store Name"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Dukan Din" : "Store Name"} *</label>
                   <input
                     type="text"
                     value={shopNameInput}
                     onChange={e => setShopNameInput(e.target.value)}
-                    placeholder="e.g. Rahim Store"
+                    placeholder="e.g. Kofi Provisions & Mart"
                     className="w-full border border-nv-200 rounded-xl px-3.5 py-2.5 focus:border-em-500 font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Contact Phone"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Fon Nɔmba" : "Contact Phone"} *</label>
                   <input
                     type="tel"
                     value={phoneInput}
                     onChange={e => setPhoneInput(e.target.value)}
-                    placeholder="01712-345678"
+                    placeholder="024 412 3456"
                     className="w-full border border-nv-200 rounded-xl px-3.5 py-2.5 focus:border-em-500 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "দোকানের ঠিকানা" : "Shop Address"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Dukan Beaeɛ" : "Shop Address"}</label>
                   <input
                     type="text"
                     value={addressInput}
                     onChange={e => setAddressInput(e.target.value)}
-                    placeholder="e.g. Dhanmondi, Dhaka"
+                    placeholder="e.g. Oxford Street, Osu, Accra"
                     className="w-full border border-nv-200 rounded-xl px-3.5 py-2.5 focus:border-em-500"
                   />
                 </div>
@@ -182,13 +182,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   onClick={() => setStep(1)}
                   className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
-                  {isBn ? "পূর্ববর্তী" : "Back"}
+                  {isBn ? "San Kɔ Akyi" : "Back"}
                 </button>
                 <button
                   onClick={() => setStep(3)}
                   className="flex-1 py-3 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
                 >
-                  {isBn ? "পরবর্তী" : "Continue"}
+                  {isBn ? "Toa So" : "Continue"}
                 </button>
               </div>
             </div>
@@ -198,8 +198,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 3 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "ব্যবসার ধরন বেছে নিন" : "Select Business Category"}</h3>
-                <p className="text-xs text-ink">{isBn ? "আপনার ধরন অনুযায়ী আমরা প্রিসেট প্রোডাক্ট রেডি করব" : "We'll configure relevant templates for your business"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "Paw Adwuma Su" : "Select Business Category"}</h3>
+                <p className="text-xs text-ink">{isBn ? "Yɛbɛsiesie nnoɔma ne akontabuo a ɛfata wo dukan" : "We'll configure relevant templates for your business"}</p>
               </div>
 
               <div className="grid grid-cols-3 gap-2.5 max-h-60 overflow-y-auto p-1">
@@ -221,13 +221,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   onClick={() => setStep(2)}
                   className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
-                  {isBn ? "পূর্ববর্তী" : "Back"}
+                  {isBn ? "San Kɔ Akyi" : "Back"}
                 </button>
                 <button
                   onClick={() => setStep(4)}
                   className="flex-1 py-3 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
                 >
-                  {isBn ? "পরবর্তী" : "Continue"}
+                  {isBn ? "Toa So" : "Continue"}
                 </button>
               </div>
             </div>
@@ -237,8 +237,8 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
           {step === 4 && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "ভাষা ও মুদ্রা পছন্দ" : "Language & Currency"}</h3>
-                <p className="text-xs text-ink">{isBn ? "যে ভাষায় আপনি অ্যাপটি ব্যবহার করতে চান" : "Choose default language and currency"}</p>
+                <h3 className="font-display font-bold text-xl text-ink mb-1">{isBn ? "Kasa & Sika Nhyehyɛeɛ" : "Language & Currency"}</h3>
+                <p className="text-xs text-ink">{isBn ? "Paw kasa ne sika a wopɛ sɛ wode di dwuma" : "Choose default language and currency"}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -248,7 +248,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                     ${lang === "en" ? "bg-em-50 border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
                 >
                   <div className="font-bold text-sm text-ink">English</div>
-                  <div className="text-[11px] text-ink">Default (English)</div>
+                  <div className="text-[11px] text-ink">Ghana Official / Retail</div>
                 </button>
 
                 <button
@@ -256,13 +256,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   className={`p-4 rounded-2xl border text-center transition-all
                     ${lang === "bn" ? "bg-em-50 border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
                 >
-                  <div className="font-bold text-sm text-ink font-bn">বাংলা</div>
-                  <div className="text-[11px] text-ink font-bn">বাংলা ইন্টারফেস</div>
+                  <div className="font-bold text-sm text-ink">Twi (Akan)</div>
+                  <div className="text-[11px] text-ink">Ghana Kasa (Local)</div>
                 </button>
               </div>
 
               <div className="p-3 bg-nv-50 rounded-2xl text-xs text-ink">
-                Default Currency: <span className="font-bold text-ink">BDT — Bangladeshi Taka (৳)</span>
+                Default Currency: <span className="font-bold text-ink">GHS — Ghana Cedi (GH₵)</span>
               </div>
 
               <div className="flex gap-2 pt-2">
@@ -270,13 +270,13 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                   onClick={() => setStep(3)}
                   className="flex-1 py-3 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
                 >
-                  {isBn ? "পূর্ববর্তী" : "Back"}
+                  {isBn ? "San Kɔ Akyi" : "Back"}
                 </button>
                 <button
                   onClick={() => setStep(5)}
                   className="flex-1 py-3 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
                 >
-                  {isBn ? "পরবর্তী" : "Continue"}
+                  {isBn ? "Toa So" : "Continue"}
                 </button>
               </div>
             </div>
@@ -289,12 +289,12 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                 <Sparkles size={32} />
               </div>
               <h2 className="font-display text-2xl font-bold text-ink">
-                {isBn ? "আপনার দোকান সম্পূর্ণ প্রস্তুত! 🚀" : "You're All Set! 🚀"}
+                {isBn ? "Wo dukan asiesie ne ho pɛpɛɛpɛ! 🚀" : "You're All Set! 🚀"}
               </h2>
               <p className="text-ink text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
                 {isBn
-                  ? "আমরা আপনার জন্য প্রোডাক্ট ক্যাটালগ ও হিসাব প্রস্তুত করেছি। ড্যাশবোর্ডে প্রবেশ করুন।"
-                  : "Your product catalog, cash accounts, and POS terminal are fully initialized. Welcome to DukanPro!"}
+                  ? "Yɛasiesie wo nnoɔma din, sika akontabuo ne POS terminal ama wo. Akwaaba kɔ SAYHPro!"
+                  : "Your product catalog, cash accounts, and POS terminal are fully initialized. Welcome to SAYHPro!"}
               </p>
 
               <div className="bg-nv-50 p-4 rounded-2xl text-left text-xs space-y-1.5 border border-nv-200">
@@ -316,7 +316,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
                 onClick={handleFinish}
                 className="w-full py-4 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold text-base shadow-xl transition-all"
               >
-                {isBn ? "ড্যাশবোর্ডে যান" : "Go to Dashboard"} →
+                {isBn ? "Kɔ Dwumadibea" : "Go to Dashboard"} →
               </button>
             </div>
           )}

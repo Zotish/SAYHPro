@@ -19,17 +19,17 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
   const activeSale: Sale = currentInvoice || sales[0] || {
     id: "demo",
     invoiceNo: "INV-1043",
-    customer: "Karim Ahmed",
-    customerPhone: "01712-345678",
+    customer: "Kwame Mensah",
+    customerPhone: "024 412 3456",
     items: [
-      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", qty: 2, price: 300, discount: 0 },
-      { name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", qty: 3, price: 60, discount: 0 },
+      { name: "Frytol Cooking Oil 5L", nameBn: "Frytol Angwa 5L", qty: 2, price: 135, discount: 0 },
+      { name: "Gino Jasmine Rice 5kg", nameBn: "Gino Ɛmo 5kg", qty: 1, price: 105, discount: 0 },
     ],
-    subtotal: 780,
+    subtotal: 375,
     discount: 0,
     vat: 0,
-    grandTotal: 780,
-    paid: 780,
+    grandTotal: 375,
+    paid: 375,
     due: 0,
     paymentMethod: "cash",
     date: "December 13, 2024",
@@ -217,8 +217,8 @@ export default function Invoice({ lang, setScreen }: InvoiceProps) {
 
           {/* Footer Note */}
           <div className="pt-4 text-center space-y-1 text-[10px] text-ink font-sans">
-            <p className="font-semibold text-ink">{isBn ? "আমাদের সাথে থাকার জন্য ধন্যবাদ!" : "Thank you for shopping with us!"}</p>
-            <p>Software by SAYHPro</p>
+            <p className="font-semibold text-ink">{isBn ? "Medaase Pa Ara (Thank You)!" : "Thank you for shopping with us! Medaase!"}</p>
+            <p>Software by SAYHPro Ghana</p>
           </div>
         </div>
       ) : (

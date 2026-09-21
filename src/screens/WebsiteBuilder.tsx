@@ -206,7 +206,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                   type="text"
                   value={isBn ? announcementBn : announcement}
                   onChange={e => isBn ? setAnnouncementBn(e.target.value) : setAnnouncement(e.target.value)}
-                  placeholder="e.g. Free Home Delivery on all orders above ৳1000!"
+                  placeholder="e.g. Free Home Delivery on all orders above GH₵ 100!"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2"
                 />
               </div>
@@ -651,22 +651,24 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                     </div>
                     <div>
                       <h4 className="font-bold text-sm">{settings.shopName}</h4>
-                      <p className="text-xs text-nv-300">{settings.address || "Dhaka, Bangladesh"}</p>
+                      <p className="text-xs text-nv-300">{settings.address || "Accra, Ghana"}</p>
                     </div>
                   </div>
 
                   <div className="text-center sm:text-right text-xs text-nv-300 space-y-1">
-                    <div>{isBn ? "সহায়তা ও হেল্পলাইন" : "Customer Support"}: {whatsAppNumber || settings.phone}</div>
-                    <div>{isBn ? "ক্যাশ অন ডেলিভারি ও দ্রুত পার্সেল ডেলিভারি" : "Cash on Delivery & Courier Shipping"}</div>
+                    <div>{isBn ? "Customer Support" : "Customer Support"}: {whatsAppNumber || settings.phone}</div>
+                    <div>{isBn ? "Cash on Delivery & Courier Shipping" : "Cash on Delivery & Courier Shipping"}</div>
                   </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-nv-400">
                   <span>© 2026 {settings.shopName}. Powered by SAYHPro.</span>
                   <div className="flex items-center gap-3">
-                    <span>bKash</span>
+                    <span>MTN MoMo</span>
                     <span>•</span>
-                    <span>Nagad</span>
+                    <span>Telecel Cash</span>
+                    <span>•</span>
+                    <span>GhQR / Card</span>
                     <span>•</span>
                     <span>Cash on Delivery</span>
                   </div>
@@ -827,7 +829,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                       paymentMethod === "bkash" ? "border-em-600 bg-em-50 text-em-900 font-bold" : "border-nv-200 text-ink"
                     }`}
                   >
-                    📱 {isBn ? "বিকাশ / অনলাইন" : "bKash / Online"}
+                    📱 {isBn ? "MTN MoMo / Online" : "MTN MoMo / Online"}
                   </button>
                 </div>
               </div>

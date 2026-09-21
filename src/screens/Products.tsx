@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
-import { useApp, Product, renderProductCardImage } from "../context/AppContext";
+import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
 import AIProductScannerModal from "../components/AIProductScannerModal";
 
@@ -154,14 +154,14 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `DukanPro_Products_${Date.now()}.csv`);
+    link.setAttribute("download", `SAYHPro_Products_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
     toast({
       type: "success",
-      title: isBn ? "পণ্য এক্সপোর্ট সম্পন্ন!" : "Products Exported!",
+      title: isBn ? "Nnoɔma Export Awie!" : "Products Exported!",
       message: `${products.length} products saved to CSV.`,
     });
   };
@@ -357,9 +357,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             >
               <div>
                 <div className="flex justify-between items-start mb-2">
-                  <div className="h-10 w-10 flex items-center justify-center">
-                    {renderProductCardImage(p.image, "h-10 w-10 flex items-center justify-center", "max-h-full max-w-full object-contain")}
-                  </div>
+                  <span className="text-3xl">{p.image || "📦"}</span>
                   {statusBadge(p.status, isBn)}
                 </div>
                 <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2">{isBn ? p.nameBn : p.name}</h4>
@@ -491,7 +489,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "ক্রয় মূল্য (৳)" : "Buy Price (Cost)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔ Boɔ (GH₵)" : "Buy Price (Cost)"} *</label>
                   <input
                     type="number"
                     required
@@ -503,7 +501,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "বিক্রয় মূল্য (৳)" : "Selling Price"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔn Boɔ (GH₵)" : "Selling Price (GH₵)"} *</label>
                   <input
                     type="number"
                     required

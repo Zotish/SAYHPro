@@ -229,7 +229,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                     </div>
 
                     <div className="flex items-center gap-1 w-28">
-                      <span className="text-[11px] text-ink">৳/pc:</span>
+                      <span className="text-[11px] text-ink">GH₵/pc:</span>
                       <input
                         type="number"
                         min="0"
@@ -265,7 +265,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "নগদ পরিশোধিত (৳)" : "Paid Amount (৳)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua a Wɔatua (GH₵)" : "Paid Amount (GH₵)"}</label>
                 <input
                   type="number"
                   value={paidAmount}
@@ -344,7 +344,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                   <td className="px-4 py-3 num font-semibold text-ink whitespace-nowrap">{formatTaka(p.paid)}</td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <span className={`num font-bold ${p.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {p.due > 0 ? formatTaka(p.due) : "৳০"}
+                      {p.due > 0 ? formatTaka(p.due) : "GH₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">{statusBadge(p.status, isBn)}</td>

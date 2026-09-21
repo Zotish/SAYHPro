@@ -638,7 +638,7 @@ export default function AIProductScannerModal({
 
                   <div>
                     <label className="block text-[11px] font-semibold text-ink mb-1">
-                      {isBn ? "কেনা দর (৳)" : "Buy Price"}
+                      {isBn ? "Tɔ Boɔ (GH₵)" : "Buy Price (GH₵)"}
                     </label>
                     <input
                       type="number"
@@ -650,7 +650,7 @@ export default function AIProductScannerModal({
 
                   <div>
                     <label className="block text-[11px] font-semibold text-ink mb-1">
-                      {isBn ? "বিক্রি দর (৳)" : "Sell Price"}
+                      {isBn ? "Tɔn Boɔ (GH₵)" : "Sell Price (GH₵)"}
                     </label>
                     <input
                       type="number"

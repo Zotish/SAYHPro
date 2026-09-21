@@ -120,7 +120,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required

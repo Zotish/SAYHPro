@@ -12,11 +12,11 @@ interface MobilePOSProps {
 }
 
 const payMethods = [
-  { id: "cash" as const, label: "Cash", labelBn: "নগদ", icon: Banknote, color: "#16A34A" },
-  { id: "bkash" as const, label: "bKash", labelBn: "বিকাশ", icon: Smartphone, color: "#E91E8C" },
-  { id: "nagad" as const, label: "Nagad", labelBn: "নগদ", icon: Smartphone, color: "#D97706" },
-  { id: "card" as const, label: "Card", labelBn: "কার্ড", icon: CreditCard, color: "#475569" },
-  { id: "due" as const, label: "Due", labelBn: "বাকিতে", icon: Receipt, color: "#DC2626" },
+  { id: "cash" as const, label: "Cash", labelBn: "Sika Pɔtee", icon: Banknote, color: "#16A34A" },
+  { id: "bkash" as const, label: "MTN MoMo", labelBn: "MTN MoMo", icon: Smartphone, color: "#EAB308" },
+  { id: "nagad" as const, label: "Telecel Cash", labelBn: "Telecel Cash", icon: Smartphone, color: "#E11D48" },
+  { id: "card" as const, label: "Card / GhQR", labelBn: "Card / GhQR", icon: CreditCard, color: "#475569" },
+  { id: "due" as const, label: "Credit / Due", labelBn: "Aka (Credit)", icon: Receipt, color: "#DC2626" },
 ];
 
 type MobileView = "products" | "cart" | "payment" | "success";

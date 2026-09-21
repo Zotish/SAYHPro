@@ -181,7 +181,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
       <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
         <div className="flex items-center justify-between">
           <span className="font-display text-sm font-bold text-ink">
-            {isBn ? "সাপ্তাহিক বিক্রয় ট্রেন্ড (৳)" : "Weekly Revenue Trend (৳)"}
+            {isBn ? "Dapɛn Tɔn Nnoɔma (GH₵)" : "Weekly Revenue Trend (GH₵)"}
           </span>
           <span className="text-xs text-ink/60 font-medium">
             {isBn ? "গত ৭ দিনের রেকর্ড" : "Last 7 days"}

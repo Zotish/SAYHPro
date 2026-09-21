@@ -151,7 +151,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(s.paid)}</td>
                   <td className="px-4 py-3">
                     <span className={`num font-bold ${s.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {s.due > 0 ? formatTaka(s.due) : "৳০"}
+                      {s.due > 0 ? formatTaka(s.due) : "GH₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -241,7 +241,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "প্রারম্ভিক দেনা (যদি থাকে)" : "Opening Payable (৳)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Aka a Ɛda Hɔ (GH₵)" : "Opening Payable (GH₵)"}</label>
                 <input
                   type="number"
                   value={openingDue}
@@ -288,7 +288,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </p>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধের পরিমাণ (৳)" : "Payment Amount (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Dodoɔ (GH₵)" : "Payment Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required

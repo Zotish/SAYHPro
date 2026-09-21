@@ -174,7 +174,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                         </div>
                         <div>
                           <div className="font-bold text-ink text-xs sm:text-sm">{isBn ? c.nameBn : c.name}</div>
-                          <div className="text-[10px] text-ink">{c.address || "Dhaka"}</div>
+                          <div className="text-[10px] text-ink">{c.address || "Accra"}</div>
                         </div>
                       </div>
                     </td>
@@ -182,7 +182,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                     <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(c.totalPurchases)}</td>
                     <td className="px-4 py-3">
                       <span className={`num font-bold ${c.due > 0 ? "text-ink" : "text-ink"}`}>
-                        {c.due > 0 ? formatTaka(c.due) : "৳০"}
+                        {c.due > 0 ? formatTaka(c.due) : "GH₵ 0"}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-xs text-ink">{tNum(c.visits)} {isBn ? "বার" : "times"}</td>
@@ -313,7 +313,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
 
             <form onSubmit={handlePaySubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required

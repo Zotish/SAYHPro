@@ -12,11 +12,11 @@ interface POSProps {
 }
 
 const paymentMethods = [
-  { id: "cash" as const, label: "Cash", labelBn: "নগদ", icon: Banknote, color: "bg-em-50 text-ink border-em-300" },
-  { id: "bkash" as const, label: "bKash", labelBn: "বিকাশ", icon: Smartphone, color: "bg-nv-50 text-ink border-nv-300" },
-  { id: "nagad" as const, label: "Nagad", labelBn: "নগদ", icon: Smartphone, color: "bg-ac-50 text-ink border-ac-300" },
-  { id: "card" as const, label: "Card", labelBn: "কার্ড", icon: CreditCard, color: "bg-nv-50 text-ink border-nv-300" },
-  { id: "due" as const, label: "Due", labelBn: "বাকিতে বিক্রয়", icon: Receipt, color: "bg-red-50 text-ink border-red-300" },
+  { id: "cash" as const, label: "Cash", labelBn: "Sika Pɔtee", icon: Banknote, color: "bg-em-50 text-ink border-em-300" },
+  { id: "bkash" as const, label: "MTN MoMo", labelBn: "MTN MoMo", icon: Smartphone, color: "bg-amber-50 text-amber-900 border-amber-300" },
+  { id: "nagad" as const, label: "Telecel Cash", labelBn: "Telecel Cash", icon: Smartphone, color: "bg-red-50 text-red-800 border-red-300" },
+  { id: "card" as const, label: "Card / GhQR", labelBn: "Card / GhQR", icon: CreditCard, color: "bg-nv-50 text-ink border-nv-300" },
+  { id: "due" as const, label: "Credit / Due", labelBn: "Aka (Credit)", icon: Receipt, color: "bg-red-50 text-ink border-red-300" },
 ];
 
 export default function POS({ lang, setScreen }: POSProps) {
@@ -311,7 +311,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             >
               {customers.map(c => (
                 <option key={c.id} value={c.name}>
-                  {c.name} {c.due > 0 ? `(Due: ৳${tNum(c.due)})` : ""}
+                  {c.name} {c.due > 0 ? `(Due: GH₵${tNum(c.due)})` : ""}
                 </option>
               ))}
             </select>
@@ -371,7 +371,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             </div>
 
             <div className="flex justify-between items-center text-ink">
-              <span>{isBn ? "ডিসকাউন্ট (৳)" : "Discount (৳)"}:</span>
+              <span>{isBn ? "Discount (GH₵)" : "Discount (GH₵)"}:</span>
               <input
                 type="number"
                 min="0"
@@ -583,7 +583,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                   required
                   value={newCustName}
                   onChange={e => setNewCustName(e.target.value)}
-                  placeholder="e.g. Kamal Hossain"
+                  placeholder="e.g. Kwame Mensah"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
@@ -595,7 +595,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                   required
                   value={newCustPhone}
                   onChange={e => setNewCustPhone(e.target.value)}
-                  placeholder="01712-000000"
+                  placeholder="024 412 3456"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>

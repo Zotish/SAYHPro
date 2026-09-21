@@ -29,7 +29,7 @@ export default function Num({
     formatted = toBnDigits(formatted);
   }
 
-  const currPrefix = currency ? "৳" : "";
+  const currPrefix = currency ? "GH₵" : "";
 
   return (
     <span className={`num ${className}`}>

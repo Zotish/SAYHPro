@@ -89,32 +89,32 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
 
   const templates = [
     {
-      title: "Friday Discount Offer",
-      titleBn: "শুক্রবার বিশেষ ছাড়",
+      title: "Weekend Market Discount",
+      titleBn: "Weekend Special Nkabuom",
       type: "promotional",
-      en: "Dear Customer, Get 10% flat discount on all items this Friday at Rahim Store! Shop now.",
-      bn: "সম্মানিত গ্রাহক, শুক্রবার রহিম স্টোরে সকল পণ্যে ১০% বিশেষ ছাড়! আজই আসুন।",
+      en: "Dear Customer, Get 10% flat discount on all items this Saturday at Kofi Provisions! Shop now.",
+      bn: "Mema wo akwaaba! Tɔ nnoɔma wɔ Kofi Provisions na nya 10% discount nnɛ Memeneda yi.",
     },
     {
       title: "Due Payment Reminder",
-      titleBn: "বাকি পরিশোধের তাগাদা",
+      titleBn: "Aka / Bosea Nkaebɔ",
       type: "due_reminder",
-      en: "Dear Customer, your due balance at Rahim Store is pending. Please settle at your convenience. Thank you!",
-      bn: "সম্মানিত গ্রাহক, রহিম স্টোরে আপনার বকেয়া পাওনা রয়েছে। সুবিধাজনক সময়ে পরিশোধের অনুরোধ রইল।",
+      en: "Dear Customer, your due balance at Kofi Provisions is pending. Kindly pay via MTN MoMo. Medaase!",
+      bn: "Yɛsrɛ wo, kae wo bosea a ɛda hɔ wɔ Kofi Provisions. Wubetumi atua wɔ MTN MoMo so. Medaase!",
     },
     {
-      title: "Eid Mubarak Greetings",
-      titleBn: "ঈদ মোবারক অফার",
+      title: "Akwasidae Greetings & Promo",
+      titleBn: "Akwasidae Afahyɛ Promo",
       type: "festival",
-      en: "Eid Mubarak! Enjoy special combo gifts on purchases above ৳2000 at Rahim Store.",
-      bn: "রহিম স্টোরের পক্ষ থেকে ঈদ মোবারক! ২০০০ টাকার কেনাকাটায় আকর্ষণীয় কম্বো উপহার।",
+      en: "Happy Celebrations from Kofi Provisions! Enjoy free delivery on orders above GH₵ 150.",
+      bn: "Afahyɛ pa firi Kofi Provisions! Yɛde nnoɔma bɛbrɛ wo kwa sɛ wotɔ boro GH₵ 150 a.",
     },
     {
       title: "Fresh Stock Arrival",
-      titleBn: "নতুন পণ্যের আগমন",
+      titleBn: "Nnoɔma Foforɔ Ahyɛase",
       type: "new_arrival",
-      en: "Fresh harvest mustard oil & premium basmati rice are now in stock at Rahim Store!",
-      bn: "খাঁটি সরিষার তেল ও প্রিমিয়াম বাসমতি চালের নতুন চালান এখন রহিম স্টোরে উপলব্ধ!",
+      en: "Fresh Gino Jasmine Rice & Frytol Cooking Oil cartons are now in stock at Kofi Provisions!",
+      bn: "Gino Ɛmo ne Frytol Angwa foforɔ aba Kofi Provisions!",
     },
   ];
 
@@ -521,7 +521,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                   </div>
                   <div className="text-right">
                     <div className="font-extrabold text-ink text-base">{formatTaka(pkg.price)}</div>
-                    <span className="text-[10px] text-ink">bKash / Nagad</span>
+                    <span className="text-[10px] text-ink">MTN MoMo / Telecel</span>
                   </div>
                 </div>
               ))}

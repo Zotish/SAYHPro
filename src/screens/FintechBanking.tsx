@@ -78,9 +78,9 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
   };
 
   const getShortBankName = (name: string) => {
-    if (name.includes("BRAC Bank")) return isBn ? "ব্র্যাক ব্যাংক" : "BRAC Bank";
-    if (name.includes("bKash")) return isBn ? "বিকাশ মার্চেন্ট" : "bKash Merchant";
-    if (name.includes("City Bank")) return isBn ? "সিটি ব্যাংক" : "City Bank";
+    if (name.includes("Ecobank")) return isBn ? "Ecobank Ghana" : "Ecobank Ghana";
+    if (name.includes("MTN MoMo")) return isBn ? "MTN MoMo Enterprise" : "MTN MoMo Enterprise";
+    if (name.includes("GCB")) return isBn ? "GCB Bank" : "GCB Bank";
     return name;
   };
 
@@ -269,18 +269,18 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                 <div className="w-full h-full border-4 border-white rounded-xl flex items-center justify-center font-mono text-[10px] text-center p-2 bg-nv-900">
                   <div className="space-y-1">
                     <QrCode size={64} className="mx-auto text-em-400" />
-                    <span className="font-bold text-white tracking-widest">BANGLA QR</span>
+                    <span className="font-bold text-white tracking-widest">GhQR</span>
                   </div>
                 </div>
               </div>
-              <span className="text-xs font-bold text-ink mt-2">Rahim Store (Merchant ID: 89410)</span>
+              <span className="text-xs font-bold text-ink mt-2">Kofi Provisions Mart (GhQR Merchant ID: 89410)</span>
             </div>
 
             <button
-              onClick={() => toast({ type: "success", title: isBn ? "কিউআর প্রিন্ট রেডি!" : "Print Ready!", message: "Bangla QR downloaded for store counter display." })}
+              onClick={() => toast({ type: "success", title: isBn ? "GhQR Print Asiesie!" : "Print Ready!", message: "GhQR downloaded for store counter display." })}
               className="px-4 py-2 border border-nv-200 hover:bg-nv-50 text-ink rounded-xl text-xs font-bold transition-fast"
             >
-              {isBn ? "কিউআর স্ট্যান্ড প্রিন্ট করুন" : "Download QR Standee Print"}
+              {isBn ? "Tintim GhQR Standee" : "Download GhQR Standee Print"}
             </button>
           </div>
 
@@ -348,40 +348,40 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
 
             <form onSubmit={handleCreateBankKYC} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "ব্যাংক নির্বাচন" : "Select Bank"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Paw Sikakorabea" : "Select Bank / Partner"} *</label>
                 <select
                   value={bankName}
                   onChange={e => setBankName(e.target.value)}
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white font-medium"
                 >
-                  <option value="BRAC Bank Digital Merchant">BRAC Bank Digital Merchant</option>
-                  <option value="City Bank Islamic SME">City Bank Islamic SME</option>
-                  <option value="bKash Merchant Enterprise">bKash Merchant Enterprise Wallet</option>
-                  <option value="Nagad Islamic Merchant">Nagad Islamic Merchant Wallet</option>
+                  <option value="Ecobank Ghana Business Account">Ecobank Ghana Business Account</option>
+                  <option value="GCB Bank SME Account">GCB Bank SME Account</option>
+                  <option value="MTN MoMo Enterprise Wallet">MTN MoMo Enterprise Wallet</option>
+                  <option value="Telecel Cash Merchant Wallet">Telecel Cash Merchant Wallet</option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "জাতীয় পরিচয়পত্র নম্বর (NID)" : "NID Number"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Ghana Card PIN (GHA-...)" : "Ghana Card PIN (GHA-...)"} *</label>
                 <input
                   type="text"
                   required
                   value={nidNumber}
                   onChange={e => setNidNumber(e.target.value)}
-                  placeholder="e.g. 1992269201994821"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2"
+                  placeholder="e.g. GHA-721094821-4"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "ট্রেড লাইসেন্স নম্বর" : "Trade License Number"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "RGD Adwuma Krataa Nɔmba" : "RGD Business Registration No."} *</label>
                 <input
                   type="text"
                   required
                   value={tradeLicense}
                   onChange={e => setTradeLicense(e.target.value)}
-                  placeholder="e.g. TRAD/DNCC/092182/2026"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2"
+                  placeholder="e.g. CS-99412-2024"
+                  className="w-full border border-nv-200 rounded-xl px-3 py-2 font-mono"
                 />
               </div>
 
@@ -476,19 +476,19 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                   required
                   value={custName}
                   onChange={e => setCustName(e.target.value)}
-                  placeholder="e.g. Farhana Islam"
+                  placeholder="e.g. Kwame Mensah"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিমাণ (৳)" : "Amount (৳)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
                 <input
                   type="number"
                   required
                   value={linkAmount}
                   onChange={e => setLinkAmount(e.target.value)}
-                  placeholder="e.g. 1850"
+                  placeholder="e.g. 250"
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 font-bold text-ink text-base"
                 />
               </div>

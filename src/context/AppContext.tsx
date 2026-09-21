@@ -3,29 +3,28 @@ import { toast } from "../components/Toast";
 
 export const toBnDigits = (val: number | string | undefined | null): string => {
   if (val === undefined || val === null) return "";
-  const numMap: Record<string, string> = {
-    "0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪",
-    "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯"
-  };
-  return val.toString().replace(/[0-9]/g, (digit) => numMap[digit] || digit);
+  return val.toString();
 };
 
-export const formatNum = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
+export const formatNum = (val: number | string | undefined | null, _lang?: string): string => {
   if (val === undefined || val === null) return "";
   const num = typeof val === "number" ? val : parseFloat(val.toString());
-  const str = !isNaN(num) ? num.toLocaleString("en-US") : val.toString();
-  return lang === "bn" ? toBnDigits(str) : str;
+  return !isNaN(num) ? num.toLocaleString("en-US") : val.toString();
 };
 
-export const formatTaka = (val: number | string | undefined | null, lang: "en" | "bn" = "en"): string => {
+export const formatCedi = (val: number | string | undefined | null, _lang?: string): string => {
   if (val === undefined || val === null) return "";
   const num = typeof val === "number" ? val : parseFloat(val.toString()) || 0;
   const isNeg = num < 0;
-  const rounded = Math.round(Math.abs(num));
-  const absStr = rounded.toLocaleString("en-US");
-  const formattedStr = lang === "bn" ? toBnDigits(absStr) : absStr;
-  return isNeg ? `-৳${formattedStr}` : `৳${formattedStr}`;
+  const absNum = Math.abs(num);
+  const formattedStr = absNum.toLocaleString("en-US", {
+    minimumFractionDigits: Number.isInteger(absNum) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+  return isNeg ? `-GH₵${formattedStr}` : `GH₵${formattedStr}`;
 };
+
+export const formatTaka = formatCedi;
 
 export interface Product {
   id: number;
@@ -517,146 +516,133 @@ interface AppContextType {
 export function cleanProductName(name: string): string {
   if (!name) return "";
   let s = name.trim();
-  s = s.replace(/^Fresh Sunflower Oil 5L$/i, "Sunflower Oil 5L");
-  s = s.replace(/^Pran RUCHI Chanachur( 200g)?$/i, "Ruchi Chanachur");
-  s = s.replace(/^Ruchi Chanachur 200g$/i, "Ruchi Chanachur");
-  s = s.replace(/^BD Fresh Milk 1L$/i, "Fresh Milk 1L");
-  s = s.replace(/^Bashundhara Tissue( Box)?$/i, "Tissue Box");
-  s = s.replace(/^Pran Frooto( 250ml)?$/i, "Frooto 250ml");
-  s = s.replace(/^Lifebuoy Soap( 100g)?$/i, "Lifebuoy Soap");
-  s = s.replace(/^Meril Shampoo( 200ml)?$/i, "Meril Shampoo");
-  s = s.replace(/^Lal Gura( 500g)?$/i, "Chilli Powder 500g");
-  s = s.replace(/^Tea Biscuit( 200g)?$/i, "Tea Biscuit");
-  s = s.replace(/^Juice 1L$/i, "Mango Juice 1L");
-  s = s.replace(/^Dove Soap( 100g)?$/i, "Dove Soap");
+  s = s.replace(/^Frytol Cooking Oil 5L$/i, "Frytol Cooking Oil 5L");
+  s = s.replace(/^Indomie Instant Noodles Carton$/i, "Indomie Instant Noodles");
+  s = s.replace(/^Ideal Evaporated Milk 160g$/i, "Ideal Milk 160g");
+  s = s.replace(/^Soft Facial Tissue Box$/i, "Tissue Box");
+  s = s.replace(/^Milo Malt Beverage 400g$/i, "Milo Drink 400g");
+  s = s.replace(/^Key Soap Laundry Bar$/i, "Key Soap Bar");
+  s = s.replace(/^Annapurna Iodized Salt 1kg$/i, "Annapurna Salt 1kg");
+  s = s.replace(/^Gino Jasmine Rice 5kg$/i, "Gino Rice 5kg");
+  s = s.replace(/^Shito Hot Pepper Sauce 350g$/i, "Shito Pepper Sauce 350g");
+  s = s.replace(/^Golden Tree Kingsbite Chocolate$/i, "Kingsbite Chocolate");
+  s = s.replace(/^Voltic Natural Mineral Water 1.5L$/i, "Voltic Water 1.5L");
+  s = s.replace(/^Geisha Mackerel in Tomato Sauce$/i, "Geisha Mackerel");
   return s;
 }
 
 export function cleanProductNameBn(nameBn: string): string {
   if (!nameBn) return "";
-  let s = nameBn.trim();
-  s = s.replace(/^(ফ্রেশ )?সানফ্লাওয়ার অয়েল ৫লি$/i, "সানফ্লাওয়ার তেল ৫লি");
-  s = s.replace(/^প্রাণ রুচি চানাচুর( ২০০গ্রাম)?$/i, "রুচি চানাচুর");
-  s = s.replace(/^রুচি চানাচুর ২০০গ্রাম$/i, "রুচি চানাচুর");
-  s = s.replace(/^বিডি ফ্রেশ মিল্ক( ১লি)?$/i, "ফ্রেশ মিল্ক ১লি");
-  s = s.replace(/^বসুন্ধরা টিস্যু( বক্স)?$/i, "টিস্যু বক্স");
-  s = s.replace(/^প্রাণ ফ্রুটো( ২৫০মিলি)?$/i, "ফ্রুটো ২৫০মিলি");
-  s = s.replace(/^লাইফবয় সাবান( ১০০গ্রাম)?$/i, "লাইফবয় সাবান");
-  s = s.replace(/^মেরিল শ্যাম্পু( ২০০মিলি)?$/i, "মেরিল শ্যাম্পু");
-  s = s.replace(/^লাল গুড়া( ৫০০গ্রাম)?$/i, "মরিচ গুঁড়া ৫০০গ্রা");
-  s = s.replace(/^টি বিস্কিট( ২০০গ্রাম)?$/i, "টি বিস্কুট");
-  s = s.replace(/^জুস ১লি$/i, "ম্যাঙ্গো জুস ১লি");
-  s = s.replace(/^ডাভ সাবান( ১০০গ্রাম)?$/i, "ডাভ সাবান");
-  return s;
+  return nameBn.trim();
 }
 
 const initialProducts: Product[] = [
-  { id: 13, name: "Potato Bulk White Regular", nameBn: "গোল আলু (রেগুলার)", sku: "VEG-013", category: "Grocery", buyPrice: 10, sellPrice: 15, stock: 50, min: 10, unit: "500g", status: "in-stock", brand: "Deshi", image: "/products/potato.png", barcode: "89411000113" },
-  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "5L", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
-  { id: 2, name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "200g", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
-  { id: 3, name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "1L", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
-  { id: 4, name: "Tissue Box", nameBn: "টিস্যু বক্স", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
-  { id: 5, name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "250ml", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
-  { id: 6, name: "Lifebuoy Soap", nameBn: "লাইফবয় সাবান", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "100g", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
-  { id: 7, name: "Salt 1kg", nameBn: "লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "1kg", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
-  { id: 8, name: "Meril Shampoo", nameBn: "মেরিল শ্যাম্পু", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "200ml", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
-  { id: 9, name: "Chilli Powder 500g", nameBn: "মরিচ গুঁড়া ৫০০গ্রা", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "500g", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
-  { id: 10, name: "Tea Biscuit", nameBn: "টি বিস্কুট", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "200g", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
-  { id: 11, name: "Mango Juice 1L", nameBn: "ম্যাঙ্গো জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "1L", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
-  { id: 12, name: "Dove Soap", nameBn: "ডাভ সাবান", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "100g", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
+  { id: 13, name: "Potato Bulk Regular", nameBn: "Ntwea / Potato (1kg)", sku: "VEG-013", category: "Grocery", buyPrice: 15, sellPrice: 25, stock: 50, min: 10, unit: "1kg", status: "in-stock", brand: "Local Farm", image: "/products/potato.png", barcode: "89411000113" },
+  { id: 1, name: "Frytol Cooking Oil 5L", nameBn: "Frytol Angwa 5L", sku: "OIL-001", category: "Grocery", buyPrice: 110, sellPrice: 135, stock: 24, min: 10, unit: "5L", status: "in-stock", brand: "Wilmar", image: "/products/sunflower-oil.jpg", barcode: "89411000101" },
+  { id: 2, name: "Indomie Instant Noodles Carton", nameBn: "Indomie Carton (40pcs)", sku: "SNA-002", category: "Snacks", buyPrice: 70, sellPrice: 85, stock: 48, min: 20, unit: "Carton", status: "in-stock", brand: "Indomie Ghana", image: "/products/chanachur.jpg", barcode: "89411000102" },
+  { id: 3, name: "Ideal Evaporated Milk 160g", nameBn: "Ideal Nufusuo 160g", sku: "DAI-003", category: "Dairy", buyPrice: 9.5, sellPrice: 12, stock: 8, min: 20, unit: "160g Tin", status: "low-stock", brand: "Nestlé Ghana", image: "/products/milk.jpg", barcode: "89411000103" },
+  { id: 4, name: "Soft Facial Tissue Box", nameBn: "Tissue Box", sku: "HH-004", category: "Household", buyPrice: 15, sellPrice: 22, stock: 32, min: 10, unit: "Box", status: "in-stock", brand: "Flora Ghana", image: "/products/tissue-box.jpg", barcode: "89411000104" },
+  { id: 5, name: "Milo Malt Beverage 400g", nameBn: "Milo Kookoo 400g", sku: "BEV-005", category: "Beverages", buyPrice: 32, sellPrice: 42, stock: 96, min: 30, unit: "400g Refill", status: "in-stock", brand: "Nestlé Ghana", image: "/products/frooto.jpg", barcode: "89411000105" },
+  { id: 6, name: "Key Soap Laundry Bar", nameBn: "Key Soap Kɛseɛ", sku: "PC-006", category: "Personal Care", buyPrice: 11, sellPrice: 14, stock: 0, min: 10, unit: "Bar", status: "out-of-stock", brand: "Unilever Ghana", image: "/products/soap.jpg", barcode: "89411000106" },
+  { id: 7, name: "Annapurna Iodized Salt 1kg", nameBn: "Nkyene 1kg", sku: "GRO-007", category: "Grocery", buyPrice: 6, sellPrice: 9, stock: 3, min: 15, unit: "1kg", status: "low-stock", brand: "Unilever Ghana", image: "/products/salt.jpg", barcode: "89411000107" },
+  { id: 8, name: "Gino Jasmine Rice 5kg", nameBn: "Gino Ɛmo 5kg", sku: "GRO-008", category: "Grocery", buyPrice: 85, sellPrice: 105, stock: 22, min: 8, unit: "5kg Bag", status: "in-stock", brand: "Gino Ghana", image: "/products/chilli-powder.jpg", barcode: "89411000108" },
+  { id: 9, name: "Shito Hot Pepper Sauce 350g", nameBn: "Shito Mako 350g", sku: "GRO-009", category: "Grocery", buyPrice: 20, sellPrice: 28, stock: 40, min: 10, unit: "350g Jar", status: "in-stock", brand: "Homowo", image: "/products/chilli-powder.jpg", barcode: "89411000109" },
+  { id: 10, name: "Golden Tree Kingsbite Chocolate", nameBn: "Kingsbite Choclete", sku: "SNA-010", category: "Snacks", buyPrice: 14, sellPrice: 20, stock: 72, min: 20, unit: "100g Bar", status: "in-stock", brand: "CPC Ghana", image: "/products/biscuit.jpg", barcode: "89411000110" },
+  { id: 11, name: "Voltic Natural Mineral Water 1.5L", nameBn: "Voltic Nsuo 1.5L", sku: "BEV-011", category: "Beverages", buyPrice: 5, sellPrice: 8, stock: 30, min: 10, unit: "1.5L Bottle", status: "in-stock", brand: "Voltic Ghana", image: "/products/juice.jpg", barcode: "89411000111" },
+  { id: 12, name: "Geisha Mackerel in Tomato Sauce", nameBn: "Geisha Nam 425g", sku: "GRO-012", category: "Grocery", buyPrice: 18, sellPrice: 24, stock: 44, min: 12, unit: "425g Tin", status: "in-stock", brand: "Geisha", image: "/products/dove-soap.jpg", barcode: "89411000112" },
 ];
 
 const initialCustomers: Customer[] = [
-  { id: 1, name: "Karim Ahmed", nameBn: "করিম আহমেদ", phone: "01712-345678", address: "হাউজ ১২, রোড ৫, ধানমন্ডি", totalPurchases: 45200, due: 8500, visits: 28, lastVisit: "Today", lastPayment: "3 days ago", dueSince: "Dec 10", status: "regular", rating: 5, avatar: "ক" },
-  { id: 2, name: "Sumaiya Khatun", nameBn: "সুমাইয়া খাতুন", phone: "01812-456789", address: "ব্লক সি, মিরপুর ১০", totalPurchases: 32100, due: 12000, visits: 19, lastVisit: "Yesterday", lastPayment: "7 days ago", dueSince: "Nov 28", status: "due", rating: 4, avatar: "স" },
-  { id: 3, name: "Rahim Mia", nameBn: "রহিম মিয়া", phone: "01912-567890", address: "সেক্টর ৭, উত্তরা", totalPurchases: 18500, due: 3200, visits: 12, lastVisit: "2 days ago", lastPayment: "Today", dueSince: "Dec 12", status: "regular", rating: 4, avatar: "র" },
-  { id: 4, name: "Farida Begum", nameBn: "ফরিদা বেগম", phone: "01612-678901", address: "রোড ৩, মোহাম্মদপুর", totalPurchases: 28000, due: 5800, visits: 22, lastVisit: "3 days ago", lastPayment: "5 days ago", dueSince: "Dec 5", status: "due", rating: 5, avatar: "ফ" },
-  { id: 5, name: "Noor Islam", nameBn: "নূর ইসলাম", phone: "01512-789012", address: "বাসা ৮, বনশ্রী", totalPurchases: 9800, due: 1500, visits: 7, lastVisit: "Today", lastPayment: "2 days ago", dueSince: "Dec 13", status: "new", rating: 3, avatar: "ন" },
-  { id: 6, name: "Jahangir Alam", nameBn: "জাহাঙ্গীর আলম", phone: "01312-890123", address: "গুলশান ২, ঢাকা", totalPurchases: 52400, due: 4800, visits: 35, lastVisit: "1 week ago", lastPayment: "2 weeks ago", dueSince: "Nov 15", status: "vip", rating: 5, avatar: "জ" },
-  { id: 7, name: "Rashida Khanam", nameBn: "রশিদা খানম", phone: "01411-901234", address: "শান্তিনগর, ঢাকা", totalPurchases: 15200, due: 0, visits: 11, lastVisit: "4 days ago", status: "regular", rating: 4, avatar: "রখ" },
-  { id: 8, name: "Belal Hossain", nameBn: "বেলাল হোসেন", phone: "01611-012345", address: "মতিঝিল, ঢাকা", totalPurchases: 62000, due: 0, visits: 41, lastVisit: "Today", status: "vip", rating: 5, avatar: "ব" },
+  { id: 1, name: "Kwame Mensah", nameBn: "Kwame Mensah", phone: "024 412 3456", address: "Plot 12, East Legon, Accra", totalPurchases: 4520, due: 850, visits: 28, lastVisit: "Today", lastPayment: "3 days ago", dueSince: "Dec 10", status: "regular", rating: 5, avatar: "KM" },
+  { id: 2, name: "Abena Osei", nameBn: "Abena Osei", phone: "055 892 1234", address: "Adum Central, Kumasi", totalPurchases: 3210, due: 1200, visits: 19, lastVisit: "Yesterday", lastPayment: "7 days ago", dueSince: "Nov 28", status: "due", rating: 4, avatar: "AO" },
+  { id: 3, name: "Kofi Boateng", nameBn: "Kofi Boateng", phone: "020 781 4567", address: "Oxford Street, Osu, Accra", totalPurchases: 1850, due: 320, visits: 12, lastVisit: "2 days ago", lastPayment: "Today", dueSince: "Dec 12", status: "regular", rating: 4, avatar: "KB" },
+  { id: 4, name: "Ama Serwaa", nameBn: "Ama Serwaa", phone: "024 331 9988", address: "Community 1, Tema", totalPurchases: 2800, due: 580, visits: 22, lastVisit: "3 days ago", lastPayment: "5 days ago", dueSince: "Dec 5", status: "due", rating: 5, avatar: "AS" },
+  { id: 5, name: "Yaw Addo", nameBn: "Yaw Addo", phone: "054 662 3120", address: "Spintex Road, Accra", totalPurchases: 980, due: 150, visits: 7, lastVisit: "Today", lastPayment: "2 days ago", dueSince: "Dec 13", status: "new", rating: 3, avatar: "YA" },
+  { id: 6, name: "Akosua Frimpong", nameBn: "Akosua Frimpong", phone: "027 554 8899", address: "Airport Residential Area, Accra", totalPurchases: 5240, due: 480, visits: 35, lastVisit: "1 week ago", lastPayment: "2 weeks ago", dueSince: "Nov 15", status: "vip", rating: 5, avatar: "AF" },
+  { id: 7, name: "Kwabena Asante", nameBn: "Kwabena Asante", phone: "024 991 7733", address: "Bantama High Street, Kumasi", totalPurchases: 1520, due: 0, visits: 11, lastVisit: "4 days ago", status: "regular", rating: 4, avatar: "KA" },
+  { id: 8, name: "Efua Nyarko", nameBn: "Efua Nyarko", phone: "020 334 5511", address: "Market Circle, Takoradi", totalPurchases: 6200, due: 0, visits: 41, lastVisit: "Today", status: "vip", rating: 5, avatar: "EN" },
 ];
 
 const initialSuppliers: Supplier[] = [
-  { id: 1, name: "Pran-RFL Group", nameBn: "প্রাণ-আরএফএল গ্রুপ", contact: "01711-000001", totalPurchases: 185000, paid: 163600, due: 21400, nextPayment: "Dec 20", avatar: "P", category: "Food & FMCG" },
-  { id: 2, name: "Meghna Group", nameBn: "মেঘনা গ্রুপ", contact: "01711-000002", totalPurchases: 92000, paid: 92000, due: 0, nextPayment: "—", avatar: "M", category: "Oil & Food" },
-  { id: 3, name: "ACI Limited", nameBn: "এসিআই লিমিটেড", contact: "01711-000003", totalPurchases: 58000, paid: 45000, due: 13000, nextPayment: "Dec 22", avatar: "A", category: "Healthcare & FMCG" },
-  { id: 4, name: "Square Group BD", nameBn: "স্কয়ার গ্রুপ", contact: "01711-000004", totalPurchases: 34000, paid: 34000, due: 0, nextPayment: "—", avatar: "S", category: "FMCG" },
-  { id: 5, name: "Bashundhara Group", nameBn: "বসুন্ধরা গ্রুপ", contact: "01711-000005", totalPurchases: 42000, paid: 30000, due: 12000, nextPayment: "Dec 18", avatar: "B", category: "Paper & Tissue" },
+  { id: 1, name: "Wilmar Africa Ltd (Frytol)", nameBn: "Wilmar Africa Ltd", contact: "030 330 4560", totalPurchases: 18500, paid: 16360, due: 2140, nextPayment: "Dec 20", avatar: "W", category: "Edible Oils & Rice" },
+  { id: 2, name: "Nestlé Ghana Ltd", nameBn: "Nestlé Ghana Ltd", contact: "030 250 0700", totalPurchases: 9200, paid: 9200, due: 0, nextPayment: "—", avatar: "N", category: "Dairy & Beverage" },
+  { id: 3, name: "Unilever Ghana PLC", nameBn: "Unilever Ghana PLC", contact: "030 222 1100", totalPurchases: 5800, paid: 4500, due: 1300, nextPayment: "Dec 22", avatar: "U", category: "Personal Care & Household" },
+  { id: 4, name: "De-United Foods (Indomie)", nameBn: "Indomie Ghana Ltd", contact: "030 281 2940", totalPurchases: 3400, paid: 3400, due: 0, nextPayment: "—", avatar: "I", category: "Noodles & FMCG" },
+  { id: 5, name: "Cocoa Processing Co. (CPC)", nameBn: "CPC Golden Tree", contact: "030 320 2911", totalPurchases: 4200, paid: 3000, due: 1200, nextPayment: "Dec 18", avatar: "C", category: "Confectionery & Cocoa" },
 ];
 
 const initialPurchases: Purchase[] = [
-  { id: "PUR-0042", supplier: "Pran-RFL Group", date: "Dec 13, 2024", items: [{ product: "Ruchi Chanachur", qty: 50, cost: 45 }, { product: "Frooto 250ml", qty: 100, cost: 18 }], itemCount: 8, total: 18500, paid: 18500, due: 0, status: "paid", invoiceNo: "PRAN-9921" },
-  { id: "PUR-0041", supplier: "Meghna Group", date: "Dec 12, 2024", items: [{ product: "Sunflower Oil 5L", qty: 40, cost: 250 }], itemCount: 4, total: 12000, paid: 8000, due: 4000, status: "partial", invoiceNo: "MEG-412" },
-  { id: "PUR-0040", supplier: "ACI Limited", date: "Dec 11, 2024", items: [{ product: "Salt & Spices", qty: 60, cost: 30 }], itemCount: 6, total: 8500, paid: 0, due: 8500, status: "credit", invoiceNo: "ACI-108" },
-  { id: "PUR-0039", supplier: "Square Group BD", date: "Dec 10, 2024", items: [{ product: "Personal Care Bundle", qty: 100, cost: 250 }], itemCount: 12, total: 25000, paid: 25000, due: 0, status: "paid", invoiceNo: "SQ-551" },
-  { id: "PUR-0038", supplier: "Bashundhara Group", date: "Dec 9, 2024", items: [{ product: "Tissue Box", qty: 50, cost: 90 }], itemCount: 3, total: 6800, paid: 3000, due: 3800, status: "partial", invoiceNo: "BAS-882" },
+  { id: "PUR-0042", supplier: "Wilmar Africa Ltd (Frytol)", date: "Dec 13, 2024", items: [{ product: "Frytol Cooking Oil 5L", qty: 40, cost: 110 }, { product: "Gino Jasmine Rice 5kg", qty: 30, cost: 85 }], itemCount: 8, total: 6950, paid: 6950, due: 0, status: "paid", invoiceNo: "WIL-9921" },
+  { id: "PUR-0041", supplier: "Nestlé Ghana Ltd", date: "Dec 12, 2024", items: [{ product: "Milo Malt 400g", qty: 50, cost: 32 }, { product: "Ideal Milk 160g", qty: 100, cost: 9.5 }], itemCount: 4, total: 2550, paid: 1800, due: 750, status: "partial", invoiceNo: "NES-412" },
+  { id: "PUR-0040", supplier: "Unilever Ghana PLC", date: "Dec 11, 2024", items: [{ product: "Key Soap Laundry Bar", qty: 80, cost: 11 }], itemCount: 6, total: 880, paid: 0, due: 880, status: "credit", invoiceNo: "UNI-108" },
+  { id: "PUR-0039", supplier: "De-United Foods (Indomie)", date: "Dec 10, 2024", items: [{ product: "Indomie Carton 40pcs", qty: 30, cost: 70 }], itemCount: 12, total: 2100, paid: 2100, due: 0, status: "paid", invoiceNo: "IND-551" },
+  { id: "PUR-0038", supplier: "Cocoa Processing Co. (CPC)", date: "Dec 9, 2024", items: [{ product: "Kingsbite Chocolate", qty: 60, cost: 14 }], itemCount: 3, total: 840, paid: 400, due: 440, status: "partial", invoiceNo: "CPC-882" },
 ];
 
 const initialExpenses: Expense[] = [
-  { id: "EXP-1", category: "Salary", categoryBn: "বেতন", amount: 28000, date: "Dec 1, 2024", paidFrom: "Cash", note: "December salary for employees" },
-  { id: "EXP-2", category: "Shop Rent", categoryBn: "দোকান ভাড়া", amount: 15000, date: "Dec 1, 2024", paidFrom: "bKash", note: "Monthly shop rent" },
-  { id: "EXP-3", category: "Electricity", categoryBn: "বিদ্যুৎ", amount: 3200, date: "Dec 5, 2024", paidFrom: "Cash", note: "DESCO electric bill" },
-  { id: "EXP-4", category: "Transport", categoryBn: "পরিবহন", amount: 1200, date: "Dec 8, 2024", paidFrom: "Cash", note: "Supplier pickup van rent" },
-  { id: "EXP-5", category: "Food", categoryBn: "খাবার", amount: 800, date: "Dec 10, 2024", paidFrom: "Cash", note: "Staff afternoon snacks" },
-  { id: "EXP-6", category: "Marketing", categoryBn: "মার্কেটিং", amount: 2000, date: "Dec 11, 2024", paidFrom: "bKash", note: "Facebook local ad boost" },
-  { id: "EXP-7", category: "Maintenance", categoryBn: "রক্ষণাবেক্ষণ", amount: 500, date: "Dec 12, 2024", paidFrom: "Cash", note: "Shelf repair" },
+  { id: "EXP-1", category: "Salary", categoryBn: "Akatua / Salary", amount: 4800, date: "Dec 1, 2024", paidFrom: "Cash", note: "December staff salary" },
+  { id: "EXP-2", category: "Shop Rent", categoryBn: "Ofie Ka / Rent", amount: 2500, date: "Dec 1, 2024", paidFrom: "MTN MoMo", note: "Monthly shop rent - Osu Oxford St" },
+  { id: "EXP-3", category: "Electricity", categoryBn: "Anyinam Ahooden / ECG", amount: 550, date: "Dec 5, 2024", paidFrom: "MTN MoMo", note: "ECG prepaid meter recharge" },
+  { id: "EXP-4", category: "Transport", categoryBn: "Akwantuo / Transport", amount: 220, date: "Dec 8, 2024", paidFrom: "Cash", note: "Dispatch rider fuel & logistics" },
+  { id: "EXP-5", category: "Food", categoryBn: "Aduane / Staff Lunch", amount: 160, date: "Dec 10, 2024", paidFrom: "Cash", note: "Staff lunch & refreshments" },
+  { id: "EXP-6", category: "Marketing", categoryBn: "Dawubɔ / Marketing", amount: 350, date: "Dec 11, 2024", paidFrom: "MTN MoMo", note: "Instagram & WhatsApp local promo" },
+  { id: "EXP-7", category: "Maintenance", categoryBn: "Nsiesie / Maintenance", amount: 120, date: "Dec 12, 2024", paidFrom: "Cash", note: "Store lighting & shelf fixing" },
 ];
 
 const initialAccounts: CashAccount[] = [
-  { id: "cash", name: "Cash", nameBn: "নগদ ক্যাশ", balance: 72500, color: "#16A34A", bg: "#F0FDF4", in: 48250, out: 12800 },
-  { id: "bkash", name: "bKash", nameBn: "বিকাশ", balance: 28400, color: "#E91E8C", bg: "#FDF2F8", in: 12400, out: 3200 },
-  { id: "nagad", name: "Nagad", nameBn: "নগদ", balance: 15200, color: "#D97706", bg: "#FFFBEB", in: 8200, out: 1500 },
-  { id: "rocket", name: "Rocket", nameBn: "রকেট", balance: 8600, color: "#7B1FA2", bg: "#F3E5F5", in: 4100, out: 800 },
-  { id: "bank", name: "BRAC Bank", nameBn: "ব্র্যাক ব্যাংক", balance: 185000, color: "#1565C0", bg: "#E3F2FD", in: 50000, out: 25000 },
+  { id: "cash", name: "Cash Drawer", nameBn: "Sika Pɔtee (Cash)", balance: 4850, color: "#16A34A", bg: "#F0FDF4", in: 3420, out: 1100 },
+  { id: "bkash", name: "MTN MoMo", nameBn: "MTN MoMo", balance: 8420, color: "#EAB308", bg: "#FEFCE8", in: 6100, out: 1800 },
+  { id: "nagad", name: "Telecel Cash", nameBn: "Telecel Cash", balance: 3150, color: "#E11D48", bg: "#FFF1F2", in: 2200, out: 650 },
+  { id: "rocket", name: "AT Money", nameBn: "AT Money", balance: 1200, color: "#0284C7", bg: "#F0F9FF", in: 950, out: 200 },
+  { id: "bank", name: "Ecobank Ghana", nameBn: "Ecobank Ghana", balance: 24500, color: "#1E3A8A", bg: "#EFF6FF", in: 12000, out: 4500 },
 ];
 
 const initialTransactions: CashTransaction[] = [
-  { id: "TX-1", type: "in", desc: "Sale Collection — Karim Ahmed", descBn: "বিক্রয় আয়", account: "Cash", amount: 2850, time: "Today 6:32 PM" },
-  { id: "TX-2", type: "in", desc: "Sale Collection — Sumaiya", descBn: "বিক্রয় আয়", account: "bKash", amount: 1200, time: "Today 5:48 PM" },
-  { id: "TX-3", type: "out", desc: "Stock Purchase — Pran", descBn: "স্টক ক্রয়", account: "Cash", amount: 18500, time: "Today 2:15 PM" },
-  { id: "TX-4", type: "transfer", desc: "Cash to bKash Transfer", descBn: "ক্যাশ থেকে বিকাশ", account: "Cash → bKash", amount: 10000, time: "Today 11:00 AM" },
-  { id: "TX-5", type: "in", desc: "Customer Due Collected — Farida", descBn: "বাকি গ্রহণ", account: "Cash", amount: 5000, time: "Yesterday" },
-  { id: "TX-6", type: "out", desc: "Shop Rent Payment", descBn: "দোকান ভাড়া", account: "bKash", amount: 15000, time: "Dec 1" },
+  { id: "TX-1", type: "in", desc: "Sale Collection — Kwame Mensah", descBn: "Tɔn Nnoɔma — Kwame Mensah", account: "Cash", amount: 285, time: "Today 6:32 PM" },
+  { id: "TX-2", type: "in", desc: "MoMo Sale Collection — Abena Osei", descBn: "MTN MoMo Akatua", account: "MTN MoMo", amount: 185, time: "Today 5:48 PM" },
+  { id: "TX-3", type: "out", desc: "Stock Purchase — Wilmar Africa", descBn: "Tɔ Nnoɔma — Wilmar", account: "Cash", amount: 1200, time: "Today 2:15 PM" },
+  { id: "TX-4", type: "transfer", desc: "Cash Drawer to MTN MoMo Deposit", descBn: "Sika Firi Drawer Kɔ MoMo", account: "Cash → MTN MoMo", amount: 800, time: "Today 11:00 AM" },
+  { id: "TX-5", type: "in", desc: "Customer Credit Settled — Ama Serwaa", descBn: "Aka Tua — Ama Serwaa", account: "MTN MoMo", amount: 350, time: "Yesterday" },
+  { id: "TX-6", type: "out", desc: "Store ECG Electricity Recharge", descBn: "ECG Anyinam Ahooden", account: "MTN MoMo", amount: 250, time: "Dec 5" },
 ];
 
 const initialEmployees: Employee[] = [
-  { id: 1, name: "Salam Ahmed", nameBn: "সালাম আহমেদ", role: "Cashier", roleBn: "ক্যাশিয়ার", phone: "01712-111111", salary: 12000, salesThisMonth: 185000, joined: "Jan 2023", avatar: "স", status: "active", lastPaid: "Dec 1, 2024" },
-  { id: 2, name: "Riya Begum", nameBn: "রিয়া বেগম", role: "Sales Staff", roleBn: "বিক্রয় স্টাফ", phone: "01812-222222", salary: 10000, salesThisMonth: 142000, joined: "Mar 2023", avatar: "র", status: "active", lastPaid: "Dec 1, 2024" },
-  { id: 3, name: "Hasan Ali", nameBn: "হাসান আলী", role: "Store Manager", roleBn: "স্টোর ম্যানেজার", phone: "01912-333333", salary: 18000, salesThisMonth: 320000, joined: "Aug 2022", avatar: "হ", status: "active", lastPaid: "Dec 1, 2024" },
-  { id: 4, name: "Mina Khatun", nameBn: "মিনা খাতুন", role: "Inventory Staff", roleBn: "ইনভেন্টরি স্টাফ", phone: "01612-444444", salary: 9000, salesThisMonth: 0, joined: "Jun 2023", avatar: "ম", status: "active", lastPaid: "Dec 1, 2024" },
+  { id: 1, name: "Kwesi Appiah", nameBn: "Kwesi Appiah", role: "Store Manager", roleBn: "Panyin / Manager", phone: "024 400 1122", salary: 2200, salesThisMonth: 18500, joined: "Jan 2023", avatar: "KA", status: "active", lastPaid: "Dec 1, 2024" },
+  { id: 2, name: "Abena Darko", nameBn: "Abena Darko", role: "Chief Cashier", roleBn: "Sika Sohwɛfoɔ", phone: "055 330 2211", salary: 1400, salesThisMonth: 14200, joined: "Mar 2023", avatar: "AD", status: "active", lastPaid: "Dec 1, 2024" },
+  { id: 3, name: "Kojo Antwi", nameBn: "Kojo Antwi", role: "Sales Associate", roleBn: "Tɔnfoɔ / Sales", phone: "020 889 3344", salary: 1200, salesThisMonth: 9800, joined: "Aug 2023", avatar: "KA", status: "active", lastPaid: "Dec 1, 2024" },
+  { id: 4, name: "Akwasi Mensah", nameBn: "Akwasi Mensah", role: "Inventory & Dispatch", roleBn: "Akorae Sohwɛfoɔ", phone: "024 771 9900", salary: 1100, salesThisMonth: 0, joined: "Nov 2023", avatar: "AM", status: "active", lastPaid: "Dec 1, 2024" },
 ];
 
 const initialNotifications: NotificationItem[] = [
-  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Salt 1kg has only 3 units left. Minimum stock is 15.", bodyBn: "লবণ ১কেজিতে মাত্র ৩টি বাকি। সর্বনিম্ন স্টক ১৫টি।", time: "2 min ago", read: false, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
-  { id: 2, type: "sale", title: "Sale Completed", titleBn: "বিক্রয় সম্পন্ন", body: "INV-1043 completed for Karim Ahmed — ৳2,850", bodyBn: "করিম আহমেদের INV-১০৪৩ সম্পন্ন — ৳২,৮৫০", time: "15 min ago", read: false, color: "bg-em-50 text-ink", badge: "bg-em-100 text-ink" },
-  { id: 3, type: "due", title: "Overdue Payment Reminder", titleBn: "বকেয়া পেমেন্ট মনে করানো", body: "Sumaiya Khatun has ৳12,000 overdue since Nov 28.", bodyBn: "সুমাইয়া খাতুনের ৳১২,০০০ বাকি নভেম্বর ২৮ থেকে।", time: "1 hour ago", read: false, color: "bg-red-50 text-ink", badge: "bg-red-100 text-ink" },
-  { id: 4, type: "stock", title: "Low Stock Alert", titleBn: "কম স্টক সতর্কতা", body: "Fresh Milk 1L — 8 units left (min: 20)", bodyBn: "ফ্রেশ মিল্ক — ৮টি বাকি (সর্বনিম্ন: ২০)", time: "2 hours ago", read: true, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
-  { id: 5, type: "supplier", title: "Supplier Payment Due", titleBn: "সাপ্লায়ার পেমেন্ট দেয়", body: "Pran-RFL Group payment of ৳21,400 is due on Dec 20.", bodyBn: "প্রাণ-আরএফএল গ্রুপের ৳২১,৪০০ পেমেন্ট ডিসেম্বর ২০ তারিখে।", time: "3 hours ago", read: true, color: "bg-nv-50 text-ink", badge: "bg-nv-100 text-ink" },
+  { id: 1, type: "alert", title: "Low Stock Alert", titleBn: "Nneɛma a Aka Wɔ Fom", body: "Annapurna Salt 1kg has only 3 units left. Restock now.", bodyBn: "Annapurna Nkyene 1kg aka 3 pɛ. Tɔ bi bio.", time: "2 min ago", read: false, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 2, type: "sale", title: "Sale Completed", titleBn: "Wɔatɔ Nnoɔma Awie", body: "INV-1043 completed for Kwame Mensah — GH₵ 285.00", bodyBn: "INV-1043 awie ma Kwame Mensah — GH₵ 285.00", time: "15 min ago", read: false, color: "bg-em-50 text-ink", badge: "bg-em-100 text-ink" },
+  { id: 3, type: "due", title: "Credit Overdue Reminder", titleBn: "Aka / Bosea Kɔkɔbɔ", body: "Abena Osei has GH₵ 1,200.00 overdue since Nov 28.", bodyBn: "Abena Osei de GH₵ 1,200.00 firi Nov 28.", time: "1 hour ago", read: false, color: "bg-red-50 text-ink", badge: "bg-red-100 text-ink" },
+  { id: 4, type: "stock", title: "Low Stock Warning", titleBn: "Akorae Kɔkɔbɔ", body: "Ideal Milk 160g — 8 tins left (min: 20)", bodyBn: "Ideal Nufusuo — aka 8 (min: 20)", time: "2 hours ago", read: true, color: "bg-ac-50 text-ink", badge: "bg-ac-100 text-ink" },
+  { id: 5, type: "supplier", title: "Supplier Payment Due", titleBn: "Agorɔfoɔ Akatua", body: "Wilmar Africa payment of GH₵ 2,140.00 is due on Dec 20.", bodyBn: "Wilmar Africa akatua GH₵ 2,140.00 bɛba Dec 20.", time: "3 hours ago", read: true, color: "bg-nv-50 text-ink", badge: "bg-nv-100 text-ink" },
 ];
 
 const initialSales: Sale[] = [
   {
     id: "sale-1042",
     invoiceNo: "INV-1042",
-    customer: "Karim Ahmed",
-    customerPhone: "01712-345678",
+    customer: "Kwame Mensah",
+    customerPhone: "024 412 3456",
     items: [
-      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", qty: 2, price: 300, discount: 0 },
-      { name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", qty: 3, price: 60, discount: 0 },
-      { name: "Meril Shampoo 200ml", nameBn: "মেরিল শ্যাম্পু ২০০মিলি", qty: 1, price: 150, discount: 20 },
-      { name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", qty: 4, price: 80, discount: 0 },
-      { name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", qty: 5, price: 25, discount: 0 },
+      { name: "Frytol Cooking Oil 5L", nameBn: "Frytol Angwa 5L", qty: 2, price: 135, discount: 0 },
+      { name: "Gino Jasmine Rice 5kg", nameBn: "Gino Ɛmo 5kg", qty: 1, price: 105, discount: 0 },
+      { name: "Milo Malt Beverage 400g", nameBn: "Milo Kookoo 400g", qty: 2, price: 42, discount: 4 },
+      { name: "Ideal Evaporated Milk", nameBn: "Ideal Nufusuo", qty: 4, price: 12, discount: 0 },
+      { name: "Voltic Water 1.5L", nameBn: "Voltic Nsuo 1.5L", qty: 3, price: 8, discount: 0 },
     ],
-    subtotal: 1345,
-    discount: 20,
+    subtotal: 531,
+    discount: 4,
     vat: 0,
-    grandTotal: 1325,
-    paid: 1325,
+    grandTotal: 527,
+    paid: 527,
     due: 0,
     paymentMethod: "cash",
-    cashGiven: 1500,
-    change: 175,
+    cashGiven: 550,
+    change: 23,
     date: "December 13, 2024",
     time: "6:32 PM",
     status: "completed",
@@ -664,16 +650,17 @@ const initialSales: Sale[] = [
   {
     id: "sale-1041",
     invoiceNo: "INV-1041",
-    customer: "Sumaiya Khatun",
-    customerPhone: "01812-456789",
+    customer: "Abena Osei",
+    customerPhone: "055 892 1234",
     items: [
-      { name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার অয়েল ৫লি", qty: 4, price: 300, discount: 0 },
+      { name: "Frytol Cooking Oil 5L", nameBn: "Frytol Angwa 5L", qty: 1, price: 135, discount: 0 },
+      { name: "Indomie Carton (40pcs)", nameBn: "Indomie Carton", qty: 1, price: 85, discount: 0 },
     ],
-    subtotal: 1200,
+    subtotal: 220,
     discount: 0,
     vat: 0,
-    grandTotal: 1200,
-    paid: 1200,
+    grandTotal: 220,
+    paid: 220,
     due: 0,
     paymentMethod: "bkash",
     date: "December 13, 2024",
@@ -685,14 +672,14 @@ const initialSales: Sale[] = [
     invoiceNo: "INV-1040",
     customer: "Walk-in Customer",
     items: [
-      { name: "Bashundhara Tissue", nameBn: "বসুন্ধরা টিস্যু", qty: 5, price: 120, discount: 0 },
-      { name: "Ruchi Chanachur 200g", nameBn: "রুচি চানাচুর ২০০গ্রাম", qty: 10, price: 60, discount: 0 },
+      { name: "Geisha Mackerel 425g", nameBn: "Geisha Nam", qty: 3, price: 24, discount: 0 },
+      { name: "Kingsbite Chocolate", nameBn: "Kingsbite Choclete", qty: 2, price: 20, discount: 0 },
     ],
-    subtotal: 1200,
+    subtotal: 112,
     discount: 0,
     vat: 0,
-    grandTotal: 1200,
-    paid: 1200,
+    grandTotal: 112,
+    paid: 112,
     due: 0,
     paymentMethod: "cash",
     date: "December 13, 2024",
@@ -702,34 +689,34 @@ const initialSales: Sale[] = [
 ];
 
 const initialSettings: ShopSettings = {
-  shopName: "Rahim Store",
-  shopNameBn: "রহিম স্টোর",
-  ownerName: "Rahim Mia",
-  businessType: "Grocery / মুদি দোকান",
-  phone: "01712-345678",
-  address: "House 42, Main Road, Dhanmondi, Dhaka 1209",
-  currency: "BDT (৳)",
+  shopName: "Kofi Provisions & Retail Mart",
+  shopNameBn: "Kofi Nsɛm Supermarket",
+  ownerName: "Kofi Boateng",
+  businessType: "Supermarket & Provisions / Nnoɔma Fie",
+  phone: "+233 24 412 3456",
+  address: "Plot 14, Oxford Street, Osu, Accra, Ghana",
+  currency: "GHS (GH₵)",
   taxRate: 0,
   autoPrint: true,
   soundEnabled: true,
-  smsReminderTemplate: "Dear [Name], your due amount at Rahim Store is ৳[Amount]. Please pay at your earliest convenience. Thank you!",
-  branch: "Main Branch (Dhanmondi)",
+  smsReminderTemplate: "Dear [Name], friendly reminder that your outstanding balance at Kofi Provisions is GH₵[Amount]. Kindly settle via MTN MoMo to 0244123456. Medaase (Thank you)!",
+  branch: "Accra Central (Osu)",
 };
 
 const initialVgoContributions: VGOContribution[] = [
-  { id: "VGO-1092", contributor: "Rahim Mia", contributorType: "customer", action: "Purchased weekly grocery bundle", actionBn: "সাপ্তাহিক মুদি সদাই ক্রয় করেছেন", category: "transaction", impactUnits: 120, vgoRewarded: 24, proofHash: "0x8f4c...91b2", timestamp: "10 mins ago", status: "verified" },
-  { id: "VGO-1091", contributor: "Pran-RFL Group", contributorType: "supplier", action: "100% On-Time Supply Delivery", actionBn: "১০০% সময়মতো সাপ্লাই ডেলিভারি সম্পন্ন", category: "logistics", impactUnits: 350, vgoRewarded: 70, proofHash: "0x3e1a...44f0", timestamp: "45 mins ago", status: "minted" },
-  { id: "VGO-1090", contributor: "Tanvir Ahmed", contributorType: "employee", action: "Fast Checkout & Customer Delight", actionBn: "দ্রুত চেকআউট ও গ্রাহক সেবা প্রদান", category: "loyalty", impactUnits: 95, vgoRewarded: 19, proofHash: "0x11bb...cc29", timestamp: "2 hours ago", status: "verified" },
-  { id: "VGO-1089", contributor: "Karim Ahmed", contributorType: "customer", action: "Store Referral (Referred 2 Neighbors)", actionBn: "২ জন নতুন গ্রাহক রেফার করেছেন", category: "collaboration", impactUnits: 250, vgoRewarded: 50, proofHash: "0x4a99...fe12", timestamp: "Yesterday", status: "shared" },
-  { id: "VGO-1088", contributor: "Akij Consumer Care", contributorType: "supplier", action: "Direct Manufacturer Eco-Packaging", actionBn: "পরিবেশবান্ধব ইকো-প্যাকেজিং চালান", category: "governance", impactUnits: 180, vgoRewarded: 36, proofHash: "0x98dd...71ca", timestamp: "2 days ago", status: "minted" },
+  { id: "VGO-1092", contributor: "Kwame Mensah", contributorType: "customer", action: "Purchased weekly grocery bundle", actionBn: "Wɔatɔ dapɛn nnoɔma nkyɛmu", category: "transaction", impactUnits: 120, vgoRewarded: 24, proofHash: "0x8f4c...91b2", timestamp: "10 mins ago", status: "verified" },
+  { id: "VGO-1091", contributor: "Wilmar Africa Ltd", contributorType: "supplier", action: "100% On-Time Supply Delivery", actionBn: "Wɔde nnoɔma bae pɛpɛɛpɛ wɔ berɛ mu", category: "logistics", impactUnits: 350, vgoRewarded: 70, proofHash: "0x3e1a...44f0", timestamp: "45 mins ago", status: "minted" },
+  { id: "VGO-1090", contributor: "Abena Darko", contributorType: "employee", action: "Fast Checkout & Customer Delight", actionBn: "Ntɛmntɛm dwumadie & anigyeɛ", category: "loyalty", impactUnits: 95, vgoRewarded: 19, proofHash: "0x11bb...cc29", timestamp: "2 hours ago", status: "verified" },
+  { id: "VGO-1089", contributor: "Kofi Boateng", contributorType: "customer", action: "Store Referral (Referred 2 Neighbors)", actionBn: "Ɔfrɛɛ afipamfoɔ 2 baa dukan mu", category: "collaboration", impactUnits: 250, vgoRewarded: 50, proofHash: "0x4a99...fe12", timestamp: "Yesterday", status: "shared" },
+  { id: "VGO-1088", contributor: "Unilever Ghana PLC", contributorType: "supplier", action: "Direct Manufacturer Eco-Packaging", actionBn: "Mfididwuma kwan so nnoɔma ahyɛase", category: "governance", impactUnits: 180, vgoRewarded: 36, proofHash: "0x98dd...71ca", timestamp: "2 days ago", status: "minted" },
 ];
 
 const initialVgoWallets: VGOWallet[] = [
-  { id: "W-STORE", ownerName: "Rahim Store Treasury", ownerType: "store_treasury", balanceVGO: 48500, stakedVGO: 25000, totalEarned: 95000, reputationScore: 980, impactBadge: "Master Node" },
-  { id: "W-01", ownerName: "Rahim Mia", ownerType: "customer", balanceVGO: 1420, stakedVGO: 500, totalEarned: 3200, reputationScore: 890, impactBadge: "Diamond Patron" },
-  { id: "W-02", ownerName: "Karim Ahmed", ownerType: "customer", balanceVGO: 860, stakedVGO: 200, totalEarned: 1900, reputationScore: 820, impactBadge: "Pioneer" },
-  { id: "W-03", ownerName: "Pran-RFL Group", ownerType: "supplier", balanceVGO: 12400, stakedVGO: 8000, totalEarned: 28000, reputationScore: 950, impactBadge: "Verified Partner" },
-  { id: "W-04", ownerName: "Tanvir Ahmed", ownerType: "employee", balanceVGO: 640, stakedVGO: 150, totalEarned: 1400, reputationScore: 860, impactBadge: "Star Contributor" },
+  { id: "W-STORE", ownerName: "Kofi Provisions Treasury", ownerType: "store_treasury", balanceVGO: 48500, stakedVGO: 25000, totalEarned: 95000, reputationScore: 980, impactBadge: "Master Node" },
+  { id: "W-01", ownerName: "Kwame Mensah", ownerType: "customer", balanceVGO: 1420, stakedVGO: 500, totalEarned: 3200, reputationScore: 890, impactBadge: "Diamond Patron" },
+  { id: "W-02", ownerName: "Abena Osei", ownerType: "customer", balanceVGO: 860, stakedVGO: 200, totalEarned: 1900, reputationScore: 820, impactBadge: "Pioneer" },
+  { id: "W-03", ownerName: "Wilmar Africa Ltd", ownerType: "supplier", balanceVGO: 12400, stakedVGO: 8000, totalEarned: 28000, reputationScore: 950, impactBadge: "Verified Partner" },
+  { id: "W-04", ownerName: "Kwesi Appiah", ownerType: "employee", balanceVGO: 640, stakedVGO: 150, totalEarned: 1400, reputationScore: 860, impactBadge: "Star Contributor" },
 ];
 
 const initialVgoPool: VGONetworkPool = {
@@ -743,80 +730,80 @@ const initialVgoPool: VGONetworkPool = {
 
 // Initial Data: 1. Marketing
 const initialSmsCampaigns: SMSCampaign[] = [
-  { id: "SMS-101", title: "Weekend Discount Offer", titleBn: "উইকেন্ড স্পেশাল ছাড়", type: "promotional", recipientCount: 350, message: "Dear Customer, Get 10% flat off on all grocery items this Friday at Rahim Store! Shop now.", messageBn: "সম্মানিত গ্রাহক, শুক্রবার রহিম স্টোরে সকল মুদি পণ্যে ১০% বিশেষ ছাড়! আজই আসুন।", date: "Aug 22, 2026", status: "sent", cost: 140 },
-  { id: "SMS-102", title: "Customer Due Friendly Reminder", titleBn: "বাকি পরিশোধের তাগাদা এসএমএস", type: "due_reminder", recipientCount: 7, message: "Dear Customer, Friendly reminder for your pending due at Rahim Store. Please settle at your convenience.", messageBn: "সম্মানিত গ্রাহক, রহিম স্টোরে আপনার বকেয়া পরিশোধের অনুরোধ রইল। ধন্যবাদ।", date: "Aug 24, 2026", status: "sent", cost: 3.5 },
-  { id: "SMS-103", title: "Eid Mubarak Mega Offer", titleBn: "ঈদ মোবারক মেগা অফার", type: "festival", recipientCount: 500, message: "Eid Mubarak from Rahim Store! Special combo gift on shopping above ৳2000.", messageBn: "রহিম স্টোরের পক্ষ থেকে ঈদ মোবারক! ২০০০ টাকার কেনাকাটায় বিশেষ কম্বো গিফট।", date: "Scheduled for next week", status: "scheduled", cost: 200 },
+  { id: "SMS-101", title: "Weekend Market Discount", titleBn: "Weekend Special Nkabuom", type: "promotional", recipientCount: 350, message: "Dear Customer, Enjoy 10% off all groceries this Saturday at Kofi Provisions, Osu! Free delivery on MoMo orders.", messageBn: "Mema wo akwaaba! Tɔ nnoɔma wɔ Kofi Provisions na nya 10% discount nnɛ Memeneda yi.", date: "Aug 22, 2026", status: "sent", cost: 35 },
+  { id: "SMS-102", title: "Customer Credit Friendly Reminder", titleBn: "Aka / Bosea Nkaebɔ SMS", type: "due_reminder", recipientCount: 7, message: "Dear Customer, Friendly reminder of your pending balance at Kofi Provisions. Kindly settle via MTN MoMo to 0244123456. Medaase!", messageBn: "Yɛsrɛ wo, kae wo bosea a ɛda hɔ wɔ Kofi Provisions. Wubetumi atua wɔ MTN MoMo so. Medaase!", date: "Aug 24, 2026", status: "sent", cost: 1.5 },
+  { id: "SMS-103", title: "Akwasidae Festive Promo", titleBn: "Akwasidae Afahyɛ Promo", type: "festival", recipientCount: 500, message: "Happy Celebrations from Kofi Provisions! Free delivery across Accra on all orders above GH₵ 150.", messageBn: "Afahyɛ pa firi Kofi Provisions! Yɛde nnoɔma bɛbrɛ wo kwa sɛ wotɔ boro GH₵ 150 a.", date: "Scheduled for next week", status: "scheduled", cost: 50 },
 ];
 
 const initialMetaAdSync: MetaAdSync = {
   catalogSynced: true,
   syncedProductsCount: 12,
-  pixelId: "META-PIXEL-BD-89410",
+  pixelId: "META-PIXEL-GH-89410",
   pixelActive: true,
-  adSpend: 3400,
+  adSpend: 340,
   conversions: 48,
 };
 
-// Initial Data: 2. Delivery Aggregator
+// Initial Data: 2. Delivery Aggregator (Ghana Couriers)
 const initialCourierParcels: CourierParcel[] = [
-  { id: "PAR-901", trackingCode: "STF-BD-89211", courier: "steadfast", customerName: "Tanvir Hasan", customerPhone: "01711-223344", destination: "Mirpur 10, Dhaka", invoiceNo: "INV-2026-001", codAmount: 1850, deliveryFee: 60, status: "delivered", date: "Aug 24, 2026", codSettled: true },
-  { id: "PAR-902", trackingCode: "PTH-EXP-44019", courier: "pathao", customerName: "Sultana Begum", customerPhone: "01819-556677", destination: "Sector 7, Uttara", invoiceNo: "INV-2026-002", codAmount: 3200, deliveryFee: 60, status: "in_transit", date: "Today, 11:30 AM", codSettled: false },
-  { id: "PAR-903", trackingCode: "RDX-DH-10928", courier: "redx", customerName: "Mahbubur Rahman", customerPhone: "01912-778899", destination: "Chittagong GEC", invoiceNo: "INV-2026-003", codAmount: 950, deliveryFee: 130, status: "picked_up", date: "Today, 02:15 PM", codSettled: false },
-  { id: "PAR-904", trackingCode: "ECO-NAT-55102", courier: "ecourier", customerName: "Karim Mia", customerPhone: "01788-990011", destination: "Sylhet Zindabazar", invoiceNo: "INV-2026-004", codAmount: 4100, deliveryFee: 130, status: "booked", date: "Today, 04:00 PM", codSettled: false },
+  { id: "PAR-901", trackingCode: "YNG-ACC-89211", courier: "steadfast", customerName: "Kwame Mensah", customerPhone: "024 412 3456", destination: "East Legon, Accra", invoiceNo: "INV-2026-001", codAmount: 285, deliveryFee: 20, status: "delivered", date: "Aug 24, 2026", codSettled: true },
+  { id: "PAR-902", trackingCode: "BLT-EXP-44019", courier: "pathao", customerName: "Abena Osei", customerPhone: "055 892 1234", destination: "Adum, Kumasi", invoiceNo: "INV-2026-002", codAmount: 420, deliveryFee: 35, status: "in_transit", date: "Today, 11:30 AM", codSettled: false },
+  { id: "PAR-903", trackingCode: "GLV-TEM-10928", courier: "redx", customerName: "Ama Serwaa", customerPhone: "024 331 9988", destination: "Community 1, Tema", invoiceNo: "INV-2026-003", codAmount: 195, deliveryFee: 25, status: "picked_up", date: "Today, 02:15 PM", codSettled: false },
+  { id: "PAR-904", trackingCode: "SWF-TAK-55102", courier: "ecourier", customerName: "Efua Nyarko", customerPhone: "020 334 5511", destination: "Market Circle, Takoradi", invoiceNo: "INV-2026-004", codAmount: 560, deliveryFee: 45, status: "booked", date: "Today, 04:00 PM", codSettled: false },
 ];
 
-// Initial Data: 3. Fintech, Banking & Loans
+// Initial Data: 3. Fintech, Banking & Loans (Ghanaian Financial Institutions)
 const initialBankApplications: BankAccountApplication[] = [
-  { id: "BNK-01", bankName: "BRAC Bank Digital Merchant", bankLogo: "🏦", accountType: "current", accountNumber: "1501204899201001", status: "active", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
-  { id: "BNK-02", bankName: "bKash Merchant Enterprise Wallet", bankLogo: "📱", accountType: "merchant_wallet", accountNumber: "01712-345678", status: "active", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
-  { id: "BNK-03", bankName: "City Bank Islamic SME", bankLogo: "🏛️", accountType: "islamic_business", accountNumber: "21094892010", status: "approved", nidNumber: "1992269201994821", tradeLicense: "TRAD/DNCC/092182/2026", kycProgress: 100 },
+  { id: "BNK-01", bankName: "Ecobank Ghana Merchant Account", bankLogo: "🏦", accountType: "current", accountNumber: "1441002948201", status: "active", nidNumber: "GHA-718294019-2", tradeLicense: "CS192842024/GRA-TIN", kycProgress: 100 },
+  { id: "BNK-02", bankName: "MTN MoMo Enterprise Merchant", bankLogo: "📱", accountType: "merchant_wallet", accountNumber: "024 412 3456", status: "active", nidNumber: "GHA-718294019-2", tradeLicense: "CS192842024/GRA-TIN", kycProgress: 100 },
+  { id: "BNK-03", bankName: "GCB Bank SME Commercial", bankLogo: "🏛️", accountType: "islamic_business", accountNumber: "20184910294", status: "approved", nidNumber: "GHA-718294019-2", tradeLicense: "CS192842024/GRA-TIN", kycProgress: 100 },
 ];
 
 const initialLoanOffers: SMELoanOffer[] = [
-  { id: "LOAN-CITY-01", bankPartner: "City Bank SME QuickCredit", eligibleAmount: 150000, interestRate: 9.0, tenureMonths: 12, monthlyEMI: 13125, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 12 },
-  { id: "LOAN-BRAC-02", bankPartner: "BRAC Bank Shobuj SME Loan", eligibleAmount: 300000, interestRate: 8.5, tenureMonths: 24, monthlyEMI: 13640, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 24 },
-  { id: "LOAN-IDLC-03", bankPartner: "IDLC Micro Enterprise Credit", eligibleAmount: 75000, interestRate: 9.5, tenureMonths: 6, monthlyEMI: 12850, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 6 },
+  { id: "LOAN-ECO-01", bankPartner: "Ecobank SME Express Credit", eligibleAmount: 15000, interestRate: 18.0, tenureMonths: 12, monthlyEMI: 1475, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 12 },
+  { id: "LOAN-MOMO-02", bankPartner: "MTN MoMo Business Qwikee Loan", eligibleAmount: 7500, interestRate: 12.5, tenureMonths: 6, monthlyEMI: 1350, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 6 },
+  { id: "LOAN-GCB-03", bankPartner: "GCB Kudi Nkosuo Micro Loan", eligibleAmount: 25000, interestRate: 16.5, tenureMonths: 18, monthlyEMI: 1680, status: "pre_approved", activeLoanAmount: 0, paidInstallments: 0, totalInstallments: 18 },
 ];
 
 const initialDigitalPayments: DigitalPaymentConfig = {
   banglaQRActive: true,
-  merchantQrString: "00020101021226500010bd.gov.bb28380008bKash01017123456785204599953030505802BD5911Rahim Store6005Dhaka",
-  bkashMerchantNumber: "01712-345678",
-  nagadMerchantNumber: "01812-345678",
+  merchantQrString: "00020101021226500010gh.gov.ghqr010102441234565204599953039365802GH5911Kofi Store6005Accra",
+  bkashMerchantNumber: "024 412 3456",
+  nagadMerchantNumber: "020 781 4567",
   paymentGatewayActive: true,
 };
 
 const initialPaymentLinks: PaymentLinkItem[] = [
-  { id: "PLK-8801", customerName: "Tanvir Ahmed", amount: 1850, linkUrl: "https://pay.sayhpro.com/l/rahim-8801", purpose: "Grocery Home Delivery", createdDate: "Aug 24, 2026", status: "paid" },
-  { id: "PLK-8802", customerName: "Farhana Islam", amount: 3400, linkUrl: "https://pay.sayhpro.com/l/rahim-8802", purpose: "Monthly Supplies Order", createdDate: "Today, 10:15 AM", status: "pending" },
-  { id: "PLK-8803", customerName: "Abul Kalam", amount: 650, linkUrl: "https://pay.sayhpro.com/l/rahim-8803", purpose: "Dues Settlement via WhatsApp", createdDate: "Today, 01:40 PM", status: "pending" },
+  { id: "PLK-8801", customerName: "Kwame Mensah", amount: 285, linkUrl: "https://pay.sayhpro.com/l/kofi-8801", purpose: "Grocery Home Delivery", createdDate: "Aug 24, 2026", status: "paid" },
+  { id: "PLK-8802", customerName: "Abena Osei", amount: 420, linkUrl: "https://pay.sayhpro.com/l/kofi-8802", purpose: "Monthly Provisions Order", createdDate: "Today, 10:15 AM", status: "pending" },
+  { id: "PLK-8803", customerName: "Ama Serwaa", amount: 195, linkUrl: "https://pay.sayhpro.com/l/kofi-8803", purpose: "Credit Settlement via MoMo", createdDate: "Today, 01:40 PM", status: "pending" },
 ];
 
 // Initial Data: 4. Reselling Products
 const initialResellProducts: ResellProduct[] = [
-  { id: "RSL-01", name: "T500 Ultra Smartwatch Series 8", nameBn: "টি৫০০ আল্ট্রা স্মার্টওয়াচ", category: "Electronics", wholesalePrice: 580, suggestedRetailPrice: 950, stock: 120, image: "⌚", supplier: "Global Tech Imports", rating: 4.8, isAddedToStore: true, mySellingPrice: 890, myProfit: 310 },
-  { id: "RSL-02", name: "Kemei KM-6330 3-in-1 Grooming Trimmer", nameBn: "কেমেই ৩-ইন-১ গ্রুমিং ট্রিমার", category: "Electronics", wholesalePrice: 620, suggestedRetailPrice: 1050, stock: 85, image: "🪒", supplier: "Apex Electronics", rating: 4.7, isAddedToStore: true, mySellingPrice: 990, myProfit: 370 },
-  { id: "RSL-03", name: "Pure Organic Cold-Pressed Mustard Oil 5L", nameBn: "খাঁটি ঘানি ভাঙা সরিষার তেল ৫লি", category: "Grocery", wholesalePrice: 1100, suggestedRetailPrice: 1450, stock: 60, image: "🫙", supplier: "Gramin Organic Hub", rating: 4.9, isAddedToStore: true, mySellingPrice: 1390, myProfit: 290 },
-  { id: "RSL-04", name: "Premium Daawat Basmati Rice 5kg", nameBn: "দাওয়াত বাসমতি চাল ৫কেজি", category: "Grocery", wholesalePrice: 820, suggestedRetailPrice: 1100, stock: 45, image: "🌾", supplier: "Bengal Agro Foods", rating: 4.8, isAddedToStore: false },
-  { id: "RSL-05", name: "Pro ANC Wireless Bluetooth Earbuds", nameBn: "ওয়্যারলেস ব্লুটুথ এয়ারবাডস", category: "Electronics", wholesalePrice: 450, suggestedRetailPrice: 799, stock: 140, image: "🎧", supplier: "SoundMax BD", rating: 4.6, isAddedToStore: false },
-  { id: "RSL-06", name: "Semi-Stitched Premium Cotton Panjabi", nameBn: "প্রিমিয়াম সুতি পাঞ্জাবি", category: "Fashion", wholesalePrice: 750, suggestedRetailPrice: 1350, stock: 90, image: "👘", supplier: "Dhaka Fabrics Co.", rating: 4.9, isAddedToStore: false },
+  { id: "RSL-01", name: "T500 Ultra Smartwatch Series 8", nameBn: "T500 Ultra Dɔnhwere", category: "Electronics", wholesalePrice: 95, suggestedRetailPrice: 150, stock: 120, image: "⌚", supplier: "Global Tech Imports", rating: 4.8, isAddedToStore: true, mySellingPrice: 140, myProfit: 45 },
+  { id: "RSL-02", name: "Kemei KM-6330 3-in-1 Grooming Trimmer", nameBn: "Kemei 3-in-1 Yi Ti Trimmer", category: "Electronics", wholesalePrice: 85, suggestedRetailPrice: 140, stock: 85, image: "🪒", supplier: "Apex Electronics Ghana", rating: 4.7, isAddedToStore: true, mySellingPrice: 130, myProfit: 45 },
+  { id: "RSL-03", name: "Pure Unrefined Organic Shea Butter 1kg", nameBn: "Nkuto Pa Kɛseɛ 1kg", category: "Personal Care", wholesalePrice: 40, suggestedRetailPrice: 65, stock: 60, image: "🫙", supplier: "Northern Ghana Shea Hub", rating: 4.9, isAddedToStore: true, mySellingPrice: 60, myProfit: 20 },
+  { id: "RSL-04", name: "Royal Aroma Fragrant Jasmine Rice 5kg", nameBn: "Royal Aroma Ɛmo 5kg", category: "Grocery", wholesalePrice: 85, suggestedRetailPrice: 110, stock: 45, image: "🌾", supplier: "Tema Grains & Commodities", rating: 4.8, isAddedToStore: false },
+  { id: "RSL-05", name: "Pro Wireless Noise Cancelling Earbuds", nameBn: "Wireless Bluetooth Earbuds", category: "Electronics", wholesalePrice: 65, suggestedRetailPrice: 115, stock: 140, image: "🎧", supplier: "SoundMax Ghana", rating: 4.6, isAddedToStore: false },
+  { id: "RSL-06", name: "Authentic Kente Print Smock / Fabric", nameBn: "Kente Ntoma Fɛfɛɛfɛ", category: "Fashion", wholesalePrice: 180, suggestedRetailPrice: 280, stock: 90, image: "👘", supplier: "Bonwire Kente Weavers", rating: 4.9, isAddedToStore: false },
 ];
 
 // Initial Data: 5. No-Code Website Storefront
 const initialStorefrontConfig: StorefrontConfig = {
-  subdomain: "rahimstore",
-  customDomain: "rahimstore.com.bd",
-  heroHeadline: "Rahim Store — Your Neighborhood Daily Grocery & Essentials",
-  heroHeadlineBn: "রহিম স্টোর — আপনার বিশ্বস্ত অনলাইন মুদি ও নিত্যপ্রয়োজনীয় দোকান",
-  heroSubheadline: "Fast 1-hour home delivery across Dhanmondi and surrounding areas. Best quality guaranteed.",
-  heroSubheadlineBn: "ধানমন্ডি ও সংলগ্ন এলাকায় ১ ঘণ্টায় হোম ডেলিভারি। সেরা গুণগত মানের নিশ্চয়তা।",
+  subdomain: "kofiprovisions",
+  customDomain: "kofimart.com.gh",
+  heroHeadline: "Kofi Provisions — Accra's Trusted Daily Groceries & Essentials",
+  heroHeadlineBn: "Kofi Provisions — Wo Fi Ne Wo Nnoɔma Fie Pa",
+  heroSubheadline: "Fast delivery across Accra, Tema & Kumasi. Best quality and fresh staples guaranteed.",
+  heroSubheadlineBn: "Ntɛmntɛm kɔmafoɔ wɔ Accra, Tema ne Kumasi. Nnoɔma papa pa ara.",
   themeColor: "#16A34A",
   bannerImage: "🛒",
-  logo: "RA",
-  announcementText: "🎉 Free Home Delivery on all orders above ৳1000! Order now via WhatsApp.",
-  announcementTextBn: "🎉 ১০০০ টাকার বেশি অর্ডারে ফ্রি হোম ডেলিভারি! এখনই হোয়াটসঅ্যাপে অর্ডার করুন।",
+  logo: "KP",
+  announcementText: "⚡ Free Express Delivery on all orders above GH₵ 150! Pay via MTN MoMo or Cash on Delivery.",
+  announcementTextBn: "⚡ Nnoɔma a wotɔ boro GH₵ 150 no, yɛde brɛ wo kwa! Tua wɔ MTN MoMo anaa Cash so.",
   showWhatsAppButton: true,
-  whatsAppNumber: "01712-345678",
+  whatsAppNumber: "+233 24 412 3456",
   allowCOD: true,
   showReviews: true,
   featuredProductIds: [1, 2, 3, 4],
@@ -825,22 +812,52 @@ const initialStorefrontConfig: StorefrontConfig = {
 
 // Initial Data: 6. Monitoring & Alerts
 const initialMonitoringRules: MonitoringRule[] = [
-  { id: "RULE-01", name: "Low Stock Emergency Threshold", nameBn: "কম স্টক জরুরি সতর্কবার্তা", type: "low_stock", enabled: true, thresholdValue: 5, channel: "sms", lastTriggered: "Today, 09:15 AM" },
-  { id: "RULE-02", name: "Customer Due Aging (> 30 Days)", nameBn: "বকেয়া মেয়াদোত্তীর্ণ সতর্কতা (> ৩০ দিন)", type: "high_due", enabled: true, thresholdValue: 5000, channel: "push", lastTriggered: "Yesterday" },
-  { id: "RULE-03", name: "Cash Drawer Discrepancy Alert", nameBn: "ক্যাশ ড্রয়ার গরমিল সতর্কতা", type: "cash_discrepancy", enabled: true, thresholdValue: 500, channel: "whatsapp", lastTriggered: "3 days ago" },
-  { id: "RULE-04", name: "Daily Automatic Closing Profit Report", nameBn: "দৈনিক স্বয়ংক্রিয় লাভ-ক্ষতি এসএমএস", type: "daily_profit_sms", enabled: true, thresholdValue: 0, channel: "sms", lastTriggered: "Yesterday, 10:00 PM" },
+  { id: "RULE-01", name: "Low Stock Emergency Alert", nameBn: "Nneɛma a Aka Wɔ Fom Kɔkɔbɔ", type: "low_stock", enabled: true, thresholdValue: 5, channel: "sms", lastTriggered: "Today, 09:15 AM" },
+  { id: "RULE-02", name: "Customer Credit Aging (> 30 Days)", nameBn: "Aka a Akyɛ (> 30 Days)", type: "high_due", enabled: true, thresholdValue: 500, channel: "push", lastTriggered: "Yesterday" },
+  { id: "RULE-03", name: "Cash Drawer Discrepancy Alert", nameBn: "Sika Fom Kɔkɔbɔ", type: "cash_discrepancy", enabled: true, thresholdValue: 50, channel: "whatsapp", lastTriggered: "3 days ago" },
+  { id: "RULE-04", name: "Daily Automatic Closing Report", nameBn: "Da Koro Biara Amanneɛbɔ", type: "daily_profit_sms", enabled: true, thresholdValue: 0, channel: "sms", lastTriggered: "Yesterday, 10:00 PM" },
 ];
 
 const initialBusinessAlerts: BusinessAlert[] = [
-  { id: "ALT-01", ruleType: "low_stock", title: "Low Stock Alert: Fresh Milk 1L", titleBn: "কম স্টক: ফ্রেশ মিল্ক ১লি", message: "Only 8 liters remaining in inventory. Please restock immediately.", messageBn: "দোকানে মাত্র ৮ লিটার অবশিষ্ট আছে। অবিলম্বে রি-স্টক করুন।", severity: "warning", time: "2 hours ago", resolved: false },
-  { id: "ALT-02", ruleType: "high_due", title: "High Due Warning: Karim Ahmed (৳14,500)", titleBn: "উচ্চ বকেয়া: করিম আহমেদ (৳১৪,৫০০)", message: "Due unpaid for more than 35 days. Send automated SMS reminder.", messageBn: "৩৫ দিনেরও বেশি সময় ধরে বাকি অপরিশোধিত। এসএমএস তাগাদা পাঠান।", severity: "critical", time: "5 hours ago", resolved: false },
-  { id: "ALT-03", ruleType: "daily_profit_sms", title: "Daily Sales Summary Dispatched", titleBn: "দৈনিক বিক্রয় সারাংশ পাঠানো হয়েছে", message: "Today's Net Profit summary SMS successfully delivered to Owner phone.", messageBn: "আজকের নিট লাভের সারাংশ এসএমএস মালিকের ফোনে পাঠানো হয়েছে।", severity: "info", time: "Yesterday", resolved: true },
+  { id: "ALT-01", ruleType: "low_stock", title: "Low Stock Alert: Ideal Milk 160g", titleBn: "Akorae Fom: Ideal Nufusuo", message: "Only 8 tins remaining in inventory. Please restock immediately.", messageBn: "Ideal Nufusuo aka 8 pɛ wɔ akorae. Tɔ bi bio ntɛm.", severity: "warning", time: "2 hours ago", resolved: false },
+  { id: "ALT-02", ruleType: "high_due", title: "High Due Warning: Abena Osei (GH₵ 1,200)", titleBn: "Aka Kɛseɛ: Abena Osei (GH₵ 1,200)", message: "Credit overdue for more than 35 days. Send automated MoMo reminder.", messageBn: "Bosea a akyɛ boro nna 35. Mane MoMo nkaebɔ.", severity: "critical", time: "5 hours ago", resolved: false },
+  { id: "ALT-03", ruleType: "daily_profit_sms", title: "Daily Sales Summary Dispatched", titleBn: "Da Biara Tɔn Nnoɔma Amanneɛbɔ", message: "Today's Net Profit summary SMS successfully delivered to Owner phone.", messageBn: "Ɛnnɛ mfasoɔ ho amanneɛbɔ akɔ wura no fon so.", severity: "info", time: "Yesterday", resolved: true },
 ];
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<"en" | "bn">("en");
+
+  // Migration for Ghana localization
+  if (typeof window !== "undefined") {
+    try {
+      const LOC_VERSION = "ghana_v2";
+      if (localStorage.getItem("dukan_loc_version") !== LOC_VERSION) {
+        localStorage.setItem("dukan_loc_version", LOC_VERSION);
+        localStorage.removeItem("dukan_products");
+        localStorage.removeItem("dukan_sales");
+        localStorage.removeItem("dukan_customers");
+        localStorage.removeItem("dukan_suppliers");
+        localStorage.removeItem("dukan_purchases");
+        localStorage.removeItem("dukan_expenses");
+        localStorage.removeItem("dukan_accounts");
+        localStorage.removeItem("dukan_transactions");
+        localStorage.removeItem("dukan_employees");
+        localStorage.removeItem("dukan_notifications");
+        localStorage.removeItem("dukan_settings");
+        localStorage.removeItem("dukan_courier_parcels");
+        localStorage.removeItem("dukan_bank_apps");
+        localStorage.removeItem("dukan_loan_offers");
+        localStorage.removeItem("dukan_digital_payments");
+        localStorage.removeItem("dukan_payment_links");
+        localStorage.removeItem("dukan_storefront");
+        localStorage.removeItem("dukan_resell_products");
+        localStorage.removeItem("dukan_monitoring_rules");
+        localStorage.removeItem("dukan_business_alerts");
+      }
+    } catch {}
+  }
 
   // Load from localStorage or defaults with auto-cleaning for short, understandable names
   const [products, setProducts] = useState<Product[]>(() => {
@@ -854,22 +871,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           nameBn: cleanProductNameBn(p.nameBn),
         }));
         if (!parsed.some(p => p.sku === "VEG-013" || p.name.toLowerCase().includes("potato"))) {
-          parsed.unshift({
-            id: 13,
-            name: "Potato Bulk White Regular",
-            nameBn: "গোল আলু (রেগুলার)",
-            sku: "VEG-013",
-            category: "Grocery",
-            buyPrice: 10,
-            sellPrice: 15,
-            stock: 50,
-            min: 10,
-            unit: "500g",
-            status: "in-stock",
-            brand: "Deshi",
-            image: "/products/potato.png",
-            barcode: "89411000113",
-          });
+          parsed.unshift(initialProducts[0]);
         }
         try {
           localStorage.setItem("dukan_products", JSON.stringify(parsed));
@@ -1300,9 +1302,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     addNotification({
       type: "sale",
       title: "Sale Completed",
-      titleBn: "বিক্রয় সম্পন্ন",
-      body: `${invoiceNumber} for ${saleData.customer} — ৳${saleData.grandTotal.toLocaleString()}`,
-      bodyBn: `${saleData.customer}-এর জন্য ${invoiceNumber} সম্পন্ন — ৳${saleData.grandTotal.toLocaleString()}`,
+      titleBn: "Wɔatɔ Nnoɔma Awie",
+      body: `${invoiceNumber} for ${saleData.customer} — GH₵${saleData.grandTotal.toLocaleString()}`,
+      bodyBn: `${saleData.customer} — ${invoiceNumber} awie — GH₵${saleData.grandTotal.toLocaleString()}`,
       color: "bg-em-50 text-ink",
       badge: "bg-em-100 text-ink",
     });
@@ -1312,8 +1314,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "বিক্রয় সফলভাবে সম্পন্ন!" : "Sale Completed Successfully!",
-      message: `${invoiceNumber} · ৳${saleData.grandTotal.toLocaleString()}`,
+      title: lang === "bn" ? "Wɔatɔ Nnoɔma Awie Pɛpɛɛpɛ!" : "Sale Completed Successfully!",
+      message: `${invoiceNumber} · GH₵${saleData.grandTotal.toLocaleString()}`,
     });
 
     return newSale;
@@ -1394,8 +1396,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "বকেয়া টাকা গ্রহণ সম্পন্ন!" : "Payment Collected!",
-      message: `${cust.name}: ৳${amount.toLocaleString()} (Remaining Due: ৳${newDue.toLocaleString()})`,
+      title: lang === "bn" ? "Sika a Wɔatua Agye!" : "Payment Collected!",
+      message: `${cust.name}: GH₵${amount.toLocaleString()} (Remaining Due: GH₵${newDue.toLocaleString()})`,
     });
   };
 
@@ -1413,8 +1415,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
     toast({
       type: "warning",
-      title: lang === "bn" ? "বকেয়া হিসাব যুক্ত হয়েছে" : "Due Recorded",
-      message: `৳${amount.toLocaleString()}`,
+      title: lang === "bn" ? "Aka / Bosea Ahyɛ Mu" : "Due Recorded",
+      message: `GH₵${amount.toLocaleString()}`,
     });
   };
 
@@ -1477,8 +1479,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "সাপ্লায়ার পরিশোধ সম্পন্ন!" : "Supplier Paid!",
-      message: `${sup.name}: ৳${amount.toLocaleString()}`,
+      title: lang === "bn" ? "Wɔatua Agorɔfoɔ No Ka!" : "Supplier Paid!",
+      message: `${sup.name}: GH₵${amount.toLocaleString()}`,
     });
   };
 
@@ -1560,8 +1562,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "নতুন ক্রয় সংরক্ষিত হয়েছে!" : "Purchase Recorded!",
-      message: `${purchaseId} · ৳${totalCost.toLocaleString()}`,
+      title: lang === "bn" ? "Nnoɔma a Wɔatɔ Awie!" : "Purchase Recorded!",
+      message: `${purchaseId} · GH₵${totalCost.toLocaleString()}`,
     });
   };
 
@@ -1604,8 +1606,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "খরচ যুক্ত হয়েছে!" : "Expense Added!",
-      message: `${expense.category}: ৳${expense.amount.toLocaleString()}`,
+      title: lang === "bn" ? "Ka a Wɔabɔ Ahyɛ Mu!" : "Expense Added!",
+      message: `${expense.category}: GH₵${expense.amount.toLocaleString()}`,
     });
   };
 
@@ -1639,8 +1641,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "ক্যাশ জমা সফল!" : "Cash Deposit Successful!",
-      message: `৳${amount.toLocaleString()}`,
+      title: lang === "bn" ? "Sika a Wɔde Ahyɛ Mu Awie!" : "Cash Deposit Successful!",
+      message: `GH₵${amount.toLocaleString()}`,
     });
   };
 
@@ -1649,8 +1651,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!fromAcc || fromAcc.balance < amount) {
       toast({
         type: "error",
-        title: lang === "bn" ? "অপর্যাপ্ত ব্যালেন্স!" : "Insufficient Balance!",
-        message: `${fromAcc?.name} balance is ৳${fromAcc?.balance.toLocaleString()}`,
+        title: lang === "bn" ? "Sika Nso!" : "Insufficient Balance!",
+        message: `${fromAcc?.name} balance is GH₵${fromAcc?.balance.toLocaleString()}`,
       });
       return;
     }
@@ -1670,7 +1672,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: `TX-${Date.now()}`,
         type: "transfer",
         desc: `${fromAcc.name} → ${toAcc?.name} Transfer`,
-        descBn: `${fromAcc.nameBn} থেকে ${toAcc?.nameBn} ট্রান্সফার`,
+        descBn: `${fromAcc.nameBn} kɔ ${toAcc?.nameBn}`,
         account: `${fromId.toUpperCase()} → ${toId.toUpperCase()}`,
         amount: amount,
         time: "Today",
@@ -1680,8 +1682,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "ট্রান্সফার সম্পন্ন হয়েছে!" : "Transfer Completed!",
-      message: `৳${amount.toLocaleString()} from ${fromAcc.name} to ${toAcc?.name}`,
+      title: lang === "bn" ? "Wɔatwe Sika No Awie!" : "Transfer Completed!",
+      message: `GH₵${amount.toLocaleString()} from ${fromAcc.name} to ${toAcc?.name}`,
     });
   };
 
@@ -1735,8 +1737,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     toast({
       type: "success",
-      title: lang === "bn" ? "বেতন পরিশোধ সম্পন্ন!" : "Salary Paid Successfully!",
-      message: `${emp.name}: ৳${emp.salary.toLocaleString()}`,
+      title: lang === "bn" ? "Wɔatua Akatua Awie!" : "Salary Paid Successfully!",
+      message: `${emp.name}: GH₵${emp.salary.toLocaleString()}`,
     });
   };
 
@@ -2023,13 +2025,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           } : off));
           toast({
             type: "success",
-            title: lang === "bn" ? "ক্ষুদ্র ঋণ অনুমোদন ও বিতরণ সম্পন্ন!" : "SME Loan Disbursed!",
-            message: `৳${amount.toLocaleString()} credited to your Business Bank Account.`,
+            title: lang === "bn" ? "SME Bosea Akɔ Sikakorabea!" : "SME Loan Disbursed!",
+            message: `GH₵${amount.toLocaleString()} credited to your Business Bank Account.`,
           });
         },
         createPaymentLink: (customerName: string, amount: number, purpose: string) => {
           const id = `PLK-${Math.floor(8800 + Math.random() * 100)}`;
-          const linkUrl = `https://pay.sayhpro.com/l/rahim-${id.toLowerCase()}`;
+          const linkUrl = `https://pay.sayhpro.com/l/kofi-${id.toLowerCase()}`;
           const newLink: PaymentLinkItem = {
             id,
             customerName,
@@ -2042,8 +2044,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setPaymentLinks(prev => [newLink, ...prev]);
           toast({
             type: "success",
-            title: lang === "bn" ? "পেমেন্ট লিঙ্ক তৈরি হয়েছে!" : "Payment Link Created!",
-            message: `Link ready for ${customerName} (৳${amount.toLocaleString()}).`,
+            title: lang === "bn" ? "Akatua Link Ayɛ Krado!" : "Payment Link Created!",
+            message: `Link ready for ${customerName} (GH₵${amount.toLocaleString()}).`,
           });
         },
         updatePaymentConfig: (config: Partial<DigitalPaymentConfig>) => {

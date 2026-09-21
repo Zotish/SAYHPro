@@ -220,7 +220,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                       onChange={e => setCurrency(e.target.value)}
                       className="w-full border border-nv-200 rounded-xl px-3.5 py-2.5 bg-white focus:border-em-500"
                     >
-                      <option value="BDT (৳)">BDT — Bangladeshi Taka (৳)</option>
+                      <option value="GHS (GH₵)">GHS — Ghana Cedi (GH₵)</option>
                       <option value="USD ($)">USD ($)</option>
                     </select>
                   </div>

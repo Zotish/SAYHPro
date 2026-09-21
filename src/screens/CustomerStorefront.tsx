@@ -65,7 +65,7 @@ export default function CustomerStorefront({
   const [dealsOnly, setDealsOnly] = useState(false);
 
   // Delivery Location
-  const [selectedLocation, setSelectedLocation] = useState("Dhaka 1205");
+  const [selectedLocation, setSelectedLocation] = useState("Accra, Greater Accra");
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   // Voice/Camera Search simulation modal
@@ -82,7 +82,7 @@ export default function CustomerStorefront({
     name: "",
     phone: "",
     address: "",
-    area: "Dhanmondi, Dhaka",
+    area: "Osu / Oxford Street, Accra",
     isRegistered: false,
   });
 
@@ -135,7 +135,7 @@ export default function CustomerStorefront({
   const [checkoutName, setCheckoutName] = useState(customer.name);
   const [checkoutPhone, setCheckoutPhone] = useState(customer.phone);
   const [checkoutAddress, setCheckoutAddress] = useState(customer.address);
-  const [checkoutArea, setCheckoutArea] = useState(customer.area || "Dhanmondi, Dhaka");
+  const [checkoutArea, setCheckoutArea] = useState(customer.area || "Osu / Oxford Street, Accra");
   const [paymentMethod, setPaymentMethod] = useState<"cod" | "bkash" | "whatsapp">("cod");
   const [orderId, setOrderId] = useState("");
 
@@ -193,7 +193,7 @@ export default function CustomerStorefront({
       ...p,
       discountPercent: [25, 30, 20, 15, 35][idx % 5],
       mrp: Math.round(p.sellPrice * 1.35),
-      dealTitle: ["Limited time deal", "Deal of the Day", "Save ৳60", "Top Pick", "Best Seller"][idx % 5]
+      dealTitle: ["Limited time deal", "Deal of the Day", "Save GH₵ 25", "Top Pick", "Best Seller"][idx % 5]
     }));
   }, [products]);
 
@@ -216,8 +216,8 @@ export default function CustomerStorefront({
     if (delta > 0) {
       toast({
         type: "success",
-        title: isBn ? "কার্টে যোগ হয়েছে!" : "Added to Cart!",
-        message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "সফলভাবে কার্টে যোগ করা হয়েছে।" : "added to your Amazon cart."}`,
+        title: isBn ? "Akorae mu akɔ!" : "Added to Cart!",
+        message: `${isBn ? product.nameBn || product.name : product.name} added to cart.`,
       });
     }
   };
@@ -240,34 +240,34 @@ export default function CustomerStorefront({
   // Cart totals
   const subtotal = cart.reduce((sum, item) => sum + item.product.sellPrice * item.qty, 0);
   const totalItemsCount = cart.reduce((sum, item) => sum + item.qty, 0);
-  const freeDeliveryThreshold = 500;
+  const freeDeliveryThreshold = 100;
   const isFreeDelivery = subtotal >= freeDeliveryThreshold;
-  const deliveryFee = subtotal === 0 || isFreeDelivery ? 0 : 40;
+  const deliveryFee = subtotal === 0 || isFreeDelivery ? 0 : 15;
   const couponDiscount = appliedCoupon ? appliedCoupon.discount : 0;
   const grandTotal = Math.max(0, subtotal + deliveryFee - couponDiscount);
 
   // Apply Promo Code
   const handleApplyCoupon = () => {
     const clean = couponCode.trim().toUpperCase();
-    if (clean === "SAVE50" || clean === "WELCOME50") {
-      setAppliedCoupon({ code: clean, discount: 50 });
+    if (clean === "SAVE20" || clean === "WELCOME20") {
+      setAppliedCoupon({ code: clean, discount: 20 });
       toast({
         type: "success",
-        title: isBn ? "কুপন কোড সক্রিয় হয়েছে!" : "Promo Code Applied!",
-        message: isBn ? "৳৫০ ডিসকাউন্ট যুক্ত হয়েছে।" : "৳50 discount applied.",
+        title: isBn ? "Promo Code Activated!" : "Promo Code Applied!",
+        message: "GH₵ 20 discount applied.",
       });
-    } else if (clean === "AMAZON100" || clean === "EID100") {
-      setAppliedCoupon({ code: clean, discount: 100 });
+    } else if (clean === "GHANA40" || clean === "MOMO40") {
+      setAppliedCoupon({ code: clean, discount: 40 });
       toast({
         type: "success",
-        title: isBn ? "উৎসব অফার সফল!" : "Festival Deal Applied!",
-        message: isBn ? "৳১০০ ডিসকাউন্ট যুক্ত হয়েছে।" : "৳100 discount applied.",
+        title: isBn ? "Festival Deal Applied!" : "Festival Deal Applied!",
+        message: "GH₵ 40 discount applied.",
       });
     } else {
       toast({
         type: "error",
-        title: isBn ? "অকার্যকর কুপন" : "Invalid Code",
-        message: isBn ? "SAVE50 বা AMAZON100 চেষ্টা করুন।" : "Try SAVE50 or AMAZON100.",
+        title: isBn ? "Invalid Code" : "Invalid Code",
+        message: "Try SAVE20 or GHANA40.",
       });
     }
   };
@@ -319,10 +319,11 @@ export default function CustomerStorefront({
 
     // 3. WhatsApp redirect if selected
     if (paymentMethod === "whatsapp") {
-      const itemsList = cart.map(i => `• ${i.product.name} (${i.qty}x) = ৳${i.product.sellPrice * i.qty}`).join("\n");
-      const message = `Hello ${settings.shopName},\nI would like to place an order via your Amazon App Storefront:\n\nOrder ID: #${generatedId}\nCustomer: ${nameToUse}\nPhone: ${phoneToUse}\nAddress: ${addressToUse}, ${checkoutArea}\n\n*Ordered Items:*\n${itemsList}\n\n*Total Payable: ৳${grandTotal}*\nPayment: Cash on Delivery\n\nPlease confirm my delivery!`;
+      const itemsList = cart.map(i => `• ${i.product.name} (${i.qty}x) = GH₵${i.product.sellPrice * i.qty}`).join("\n");
+      const message = `Hello ${settings.shopName},\nI would like to place an order via your Online Storefront:\n\nOrder ID: #${generatedId}\nCustomer: ${nameToUse}\nPhone: ${phoneToUse}\nAddress: ${addressToUse}, ${checkoutArea}\n\n*Ordered Items:*\n${itemsList}\n\n*Total Payable: GH₵${grandTotal}*\nPayment: Cash on Delivery / MTN MoMo\n\nPlease confirm my delivery! Medaase.`;
+      const cleanPhone = (settings.phone || "233244123456").replace(/[^0-9]/g, "");
       const encoded = encodeURIComponent(message);
-      window.open(`https://wa.me/8801712345678?text=${encoded}`, "_blank");
+      window.open(`https://wa.me/${cleanPhone}?text=${encoded}`, "_blank");
     }
 
     setCheckoutStep("success");
@@ -540,8 +541,8 @@ export default function CustomerStorefront({
 
                       <p className="text-[11px] text-gray-300 font-medium">
                         {isBn
-                          ? "⚡ ৫০০ টাকার অর্ডারে ফ্রি এক্সপ্রেস হোম ডেলিভারি।"
-                          : "⚡ FREE Doorstep Delivery on orders above ৳500."}
+                          ? "⚡ GH₵ 100 nnoɔma a wotɔ no, yɛde brɛ wo kwa ntɛmntɛm."
+                          : "⚡ FREE Doorstep Delivery on orders above GH₵ 100."}
                       </p>
 
                       <div className="pt-2 flex items-center gap-2">
@@ -611,7 +612,7 @@ export default function CustomerStorefront({
 
                           <div className="flex items-baseline gap-1">
                             <span className="text-xs font-bold text-[#0f1111]">{formatTaka(deal.sellPrice)}</span>
-                            <span className="text-[10px] text-gray-400 line-through">৳{deal.mrp}</span>
+                            <span className="text-[10px] text-gray-400 line-through">GH₵{deal.mrp}</span>
                           </div>
 
                           <div className="text-[9px] text-emerald-700 font-bold mt-0.5">
@@ -781,7 +782,7 @@ export default function CustomerStorefront({
                               {hasDiscount && (
                                 <div className="text-[10px] text-gray-500">
                                   <span>M.R.P.: </span>
-                                  <span className="line-through">৳{fakeMrp}</span>
+                                  <span className="line-through">GH₵{fakeMrp}</span>
                                 </div>
                               )}
                             </div>
@@ -1119,10 +1120,10 @@ export default function CustomerStorefront({
                         onClick={() => {
                           if (phoneLookupInput.length >= 10) {
                             setCustomer({
-                              name: "Karim Ahmed",
+                              name: "Kwame Mensah",
                               phone: phoneLookupInput,
-                              address: "Road #4, Dhanmondi",
-                              area: "Dhanmondi, Dhaka",
+                              address: "Oxford Street, Osu",
+                              area: "Osu, Accra",
                               isRegistered: true,
                             });
                             // simulate found order
@@ -1168,9 +1169,9 @@ export default function CustomerStorefront({
                   </div>
                   <div className="text-xs text-gray-600 leading-relaxed">
                     <p className="font-bold text-[#0f1111]">{settings.shopName}</p>
-                    <p>{settings.address || "Dhanmondi, Dhaka, Bangladesh"}</p>
+                    <p>{settings.address || "Plot 14, Oxford Street, Osu, Accra, Ghana"}</p>
                     <p className="font-mono text-[11px] mt-1 text-[#007185] font-bold">
-                      📞 {settings.phone || "01712-345678"}
+                      📞 {settings.phone || "+233 24 412 3456"}
                     </p>
                   </div>
                 </div>
@@ -1590,8 +1591,8 @@ export default function CustomerStorefront({
                 </div>
                 <div className="text-xs text-gray-500">
                   <span>M.R.P.: </span>
-                  <span className="line-through">৳{Math.round(quickViewProduct.sellPrice * 1.33)}</span>
-                  <span className="ml-2 text-emerald-700 font-bold">You Save: ৳{Math.round(quickViewProduct.sellPrice * 0.33)}</span>
+                  <span className="line-through">GH₵{Math.round(quickViewProduct.sellPrice * 1.33)}</span>
+                  <span className="ml-2 text-emerald-700 font-bold">You Save: GH₵{Math.round(quickViewProduct.sellPrice * 0.33)}</span>
                 </div>
                 <div className="text-xs text-gray-700 pt-1 flex items-center gap-1 font-medium">
                   <Truck size={14} className="text-[#007185]" />
@@ -1671,14 +1672,14 @@ export default function CustomerStorefront({
 
             <div className="space-y-1.5 max-h-60 overflow-y-auto">
               {[
-                { name: "Dhanmondi, Dhaka 1205", time: "40 mins" },
-                { name: "Gulshan 1 & 2, Dhaka 1212", time: "50 mins" },
-                { name: "Banani, Dhaka 1213", time: "45 mins" },
-                { name: "Uttara, Dhaka 1230", time: "60 mins" },
-                { name: "Mirpur 1-14, Dhaka 1216", time: "55 mins" },
-                { name: "Mohammadpur, Dhaka 1207", time: "35 mins" },
-                { name: "Bashundhara R/A, Dhaka 1229", time: "60 mins" },
-                { name: "Motijheel, Dhaka 1000", time: "50 mins" },
+                { name: "Osu / Oxford Street, Accra", time: "30 mins" },
+                { name: "East Legon, Accra", time: "40 mins" },
+                { name: "Airport Residential, Accra", time: "35 mins" },
+                { name: "Cantonments / Labone, Accra", time: "30 mins" },
+                { name: "Spintex Road, Accra", time: "45 mins" },
+                { name: "Tema Community 1 & 2", time: "50 mins" },
+                { name: "Adum Central, Kumasi", time: "45 mins" },
+                { name: "Bantama High Street, Kumasi", time: "50 mins" },
               ].map(loc => (
                 <button
                   key={loc.name}
@@ -1906,12 +1907,14 @@ export default function CustomerStorefront({
                         onChange={e => setCheckoutArea(e.target.value)}
                         className="w-full text-xs p-2 rounded-lg border border-gray-300 focus:border-[#f08804] outline-none bg-white cursor-pointer"
                       >
-                        <option value="Dhanmondi, Dhaka">Dhanmondi, Dhaka</option>
-                        <option value="Gulshan, Dhaka">Gulshan, Dhaka</option>
-                        <option value="Banani, Dhaka">Banani, Dhaka</option>
-                        <option value="Uttara, Dhaka">Uttara, Dhaka</option>
-                        <option value="Mirpur, Dhaka">Mirpur, Dhaka</option>
-                        <option value="Mohammadpur, Dhaka">Mohammadpur, Dhaka</option>
+                        <option value="Osu / Oxford Street, Accra">Osu / Oxford Street, Accra</option>
+                        <option value="East Legon, Accra">East Legon, Accra</option>
+                        <option value="Airport Residential, Accra">Airport Residential, Accra</option>
+                        <option value="Cantonments / Labone, Accra">Cantonments / Labone, Accra</option>
+                        <option value="Spintex Road, Accra">Spintex Road, Accra</option>
+                        <option value="Tema Community 1 & 2">Tema Community 1 & 2</option>
+                        <option value="Adum Central, Kumasi">Adum Central, Kumasi</option>
+                        <option value="Bantama, Kumasi">Bantama, Kumasi</option>
                       </select>
                     </div>
                   </div>
@@ -1947,12 +1950,12 @@ export default function CustomerStorefront({
                       <span className="text-[10px] bg-gray-100 px-1.5 py-0.5 rounded font-normal">Pay cash</span>
                     </label>
 
-                    {/* bKash Option */}
+                    {/* MTN MoMo / Mobile Money Option */}
                     <label
                       onClick={() => setPaymentMethod("bkash")}
                       className={`p-2.5 rounded-lg border flex items-center justify-between text-xs cursor-pointer transition-colors ${
                         paymentMethod === "bkash"
-                          ? "bg-pink-50/50 border-pink-500 text-[#0f1111] font-bold"
+                          ? "bg-amber-50/50 border-amber-500 text-[#0f1111] font-bold"
                           : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
                       }`}
                     >
@@ -1962,11 +1965,11 @@ export default function CustomerStorefront({
                           name="payment"
                           checked={paymentMethod === "bkash"}
                           onChange={() => setPaymentMethod("bkash")}
-                          className="accent-pink-600"
+                          className="accent-amber-500"
                         />
-                        <span>{isBn ? "বিকাশ / নগদ ইনস্ট্যান্ট পেমেন্ট" : "bKash / Nagad Mobile Banking"}</span>
+                        <span>{isBn ? "MTN MoMo / Telecel Cash" : "MTN MoMo / Telecel Cash"}</span>
                       </div>
-                      <span className="text-[10px] bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded font-bold">Fast</span>
+                      <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Instant</span>
                     </label>
 
                     {/* WhatsApp Direct Option */}
