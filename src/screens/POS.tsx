@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, CreditCard, Banknote, Smartphone, Receipt, ChevronDown, RefreshCw, ShoppingCart
 } from "lucide-react";
-import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn, renderProductCardImage } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface POSProps {
@@ -243,32 +243,30 @@ export default function POS({ lang, setScreen }: POSProps) {
                   onClick={() => addToCart(p)}
                   disabled={isOutOfStock}
                   className={`
-                    relative p-3 rounded-2xl border text-left flex flex-col justify-between transition-all group
-                    ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "bg-white hover:border-em-500 hover:shadow-md border-nv-200"}
-                    ${inCart ? "ring-2 ring-em-500 border-transparent bg-em-50/20" : ""}
+                    bg-white rounded-3xl p-3.5 sm:p-4 text-left border transition-all relative flex flex-col justify-between shadow-2xs cursor-pointer group
+                    ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "hover:border-em-500 hover:shadow-md border-nv-200"}
+                    ${inCart ? "border-em-500 ring-2 ring-em-500/20" : ""}
                   `}
                 >
                   {inCart && (
-                    <span className="absolute top-2 right-2 w-5 h-5 bg-em-700 text-white font-bold rounded-full text-[10px] flex items-center justify-center shadow-xs">
+                    <span className="absolute top-2.5 right-2.5 w-5 h-5 bg-em-700 text-white font-bold rounded-full text-[10px] flex items-center justify-center shadow-xs z-10">
                       {tNum(inCart.qty)}
                     </span>
                   )}
 
                   <div>
-                    <div className="text-3xl text-center py-1.5 group-hover:scale-110 transition-transform">
-                      {p.image || "📦"}
-                    </div>
-                    <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2 min-h-[2rem] leading-snug">
+                    {renderProductCardImage(p.image, "h-14 sm:h-16 flex items-center justify-center py-1")}
+                    <h4 className="font-bold text-sm sm:text-base text-ink line-clamp-2 min-h-[2.5rem] leading-snug mt-1">
                       {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                     </h4>
                   </div>
 
                   <div className="flex items-center justify-between mt-2 pt-2 border-t border-nv-100">
-                    <span className="num font-bold text-ink text-sm sm:text-base">
+                    <span className="num font-extrabold text-ink text-base sm:text-lg">
                       {formatTaka(p.sellPrice)}
                     </span>
-                    <span className={`text-[10px] font-semibold ${isOutOfStock ? "text-ink" : p.stock <= p.min ? "text-ink" : "text-ink"}`}>
-                      {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
+                    <span className="text-xs text-nv-700 font-semibold">
+                      {isOutOfStock ? (isBn ? "স্টক শেষ" : "0 left") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
                     </span>
                   </div>
                 </button>

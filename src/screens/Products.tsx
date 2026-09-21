@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
-import { useApp, Product } from "../context/AppContext";
+import { useApp, Product, renderProductCardImage } from "../context/AppContext";
 import { toast } from "../components/Toast";
 import AIProductScannerModal from "../components/AIProductScannerModal";
 
@@ -357,7 +357,9 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             >
               <div>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-3xl">{p.image || "📦"}</span>
+                  <div className="h-10 w-10 flex items-center justify-center">
+                    {renderProductCardImage(p.image, "h-10 w-10 flex items-center justify-center", "max-h-full max-w-full object-contain")}
+                  </div>
                   {statusBadge(p.status, isBn)}
                 </div>
                 <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2">{isBn ? p.nameBn : p.name}</h4>

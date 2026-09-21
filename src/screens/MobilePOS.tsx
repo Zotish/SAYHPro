@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, ChevronDown, Receipt, Smartphone, Banknote, CreditCard, ArrowLeft, ArrowRight
 } from "lucide-react";
-import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn, renderProductCardImage } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface MobilePOSProps {
@@ -197,23 +197,23 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                   <button
                     key={p.id}
                     onClick={() => addToCart(p)}
-                    className={`bg-white rounded-2xl p-3.5 text-left border transition-all relative flex flex-col justify-between shadow-2xs
+                    className={`bg-white rounded-3xl p-3.5 text-left border transition-all relative flex flex-col justify-between shadow-2xs cursor-pointer
                       ${inCart ? "border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
                   >
                     {inCart && (
-                      <span className="absolute top-2 right-2 w-5 h-5 bg-em-700 rounded-full text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                      <span className="absolute top-2.5 right-2.5 w-5 h-5 bg-em-700 rounded-full text-white text-[10px] font-bold flex items-center justify-center shadow-xs z-10">
                         {tNum(inCart.qty)}
                       </span>
                     )}
                     <div>
-                      <div className="text-3xl text-center py-1">{p.image || "📦"}</div>
-                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug">
+                      {renderProductCardImage(p.image, "h-14 flex items-center justify-center py-1")}
+                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug mt-1">
                         {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between mt-2 pt-1 border-t border-nv-100">
-                      <span className="num font-bold text-ink text-sm">{formatTaka(p.sellPrice)}</span>
-                      <span className="text-[10px] text-ink font-medium">{tNum(p.stock)} left</span>
+                    <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-nv-100">
+                      <span className="num font-extrabold text-ink text-sm sm:text-base">{formatTaka(p.sellPrice)}</span>
+                      <span className="text-[11px] text-nv-700 font-semibold">{tNum(p.stock)} left</span>
                     </div>
                   </button>
                 );

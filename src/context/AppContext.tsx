@@ -550,6 +550,38 @@ export function cleanProductNameBn(nameBn: string): string {
   return s;
 }
 
+export const renderProductCardImage = (
+  img?: string,
+  containerClass = "h-16 flex items-center justify-center py-1",
+  imgClass = "max-h-full max-w-full object-contain mx-auto transition-transform group-hover:scale-105"
+) => {
+  if (!img) return <div className={containerClass}><span className="text-3xl sm:text-4xl">📦</span></div>;
+  const isUrl = img.startsWith("http://") || img.startsWith("https://") || img.startsWith("/") || img.startsWith("data:");
+  if (isUrl) {
+    return (
+      <div className={containerClass}>
+        <img
+          src={img}
+          alt="Product"
+          className={imgClass}
+          loading="lazy"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+            if (e.currentTarget.parentElement) {
+              e.currentTarget.parentElement.innerHTML = '<span class="text-3xl sm:text-4xl">🥔</span>';
+            }
+          }}
+        />
+      </div>
+    );
+  }
+  return (
+    <div className={containerClass}>
+      <span className="text-3xl sm:text-4xl">{img}</span>
+    </div>
+  );
+};
+
 const initialProducts: Product[] = [
   { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
   { id: 2, name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
@@ -563,6 +595,7 @@ const initialProducts: Product[] = [
   { id: 10, name: "Tea Biscuit", nameBn: "টি বিস্কুট", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "Packet / প্যাকেট", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
   { id: 11, name: "Mango Juice 1L", nameBn: "ম্যাঙ্গো জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
   { id: 12, name: "Dove Soap", nameBn: "ডাভ সাবান", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "Piece / পিস", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
+  { id: 13, name: "Potato Bulk White Regular", nameBn: "গোল আলু (রেগুলার)", sku: "VEG-013", category: "Grocery", buyPrice: 10, sellPrice: 15, stock: 50, min: 15, unit: "500g", status: "in-stock", brand: "Fresh Farm", image: "/products/potato.png", barcode: "89411000113" },
 ];
 
 const initialCustomers: Customer[] = [
@@ -852,10 +885,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           name: cleanProductName(p.name),
           nameBn: cleanProductNameBn(p.nameBn),
         }));
+        const existingIds = new Set(cleaned.map(p => p.id));
+        const missingInitial = initialProducts.filter(p => !existingIds.has(p.id));
+        const finalProducts = missingInitial.length > 0 ? [...cleaned, ...missingInitial] : cleaned;
         try {
-          localStorage.setItem("dukan_products", JSON.stringify(cleaned));
+          localStorage.setItem("dukan_products", JSON.stringify(finalProducts));
         } catch {}
-        return cleaned;
+        return finalProducts;
       }
       return initialProducts;
     } catch {
