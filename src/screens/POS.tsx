@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, CreditCard, Banknote, Smartphone, Receipt, ChevronDown, RefreshCw, ShoppingCart
 } from "lucide-react";
-import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn, renderProductCardImage } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface POSProps {
@@ -243,30 +243,52 @@ export default function POS({ lang, setScreen }: POSProps) {
                   onClick={() => addToCart(p)}
                   disabled={isOutOfStock}
                   className={`
-                    bg-white rounded-3xl p-3.5 sm:p-4 text-left border transition-all relative flex flex-col justify-between shadow-2xs cursor-pointer group
-                    ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "hover:border-em-500 hover:shadow-md border-nv-200"}
-                    ${inCart ? "border-em-500 ring-2 ring-em-500/20" : ""}
+                    relative p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border text-left flex flex-col justify-between transition-all group cursor-pointer
+                    ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "bg-white hover:border-em-500 hover:shadow-md border-nv-200"}
+                    ${inCart ? "ring-2 ring-em-500 border-em-500 bg-em-50/15" : ""}
                   `}
                 >
                   {inCart && (
-                    <span className="absolute top-2.5 right-2.5 w-5 h-5 bg-em-700 text-white font-bold rounded-full text-[10px] flex items-center justify-center shadow-xs z-10">
+                    <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-em-700 text-white font-bold rounded-full text-xs flex items-center justify-center shadow-xs z-10">
                       {tNum(inCart.qty)}
                     </span>
                   )}
 
-                  <div>
-                    {renderProductCardImage(p.image, "h-14 sm:h-16 flex items-center justify-center py-1")}
-                    <h4 className="font-bold text-sm sm:text-base text-ink line-clamp-2 min-h-[2.5rem] leading-snug mt-1">
+                  <div className="w-full">
+                    {/* Image Area - Prominent like 1st ss */}
+                    <div className="w-full h-28 sm:h-36 flex items-center justify-center mb-2.5 bg-white rounded-xl overflow-hidden p-2">
+                      {p.image?.startsWith("/") || p.image?.startsWith("http") || p.image?.startsWith("data:") ? (
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span className="text-5xl sm:text-6xl group-hover:scale-110 transition-transform filter drop-shadow-xs">
+                          {p.image || "📦"}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Product Name */}
+                    <h4 className="font-bold text-sm sm:text-base text-ink line-clamp-2 min-h-[2.5rem] leading-snug">
                       {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                     </h4>
+
+                    {/* Weight / Unit Subtitle - like 500g in 1st ss */}
+                    <p className="text-xs text-nv-500 font-medium mt-1">
+                      {p.unit || p.brand || p.category}
+                    </p>
                   </div>
 
-                  <div className="flex items-center justify-between mt-2 pt-2 border-t border-nv-100">
+                  {/* Price & Stock Section - exactly as requested for businessman */}
+                  <div className="w-full flex items-center justify-between mt-3 pt-2.5 border-t border-nv-100">
                     <span className="num font-extrabold text-ink text-base sm:text-lg">
-                      {formatTaka(p.sellPrice)}
+                      {formatTaka(p.sellPrice, lang)}
                     </span>
-                    <span className="text-xs text-nv-700 font-semibold">
-                      {isOutOfStock ? (isBn ? "স্টক শেষ" : "0 left") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
+                    <span className={`text-xs font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
+                      {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
                     </span>
                   </div>
                 </button>

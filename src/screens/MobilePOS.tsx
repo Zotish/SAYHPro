@@ -3,7 +3,7 @@ import {
   Search, Plus, Minus, Trash2, CheckCircle, X, Barcode,
   User, ChevronDown, Receipt, Smartphone, Banknote, CreditCard, ArrowLeft, ArrowRight
 } from "lucide-react";
-import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn, renderProductCardImage } from "../context/AppContext";
+import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
 import { toast } from "../components/Toast";
 
 interface MobilePOSProps {
@@ -193,27 +193,53 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             <div className="grid grid-cols-2 gap-2.5">
               {filtered.map(p => {
                 const inCart = cart.find(i => i.id === p.id);
+                const isOutOfStock = p.stock <= 0;
                 return (
                   <button
                     key={p.id}
                     onClick={() => addToCart(p)}
-                    className={`bg-white rounded-3xl p-3.5 text-left border transition-all relative flex flex-col justify-between shadow-2xs cursor-pointer
-                      ${inCart ? "border-em-500 ring-2 ring-em-500/20" : "border-nv-200"}`}
+                    disabled={isOutOfStock}
+                    className={`bg-white rounded-2xl sm:rounded-3xl p-3 text-left border transition-all relative flex flex-col justify-between shadow-2xs group cursor-pointer
+                      ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "hover:border-em-500 hover:shadow-md border-nv-200"}
+                      ${inCart ? "border-em-500 ring-2 ring-em-500/20 bg-em-50/15" : ""}`}
                   >
                     {inCart && (
-                      <span className="absolute top-2.5 right-2.5 w-5 h-5 bg-em-700 rounded-full text-white text-[10px] font-bold flex items-center justify-center shadow-xs z-10">
+                      <span className="absolute top-2 right-2 px-1.5 py-0.5 bg-em-700 rounded-full text-white text-[10px] font-bold flex items-center justify-center shadow-xs z-10">
                         {tNum(inCart.qty)}
                       </span>
                     )}
-                    <div>
-                      {renderProductCardImage(p.image, "h-14 flex items-center justify-center py-1")}
-                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug mt-1">
+
+                    <div className="w-full">
+                      {/* Image Area - Prominent like 1st ss */}
+                      <div className="w-full h-28 flex items-center justify-center mb-2 bg-white rounded-xl overflow-hidden p-1.5">
+                        {p.image?.startsWith("/") || p.image?.startsWith("http") || p.image?.startsWith("data:") ? (
+                          <img
+                            src={p.image}
+                            alt={p.name}
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span className="text-4xl group-hover:scale-110 transition-transform filter drop-shadow-xs">
+                            {p.image || "📦"}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug">
                         {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                       </div>
+
+                      <p className="text-[11px] text-nv-500 font-medium mt-0.5">
+                        {p.unit || p.brand || p.category}
+                      </p>
                     </div>
-                    <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-nv-100">
-                      <span className="num font-extrabold text-ink text-sm sm:text-base">{formatTaka(p.sellPrice)}</span>
-                      <span className="text-[11px] text-nv-700 font-semibold">{tNum(p.stock)} left</span>
+
+                    <div className="w-full flex items-center justify-between mt-2.5 pt-2 border-t border-nv-100">
+                      <span className="num font-extrabold text-ink text-sm">{formatTaka(p.sellPrice, lang)}</span>
+                      <span className={`text-[10px] font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
+                        {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
+                      </span>
                     </div>
                   </button>
                 );

@@ -550,52 +550,20 @@ export function cleanProductNameBn(nameBn: string): string {
   return s;
 }
 
-export const renderProductCardImage = (
-  img?: string,
-  containerClass = "h-16 flex items-center justify-center py-1",
-  imgClass = "max-h-full max-w-full object-contain mx-auto transition-transform group-hover:scale-105"
-) => {
-  if (!img) return <div className={containerClass}><span className="text-3xl sm:text-4xl">📦</span></div>;
-  const isUrl = img.startsWith("http://") || img.startsWith("https://") || img.startsWith("/") || img.startsWith("data:");
-  if (isUrl) {
-    return (
-      <div className={containerClass}>
-        <img
-          src={img}
-          alt="Product"
-          className={imgClass}
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-            if (e.currentTarget.parentElement) {
-              e.currentTarget.parentElement.innerHTML = '<span class="text-3xl sm:text-4xl">🥔</span>';
-            }
-          }}
-        />
-      </div>
-    );
-  }
-  return (
-    <div className={containerClass}>
-      <span className="text-3xl sm:text-4xl">{img}</span>
-    </div>
-  );
-};
-
 const initialProducts: Product[] = [
-  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
-  { id: 2, name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
-  { id: 3, name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "Liter / লিটার", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
+  { id: 13, name: "Potato Bulk White Regular", nameBn: "গোল আলু (রেগুলার)", sku: "VEG-013", category: "Grocery", buyPrice: 10, sellPrice: 15, stock: 50, min: 10, unit: "500g", status: "in-stock", brand: "Deshi", image: "/products/potato.png", barcode: "89411000113" },
+  { id: 1, name: "Sunflower Oil 5L", nameBn: "সানফ্লাওয়ার তেল ৫লি", sku: "OIL-001", category: "Grocery", buyPrice: 250, sellPrice: 300, stock: 24, min: 10, unit: "5L", status: "in-stock", brand: "Fresh", image: "🫙", barcode: "89411000101" },
+  { id: 2, name: "Ruchi Chanachur", nameBn: "রুচি চানাচুর", sku: "SNA-002", category: "Snacks", buyPrice: 45, sellPrice: 60, stock: 48, min: 20, unit: "200g", status: "in-stock", brand: "Pran", image: "🍿", barcode: "89411000102" },
+  { id: 3, name: "Fresh Milk 1L", nameBn: "ফ্রেশ মিল্ক ১লি", sku: "DAI-003", category: "Dairy", buyPrice: 68, sellPrice: 80, stock: 8, min: 20, unit: "1L", status: "low-stock", brand: "BD Milk", image: "🥛", barcode: "89411000103" },
   { id: 4, name: "Tissue Box", nameBn: "টিস্যু বক্স", sku: "HH-004", category: "Household", buyPrice: 90, sellPrice: 120, stock: 32, min: 10, unit: "Box / বক্স", status: "in-stock", brand: "Bashundhara", image: "🧻", barcode: "89411000104" },
-  { id: 5, name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
-  { id: 6, name: "Lifebuoy Soap", nameBn: "লাইফবয় সাবান", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "Piece / পিস", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
-  { id: 7, name: "Salt 1kg", nameBn: "লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "KG", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
-  { id: 8, name: "Meril Shampoo", nameBn: "মেরিল শ্যাম্পু", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "Piece / পিস", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
-  { id: 9, name: "Chilli Powder 500g", nameBn: "মরিচ গুঁড়া ৫০০গ্রা", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
-  { id: 10, name: "Tea Biscuit", nameBn: "টি বিস্কুট", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "Packet / প্যাকেট", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
-  { id: 11, name: "Mango Juice 1L", nameBn: "ম্যাঙ্গো জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "Piece / পিস", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
-  { id: 12, name: "Dove Soap", nameBn: "ডাভ সাবান", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "Piece / পিস", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
-  { id: 13, name: "Potato Bulk White Regular", nameBn: "গোল আলু (রেগুলার)", sku: "VEG-013", category: "Grocery", buyPrice: 10, sellPrice: 15, stock: 50, min: 15, unit: "500g", status: "in-stock", brand: "Fresh Farm", image: "/products/potato.png", barcode: "89411000113" },
+  { id: 5, name: "Frooto 250ml", nameBn: "ফ্রুটো ২৫০মিলি", sku: "BEV-005", category: "Beverages", buyPrice: 18, sellPrice: 25, stock: 96, min: 30, unit: "250ml", status: "in-stock", brand: "Pran", image: "🍹", barcode: "89411000105" },
+  { id: 6, name: "Lifebuoy Soap", nameBn: "লাইফবয় সাবান", sku: "PC-006", category: "Personal Care", buyPrice: 38, sellPrice: 50, stock: 0, min: 10, unit: "100g", status: "out-of-stock", brand: "Lifebuoy", image: "🧼", barcode: "89411000106" },
+  { id: 7, name: "Salt 1kg", nameBn: "লবণ ১কেজি", sku: "GRO-007", category: "Grocery", buyPrice: 30, sellPrice: 40, stock: 3, min: 15, unit: "1kg", status: "low-stock", brand: "Pran", image: "🧂", barcode: "89411000107" },
+  { id: 8, name: "Meril Shampoo", nameBn: "মেরিল শ্যাম্পু", sku: "PC-008", category: "Personal Care", buyPrice: 110, sellPrice: 150, stock: 22, min: 8, unit: "200ml", status: "in-stock", brand: "Meril", image: "🧴", barcode: "89411000108" },
+  { id: 9, name: "Chilli Powder 500g", nameBn: "মরিচ গুঁড়া ৫০০গ্রা", sku: "GRO-009", category: "Grocery", buyPrice: 42, sellPrice: 55, stock: 40, min: 10, unit: "500g", status: "in-stock", brand: "Fresh", image: "🌾", barcode: "89411000109" },
+  { id: 10, name: "Tea Biscuit", nameBn: "টি বিস্কুট", sku: "SNA-010", category: "Snacks", buyPrice: 35, sellPrice: 45, stock: 72, min: 20, unit: "200g", status: "in-stock", brand: "Olympic", image: "🍪", barcode: "89411000110" },
+  { id: 11, name: "Mango Juice 1L", nameBn: "ম্যাঙ্গো জুস ১লি", sku: "BEV-011", category: "Beverages", buyPrice: 65, sellPrice: 85, stock: 30, min: 10, unit: "1L", status: "in-stock", brand: "Pran", image: "🧃", barcode: "89411000111" },
+  { id: 12, name: "Dove Soap", nameBn: "ডাভ সাবান", sku: "PC-012", category: "Personal Care", buyPrice: 60, sellPrice: 80, stock: 44, min: 12, unit: "100g", status: "in-stock", brand: "Unilever", image: "🧼", barcode: "89411000112" },
 ];
 
 const initialCustomers: Customer[] = [
@@ -879,19 +847,34 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const saved = localStorage.getItem("dukan_products");
       if (saved) {
-        const parsed: Product[] = JSON.parse(saved);
-        const cleaned = parsed.map(p => ({
+        let parsed: Product[] = JSON.parse(saved);
+        parsed = parsed.map(p => ({
           ...p,
           name: cleanProductName(p.name),
           nameBn: cleanProductNameBn(p.nameBn),
         }));
-        const existingIds = new Set(cleaned.map(p => p.id));
-        const missingInitial = initialProducts.filter(p => !existingIds.has(p.id));
-        const finalProducts = missingInitial.length > 0 ? [...cleaned, ...missingInitial] : cleaned;
+        if (!parsed.some(p => p.sku === "VEG-013" || p.name.toLowerCase().includes("potato"))) {
+          parsed.unshift({
+            id: 13,
+            name: "Potato Bulk White Regular",
+            nameBn: "গোল আলু (রেগুলার)",
+            sku: "VEG-013",
+            category: "Grocery",
+            buyPrice: 10,
+            sellPrice: 15,
+            stock: 50,
+            min: 10,
+            unit: "500g",
+            status: "in-stock",
+            brand: "Deshi",
+            image: "/products/potato.png",
+            barcode: "89411000113",
+          });
+        }
         try {
-          localStorage.setItem("dukan_products", JSON.stringify(finalProducts));
+          localStorage.setItem("dukan_products", JSON.stringify(parsed));
         } catch {}
-        return finalProducts;
+        return parsed;
       }
       return initialProducts;
     } catch {
