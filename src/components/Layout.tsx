@@ -134,7 +134,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:relative inset-y-0 left-0 z-50 w-64 sm:w-72 lg:w-64 flex flex-col sidebar-gradient
+          fixed lg:relative inset-y-0 left-0 z-50 w-64 sm:w-72 lg:w-64 flex flex-col bg-white border-r border-nv-200
           transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
@@ -143,33 +143,33 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
         <div className="relative px-3 pt-3 flex items-center gap-2" ref={shopRef}>
           <button
             onClick={() => setShopMenuOpen(!shopMenuOpen)}
-            className="flex-1 flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 hover:bg-white/15 transition-fast text-left"
+            className="flex-1 flex items-center gap-2.5 p-2.5 rounded-xl bg-nv-50 hover:bg-nv-100 border border-nv-200 transition-fast text-left cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-em-600 flex items-center justify-center flex-shrink-0 text-white text-xs font-bold shadow-inner">
+            <div className="w-8 h-8 rounded-lg bg-em-600 flex items-center justify-center flex-shrink-0 text-white text-xs font-bold shadow-xs">
               {settings.shopName.slice(0, 2).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-white text-sm font-semibold truncate">
+              <div className="text-ink text-sm font-semibold truncate">
                 {isBn ? settings.shopNameBn || settings.shopName : settings.shopName}
               </div>
-              <div className="text-white/50 text-[11px] truncate">{settings.branch}</div>
+              <div className="text-nv-500 text-[11px] truncate">{settings.branch}</div>
             </div>
             <ChevronDown
               size={14}
-              className={`text-white/50 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`}
+              className={`text-nv-400 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`}
             />
           </button>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-white/70 hover:text-white p-2 rounded-xl bg-white/10 hover:bg-white/20 transition-fast flex-shrink-0"
+            className="lg:hidden text-nv-600 hover:text-ink p-2 rounded-xl bg-nv-100 hover:bg-nv-200 transition-fast flex-shrink-0 cursor-pointer"
             title="Close menu"
           >
             <X size={18} />
           </button>
 
           {shopMenuOpen && (
-            <div className="absolute top-full left-3 right-3 mt-1.5 bg-nv-900 border border-white/20 rounded-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95">
-              <div className="text-[10px] font-semibold text-white/40 uppercase px-2 py-1">
+            <div className="absolute top-full left-3 right-3 mt-1.5 bg-white border border-nv-200 rounded-xl shadow-xl p-1.5 z-50 animate-in fade-in zoom-in-95">
+              <div className="text-[10px] font-semibold text-nv-400 uppercase px-2 py-1">
                 {isBn ? "শাখা পরিবর্তন" : "Select Branch"}
               </div>
               {branches.map(branch => (
@@ -179,11 +179,11 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                     updateSettings({ branch });
                     setShopMenuOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-fast text-left
-                    ${settings.branch === branch ? "bg-em-600 text-white font-semibold" : "text-white/80 hover:bg-white/10"}`}
+                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-fast text-left cursor-pointer
+                    ${settings.branch === branch ? "bg-em-50 text-em-700 font-semibold" : "text-ink hover:bg-nv-50"}`}
                 >
                   <span className="truncate">{branch}</span>
-                  {settings.branch === branch && <Check size={14} />}
+                  {settings.branch === branch && <Check size={14} className="text-em-600" />}
                 </button>
               ))}
             </div>
@@ -197,7 +197,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
               setScreen("pos");
               setSidebarOpen(false);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-em-600 hover:bg-em-700 text-white font-semibold text-sm transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-em-600 hover:bg-em-700 text-white font-semibold text-sm transition-colors shadow-xs cursor-pointer"
           >
             <Plus size={17} />
             <span>{isBn ? "নতুন বিক্রয় (POS)" : "New Sale (POS)"}</span>
@@ -222,18 +222,22 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                   setSidebarOpen(false);
                 }}
                 className={`
-                  w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group text-left
+                  w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-colors group text-left cursor-pointer
                   ${isActive
-                    ? "bg-white/10 text-white font-semibold"
-                    : "text-white/60 hover:text-white hover:bg-white/5"
+                    ? "bg-nv-100 text-ink font-semibold"
+                    : "text-nv-600 hover:text-ink hover:bg-nv-50"
                   }
                 `}
               >
-                <item.icon size={17} className={`flex-shrink-0 group-hover:text-em-400 ${isActive ? "text-white" : "text-white/50"}`} />
+                <item.icon size={17} className={`flex-shrink-0 group-hover:text-em-600 ${isActive ? "text-ink" : "text-nv-500"}`} />
                 <span className="flex-1 truncate">{isBn ? item.labelBn : item.label}</span>
                 {item.badge !== undefined && (
                   <span
-                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded text-white ${item.badgeColor || "bg-white/15 text-white/70"}`}
+                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      item.badgeColor
+                        ? `${item.badgeColor} text-white`
+                        : "bg-nv-200 text-nv-700"
+                    }`}
                   >
                     {tNum(item.badge)}
                   </span>
@@ -243,8 +247,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           })}
 
           {/* Quick Demo Shortcuts */}
-          <div className="pt-3 mt-3 border-t border-white/10">
-            <p className="text-white/40 text-[11px] font-semibold px-3 mb-1.5 uppercase tracking-wider">
+          <div className="pt-3 mt-3 border-t border-nv-200">
+            <p className="text-nv-400 text-[11px] font-semibold px-3 mb-1.5 uppercase tracking-wider">
               {isBn ? "অন্যান্য ভিউ" : "Special Views"}
             </p>
             {[
@@ -258,8 +262,8 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                   setScreen(item.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs transition-fast text-left
-                  ${currentScreen === item.id ? "text-white font-semibold bg-white/10" : "text-white/50 hover:text-white hover:bg-white/5"}`}
+                className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs transition-fast text-left cursor-pointer
+                  ${currentScreen === item.id ? "text-ink font-semibold bg-nv-100" : "text-nv-500 hover:text-ink hover:bg-nv-50"}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-current flex-shrink-0" />
                 <span className="truncate">{isBn ? item.labelBn : item.label}</span>
@@ -269,19 +273,19 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
         </nav>
 
         {/* Sidebar Footer User */}
-        <div className="p-3 border-t border-white/10 bg-black/20">
+        <div className="p-3 border-t border-nv-200 bg-nv-50/75">
           <div className="flex items-center gap-2.5 px-2 py-1.5">
-            <div className="w-8 h-8 rounded-full bg-em-600 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-em-600 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs shadow-xs">
               {settings.ownerName.slice(0, 1)}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-white text-xs font-semibold truncate">{settings.ownerName}</div>
-              <div className="text-white/50 text-[10px]">Owner / Admin</div>
+              <div className="text-ink text-xs font-semibold truncate">{settings.ownerName}</div>
+              <div className="text-nv-500 text-[10px]">Owner / Admin</div>
             </div>
             <button
               onClick={() => onLogout?.()}
               title={isBn ? "লগআউট" : "Logout"}
-              className="text-white/50 hover:text-red-400 p-1.5 rounded-lg hover:bg-white/10 transition-fast"
+              className="text-nv-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-nv-100 transition-fast cursor-pointer"
             >
               <LogOut size={14} />
             </button>
