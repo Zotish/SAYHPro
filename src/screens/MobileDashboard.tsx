@@ -110,7 +110,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
     { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত", badge: urgentAdvisory.length > 0 ? urgentAdvisory.length : undefined },
     { id: "analytics", icon: BarChart2, label: "Analytics", labelBn: "অ্যানালিটিক্স" },
     { id: "reports", icon: FileText, label: "Financial Reports", labelBn: "লাভ-ক্ষতি রিপোর্ট" },
-    { id: "reports", icon: Landmark, label: "Tax & VAT", labelBn: "কর ও ভ্যাট" },
+    { id: "tax", icon: Landmark, label: "Tax & VAT", labelBn: "কর ও ভ্যাট" },
     { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার" },
     { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং" },
     { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন" },

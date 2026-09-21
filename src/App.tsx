@@ -40,7 +40,7 @@ type Screen =
   | "reports" | "notifications" | "settings" | "addproduct" | "customerdetail"
   | "profitloss" | "mobile-dashboard" | "mobile-pos" | "invoice"
   | "marketing" | "delivery" | "fintech" | "reselling" | "website" | "alerts"
-  | "messages" | "advisory" | "analytics" | "storefront";
+  | "messages" | "advisory" | "analytics" | "storefront" | "tax";
 
 /** Tracks the same breakpoint Layout uses to swap to its mobile chrome (lg). */
 function useIsMobile() {
@@ -138,7 +138,9 @@ function MainApp() {
 
   if (screenRaw === "mobile-pos") {
     return (
-      <MobilePOS lang={lang} setScreen={setScreen} />
+      <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
+        <MobilePOS lang={lang} setScreen={setScreen} />
+      </Layout>
     );
   }
 
@@ -180,6 +182,8 @@ function MainApp() {
         return <CashAccounts lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "reports":
         return <Reports lang={lang} setScreen={setScreen} onBack={goBack} />;
+      case "tax":
+        return <Reports lang={lang} showTax setScreen={setScreen} onBack={goBack} />;
       case "profitloss":
         return <Reports lang={lang} showPL setScreen={setScreen} onBack={goBack} />;
       case "settings":

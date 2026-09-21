@@ -16,6 +16,7 @@ import { toast } from "../components/Toast";
 interface ReportsProps {
   lang: "en" | "bn";
   showPL?: boolean;
+  showTax?: boolean;
   setScreen: (s: string) => void;
   onBack?: () => void;
 }
@@ -91,12 +92,12 @@ const initialTaxRecords: TaxMonthRecord[] = [
   },
 ];
 
-export default function Reports({ lang, showPL, setScreen, onBack }: ReportsProps) {
+export default function Reports({ lang, showPL, showTax, setScreen, onBack }: ReportsProps) {
   const { sales, expenses, products, customers, suppliers, accounts, settings, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [activeTab, setActiveTab] = useState<"pl" | "sales" | "expenses" | "dues" | "tax" | "advisory">(
-    showPL ? "pl" : "pl"
+    showPL ? "pl" : showTax ? "tax" : "pl"
   );
   const [advisoryFilter, setAdvisoryFilter] = useState<"all" | "urgent" | "soon" | "safe" | "slow">("all");
 
