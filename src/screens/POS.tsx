@@ -243,7 +243,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                   onClick={() => addToCart(p)}
                   disabled={isOutOfStock}
                   className={`
-                    relative p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border text-left flex flex-col justify-between transition-all group cursor-pointer
+                    relative p-3 sm:p-3.5 rounded-2xl sm:rounded-3xl border text-left flex flex-col justify-between transition-all group cursor-pointer
                     ${isOutOfStock ? "opacity-50 cursor-not-allowed bg-nv-50 border-nv-200" : "bg-white hover:border-em-500 hover:shadow-md border-nv-200"}
                     ${inCart ? "ring-2 ring-em-500 border-em-500 bg-em-50/15" : ""}
                   `}
@@ -255,35 +255,35 @@ export default function POS({ lang, setScreen }: POSProps) {
                   )}
 
                   <div className="w-full">
-                    {/* Image Area - Prominent like 1st ss */}
-                    <div className="w-full h-28 sm:h-36 flex items-center justify-center mb-2.5 bg-white rounded-xl overflow-hidden p-2">
+                    {/* Image Area - Much bigger photo size */}
+                    <div className="w-full h-36 sm:h-44 flex items-center justify-center mb-2 bg-white rounded-xl overflow-hidden p-1">
                       {p.image?.startsWith("/") || p.image?.startsWith("http") || p.image?.startsWith("data:") ? (
                         <img
                           src={p.image}
                           alt={p.name}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                          className="w-full h-full object-contain max-h-40 group-hover:scale-105 transition-transform"
                           loading="lazy"
                         />
                       ) : (
-                        <span className="text-5xl sm:text-6xl group-hover:scale-110 transition-transform filter drop-shadow-xs">
+                        <span className="text-7xl sm:text-8xl select-none leading-none group-hover:scale-110 transition-transform filter drop-shadow-sm">
                           {p.image || "📦"}
                         </span>
                       )}
                     </div>
 
-                    {/* Product Name */}
-                    <h4 className="font-bold text-sm sm:text-base text-ink line-clamp-2 min-h-[2.5rem] leading-snug">
+                    {/* Product Name - Smaller size as requested */}
+                    <h4 className="font-bold text-xs sm:text-[13px] text-ink line-clamp-1 leading-snug">
                       {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                     </h4>
 
-                    {/* Weight / Unit Subtitle - like 500g in 1st ss */}
-                    <p className="text-xs text-nv-500 font-medium mt-1">
+                    {/* Weight / Unit Subtitle */}
+                    <p className="text-[11px] text-nv-500 font-medium mt-0.5">
                       {p.unit || p.brand || p.category}
                     </p>
                   </div>
 
-                  {/* Price & Stock Section - exactly as requested for businessman */}
-                  <div className="w-full flex items-center justify-between mt-3 pt-2.5 border-t border-nv-100">
+                  {/* Price & Stock Section */}
+                  <div className="w-full flex items-center justify-between mt-2 pt-2 border-t border-nv-100">
                     <span className="num font-extrabold text-ink text-base sm:text-lg">
                       {formatTaka(p.sellPrice, lang)}
                     </span>

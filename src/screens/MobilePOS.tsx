@@ -210,27 +210,28 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                     )}
 
                     <div className="w-full">
-                      {/* Image Area - Prominent like 1st ss */}
-                      <div className="w-full h-28 flex items-center justify-center mb-2 bg-white rounded-xl overflow-hidden p-1.5">
+                      {/* Image Area - Much bigger photo size */}
+                      <div className="w-full h-32 sm:h-38 flex items-center justify-center mb-1.5 bg-white rounded-xl overflow-hidden p-1">
                         {p.image?.startsWith("/") || p.image?.startsWith("http") || p.image?.startsWith("data:") ? (
                           <img
                             src={p.image}
                             alt={p.name}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                            className="w-full h-full object-contain max-h-36 group-hover:scale-105 transition-transform"
                             loading="lazy"
                           />
                         ) : (
-                          <span className="text-4xl group-hover:scale-110 transition-transform filter drop-shadow-xs">
+                          <span className="text-6xl sm:text-7xl select-none leading-none group-hover:scale-110 transition-transform filter drop-shadow-sm">
                             {p.image || "📦"}
                           </span>
                         )}
                       </div>
 
-                      <div className="text-xs font-bold text-ink line-clamp-2 min-h-[2rem] leading-snug">
+                      {/* Product Name - Smaller size as requested */}
+                      <div className="text-xs font-bold text-ink line-clamp-1 leading-snug">
                         {isBn ? cleanProductNameBn(p.nameBn) : cleanProductName(p.name)}
                       </div>
 
-                      <p className="text-[11px] text-nv-500 font-medium mt-0.5">
+                      <p className="text-[10px] text-nv-500 font-medium mt-0.5">
                         {p.unit || p.brand || p.category}
                       </p>
                     </div>
