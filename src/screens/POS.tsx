@@ -279,10 +279,10 @@ export default function POS({ lang, setScreen }: POSProps) {
 
                   {/* Price & Stock Section */}
                   <div className="w-full flex items-center justify-between mt-2 pt-2 border-t border-nv-100">
-                    <span className="num font-extrabold text-ink text-base sm:text-lg">
+                    <span className="num font-bold text-ink text-xs sm:text-[13px]">
                       {formatTaka(p.sellPrice, lang)}
                     </span>
-                    <span className={`text-xs font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
+                    <span className={`text-[11px] sm:text-xs font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
                       {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
                     </span>
                   </div>
