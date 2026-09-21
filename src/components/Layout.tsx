@@ -134,9 +134,9 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:relative inset-y-0 left-0 z-50 w-64 sm:w-72 lg:w-64 flex flex-col bg-white border-r border-nv-200
-          transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          fixed lg:relative inset-y-0 left-0 z-50 w-64 sm:w-72 lg:w-64 flex flex-col bg-white border-r border-nv-200 overflow-hidden
+          transition-all duration-300 ease-in-out shadow-2xl lg:shadow-none
+          ${sidebarOpen ? "translate-x-0 opacity-100 visible" : "-translate-x-full opacity-0 lg:opacity-100 invisible lg:visible pointer-events-none lg:pointer-events-auto lg:translate-x-0"}
         `}
       >
         {/* Shop Selector Dropdown */}
@@ -158,13 +158,6 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
               size={14}
               className={`text-nv-400 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`}
             />
-          </button>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-nv-600 hover:text-ink p-2 rounded-xl bg-nv-100 hover:bg-nv-200 transition-fast flex-shrink-0 cursor-pointer"
-            title="Close menu"
-          >
-            <X size={18} />
           </button>
 
           {shopMenuOpen && (
