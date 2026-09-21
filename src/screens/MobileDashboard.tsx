@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useApp, toBnDigits } from "../context/AppContext";
 import BusinessRatingModal from "../components/BusinessRatingModal";
+import MobileMoreSheet from "../components/MobileMoreSheet";
 
 interface MobileProps {
   lang: "en" | "bn";
@@ -104,21 +105,6 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
     { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচের খাতা" },
     { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক তালিকা" },
     { id: "suppliers", icon: Building2, label: "Suppliers", labelBn: "সাপ্লায়ার" },
-  ];
-
-  const moreServices: ServiceItem[] = [
-    { id: "advisory", icon: Package, label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত", badge: urgentAdvisory.length > 0 ? urgentAdvisory.length : undefined },
-    { id: "analytics", icon: BarChart2, label: "Analytics", labelBn: "অ্যানালিটিক্স" },
-    { id: "reports", icon: FileText, label: "Financial Reports", labelBn: "লাভ-ক্ষতি রিপোর্ট" },
-    { id: "tax", icon: Landmark, label: "Tax & VAT", labelBn: "কর ও ভ্যাট" },
-    { id: "delivery", icon: Truck, label: "Courier Hub", labelBn: "কুরিয়ার" },
-    { id: "marketing", icon: MessageSquare, label: "Marketing", labelBn: "মার্কেটিং" },
-    { id: "fintech", icon: Landmark, label: "Bank & Loans", labelBn: "ব্যাংক ও লোন" },
-    { id: "reselling", icon: Store, label: "Reselling", labelBn: "রিসেলিং" },
-    { id: "website", icon: Globe2, label: "Storefront", labelBn: "অনলাইন স্টোর" },
-    { id: "alerts", icon: ShieldAlert, label: "Alerts", labelBn: "অ্যালার্ট" },
-    { id: "employees", icon: UserCheck, label: "Employees", labelBn: "কর্মচারী" },
-    { id: "settings", icon: Settings, label: "Settings", labelBn: "সেটিংস" },
   ];
 
   const bottomNav: ServiceItem[] = [
@@ -477,54 +463,12 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
       </nav>
 
       {/* ---------- More sheet ---------- */}
-      {moreOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col justify-end bg-black/60 backdrop-blur-2xs pb-[calc(4rem+env(safe-area-inset-bottom,0px))]">
-          <button
-            className="flex-1"
-            aria-label={isBn ? "বন্ধ করুন" : "Close"}
-            onClick={() => setMoreOpen(false)}
-          />
-          <div className="bg-white rounded-t-3xl p-4 sm:p-5 max-h-[calc(85vh-5rem)] overflow-y-auto space-y-3.5 shadow-2xl border-t border-nv-200">
-            {/* Header */}
-            <div className="relative flex items-center justify-center pt-0.5 pb-1">
-              <div className="w-10 h-1 bg-nv-200 rounded-full" />
-              <button
-                onClick={() => setMoreOpen(false)}
-                className="absolute right-0 top-0 w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 hover:bg-nv-150 transition-colors cursor-pointer"
-                aria-label={isBn ? "বন্ধ করুন" : "Close"}
-              >
-                <X size={17} />
-              </button>
-            </div>
-
-            {/* Direct Services Grid */}
-            <div className="grid grid-cols-3 gap-2.5 pt-1">
-              {moreServices.map(item => (
-                <button
-                  key={item.id + item.label}
-                  onClick={() => {
-                    setScreen(item.id);
-                    setMoreOpen(false);
-                  }}
-                  className="relative flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-2xl active:bg-nv-100/60 active:scale-95 transition-all group cursor-pointer"
-                >
-                  {item.badge ? (
-                    <span className="absolute top-1 right-3 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
-                      {tNum(item.badge)}
-                    </span>
-                  ) : null}
-                  <div className="w-10 h-10 flex items-center justify-center text-ink group-hover:text-em-700 transition-colors">
-                    <item.icon size={24} strokeWidth={1.6} />
-                  </div>
-                  <span className="text-[11px] font-medium text-ink text-center leading-tight">
-                    {isBn ? item.labelBn : item.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <MobileMoreSheet
+        isOpen={moreOpen}
+        onClose={() => setMoreOpen(false)}
+        setScreen={setScreen}
+        lang={lang}
+      />
     </div>
   );
 }

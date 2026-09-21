@@ -3,11 +3,12 @@ import {
   LayoutDashboard, Scan, ShoppingCart, QrCode, Package, Boxes, Users, Truck,
   CreditCard, Receipt, Wallet, UserCheck, BarChart2, Bell, Settings,
   Search, Globe, LogOut, Menu, X, Home, ArrowLeft,
-  Plus, ChevronDown, Check, FileText, ShoppingBag, Building2,
+  Plus, ChevronDown, Check,
   MessageSquare, Landmark, Store, Globe2, ShieldAlert, MessageCircle
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import GlobalSearchModal from "./GlobalSearchModal";
+import MobileMoreSheet from "./MobileMoreSheet";
 
 type Screen = string;
 
@@ -102,43 +103,10 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
   // Kept in step with the mobile home screen's own nav so the bar does not
   // change shape when you leave the home screen.
   const mobileNavItems = [
-    { id: "dashboard", icon: Home, label: "Home" },
-    { id: "pos", icon: ShoppingCart, label: "Sell" },
-    { id: "inventory", icon: Boxes, label: "Stock" },
-    { id: "dues", icon: CreditCard, label: "Dues" },
-  ];
-
-  const buyAdvisoryItems = products.map(p => {
-    const weeklyRate = Math.max(1, Math.round(p.stock * 0.35));
-    const daysOfStockLeft = p.stock > 0 ? Math.round((p.stock / weeklyRate) * 7) : 0;
-    const tier = p.stock <= p.min ? "urgent" : p.stock <= p.min * 1.5 ? "soon" : "healthy";
-    return { product: p, tier, weeklyRate, daysOfStockLeft };
-  });
-  const urgentAdvisoryCount = buyAdvisoryItems.filter(i => i.tier === "urgent").length;
-
-  const moreServices = [
-    { id: "advisory", icon: Package, label: "Buy Advisory", badge: urgentAdvisoryCount > 0 ? urgentAdvisoryCount : 3 },
-    { id: "analytics", icon: BarChart2, label: "Analytics" },
-    { id: "reports", icon: FileText, label: "Financial Reports" },
-    { id: "tax", icon: Landmark, label: "Tax & VAT" },
-    { id: "delivery", icon: Truck, label: "Courier Hub" },
-    { id: "marketing", icon: MessageSquare, label: "Marketing" },
-    { id: "fintech", icon: Landmark, label: "Bank & Loans" },
-    { id: "reselling", icon: Store, label: "Reselling" },
-    { id: "website", icon: Globe2, label: "Storefront" },
-    { id: "alerts", icon: ShieldAlert, label: "Alerts" },
-    { id: "employees", icon: UserCheck, label: "Employees" },
-    { id: "settings", icon: Settings, label: "Settings" },
-  ];
-
-  const operationsServices = [
-    { id: "purchases", icon: ShoppingBag, label: "Purchases" },
-    { id: "products", icon: Package, label: "Products" },
-    { id: "cash", icon: Wallet, label: "Cash Book" },
-    { id: "expenses", icon: Receipt, label: "Expenses" },
-    { id: "customers", icon: Users, label: "Customers" },
-    { id: "suppliers", icon: Building2, label: "Suppliers" },
-    { id: "messages", icon: MessageCircle, label: "Messaging" },
+    { id: "dashboard", icon: Home, label: "Home", labelBn: "Home" },
+    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "Sell" },
+    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "Stock" },
+    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "Dues" },
   ];
 
   const branches = [
@@ -494,7 +462,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
         </header>
 
         {/* Content Area */}
-        <main className={`flex-1 ${currentScreen === "messages" ? "overflow-hidden flex flex-col h-full" : "overflow-y-auto"} bg-nv-50 pb-16 lg:pb-0`}>
+        <main className={`flex-1 ${currentScreen === "messages" ? "overflow-hidden flex flex-col h-full" : "overflow-y-auto"} bg-nv-50 pb-20 lg:pb-0`}>
           {/* Back button — mobile only. Desktop keeps the full sidebar as its
               nav model and doesn't need a "back", but on a phone this is the
               only way out of a feature screen since the header is hidden.
@@ -508,7 +476,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             <div className="lg:hidden px-4 sm:px-6 pt-3">
               <button
                 onClick={onBack}
-                aria-label={isBn ? "পেছনে যান" : "Go back"}
+                aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
                 className="w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
               >
                 <ArrowLeft size={18} />
@@ -520,135 +488,59 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
       </div>
 
       {/* Mobile Bottom Navigation Bar (Screens < 1024px) */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-nv-200 z-50 lg:hidden shadow-lg pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-stretch h-16">
-          {mobileNavItems.map(item => {
-            const isActive = mobileMoreOpen
-              ? false
-              : (currentScreen === item.id || (item.id === "pos" && (currentScreen === "pos" || currentScreen === "sales" || currentScreen === "mobile-pos")));
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setMobileMoreOpen(false);
-                  setScreen(item.id);
-                }}
-                className={`flex-1 flex flex-col items-center justify-center gap-0.5 px-1 relative transition-colors cursor-pointer ${
-                  isActive ? "text-em-700" : "text-ink"
-                }`}
-              >
-                <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
-                <span className={`text-[10px] leading-tight text-center ${isActive ? "font-extrabold" : "font-semibold"}`}>
-                  {item.label}
-                </span>
-              </button>
-            );
-          })}
-
-          {/* More Menu Trigger */}
-          <button
-            onClick={() => setMobileMoreOpen(!mobileMoreOpen)}
-            className={`flex-1 flex flex-col items-center justify-center gap-0.5 px-1 relative transition-colors cursor-pointer ${
-              mobileMoreOpen ? "text-em-700" : "text-ink"
-            }`}
-          >
-            <Menu size={20} strokeWidth={mobileMoreOpen ? 2.5 : 1.75} />
-            <span className={`text-[10px] leading-tight text-center ${mobileMoreOpen ? "font-extrabold" : "font-semibold"}`}>
-              More
-            </span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile More Sheet / Drawer (Exact match to mobile bottom sheet screenshot) */}
-      {mobileMoreOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col justify-end bg-black/60 backdrop-blur-2xs pb-[calc(4rem+env(safe-area-inset-bottom,0px))] lg:hidden animate-in fade-in duration-200">
-          <button
-            className="flex-1 cursor-pointer"
-            aria-label={isBn ? "বন্ধ করুন" : "Close"}
-            onClick={() => setMobileMoreOpen(false)}
-          />
-          <div className="bg-white rounded-t-3xl p-4 sm:p-5 max-h-[calc(85vh-5rem)] overflow-y-auto space-y-3.5 shadow-2xl border-t border-nv-200 animate-in slide-in-from-bottom duration-300">
-            {/* Header: Drag handle pill & circular close button */}
-            <div className="relative flex items-center justify-center pt-0.5 pb-1">
-              <div className="w-10 h-1 bg-nv-200 rounded-full" />
-              <button
-                onClick={() => setMobileMoreOpen(false)}
-                className="absolute right-0 top-0 w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 hover:bg-nv-150 transition-colors cursor-pointer"
-                aria-label={isBn ? "বন্ধ করুন" : "Close"}
-              >
-                <X size={17} />
-              </button>
-            </div>
-
-            {/* Direct Services Grid (12 items matching screenshot) */}
-            <div className="grid grid-cols-3 gap-2.5 pt-1">
-              {moreServices.map(item => (
+      {currentScreen !== "messages" && (
+        <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-nv-200 z-50 lg:hidden shadow-lg pb-[env(safe-area-inset-bottom)]">
+          <div className="flex items-center justify-around h-16 px-1">
+            {mobileNavItems.map(item => {
+              const isActive = !mobileMoreOpen && (
+                item.id === "dashboard" ? currentScreen === "dashboard" :
+                item.id === "pos" ? (currentScreen === "pos" || currentScreen === "sales") :
+                item.id === "inventory" ? (currentScreen === "inventory" || currentScreen === "products") :
+                item.id === "dues" ? (currentScreen === "dues" || currentScreen === "customerdetail") :
+                false
+              );
+              return (
                 <button
-                  key={item.id + item.label}
+                  key={item.id}
                   onClick={() => {
-                    setScreen(item.id);
                     setMobileMoreOpen(false);
+                    setScreen(item.id);
                   }}
-                  className="relative flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-2xl active:bg-nv-100/60 active:scale-95 transition-all group cursor-pointer"
+                  className={`flex-1 flex flex-col items-center justify-center py-1 gap-0.5 touch-manipulation transition-colors ${
+                    isActive ? "text-em-700" : "text-ink"
+                  }`}
                 >
-                  {item.badge ? (
-                    <span className="absolute top-1 right-3 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
-                      {tNum(item.badge)}
-                    </span>
-                  ) : null}
-                  <div className="w-10 h-10 flex items-center justify-center text-ink group-hover:text-em-700 transition-colors">
-                    <item.icon size={24} strokeWidth={1.6} />
-                  </div>
-                  <span className="text-[11px] font-medium text-ink text-center leading-tight">
+                  <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
+                  <span className={`text-[10px] leading-tight text-center ${isActive ? "font-extrabold text-em-700" : "font-semibold"}`}>
                     {item.label}
                   </span>
                 </button>
-              ))}
-            </div>
+              );
+            })}
 
-            {/* Operations & Management */}
-            <div className="pt-3 border-t border-nv-100">
-              <div className="text-[11px] font-semibold text-nv-400 uppercase tracking-wider px-1 mb-2">
-                Operations & Management
-              </div>
-              <div className="grid grid-cols-3 gap-2.5">
-                {operationsServices.map(item => (
-                  <button
-                    key={item.id + item.label}
-                    onClick={() => {
-                      setScreen(item.id);
-                      setMobileMoreOpen(false);
-                    }}
-                    className="relative flex flex-col items-center justify-center gap-1.5 py-2.5 px-1 rounded-2xl active:bg-nv-100/60 active:scale-95 transition-all group cursor-pointer"
-                  >
-                    <div className="w-9 h-9 flex items-center justify-center text-ink group-hover:text-em-700 transition-colors">
-                      <item.icon size={22} strokeWidth={1.6} />
-                    </div>
-                    <span className="text-[11px] font-medium text-ink text-center leading-tight">
-                      {item.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer with Shop Name and Logout */}
-            <div className="pt-2 border-t border-nv-100 flex items-center justify-between text-xs text-ink px-1">
-              <span className="truncate max-w-[200px] font-medium">{settings.shopName}</span>
-              <button
-                onClick={() => {
-                  onLogout?.();
-                  setMobileMoreOpen(false);
-                }}
-                className="text-red-600 hover:text-red-700 font-semibold flex items-center gap-1 cursor-pointer py-1 px-2 rounded-lg hover:bg-red-50"
-              >
-                <LogOut size={13} /> {isBn ? "লগআউট" : "Logout"}
-              </button>
-            </div>
+            {/* More Menu Trigger */}
+            <button
+              onClick={() => setMobileMoreOpen(!mobileMoreOpen)}
+              className={`flex-1 flex flex-col items-center justify-center py-1 gap-0.5 touch-manipulation transition-colors ${
+                mobileMoreOpen ? "text-em-700" : "text-ink"
+              }`}
+            >
+              <Menu size={20} strokeWidth={mobileMoreOpen ? 2.5 : 1.75} />
+              <span className={`text-[10px] leading-tight text-center ${mobileMoreOpen ? "font-extrabold text-em-700" : "font-semibold"}`}>
+                More
+              </span>
+            </button>
           </div>
-        </div>
+        </nav>
       )}
+
+      {/* Mobile More Sheet / Drawer matching user's exact 12-item screenshot */}
+      <MobileMoreSheet
+        isOpen={mobileMoreOpen}
+        onClose={() => setMobileMoreOpen(false)}
+        setScreen={setScreen}
+        lang={lang}
+      />
     </div>
   );
 }

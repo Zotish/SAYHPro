@@ -138,9 +138,7 @@ function MainApp() {
 
   if (screenRaw === "mobile-pos") {
     return (
-      <Layout currentScreen={screenRaw} setScreen={setScreen} onLogout={() => setAppState("login")} onBack={goBack}>
-        <MobilePOS lang={lang} setScreen={setScreen} />
-      </Layout>
+      <MobilePOS lang={lang} setScreen={setScreen} />
     );
   }
 
