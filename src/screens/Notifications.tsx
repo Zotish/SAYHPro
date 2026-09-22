@@ -82,7 +82,7 @@ export default function Notifications({ lang }: NotificationsProps) {
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
             ${filter === "unread" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:border-nv-300"}`}
         >
-          {isBn ? "অপঠিত" : "Unread"} ({tNum(unreadCount)})
+          {isBn ? "Wɔnkenkanee" : "Unread"} ({tNum(unreadCount)})
         </button>
       </div>
 
@@ -123,8 +123,8 @@ export default function Notifications({ lang }: NotificationsProps) {
         {filtered.length === 0 && (
           <div className="bg-white rounded-3xl border border-nv-200 p-12 text-center shadow-sm">
             <Bell size={40} className="text-ink mx-auto mb-3" />
-            <h3 className="font-bold text-ink text-sm">{isBn ? "কোনো Nkaebɔ নেই" : "No notifications"}</h3>
-            <p className="text-ink text-xs mt-0.5">{isBn ? "আপনি আপ-টু-ডেট আছেন!" : "You're all caught up with your store alerts!"}</p>
+            <h3 className="font-bold text-ink text-sm">{isBn ? "Nkaebɔ biara nni hɔ" : "No notifications"}</h3>
+            <p className="text-ink text-xs mt-0.5">{isBn ? "Woahwɛ dukan kɔkɔbɔ nyinaa awie!" : "You're all caught up with your store alerts!"}</p>
           </div>
         )}
       </div>

@@ -28,7 +28,7 @@
   /* Every piece of text on a light surface resolves to this. */
   --color-ink: #000000;
 
-  /* --- Typography: one text face, one mono face, Bangla fallback --- */
+  /* --- Typography: one text face, one mono face --- */
   --font-display: 'Inter', 'Hind Siliguri', sans-serif;
   --font-body: 'Inter', 'Hind Siliguri', sans-serif;
   --font-sans: 'Inter', 'Hind Siliguri', sans-serif;

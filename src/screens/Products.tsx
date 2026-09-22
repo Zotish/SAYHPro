@@ -204,10 +204,10 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             <button
               onClick={() => setShowAIScanner(true)}
               className="px-2.5 py-2 bg-em-800/90 hover:bg-em-900 border-l border-white/20 transition-fast cursor-pointer flex items-center gap-1 text-amber-300"
-              title={isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "AI Camera Scan"}
+              title={isBn ? "AI Mfonyin Nhwehwɛmu" : "AI Camera Scan"}
             >
               <Sparkles size={15} className="animate-pulse" />
-              <span className="text-xs font-bold hidden sm:inline">{isBn ? "স্ক্যান" : "Scan"}</span>
+              <span className="text-xs font-bold hidden sm:inline">{isBn ? "Scan" : "Scan"}</span>
             </button>
           </div>
         </div>
@@ -219,7 +219,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           { label: "Total Products", labelBn: "Nyinaa Nnoɔma", value: tNum(products.length) },
           { label: "In Stock Items", labelBn: "Akorae Wɔ Hɔ", value: tNum(products.filter(p => p.status === "in-stock").length) },
           { label: "Low Stock Items", labelBn: "Akorae Aka Kakra", value: tNum(products.filter(p => p.status === "low-stock").length) },
-          { label: "Out of Stock", labelBn: "Akorae শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
+          { label: "Out of Stock", labelBn: "Akorae Asa", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -237,7 +237,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder={isBn ? "নাম বা SKU দিয়ে Hwehwɛ..." : "Search by product name or SKU..."}
+              placeholder={isBn ? "Hwehwɛ nnoɔma din anaa SKU..." : "Search by product name or SKU..."}
               className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:border-em-500 transition-fast"
             />
           </div>
@@ -282,12 +282,12 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma" : "Product"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nkyekyɛmu" : "Category"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Boɔ a Wɔtɔn" : "Sell Price"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Ka" : "Cost"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Akorae" : "Stock"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Gyinabea" : "Status"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Nneyɛeɛ" : "Actions"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
@@ -339,7 +339,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 {filtered.length === 0 && (
                   <tr>
                     <td colSpan={7} className="text-center py-10 text-ink text-xs">
-                      {isBn ? "কোনো Nnoɔma খুঁজে পাওয়া যায়নি" : "No matching products found"}
+                      {isBn ? "Nnoɔma a wopɛ no biara nni hɔ" : "No matching products found"}
                     </td>
                   </tr>
                 )}
@@ -389,7 +389,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-nv-200 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <h3 className="font-display font-bold text-ink text-lg">
-                {editingProduct ? (isBn ? "Nnoɔma Sesa করুন" : "Edit Product") : (isBn ? "Otɔfo Foforɔ Fa Nnoɔma Ka Ho" : "Add New Product")}
+                {editingProduct ? (isBn ? "Sesa Nnoɔma Ho Nsɛm" : "Edit Product") : (isBn ? "Otɔfo Foforɔ Fa Nnoɔma Ka Ho" : "Add New Product")}
               </h3>
               <button
                 onClick={() => {
@@ -417,16 +417,16 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                   </div>
                   <div>
                     <div className="text-xs font-bold text-ink group-hover:text-em-800 flex items-center gap-1.5">
-                      <span>{isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan Product with AI Camera"}</span>
+                      <span>{isBn ? "Fa AI Mfonyintwafoɔ Scan Nnoɔma" : "Scan Product with AI Camera"}</span>
                       <span className="text-[10px] bg-em-100 text-em-800 font-extrabold px-1.5 py-0.5 rounded-full">AI Smart</span>
                     </div>
                     <div className="text-[11px] text-ink/65 mt-0.5">
-                      {isBn ? "নাম, ওজন, ক্যাটাগরি ও মার্কেট প্রাইস স্বয়ংক্রিয়ভাবে ফিল হবে" : "Auto-detects name, weight, category & market price"}
+                      {isBn ? "Hunu din, mu duru, kuw ne dwa boɔ ntɛm" : "Auto-detects name, weight, category & market price"}
                     </div>
                   </div>
                 </div>
                 <span className="text-xs font-extrabold text-em-700 flex items-center gap-1 flex-shrink-0 bg-white px-2.5 py-1.5 rounded-xl border border-em-200 shadow-2xs group-hover:bg-em-600 group-hover:text-white transition-colors">
-                  {isBn ? "ক্যামেরা স্ক্যান" : "Scan Now"} <ChevronRight size={13} />
+                  {isBn ? "Scan Seesei" : "Scan Now"} <ChevronRight size={13} />
                 </span>
               </div>
             )}
@@ -434,7 +434,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             <form onSubmit={editingProduct ? handleUpdateProduct : handleCreateProduct} className="space-y-4 text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (ইংরেজি)" : "Product Name (EN)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (EN)" : "Product Name (EN)"} *</label>
                   <input
                     type="text"
                     required
@@ -446,26 +446,26 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (Twi (Akan))" : "Product Name (Bangla)"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (Twi (Akan))" : "Product Name (Twi / Akan)"}</label>
                   <input
                     type="text"
                     value={nameBn}
                     onChange={e => setNameBn(e.target.value)}
-                    placeholder="যেমন: ফ্রেশ সয়াবিন তেল ৫লি"
+                    placeholder="e.g. Frytol Nku 5L / Ideal Milk"
                     className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500 font-bn"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাটাগরি" : "Category"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nkyekyɛmu" : "Category"}</label>
                   <select
                     value={category}
                     onChange={e => setCategory(e.target.value)}
                     className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500"
                   >
-                    <option value="Grocery">Grocery / মুদি</option>
+                    <option value="Grocery">Grocery / Nnuane</option>
                     <option value="Snacks & Bakery">Snacks & Bakery</option>
-                    <option value="Beverages">Beverages / পানীয়</option>
+                    <option value="Beverages">Beverages / Nsa & Anonneɛ</option>
                     <option value="Personal Care">Personal Care</option>
                     <option value="Dairy & Eggs">Dairy & Eggs</option>
                     <option value="Household">Household</option>
@@ -473,7 +473,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "আইকন / ছবি" : "Emoji Icon"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Emoji Ahyɛnsodeɛ" : "Emoji Icon"}</label>
                   <div className="flex gap-2">
                     {["📦", "🌾", "🛢️", "🍪", "🥤", "🧼", "🧴", "🥫"].map(emo => (
                       <button
@@ -513,7 +513,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "বর্তমান Akorae" : "Current Stock Quantity"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Akorae Dodoɔ a Ɛwɔ Hɔ" : "Current Stock Quantity"} *</label>
                   <input
                     type="number"
                     required
@@ -525,7 +525,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Akorae Aka Kakra সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Akorae Fom Kɔkɔbɔ Hyeɛ" : "Low Stock Alert Limit"}</label>
                   <input
                     type="number"
                     value={minStock}
@@ -551,7 +551,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {editingProduct ? (isBn ? "আপডেট করুন" : "Update Product") : (isBn ? "Kora so করুন" : "Save Product")}
+                  {editingProduct ? (isBn ? "Sesa Nnoɔma Nsɛm" : "Update Product") : (isBn ? "Kora Nnoɔma No So" : "Save Product")}
                 </button>
               </div>
             </form>
@@ -564,7 +564,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-xs shadow-2xl border border-nv-200 p-5 text-center space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-sm">{isBn ? "বারকোড স্টিকার" : "Barcode Label"}</h3>
+              <h3 className="font-bold text-ink text-sm">{isBn ? "Barcode Ahyɛnsodeɛ" : "Barcode Label"}</h3>
               <button onClick={() => setBarcodePreviewProduct(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -589,7 +589,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               }}
               className="w-full py-2 bg-nv-900 hover:bg-black text-white rounded-xl text-xs font-bold"
             >
-              {isBn ? "Tintim Barcode করুন" : "Print Label"}
+              {isBn ? "Tintim Ahyɛnsodeɛ" : "Print Label"}
             </button>
           </div>
         </div>

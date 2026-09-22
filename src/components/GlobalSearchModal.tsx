@@ -57,16 +57,16 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
     : [];
 
   const navigationItems = [
-    { id: "dashboard", label: "Dashboard", labelBn: "ড্যাশবোর্ড", icon: LayoutDashboard },
-    { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "Dawubɔ ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
-    { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "Kɔmafoɔ Parcel ও Delivery এগ্রিগেটর", icon: Truck },
-    { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল Sikakorabeaিং, ঋণ ও Twi (Akan) কিউআর পেমেন্ট", icon: Landmark },
-    { id: "reselling", label: "Reselling & Drop-Shipping Wholesale Catalog", labelBn: "রিসেলিং মার্কেট ও পাইকারি ক্যাটালগ", icon: Store },
-    { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "Intanɛte Dukan ও ওয়েবসাইট বিল্ডার", icon: Globe2 },
-    { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "স্মার্ট মনিটরিং ও স্বয়ংক্রিয় Kɔkɔbɔ", icon: ShieldAlert },
-    { id: "pos", label: "POS / New Sale", labelBn: "বিক্রি করুন", icon: Scan },
+    { id: "dashboard", label: "Dashboard", labelBn: "Dwumadie Bea", icon: LayoutDashboard },
+    { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "Dawubɔ & SMS Kampaen", icon: MessageSquare },
+    { id: "delivery", label: "Delivery Aggregator (Ghana Post EMS, FedEx, DHL, Bolt)", labelBn: "Delivery & Nnoɔma Maneɛ", icon: Truck },
+    { id: "fintech", label: "Banking, SME Loans & GhQR Digital Payments", labelBn: "Sikakorabea, Bosea & GhQR Tua Ka", icon: Landmark },
+    { id: "reselling", label: "Reselling & Drop-Shipping Wholesale Catalog", labelBn: "Tɔn-Bio & Nnoɔma Dodoɔ Katalɔg", icon: Store },
+    { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "Intanɛte Dukan & Wɛbsaet Si", icon: Globe2 },
+    { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "Nhwɛsoɔ & Dukan Ho Kɔkɔbɔ", icon: ShieldAlert },
+    { id: "pos", label: "POS / New Sale", labelBn: "POS / Tɔn Nnoɔma", icon: Scan },
     { id: "products", label: "Products Catalog", labelBn: "Nnoɔma Din", icon: Package },
-    { id: "dues", label: "Customer Dues", labelBn: "Akaর হিসাব", icon: CreditCard },
+    { id: "dues", label: "Customer Dues", labelBn: "Atɔfoɔ Aka Nhoma", icon: CreditCard },
     { id: "inventory", label: "Inventory Stock", labelBn: "Akorae", icon: Package },
     { id: "expenses", label: "Expenses", labelBn: "Ka", icon: Receipt },
     { id: "purchases", label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ", icon: Truck },
@@ -74,7 +74,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
     { id: "cash", label: "Cash & Accounts", labelBn: "Sika & Akawnt", icon: Wallet },
     { id: "employees", label: "Employees", labelBn: "Adwumayɛfoɔ", icon: UserCheck },
     { id: "advisory", label: "Buy Advisory - What to Buy Next", labelBn: "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)", icon: Package },
-    { id: "analytics", label: "Business Analytics & Insights", labelBn: "ব্যবসায়িক অ্যানালিটিক্স", icon: BarChart2 },
+    { id: "analytics", label: "Business Analytics & Insights", labelBn: "Dukan Akontaabuo Ntianso", icon: BarChart2 },
     { id: "reports", label: "Reports & Profit/Loss", labelBn: "Amanneɛbɔ", icon: BarChart2 },
     { id: "settings", label: "Settings", labelBn: "Nhyehyɛeɛ", icon: Settings },
   ].filter(item =>
@@ -99,7 +99,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder={isBn ? "Nnoɔma, Otɔfoɔ, Invois বা মেনু Hwehwɛ..." : "Search products, customers, invoices, or pages..."}
+            placeholder={isBn ? "Hwehwɛ nnoɔma, atɔfoɔ, invois anaa nkratafa..." : "Search products, customers, invoices, or pages..."}
             className="flex-1 bg-transparent text-ink placeholder:text-ink text-base focus:outline-none"
           />
           {query && (
@@ -145,7 +145,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     </div>
                     <div className="text-right">
                       <div className="num font-bold text-sm text-ink">{formatTaka(p.sellPrice)}</div>
-                      <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "টি Aka" : "in stock"}</div>
+                      <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "wɔ akorae" : "in stock"}</div>
                     </div>
                   </button>
                 ))}
@@ -222,7 +222,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {/* Pages & Navigation */}
           <div>
             <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
-              {isBn ? "দ্রুত মেনু" : "Navigation & Pages"}
+              {isBn ? "Kwan & Nkratafa" : "Navigation & Pages"}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
               {navigationItems.map(item => (

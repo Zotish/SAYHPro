@@ -40,7 +40,7 @@ const initialTaxRecords: TaxMonthRecord[] = [
   {
     id: "TAX-2026-09",
     month: "September",
-    monthBn: "সেপ্টেম্বর",
+    monthBn: "Ɛbɔ (September)",
     year: 2026,
     turnover: 320000,
     outputVat: 16000,
@@ -51,7 +51,7 @@ const initialTaxRecords: TaxMonthRecord[] = [
   {
     id: "TAX-2026-08",
     month: "August",
-    monthBn: "আগস্ট",
+    monthBn: "Ɔsannaa (August)",
     year: 2026,
     turnover: 410000,
     outputVat: 20500,
@@ -65,7 +65,7 @@ const initialTaxRecords: TaxMonthRecord[] = [
   {
     id: "TAX-2026-07",
     month: "July",
-    monthBn: "জুলাই",
+    monthBn: "Kitawonsa (July)",
     year: 2026,
     turnover: 385000,
     outputVat: 19250,
@@ -160,36 +160,36 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       tier = "urgent";
       colorName = "red";
       badgeText = "Urgent Buy / Restock";
-      badgeTextBn = "Ntɛmntɛm কেনা দরকার (Akorae Asa/ঝুঁকি)";
+      badgeTextBn = "Tɔ Ntɛm Pa Ara (Akorae Asa / Asiane)";
       explanation = "Stock is critically low while demand is high. Restock immediately to prevent losing customers and profits.";
-      explanationBn = "Akorae মারাত্মকভাবে কমে গেছে বা শূন্য, অথচ Nnoɔma ব্যাপক চাহিদা। কাস্টমার যেন ফিরে না যায় সেজন্য দ্রুত কিনুন।";
+      explanationBn = "Akorae afom koraa anaa asa, nanso atɔfoɔ rehia pa ara. Tɔ ntɛm na atɔfoɔ ansan.";
       recommendedBuyQty = Math.max(20, p.min * 2 - p.stock);
     } else if (p.stock <= p.min * 1.6 || daysOfStockLeft <= 7) {
       // 🟡 YELLOW: Reorder soon
       tier = "soon";
       colorName = "yellow";
       badgeText = "Reorder Soon (3-7 Days)";
-      badgeTextBn = "Ɛrensa Ntɛm (৩-৭ Nna)";
+      badgeTextBn = "Ɛrensa Ntɛm (Nna 3-7)";
       explanation = "Approaching reorder point. Plan order in next supplier shipment batch.";
-      explanationBn = "আগামী কয়েকNnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী Agorɔfoɔ চালানে অর্ডার অন্তর্ভুক্ত করুন।";
+      explanationBn = "Ɛbɛsa wɔ nna kakra mu. Fa ka adwumawuranom ntɔdeɛ a ɛreba no ho.";
       recommendedBuyQty = Math.max(12, Math.round(p.min * 1.5 - p.stock));
     } else if (daysOfStockLeft <= 45) {
       // 🟢 GREEN: Optimal safe stock
       tier = "safe";
       colorName = "green";
       badgeText = "Optimal / Safe (Do Not Buy)";
-      badgeTextBn = "Akorae Wɔ Hɔ (এখন কেনার দরকার নেই)";
+      badgeTextBn = "Akorae Wɔ Hɔ (Ɛnhia sɛ wotɔ seesei)";
       explanation = "Healthy stock level with sufficient buffer. Cash flow is safely preserved.";
-      explanationBn = "Dukanে Akorae Wɔ Hɔ মজুত আছে। এখন Otɔfo Foforɔ করে নগদ Sika আটকানোর কোনো প্রয়োজন নেই।";
+      explanationBn = "Nnoɔma dɔɔso wɔ dukan mu. Ɛnhia sɛ wode sika pɔtee to nnoɔma so seesei.";
       recommendedBuyQty = 0;
     } else {
       // ⚪ / 🔵 GRAY: Slow moving / Overstock
       tier = "slow";
       colorName = "gray";
       badgeText = "Slow Moving / Overstocked";
-      badgeTextBn = "Tɔn Ntoasoɔ Brɛoo / অতিরিক্ত Akorae (কিনবেন না)";
+      badgeTextBn = "Tɔn Rekɔ Brɛoo / Akorae Dɔɔso Dodo (Nntɔ bi bio)";
       explanation = "Low sales turnover. Do not purchase more units; prioritize clearing current inventory.";
-      explanationBn = "বিক্রি ধীরগতির বা অতিরিক্ত Akorae রয়েছে। ভুলেও আর কিনবেন না, আগের Akorae Tɔn দিকে নজর Nna।";
+      explanationBn = "Nnoɔma yi tɔn kɔ brɛoo na ɛwɔ hɔ pii. Mfa sika nsie bio, tɔn nea ɛwɔ hɔ no ansa.";
       recommendedBuyQty = 0;
     }
 
@@ -224,7 +224,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
   const handleExportReport = () => {
     toast({
       type: "success",
-      title: isBn ? "Amanneɛbɔ ডাউনলোড হয়েছে!" : "Report Exported!",
+      title: isBn ? "Amanneɛbɔ No Akɔ Pɛpɛɛpɛ!" : "Report Exported!",
       message: "Financial and tax audit report saved to CSV.",
     });
   };
@@ -257,9 +257,9 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
     setTaxChallanInput("");
     toast({
       type: "success",
-      title: isBn ? "ট্যাক্স সফলভাবে Wɔatua Pɛpɛɛpɛ!" : "Tax Payment Recorded!",
+      title: isBn ? "Takisi Tua No Akɔ Pɛpɛɛpɛ!" : "Tax Payment Recorded!",
       message: isBn
-        ? `চালান নং ${generatedChallan} এনবিআর সিস্টেমে নথিভুক্ত হয়েছে।`
+        ? `Challan Nɔma ${generatedChallan} akɔ GRA nhyehyɛeɛ mu pɛpɛɛpɛ.`
         : `Challan No. ${generatedChallan} successfully linked to NBR return.`,
     });
   };
@@ -297,12 +297,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* KPI Cards Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "Nyinaa আয় (Revenue)" : "Total Revenue"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "Sika Nyinaa a Ɛba Mu" : "Total Revenue"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "Mfasoɔ Nyinaa" : "Gross Profit"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(grossProfit)}</div>
         </div>
 
@@ -312,7 +312,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "প্রদেয় ভ্যাট ও কর (Net Tax)" : "Net Tax / VAT Due"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "Takisi / GRA VAT a Ɛsɛ sɛ Wotua" : "Net Tax / VAT Due"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-em-700">{formatTaka(currentNetVatPayable)}</div>
         </div>
       </div>
@@ -320,12 +320,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* Tabs */}
       <div className="flex gap-2 border-b border-nv-200 pb-1 overflow-x-auto">
         {[
-          { id: "pl" as const, label: "Profit & Loss", labelBn: "Mfasoɔ ও ক্ষতি বিবরণী" },
-          { id: "tax" as const, label: "Tax Report & Payment", labelBn: "কর ও ভ্যাট Amanneɛbɔ ও পরিশোধ", highlight: true },
+          { id: "pl" as const, label: "Profit & Loss", labelBn: "Mfasoɔ & Nkogu Kyerɛw" },
+          { id: "tax" as const, label: "Tax Report & Payment", labelBn: "GRA Takisi Amanneɛbɔ & Tua Ka", highlight: true },
           { id: "advisory" as const, label: "Stock Buy Advisory (Color Coded)", labelBn: "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)", highlight: true },
           { id: "sales" as const, label: "Sales Audit", labelBn: "Tɔn Amanneɛbɔ" },
-          { id: "expenses" as const, label: "Expenses", labelBn: "Ka হিসাব" },
-          { id: "dues" as const, label: "Dues & Payables", labelBn: "Aka ও দেনা" },
+          { id: "expenses" as const, label: "Expenses", labelBn: "Dukan Ka Kyerɛw" },
+          { id: "dues" as const, label: "Dues & Payables", labelBn: "Aka & Bosea Nyinaa" },
         ].map(tab => (
           <button
             key={tab.id}
@@ -349,7 +349,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
               <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-                <span>{isBn ? "করKa ho্য Nyinaa Tɔn" : "Taxable Sales Turnover"}</span>
+                <span>{isBn ? "Tɔn a Takisi Wɔ Ho" : "Taxable Sales Turnover"}</span>
                 <Receipt size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
@@ -357,7 +357,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
               <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-                <span>{isBn ? "Otɔfoɔ থেকে সংগৃহীত ভ্যাট" : "Output VAT Collected"}</span>
+                <span>{isBn ? "GRA Output VAT a Wɔagye" : "Output VAT Collected"}</span>
                 <Landmark size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalSalesVatCollected)}</div>
@@ -365,7 +365,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
               <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-                <span>{isBn ? "ইনপুট ভ্যাট রেয়াত" : "Input VAT Rebate"}</span>
+                <span>{isBn ? "GRA Input VAT Sanba" : "Input VAT Rebate"}</span>
                 <ShieldCheck size={15} className="text-em-600" />
               </div>
               <div className="num text-xl font-bold text-em-700">-{formatTaka(totalInputVatRebate)}</div>
@@ -373,7 +373,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <div className="bg-gradient-to-br from-em-50 via-white to-amber-50 rounded-2xl p-4 border border-em-300 shadow-xs">
               <div className="flex items-center justify-between text-xs font-semibold text-ink mb-1">
-                <span>{isBn ? "সরকারি কোষাগারে প্রদেয় ভ্যাট" : "Net Tax Payable (Govt)"}</span>
+                <span>{isBn ? "GRA Takisi a Ɛsɛ sɛ Wotua" : "Net Tax Payable (Govt)"}</span>
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               </div>
               <div className="num text-2xl font-black text-ink">{formatTaka(currentNetVatPayable)}</div>
@@ -385,7 +385,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-nv-100">
               <div>
                 <h3 className="font-display font-bold text-ink text-base sm:text-lg">
-                  {isBn ? "জাতীয় রাজস্ব বোর্ড (NBR) ভ্যাট রিটার্ন" : "NBR Monthly VAT Returns"}
+                  {isBn ? "GRA Bosome Biara VAT Amanneɛbɔ" : "NBR Monthly VAT Returns"}
                 </h3>
               </div>
 
@@ -399,7 +399,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors"
                 >
                   <CreditCard size={15} />
-                  {isBn ? "কর পরিশোধ করুন (Pay Tax)" : "Pay Tax Online"}
+                  {isBn ? "Tua GRA Takisi wɔ Intanɛte So" : "Pay Tax Online"}
                 </button>
               </div>
             </div>
@@ -409,13 +409,13 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-nv-50 border-b border-nv-200">
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Bosome ও অর্থAfe" : "Tax Period"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "করKa ho্য Tɔn" : "Sales Turnover"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "সংগৃহীত ভ্যাট (৫%)" : "Output VAT"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "রেয়াত ক্রেডিট" : "Input Rebate"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "নিট প্রদেয় কর" : "Net Tax Payable"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "স্ট্যাটাস ও চালান নং" : "Status & Challan"}</th>
-                    <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "কার্যক্রম" : "Action"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Takisi Bere" : "Tax Period"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Tɔn Nyinaa Dodow" : "Sales Turnover"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Output VAT" : "Output VAT"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "GRA Input VAT Mfasoɔ" : "Input Rebate"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Takisi a Ɛsɛ sɛ Wotua" : "Net Tax Payable"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Gyinabea & GRA Krataa" : "Status & Challan"}</th>
+                    <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "Dwumadie" : "Action"}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-nv-100">
@@ -438,7 +438,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                           </div>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                            <AlertCircle size={12} /> {isBn ? "Aka (পরিশোধ করুন)" : "Payment Due"}
+                            <AlertCircle size={12} /> {isBn ? "Akatua a Ɛsɛ sɛ Wotua" : "Payment Due"}
                           </span>
                         )}
                       </td>
@@ -451,20 +451,20 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                             }}
                             className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-lg font-bold text-xs shadow-xs transition-colors"
                           >
-                            {isBn ? "এখনই Nna" : "Pay Now"}
+                            {isBn ? "Tua Seesei" : "Pay Now"}
                           </button>
                         ) : (
                           <button
                             onClick={() => {
                               toast({
                                 type: "success",
-                                title: isBn ? "চালান ভাউচার ডাউনলোড!" : "Challan Voucher Downloaded!",
+                                title: isBn ? "Tax Krataa Atwe Aba!" : "Challan Voucher Downloaded!",
                                 message: `Voucher for ${rec.challanNo} saved.`,
                               });
                             }}
                             className="px-3 py-1.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-lg font-semibold text-xs transition-colors"
                           >
-                            {isBn ? "ভাউচার Kasaa (Receipt)" : "Challan PDF"}
+                            {isBn ? "GRA Tax Krataa PDF" : "Challan PDF"}
                           </button>
                         )}
                       </td>
@@ -486,11 +486,11 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <div>
                 <h3 className="font-display font-bold text-lg text-ink flex items-center gap-2">
                   <Package className="text-em-700" size={20} />
-                  {isBn ? "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory) — Nnoɔma a Wɔatɔের স্মার্ট অ্যানালিটিক্স" : "What to Buy Next — Purchasing Advisory"}
+                  {isBn ? "Deɛ Ɛsɛ sɛ Wotɔ Bio — Ntɔdeɛ Afotusɛm" : "What to Buy Next — Purchasing Advisory"}
                 </h3>
                 <p className="text-xs text-ink/70">
                   {isBn
-                    ? "Nnoɔma Tɔn গতি ও মজুত বিবেচনা করে রং দিয়ে নির্দেশিকা: কোন Nnoɔmaটি এখনই কেনা আবশ্যক এবং কোনটি অতিরিক্ত না কেনা উচিত"
+                    ? "Nnoɔma tɔn ntɛmntɛm ne akorae dodoɔ ho akwankyerɛ a ahosuo wom: deɛ ɛsɛ sɛ wotɔ seesei ne deɛ ɛnsɛ sɛ wotɔ gu hɔ"
                     : "Color-coded inventory demand analytics recommending exactly what to reorder vs what to avoid"}
                 </p>
               </div>
@@ -500,7 +500,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors self-start sm:self-auto"
               >
                 <ShoppingCart size={15} />
-                {isBn ? "Agorɔfoɔ অর্ডার করুন" : "Open Purchase Order"}
+                {isBn ? "Bue Ntɔdeɛ Invois" : "Open Purchase Order"}
               </button>
             </div>
 
@@ -518,7 +518,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
-                    {isBn ? "🔴 Ntɛmntɛm কেনা দরকার" : "🔴 Urgent Buy"}
+                    {isBn ? "🔴 Tɔ Ntɛm Pa Ara" : "🔴 Urgent Buy"}
                   </span>
                   <span className="num font-bold text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-full">
                     {tNum(urgentCount)} {isBn ? "nnoɔma" : "items"}
@@ -526,7 +526,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "Akorae ০ বা বিপদসীমায়, অথচ ব্যাপক চাহিদা। দ্রুত না আনলে বিক্রি নষ্ট হবে।"
+                    ? "Akorae asa anaa ɛrekɔ fom, nanso atɔfoɔ pɛ pa ara. Fa ba ntɛm na tɔn ankɔ fam."
                     : "Critically low stock with active demand. High lost sales risk!"}
                 </p>
               </div>
@@ -551,7 +551,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "৩ থেকে ৭ Nnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী চালানে অর্ডার করুন।"
+                    ? "Ɛbɛsa wɔ nna 3 kɔsi 7 ntam. Fa ka adwumawura ntɔdeɛ a ɛreba ho."
                     : "Will run out in 3-7 days. Include in upcoming purchase batch."}
                 </p>
               </div>
@@ -568,7 +568,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    {isBn ? "🟢 Akorae Wɔ Hɔ আছে" : "🟢 Safe / Optimal"}
+                    {isBn ? "🟢 Ɛyɛ Pɛpɛɛpɛ / Ɛdɔɔso" : "🟢 Safe / Optimal"}
                   </span>
                   <span className="num font-bold text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                     {tNum(safeCount)} {isBn ? "nnoɔma" : "items"}
@@ -576,7 +576,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "১৫-৪৫ Nnaের Akorae রয়েছে। Otɔfo Foforɔ করে কেনার দরকার নেই; Sika (Cash) Akorae Dɔɔso।"
+                    ? "Nna 15-45 akorae wɔ hɔ. Ɛnhia sɛ wotɔ bio seesei; sika pɔtee wɔ hɔ pɛpɛɛpɛ."
                     : "Healthy buffer (15-45 days). No purchase needed; preserves cash."}
                 </p>
               </div>
@@ -593,7 +593,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-slate-400" />
-                    {isBn ? "⚪ Tɔn Ntoasoɔ Brɛoo (কিনবেন না)" : "⚪ Avoid Overstock"}
+                    {isBn ? "⚪ Mmfa Nnoɔma Ngu Hɔ Nkyɛ Dodo" : "⚪ Avoid Overstock"}
                   </span>
                   <span className="num font-bold text-xs bg-slate-200 text-slate-800 px-2 py-0.5 rounded-full">
                     {tNum(slowCount)} {isBn ? "nnoɔma" : "items"}
@@ -601,7 +601,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "বিক্রি ধীরগতির। অতিরিক্ত কেনা থেকে বিরত থাকুন, Sika আটকে থাকবে।"
+                    ? "Tɔn rekɔ brɛoo. Ntɔ gu hɔ bio na sika antoto fam."
                     : "Slow mover / excess inventory. Avoid purchasing more units."}
                 </p>
               </div>
@@ -644,7 +644,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   advisoryFilter === "safe" ? "bg-emerald-600 text-white" : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                 }`}
               >
-                🟢 {isBn ? "পর্যাপ্ত" : "Safe"} ({tNum(safeCount)})
+                🟢 {isBn ? "Ɛyɛ Pɛpɛɛpɛ" : "Safe"} ({tNum(safeCount)})
               </button>
               <button
                 onClick={() => setAdvisoryFilter("slow")}
@@ -657,7 +657,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             </div>
 
             <div className="text-xs text-ink flex items-center gap-1.5 self-start sm:self-auto">
-              <span className="text-ink/60">{isBn ? "প্রস্তাবিত রি-Akorae বাজেট:" : "Suggested Buy Budget:"}</span>
+              <span className="text-ink/60">{isBn ? "Ntɔdeɛ Sika a Wɔahyɛ Da:" : "Suggested Buy Budget:"}</span>
               <span className="num font-bold text-em-700 text-sm">{formatTaka(totalRecommendedBudget)}</span>
             </div>
           </div>
@@ -668,14 +668,14 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-nv-50 border-b border-nv-200">
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma ও বিভাগ" : "Product & Category"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma a Wɔatɔ নির্দেশিকা (রং ভিত্তিক)" : "Color Buy Advisory"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "বর্তমান Akorae" : "Current Stock"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "সাপ্তাহিক চাহিদা" : "Sales Burn Rate"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Akorae অবশিষ্ট" : "Days Left"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "কত Pcs কেনা উচিত" : "Suggested Qty"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "প্রয়োজনীয় বাজেট" : "Est. Cost"}</th>
-                    <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "ব্যবস্থা" : "Action"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma & Kuw" : "Product & Category"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Ntɔdeɛ Ho Kɔkɔbɔ" : "Color Buy Advisory"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Akorae a Ɛwɔ Hɔ Seesei" : "Current Stock"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Sɛdeɛ Nnoɔma Rekɔ Ntɛmntɛm" : "Sales Burn Rate"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nna a Aka" : "Days Left"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Dodoɔ a Wɔahyɛ Da" : "Suggested Qty"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Boɔ a Wɔabu" : "Est. Cost"}</th>
+                    <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "Dwumadie" : "Action"}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-nv-100">
@@ -752,7 +752,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                           {recommendedBuyQty > 0 ? (
                             <span className="text-em-700 font-bold">+{tNum(recommendedBuyQty)} pcs</span>
                           ) : (
-                            <span className="text-ink/40 font-normal">০ {isBn ? "Pcs" : "pcs"}</span>
+                            <span className="text-ink/40 font-normal">0 {isBn ? "pcs" : "pcs"}</span>
                           )}
                         </td>
 
@@ -770,11 +770,11 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                                   : "bg-em-600 hover:bg-em-700 text-white"
                               }`}
                             >
-                              {isBn ? "অর্ডার করুন" : "Buy Now"}
+                              {isBn ? "Tɔ Seesei Ara" : "Buy Now"}
                             </button>
                           ) : (
                             <span className="text-[11px] text-ink/40 font-medium">
-                              {isBn ? "প্রয়োজন নেই" : "No order"}
+                              {isBn ? "Ntɔdeɛ biara nni hɔ" : "No order"}
                             </span>
                           )}
                         </td>
@@ -793,7 +793,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-6">
           <div className="border-b border-nv-100 pb-4">
             <h3 className="font-display font-bold text-ink text-lg">
-              {isBn ? "Mfasoɔ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
+              {isBn ? "Mfasoɔ & Nkogu Kyerɛw" : "Profit & Loss Statement"}
             </h3>
           </div>
 
@@ -801,7 +801,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             {/* Income */}
             <div className="space-y-2">
               <div className="flex justify-between items-center font-bold text-ink border-b border-nv-100 pb-1">
-                <span>1. {isBn ? "Tɔn আয় (Revenue)" : "Gross Revenue from Sales"}</span>
+                <span>1. {isBn ? "Tɔn Mu Sika Nyinaa" : "Gross Revenue from Sales"}</span>
                 <span className="num text-ink">{formatTaka(totalRevenue)}</span>
               </div>
               <div className="flex justify-between items-center text-ink pl-4">
@@ -809,7 +809,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <span className="num text-ink">-{formatTaka(totalCOGS)}</span>
               </div>
               <div className="flex justify-between items-center font-bold text-ink bg-em-50/50 p-2.5 rounded-xl">
-                <span>= {isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</span>
+                <span>= {isBn ? "Mfasoɔ Nyinaa" : "Gross Profit"}</span>
                 <span className="num font-bold text-ink">{formatTaka(grossProfit)} ({tNum(grossMargin)}%)</span>
               </div>
             </div>
@@ -817,7 +817,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             {/* Operating Expenses */}
             <div className="space-y-2 pt-2">
               <div className="font-bold text-ink border-b border-nv-100 pb-1">
-                2. {isBn ? "Dukan পরিচালন ব্যয় (Operating Expenses)" : "Operating Expenses"}
+                2. {isBn ? "Dukan Adwumayɛ Ka" : "Operating Expenses"}
               </div>
               {Object.entries(expenseByCategory).map(([cat, amt]) => (
                 <div key={cat} className="flex justify-between items-center text-ink pl-4">
@@ -829,14 +829,14 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="text-ink pl-4 text-xs">No operating expenses recorded yet</div>
               )}
               <div className="flex justify-between items-center font-bold text-ink bg-red-50/50 p-2.5 rounded-xl">
-                <span>= {isBn ? "Nyinaa পরিচালন Ka" : "Total Operating Expenses"}</span>
+                <span>= {isBn ? "Adwumayɛ Ka Nyinaa" : "Total Operating Expenses"}</span>
                 <span className="num font-bold text-ink">-{formatTaka(totalExpenses)}</span>
               </div>
             </div>
 
             {/* Final Net Profit */}
             <div className="flex justify-between items-center text-base sm:text-lg font-extrabold text-white sidebar-gradient p-4 rounded-2xl shadow-md">
-              <span>{isBn ? "চূড়ান্ত Mfasoɔ Pɔtee (Net Profit)" : "Net Profit"}</span>
+              <span>{isBn ? "Mfasoɔ Pɔtee" : "Net Profit"}</span>
               <span className="num font-mono">{formatTaka(netProfit)}</span>
             </div>
           </div>
@@ -846,7 +846,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* 4. Sales Breakdown View */}
       {activeTab === "sales" && (
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
-          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Nyinaa Tɔn তালিকা" : "Completed Sales Records"}</h3>
+          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Nnoɔma a Wɔatɔn Awie Kyerɛw" : "Completed Sales Records"}</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
@@ -881,7 +881,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* 5. Expenses Tab */}
       {activeTab === "expenses" && (
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
-          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Ka সম্পূর্ণ তালিকা" : "Expense Audit Trail"}</h3>
+          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Ka a Wɔabɔ Nhwehwɛmu" : "Expense Audit Trail"}</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
@@ -968,14 +968,14 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <form onSubmit={handleTaxPaymentSubmit} className="space-y-4 text-xs sm:text-sm">
               <div className="p-3 bg-nv-50 rounded-2xl border border-nv-200 space-y-1">
-                <div className="text-xs text-ink/60">{isBn ? "ট্যাক্স পর্ব / Bosome:" : "Tax Period:"}</div>
+                <div className="text-xs text-ink/60">{isBn ? "Takisi Bere:" : "Tax Period:"}</div>
                 <div className="font-bold text-sm text-ink">
                   {isBn
-                    ? `${selectedTaxMonth.monthBn} ${tNum(selectedTaxMonth.year)} (মূসক ৯.১)`
+                    ? `${selectedTaxMonth.monthBn} ${tNum(selectedTaxMonth.year)} (GRA e-VAT)`
                     : `${selectedTaxMonth.month} ${selectedTaxMonth.year} (Mushak 9.1)`}
                 </div>
                 <div className="flex justify-between items-center pt-2 mt-1 border-t border-nv-200">
-                  <span className="text-ink/70 font-semibold">{isBn ? "প্রদেয় নিট কর:" : "Net Payable Amount:"}</span>
+                  <span className="text-ink/70 font-semibold">{isBn ? "Sika Pɔtee a Ɛsɛ sɛ Wotua:" : "Net Payable Amount:"}</span>
                   <span className="num text-base font-bold text-em-700">{formatTaka(selectedTaxMonth.netPayable)}</span>
                 </div>
               </div>
@@ -983,7 +983,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               {/* Channel Selector */}
               <div>
                 <label className="block font-semibold text-ink mb-1.5">
-                  {isBn ? "পেমেন্ট Kwan a Wɔfaa So বেছে নিন" : "Select Payment Gateway"}
+                  {isBn ? "Paw Akatua Kwan" : "Select Payment Gateway"}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
@@ -1036,7 +1036,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   type="submit"
                   className="flex-1 py-2.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold shadow-md transition-colors"
                 >
-                  {isBn ? "পরিশোধ নিশ্চিত করুন" : "Confirm Tax Payment"}
+                  {isBn ? "Si Takisi Tua No So Dua" : "Confirm Tax Payment"}
                 </button>
               </div>
             </form>

@@ -60,8 +60,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
     });
     toast({
       type: "success",
-      title: isBn ? "কার্টে Ka ho হয়েছে!" : "Added to Cart!",
-      message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "কার্টে যুক্ত হয়েছে।" : "added to cart."}`,
+      title: isBn ? "Wɔde Agu Kɛntɛn Mu!" : "Added to Cart!",
+      message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "wɔde agu kɛntɛn mu." : "added to cart."}`,
     });
   };
 
@@ -98,9 +98,9 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
       {/* Header */}
       <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
         <div className="min-w-0">
-          <h1 className="font-display text-xl sm:text-2xl font-bold text-ink">{isBn ? "আপনার স্টোর চালু করুন" : "Launch Your Store"}</h1>
+          <h1 className="font-display text-xl sm:text-2xl font-bold text-ink">{isBn ? "Bue Wo Dukan" : "Launch Your Store"}</h1>
           <p className="text-ink/70 text-xs sm:text-sm mt-0.5">
-            {isBn ? "কোডিং ছাড়াই সহজে আপনার Intanɛte Dukan তৈরি ও চালু করুন।" : "Publish your online store in minutes with zero coding."}
+            {isBn ? "Bue wo dukan wɔ intanɛte so simma kakra a wunhia coding." : "Publish your online store in minutes with zero coding."}
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
             className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-transform active:scale-95 cursor-pointer"
           >
             <Eye size={15} />
-            <span>{isBn ? "অভ্যন্তরীণ প্রিভিউ" : "In-App Preview"}</span>
+            <span>{isBn ? "App No Mu Nhwɛsoɔ" : "In-App Preview"}</span>
           </button>
           <button
             onClick={() => {
@@ -118,7 +118,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               window.open(liveUrl, "_blank");
             }}
             className="flex items-center gap-1.5 px-3.5 py-2 border border-em-300 bg-em-50 hover:bg-em-100 rounded-xl text-xs sm:text-sm font-bold text-em-800 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
-            title={isBn ? "আসল ব্রাউজারে কাস্টমার স্টোর খুলুন (External Browser)" : "Open Live Storefront in Real Browser"}
+            title={isBn ? "Bue Intanɛte Dukan No wɔ Browser Foforɔ Mu" : "Open Live Storefront in Real Browser"}
           >
             <Globe size={14} className="text-em-700" />
             <span className="font-mono text-xs">{subdomain}.sayhpro.com</span>
@@ -130,15 +130,15 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               navigator.clipboard.writeText(liveUrl);
               toast({
                 type: "success",
-                title: isBn ? "কাস্টমার স্টোর লিংক কপি হয়েছে!" : "Storefront Link Copied!",
+                title: isBn ? "Wɔakɔpi Dukan Link No!" : "Storefront Link Copied!",
                 message: liveUrl,
               });
             }}
             className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 bg-white hover:bg-nv-50 rounded-xl text-xs sm:text-sm font-semibold text-ink transition-fast shadow-2xs cursor-pointer"
-            title={isBn ? "কাস্টমারদের সাথে শেয়ার করতে লিংক কপি করুন" : "Copy Customer Store Link"}
+            title={isBn ? "Kɔpi Atɔfoɔ Dukan Link" : "Copy Customer Store Link"}
           >
             <Copy size={13} />
-            <span>{isBn ? "কপি লিংক" : "Copy Link"}</span>
+            <span>{isBn ? "Kɔpi Link No" : "Copy Link"}</span>
           </button>
         </div>
       </div>
@@ -150,8 +150,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           {/* Sub-tabs */}
           <div className="flex gap-2 border-b border-nv-200 pb-2">
             {[
-              { id: "design" as const, label: "Design & Theme", labelBn: "ডিজাইন ও থিম", icon: Palette },
-              { id: "content" as const, label: "Content & Copy", labelBn: "লেখা ও ব্যানার", icon: MessageCircle },
+              { id: "design" as const, label: "Design & Theme", labelBn: "Ahosuo & Nsusuwii", icon: Palette },
+              { id: "content" as const, label: "Content & Copy", labelBn: "Nsɛm & Banner", icon: MessageCircle },
               { id: "settings" as const, label: "Store Controls", labelBn: "Nhyehyɛeɛ", icon: Settings },
             ].map(t => (
               <button
@@ -170,7 +170,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           {activeTab === "design" && (
             <div className="space-y-4 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1.5">{isBn ? "ব্র্যান্ড থিম Ɔkyenaার" : "Theme Color Palette"}</label>
+                <label className="block font-semibold text-ink mb-1.5">{isBn ? "Ahosuo Nhyehyɛeɛ" : "Theme Color Palette"}</label>
                 <div className="flex gap-2.5">
                   {colorThemes.map(ct => (
                     <button
@@ -187,7 +187,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "স্টোর সাবডোমেন" : "Store URL Subdomain"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Dukan Intanɛte Address" : "Store URL Subdomain"} *</label>
                 <div className="flex items-center border border-nv-200 rounded-xl px-3 py-2 bg-nv-50 focus-within:border-em-500 focus-within:bg-white">
                   <span className="text-ink text-xs mr-1">https://</span>
                   <input
@@ -201,7 +201,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "অ্যানাউন্সমেন্ট বার নোটিশ" : "Top Announcement Ticker"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Dawubɔ Titiriw a Ɛwɔ Sor" : "Top Announcement Ticker"}</label>
                 <input
                   type="text"
                   value={isBn ? announcementBn : announcement}
@@ -217,7 +217,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           {activeTab === "content" && (
             <div className="space-y-4 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "হেডলাইন (ইংরেজি)" : "Hero Headline (English)"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Hero Headline (English)" : "Hero Headline (English)"}</label>
                 <input
                   type="text"
                   value={headline}
@@ -227,7 +227,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "হেডলাইন (Twi (Akan))" : "Hero Headline (Bangla)"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Hero Headline (Twi / Akan)" : "Hero Headline (Twi / Akan)"}</label>
                 <input
                   type="text"
                   value={headlineBn}
@@ -237,7 +237,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "সাব-হেডিং বিবরণ" : "Sub-headline Description"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Asɛm Titiriw Aseɛ Nkyerɛkyerɛmu" : "Sub-headline Description"}</label>
                 <textarea
                   rows={2}
                   value={isBn ? subheadlineBn : subheadline}
@@ -253,8 +253,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
             <div className="space-y-3.5 text-xs sm:text-sm">
               <div className="flex items-center justify-between p-3 bg-nv-50 rounded-2xl">
                 <div>
-                  <div className="font-bold text-ink">{isBn ? "১-ক্লিক হোয়াটসঅ্যাপ অর্ডার বাটন" : "1-Click WhatsApp Ordering"}</div>
-                  <span className="text-xs text-ink">{isBn ? "Otɔfoɔ সরাসরি হোয়াটসঅ্যাপে অর্ডার পাঠাতে পারবে" : "Direct customer order chat"}</span>
+                  <div className="font-bold text-ink">{isBn ? "1-Click WhatsApp Ntɔdeɛ" : "1-Click WhatsApp Ordering"}</div>
+                  <span className="text-xs text-ink">{isBn ? "Otɔfoɔ ntɔdeɛ nkɔmmɔbɔ" : "Direct customer order chat"}</span>
                 </div>
                 <input
                   type="checkbox"
@@ -266,7 +266,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
 
               {showWhatsApp && (
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "হোয়াটসঅ্যাপ নম্বর" : "WhatsApp Number"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "WhatsApp Nɔma" : "WhatsApp Number"}</label>
                   <input
                     type="text"
                     value={whatsAppNumber}
@@ -278,8 +278,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
 
               <div className="flex items-center justify-between p-3 bg-nv-50 rounded-2xl">
                 <div>
-                  <div className="font-bold text-ink">{isBn ? "Sika (Cash) অন Delivery (COD)" : "Cash On Delivery (COD)"}</div>
-                  <span className="text-xs text-ink">{isBn ? "Nnoɔma হাতে পেয়ে মূল্য পরিশোধ" : "Enable COD checkout"}</span>
+                  <div className="font-bold text-ink">{isBn ? "Sika Pɔtee Delivery Akyi (COD)" : "Cash On Delivery (COD)"}</div>
+                  <span className="text-xs text-ink">{isBn ? "Ma Cash on Delivery (COD) kwan" : "Enable COD checkout"}</span>
                 </div>
                 <input
                   type="checkbox"
@@ -291,8 +291,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
 
               <div className="flex items-center justify-between p-3 bg-nv-50 rounded-2xl">
                 <div>
-                  <div className="font-bold text-ink">{isBn ? "Otɔfoɔ রিভিউ ও রেটিং" : "Customer Reviews"}</div>
-                  <span className="text-xs text-ink">{isBn ? "ওয়েবসাইটে স্টার রেটিং প্রদর্শন" : "Show social proof rating"}</span>
+                  <div className="font-bold text-ink">{isBn ? "Atɔfoɔ Nkratoɔ" : "Customer Reviews"}</div>
+                  <span className="text-xs text-ink">{isBn ? "Kyerɛ atɔfoɔ nkratoɔ nhwehwɛmu" : "Show social proof rating"}</span>
                 </div>
                 <input
                   type="checkbox"
@@ -310,7 +310,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               className="w-full py-3 bg-em-700 hover:bg-em-800 text-white rounded-2xl font-bold text-sm shadow-md transition-fast flex items-center justify-center gap-2"
             >
               <Save size={16} />
-              <span>{isBn ? "ওয়েবসাইট আপডেট ও Pae Mu Kyerɛ (Publish)" : "Publish Live Website"}</span>
+              <span>{isBn ? "Bue Intanɛte Dukan No Ma Amanfoɔ Nhwɛ" : "Publish Live Website"}</span>
             </button>
           </div>
         </div>
@@ -388,7 +388,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               {/* Catalog Section */}
               <div className="p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-xs text-ink">{isBn ? "সেরা Nnoɔmaসমূহ" : "Featured Products"}</h4>
+                  <h4 className="font-bold text-xs text-ink">{isBn ? "Nnoɔma Titiriw" : "Featured Products"}</h4>
                   <span className="text-[10px] text-ink">{tNum(products.length)} items</span>
                 </div>
 
@@ -405,7 +405,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                         style={{ backgroundColor: themeColor }}
                         className="w-full py-1 text-white text-[10px] font-bold rounded-lg mt-2 transition-transform active:scale-95"
                       >
-                        {isBn ? "অর্ডার করুন" : "Order Now"}
+                        {isBn ? "Tɔ Seesei Ara" : "Order Now"}
                       </button>
                     </div>
                   ))}
@@ -488,7 +488,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                       </span>
                     </div>
                     <span className="text-[11px] text-ink/60">
-                      {isBn ? "বিশ্বস্ত Intanɛte শপ" : "Trusted Online Store"} • {settings.phone}
+                      {isBn ? "Intanɛte Dukan a Wɔgye Di" : "Trusted Online Store"} • {settings.phone}
                     </span>
                   </div>
                 </div>
@@ -499,7 +499,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                     className="relative flex items-center gap-2 px-3.5 py-2 rounded-xl border border-nv-200 bg-nv-50 hover:bg-nv-100 text-ink font-bold text-xs transition-colors cursor-pointer"
                   >
                     <ShoppingBag size={17} className="text-ink" />
-                    <span className="hidden sm:inline">{isBn ? "কার্ট" : "Cart"}</span>
+                    <span className="hidden sm:inline">{isBn ? "Kɛntɛn" : "Cart"}</span>
                     {cartCount > 0 && (
                       <span className="w-5 h-5 rounded-full bg-em-600 text-white text-[10px] font-extrabold flex items-center justify-center">
                         {tNum(cartCount)}
@@ -515,7 +515,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                 className="px-5 py-8 sm:py-12 text-white space-y-3 relative overflow-hidden"
               >
                 <div className="inline-block text-[11px] uppercase tracking-wider font-extrabold bg-white/20 backdrop-blur-xs px-3 py-1 rounded-full">
-                  {isBn ? "অফিসিয়াল Intanɛte Dukan" : "OFFICIAL ONLINE STORE"}
+                  {isBn ? "AMANSIE INTANƐTE DUKAN" : "OFFICIAL ONLINE STORE"}
                 </div>
                 <h1 className="font-display font-extrabold text-xl sm:text-3xl leading-tight max-w-xl">
                   {isBn ? headlineBn || headline : headline}
@@ -528,7 +528,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                     href="#products-section"
                     className="px-5 py-2.5 bg-white text-ink hover:bg-nv-50 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-1.5"
                   >
-                    <span>{isBn ? "এখনই কেনাকাটা করুন" : "Shop Featured Items"}</span>
+                    <span>{isBn ? "Tɔ Nnoɔma Titiriw" : "Shop Featured Items"}</span>
                     <ArrowRight size={14} />
                   </a>
                 </div>
@@ -538,15 +538,15 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               <div className="bg-white border-b border-nv-200 px-4 py-3 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-ink">
                 <div className="flex items-center justify-center gap-1.5">
                   <Truck size={15} className="text-em-600" />
-                  <span>{isBn ? "দ্রুত Delivery" : "Fast Delivery"}</span>
+                  <span>{isBn ? "Delivery Ntɛmntɛm" : "Fast Delivery"}</span>
                 </div>
                 <div className="flex items-center justify-center gap-1.5 border-x border-nv-100">
                   <CreditCard size={15} className="text-em-600" />
-                  <span>{isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}</span>
+                  <span>{isBn ? "Sika Pɔtee Delivery Akyi" : "Cash on Delivery"}</span>
                 </div>
                 <div className="flex items-center justify-center gap-1.5">
                   <ShieldCheck size={15} className="text-em-600" />
-                  <span>{isBn ? "১০০% খাঁnnoɔma" : "Authentic Goods"}</span>
+                  <span>{isBn ? "Nnoɔma a Ɛyɛ Nokware" : "Authentic Goods"}</span>
                 </div>
               </div>
 
@@ -555,10 +555,10 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="font-display font-bold text-base sm:text-lg text-ink">
-                      {isBn ? "আমাদের সেরা Nnoɔmaসমূহ" : "Featured Products"}
+                      {isBn ? "Nnoɔma Titiriw" : "Featured Products"}
                     </h3>
                     <p className="text-xs text-ink/60">
-                      {isBn ? "তাজা ও নির্ভরKa ho্য Nnoɔma সরাসরি আপনার ঠিকানায়" : "Quality items delivered straight to your door"}
+                      {isBn ? "Nnoɔma pa a yɛde ba wo fie pɔtee" : "Quality items delivered straight to your door"}
                     </p>
                   </div>
                   <span className="text-xs font-semibold text-ink/70 bg-white px-2.5 py-1 rounded-lg border border-nv-200">
@@ -580,7 +580,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                           {isBn ? p.nameBn || p.name : p.name}
                         </div>
                         <div className="text-[11px] text-ink/60 mt-0.5">
-                          {isBn ? (p.unit === "Piece" ? "১ Pcs" : p.unit === "KG" ? "১ kg" : p.unit === "Liter" ? "১ L" : p.unit) : `1 ${p.unit}`}
+                          {isBn ? (p.unit === "Piece" ? "1 Pcs" : p.unit === "KG" ? "1 kg" : p.unit === "Liter" ? "1 L" : p.unit) : `1 ${p.unit}`}
                         </div>
                       </div>
 
@@ -594,7 +594,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                           className="px-3 py-1.5 text-white text-xs font-bold rounded-xl transition-transform active:scale-95 shadow-xs cursor-pointer flex items-center gap-1"
                         >
                           <Plus size={13} />
-                          <span>{isBn ? "অর্ডার" : "Add"}</span>
+                          <span>{isBn ? "Fa Ka Ho" : "Add"}</span>
                         </button>
                       </div>
                     </div>
@@ -608,23 +608,23 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-display font-bold text-sm sm:text-base text-ink">
-                        {isBn ? "Otɔfoɔ সন্তুষ্টি ও রিভিউ" : "Customer Reviews & Ratings"}
+                        {isBn ? "Atɔfoɔ Nkratoɔ & Nhwehwɛmu" : "Customer Reviews & Ratings"}
                       </h4>
                       <p className="text-xs text-ink/60">
-                        {isBn ? "১২০+ সন্তুষ্ট Otɔfoɔদের মতামত" : "Based on verified customer orders"}
+                        {isBn ? "Gyina atɔfoɔ ntɔdeɛ a wɔahwɛ mu so" : "Based on verified customer orders"}
                       </p>
                     </div>
                     <div className="flex items-center gap-1 bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full text-xs font-extrabold">
                       <Star size={14} className="fill-amber-500 text-amber-500" />
-                      <span>৪.৯ / ৫.০</span>
+                      <span>4.9 / 5.0</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
-                      { name: isBn ? "তানভীর হোসেন" : "Tanvir Hossain", comment: isBn ? "Nnoɔma একদম খাঁটি ও দ্রুত Fie (Home) Delivery পেয়েছি!" : "Fast delivery and authentic goods!", time: "2 days ago" },
-                      { name: isBn ? "নুসরাত জাহান" : "Nusrat Jahan", comment: isBn ? "Dukanদার খুব আন্তরিক এবং Sika (Cash) অন Delivery সুবিধা চমৎকার।" : "Courteous merchant & convenient COD.", time: "4 days ago" },
-                      { name: isBn ? "রফিকুল ইসলাম" : "Rafiqul Islam", comment: isBn ? "হোয়াটসঅ্যাপে অর্ডার করেই দ্রুত নিশ্চিত হয়েছে।" : "Smooth 1-click WhatsApp order experience!", time: "1 week ago" },
+                      { name: isBn ? "Kofi Mensah" : "Tanvir Hossain", comment: isBn ? "Delivery ntɛmntɛm ne nnoɔma pa!" : "Fast delivery and authentic goods!", time: "2 days ago" },
+                      { name: isBn ? "Abena Osei" : "Nusrat Jahan", comment: isBn ? "Dukanwura pa ne COD kwan pa." : "Courteous merchant & convenient COD.", time: "4 days ago" },
+                      { name: isBn ? "Kwame Boateng" : "Rafiqul Islam", comment: isBn ? "WhatsApp ntɔdeɛ a ɛyɛ mmerɛ pa ara!" : "Smooth 1-click WhatsApp order experience!", time: "1 week ago" },
                     ].map((r, idx) => (
                       <div key={idx} className="p-3 bg-nv-50 rounded-xl border border-nv-200/80 space-y-1">
                         <div className="flex items-center justify-between text-xs">
@@ -693,7 +693,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                     className="pointer-events-auto flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-4 py-2.5 rounded-full shadow-lg font-bold text-xs transition-transform active:scale-95"
                   >
                     <MessageCircle size={18} />
-                    <span>{isBn ? "হোয়াটসঅ্যাপে অর্ডার করুন" : "Chat on WhatsApp"}</span>
+                    <span>{isBn ? "Kasa wɔ WhatsApp So" : "Chat on WhatsApp"}</span>
                   </a>
                 </div>
               )}
@@ -706,7 +706,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                       {tNum(cartCount)}
                     </div>
                     <div>
-                      <div className="text-xs text-ink/60">{isBn ? "Nyinaa বিল" : "Cart Total"}</div>
+                      <div className="text-xs text-ink/60">{isBn ? "Kɛntɛn Mu Nyinaa" : "Cart Total"}</div>
                       <div className="num font-extrabold text-sm text-ink">{formatTaka(cartTotal)}</div>
                     </div>
                   </div>
@@ -716,7 +716,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                     style={{ backgroundColor: themeColor }}
                     className="px-5 py-2.5 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-1.5 transition-transform active:scale-95 cursor-pointer"
                   >
-                    <span>{isBn ? "অর্ডার সম্পন্ন করুন" : "Proceed to Checkout"}</span>
+                    <span>{isBn ? "Kɔ Tua Ka No" : "Proceed to Checkout"}</span>
                     <ArrowRight size={14} />
                   </button>
                 </div>
@@ -732,7 +732,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
           <div className="w-full max-w-md bg-white rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <h3 className="font-display font-bold text-base text-ink">
-                {isBn ? "চেকআউট ও Delivery তথ্য" : "Checkout & Delivery"}
+                {isBn ? "Tua Ka & Delivery" : "Checkout & Delivery"}
               </h3>
               <button
                 onClick={() => setShowCheckoutModal(false)}
@@ -761,15 +761,15 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
             {/* Price Calculations */}
             <div className="p-3 bg-nv-50 rounded-xl space-y-1.5 text-xs">
               <div className="flex justify-between text-ink/70">
-                <span>{isBn ? "Nnoɔma Nyinaa মূল্য" : "Subtotal"}</span>
+                <span>{isBn ? "Nyinaa Nketewa" : "Subtotal"}</span>
                 <span className="num font-bold">{formatTaka(cartTotal)}</span>
               </div>
               <div className="flex justify-between text-ink/70">
-                <span>{isBn ? "Fie (Home) Delivery চার্জ" : "Delivery Charge"}</span>
-                <span className="font-bold text-em-700">{isBn ? "ফ্রি" : "Free"}</span>
+                <span>{isBn ? "Delivery Ka" : "Delivery Charge"}</span>
+                <span className="font-bold text-em-700">{isBn ? "Kwa (Free)" : "Free"}</span>
               </div>
               <div className="flex justify-between text-sm font-bold text-ink pt-1.5 border-t border-nv-200">
-                <span>{isBn ? "সর্বNyinaa প্রদেয়" : "Grand Total"}</span>
+                <span>{isBn ? "Nyinaa Ne Nyinaa" : "Grand Total"}</span>
                 <span className="num text-em-700">{formatTaka(cartTotal)}</span>
               </div>
             </div>
@@ -777,18 +777,18 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
             {/* Customer Inputs */}
             <div className="space-y-2.5 text-xs">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "আপনার নাম" : "Full Name"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Din Nyinaa" : "Full Name"} *</label>
                 <input
                   type="text"
                   value={customerName}
                   onChange={e => setCustomerName(e.target.value)}
-                  placeholder={isBn ? "যেমন: তানভীর আহমেদ" : "e.g. Tanvir Ahmed"}
+                  placeholder={isBn ? "e.g. Kwame Boateng" : "e.g. Tanvir Ahmed"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 text-xs"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Mobile Fon" : "Mobile Phone"} *</label>
                 <input
                   type="tel"
                   value={customerPhone}
@@ -799,19 +799,19 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Delivery ঠিকানা" : "Delivery Address"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Delivery Beaeɛ" : "Delivery Address"} *</label>
                 <textarea
                   rows={2}
                   value={customerAddress}
                   onChange={e => setCustomerAddress(e.target.value)}
-                  placeholder={isBn ? "বাসা নং, রোড নং, এলাকা, জেলা" : "House, road, area, district"}
+                  placeholder={isBn ? "Ofie, tempɔn, mantam, kuropɔn" : "House, road, area, district"}
                   className="w-full border border-nv-200 rounded-xl p-2.5 text-xs"
                 />
               </div>
 
               {/* Payment Method */}
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "পেমেন্ট পদ্ধতি" : "Payment Method"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Kwan a Wɔfaa So Tuae" : "Payment Method"}</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
@@ -820,7 +820,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                       paymentMethod === "cod" ? "border-em-600 bg-em-50 text-em-900 font-bold" : "border-nv-200 text-ink"
                     }`}
                   >
-                    💵 {isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}
+                    💵 {isBn ? "Sika Pɔtee Delivery Akyi" : "Cash on Delivery"}
                   </button>
                   <button
                     type="button"
@@ -840,16 +840,16 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                 if (!customerName || !customerPhone || !customerAddress) {
                   toast({
                     type: "warning",
-                    title: isBn ? "তথ্য অসম্পূর্ণ" : "Missing Details",
-                    message: isBn ? "অনুগ্রহ করে আপনার নাম, ফোন নম্বর ও ঠিকানা পূরণ করুন।" : "Please enter your name, phone and address.",
+                    title: isBn ? "Nsɛm bi akyi aka" : "Missing Details",
+                    message: isBn ? "Yɛsrɛ wo hyehyɛ wo din, fon nɔma ne beaeɛ pɛpɛɛpɛ." : "Please enter your name, phone and address.",
                   });
                   return;
                 }
                 toast({
                   type: "success",
-                  title: isBn ? "🎉 অর্ডার সফল হয়েছে!" : "🎉 Order Placed Successfully!",
+                  title: isBn ? "🎉 Wo Ntɔdeɛ No Akɔ Pɛpɛɛpɛ!" : "🎉 Order Placed Successfully!",
                   message: isBn
-                    ? `ধন্যবাদ ${customerName}, আপনার অর্ডারটি Dukanে নথিভুক্ত হয়েছে। Deliveryর সময় Ka hoাKa ho করা হবে।`
+                    ? `Medaase ${customerName}, wo ntɔdeɛ no akɔ ${settings.shopName} pɛpɛɛpɛ. Yɛbɛfrɛ wo berɛ a yɛde reba.`
                     : `Thank you ${customerName}, your order has been received by ${settings.shopName}!`,
                 });
                 setCart([]);
@@ -860,7 +860,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               className="w-full py-3 text-white rounded-2xl font-bold text-sm shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2"
             >
               <CheckCircle size={16} />
-              <span>{isBn ? "অর্ডার নিশ্চিত করুন" : "Confirm Order"}</span>
+              <span>{isBn ? "Si Ntɔdeɛ No So Dua" : "Confirm Order"}</span>
             </button>
           </div>
         </div>

@@ -91,8 +91,8 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
         {[
           { label: "Total Staff", labelBn: "Adwumayɛfoɔ Nyinaa", value: tNum(employees.length) },
           { label: "Monthly Payroll", labelBn: "Akatua Nyinaa Bosome Biara", value: formatTaka(totalSalary) },
-          { label: "Active Roles", labelBn: "সক্রিয় Dibea", value: tNum(4) },
-          { label: "Status", labelBn: "স্ট্যাটাস", value: isBn ? "Nyinaaাই সক্রিয়" : "All Active" },
+          { label: "Active Roles", labelBn: "Dibea a Ɛreyɛ Adwuma", value: tNum(4) },
+          { label: "Status", labelBn: "Gyinabea", value: isBn ? "Nyinaa Reyɛ Adwuma" : "All Active" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -127,7 +127,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                       )}
                       <label
                         className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white border border-nv-200 shadow-xs flex items-center justify-center text-ink cursor-pointer hover:bg-nv-50 transition-fast"
-                        title={isBn ? "ছবি পরিবর্তন / আপলোড করুন" : "Upload / change photo"}
+                        title={isBn ? "Fa mfonyin gu so / sesa" : "Upload / change photo"}
                       >
                         <Camera size={11} className="text-ink" />
                         <input
@@ -169,11 +169,11 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                     <div className="num font-bold text-sm text-ink">{formatTaka(emp.salary)}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-ink">{isBn ? "মোবাইল" : "Contact"}</div>
+                    <div className="text-[10px] text-ink">{isBn ? "Telefon" : "Contact"}</div>
                     <div className="text-xs font-mono text-ink truncate">{emp.phone}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-ink">{isBn ? "Ka hoদান" : "Joined"}</div>
+                    <div className="text-[10px] text-ink">{isBn ? "Wɔde baeɛ" : "Joined"}</div>
                     <div className="text-xs text-ink">{emp.joined}</div>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "Fa Adwumayɛfoɔ Foforɔ Ka Ho যুক্ত করুন" : "Add Employee"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Fa Adwumayɛfoɔ Ka Ho" : "Add Employee"}</h3>
               <button onClick={() => setShowAddModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -218,7 +218,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
 
             <form onSubmit={handleCreateEmployee} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "নাম" : "Full Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Din Nyinaa" : "Full Name"} *</label>
                 <input
                   type="text"
                   required
@@ -230,21 +230,21 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Dibea / দায়িত্ব" : "Role / Position"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Dibea / Adwuma" : "Role / Position"} *</label>
                 <select
                   value={role}
                   onChange={e => setRole(e.target.value)}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500"
                 >
                   <option value="Cashier">Cashier / Cashier</option>
-                  <option value="Sales Staff">Sales Staff / Tɔn কর্মী</option>
-                  <option value="Store Manager">Store Manager / ম্যানেজার</option>
+                  <option value="Sales Staff">Sales Staff / Dukan Adwumayɛfoɔ</option>
+                  <option value="Store Manager">Store Manager / Dukan Panyin</option>
                   <option value="Inventory Staff">Inventory Staff / Akorae Staff</option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Mobile Fon" : "Mobile Phone"} *</label>
                 <input
                   type="tel"
                   required
@@ -268,7 +268,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Adwumayɛfoɔর ছবি (ঐচ্ছিক)" : "Employee Photo (Optional)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Adwumayɛfoɔ Mfonyin (Sɛ wopɛ)" : "Employee Photo (Optional)"}</label>
                 <div className="flex items-center gap-3">
                   {photo ? (
                     <div className="relative w-12 h-12 rounded-2xl overflow-hidden border border-nv-200 shadow-xs flex-shrink-0">
@@ -289,7 +289,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   )}
                   <label className="cursor-pointer px-3 py-2 border border-nv-200 rounded-xl text-xs font-semibold text-ink bg-white hover:bg-nv-50 flex items-center gap-1.5 transition-fast shadow-2xs">
                     <Camera size={13} className="text-ink/70" />
-                    <span>{photo ? (isBn ? "ছবি পরিবর্তন" : "Change Photo") : (isBn ? "Fa Mfoni Gu So করুন" : "Upload Photo")}</span>
+                    <span>{photo ? (isBn ? "Sesa Mfonyin" : "Change Photo") : (isBn ? "Fa Mfonyin Gu So" : "Upload Photo")}</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -321,7 +321,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "Kora so করুন" : "Save Employee"}
+                  {isBn ? "Kora Adwumayɛfoɔ Nsɛm So" : "Save Employee"}
                 </button>
               </div>
             </form>
@@ -347,7 +347,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So (Account)" : "Payment Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Akawnt" : "Payment Account"}</label>
                 <select
                   value={payAccountId}
                   onChange={e => setPayAccountId(e.target.value)}
@@ -373,7 +373,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "Akatua (Salary) নিশ্চিত করুন" : "Confirm Payout"}
+                  {isBn ? "Si Akatua No So Dua" : "Confirm Payout"}
                 </button>
               </div>
             </form>

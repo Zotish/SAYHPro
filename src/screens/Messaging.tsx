@@ -251,7 +251,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
             const replyMsg: Message = {
               id: `msg-${Date.now() + 1}`,
               sender: "them",
-              text: isBn ? "ধন্যবাদ, আমি আপনার বার্তা পেয়েছি এবং দ্রুত কনফার্ম করছি।" : "Thank you, received and confirming shortly!",
+              text: isBn ? "Medaase, menya wo nkrasɛm na mereka akyerɛ wo ntɛm!" : "Thank you, received and confirming shortly!",
               time: new Date().toLocaleTimeString(isBn ? "bn-BD" : "en-US", { hour: "2-digit", minute: "2-digit" }),
               status: "read",
               channel: activeChannel,
@@ -271,15 +271,15 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
 
   const handleSendDueReminder = () => {
     const reminder = isBn
-      ? `সম্মানিত ${activeConv.nameBn}, ${settings.shopName} থেকে আপনার Aka হিসাবের আপডেট। অনুগ্রহ করে সুবিধা মতো পরিশোধ করুন। ধন্যবাদ!`
+      ? `Owura/Awuraa ${activeConv.nameBn || activeConv.name}, ${settings.shopName} kae wo wo aka ho. Yɛsrɛ wo tua bere a wobɛtumi. Medaase!`
       : `Dear ${activeConv.name}, polite reminder from ${settings.shopName} regarding your store due ledger. Please settle at your convenience.`;
     handleSendMessage(reminder);
   };
 
   const handleSendInvoiceLink = () => {
     const invoiceMsg = isBn
-      ? `আপনার সর্বশেষ Nnoɔma a Wɔatɔের ডিজিটাল Kasaa (Receipt): https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`
-      : `Digital receipt for your latest purchase: https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`;
+      ? `Wo nnoɔma a wotɔɔ nkyɛeɛ no ho digital kasaa: https://sayhpro.com/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`
+      : `Digital receipt for your latest purchase: https://sayhpro.com/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`;
     handleSendMessage(invoiceMsg);
   };
 
@@ -293,7 +293,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
           <div className="flex items-center gap-2.5 px-3.5 py-3 border-b border-nv-100 bg-white sm:hidden flex-shrink-0">
             <button
               onClick={() => setScreen("mobile-dashboard")}
-              aria-label={isBn ? "Fie (Home)ে ফিরে যান" : "Back to Home"}
+              aria-label={isBn ? "San Kɔ Fie" : "Back to Home"}
               className="w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 flex-shrink-0"
             >
               <ArrowLeft size={16} />
@@ -310,7 +310,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder={isBn ? "নাম বা মোবাইল নম্বর Hwehwɛ..." : "Search by name or phone..."}
+                placeholder={isBn ? "Hwehwɛ din anaa fon nɔma..." : "Search by name or phone..."}
                 className="w-full pl-9 pr-3 py-1.5 bg-nv-50 border border-nv-200 rounded-xl text-xs text-ink placeholder:text-ink/40 focus:border-em-500"
               />
             </div>
@@ -407,7 +407,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
 
             {filteredConversations.length === 0 && (
               <div className="p-8 text-center text-ink/50 text-xs">
-                {isBn ? "কোনো চ্যাট পাওয়া যায়নি" : "No conversations found"}
+                {isBn ? "Nkɔmmɔ biara nni hɔ" : "No conversations found"}
               </div>
             )}
           </div>
@@ -447,7 +447,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                     onClick={handleSendDueReminder}
                     className="px-2 sm:px-2.5 py-1 sm:py-1.5 bg-red-50 hover:bg-red-100 active:scale-95 text-red-700 border border-red-200 rounded-xl text-[11px] sm:text-xs font-semibold transition-all whitespace-nowrap"
                   >
-                    {isBn ? "তাগাদা" : "Reminder"}
+                    {isBn ? "Nkaebɔ" : "Reminder"}
                   </button>
                   <button
                     onClick={handleSendInvoiceLink}
@@ -463,14 +463,14 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                   onClick={() => setScreen("purchases")}
                   className="px-2.5 py-1 sm:py-1.5 bg-em-50 hover:bg-em-100 active:scale-95 text-em-800 border border-em-200 rounded-xl text-[11px] sm:text-xs font-semibold transition-all flex items-center gap-1 whitespace-nowrap"
                 >
-                  <Truck size={13} /> {isBn ? "অর্ডার" : "Order"}
+                  <Truck size={13} /> {isBn ? "Ntɔdeɛ" : "Order"}
                 </button>
               )}
 
               <a
                 href={`tel:${activeConv.phone}`}
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-nv-200 hover:bg-nv-100 active:scale-95 flex items-center justify-center text-ink transition-all flex-shrink-0"
-                title={isBn ? "কল করুন" : "Call phone"}
+                title={isBn ? "Frɛ fon so" : "Call phone"}
               >
                 <Phone size={14} />
               </a>
@@ -481,7 +481,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5">
             <div className="flex justify-center">
               <span className="text-[10px] uppercase font-bold text-ink/40 bg-nv-100 px-3 py-1 rounded-full">
-                {isBn ? "Ɛnnɛকের কথোপকথন" : "Conversation Today"}
+                {isBn ? "Ɛnnɛ Nkɔmmɔbɔ" : "Conversation Today"}
               </span>
             </div>
 
@@ -543,12 +543,12 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
           {/* Quick Suggestions Row */}
           <div className="px-4 py-2 bg-white/80 border-t border-nv-100 flex items-center gap-2 overflow-x-auto">
             <span className="text-[11px] font-semibold text-ink/60 whitespace-nowrap">
-              {isBn ? "কুইক টেমপ্লেট:" : "Quick Replies:"}
+              {isBn ? "Mmuaeɛ Ntɛmntɛm:" : "Quick Replies:"}
             </span>
             {[
-              isBn ? "আপনার অর্ডার প্রস্তুত আছে।" : "Your order is packed & ready.",
-              isBn ? "Aka Sika Sikakorabeaে/বিকাশে পেয়েছি।" : "Payment received, ledger updated.",
-              isBn ? "Otɔfo Foforɔ Akorae আগামীƆkyena পৌঁছাবে।" : "New stock arrives tomorrow.",
+              isBn ? "Wo ntɔdeɛ no ahyehyɛ asiesie." : "Your order is packed & ready.",
+              isBn ? "Wɔagye sika no, kyerɛw nhoma ayɛ foforɔ." : "Payment received, ledger updated.",
+              isBn ? "Nnoɔma foforɔ bɛba ɔkyena." : "New stock arrives tomorrow.",
             ].map((chip, idx) => (
               <button
                 key={idx}
@@ -565,7 +565,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
             {/* Channel Switcher */}
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[11px] font-semibold text-ink/60">
-                {isBn ? "চ্যানেল:" : "Send via:"}
+                {isBn ? "Mane fa:" : "Send via:"}
               </span>
               {(["chat", "whatsapp", "sms"] as const).map(ch => (
                 <button
@@ -577,7 +577,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                       : "bg-nv-100 text-ink/70 hover:bg-nv-200"
                   }`}
                 >
-                  {ch === "chat" ? (isBn ? "অ্যাপ চ্যাট" : "In-App") : ch}
+                  {ch === "chat" ? (isBn ? "App No Mu" : "In-App") : ch}
                 </button>
               ))}
             </div>
@@ -594,12 +594,12 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                 onClick={() => {
                   toast({
                     type: "info",
-                    title: isBn ? "ফাইল অ্যাটাচমেন্ট" : "Attach File",
+                    title: isBn ? "Fa Faele Ka Ho" : "Attach File",
                     message: "Select an Invoice, Product photo, or PDF document.",
                   });
                 }}
                 className="w-10 h-10 rounded-xl border border-nv-200 hover:bg-nv-100 flex items-center justify-center text-ink transition-colors flex-shrink-0"
-                title={isBn ? "ফাইল সংযুক্ত করুন" : "Attach file"}
+                title={isBn ? "Fa faele ka ho" : "Attach file"}
               >
                 <Paperclip size={16} />
               </button>
@@ -610,10 +610,10 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                 onChange={e => setInputText(e.target.value)}
                 placeholder={
                   activeChannel === "sms"
-                    ? isBn ? "এসএমএস বার্তা লিখুন (১ ক্রেডিট)..." : "Type SMS message (1 credit)..."
+                    ? isBn ? "Kyerɛw SMS nkrasɛm (1 credit)..." : "Type SMS message (1 credit)..."
                     : activeChannel === "whatsapp"
-                    ? isBn ? "হোয়াটসঅ্যাপ বার্তা লিখুন..." : "Type WhatsApp message..."
-                    : isBn ? "এখানে মেসেজ লিখুন..." : "Type a message here..."
+                    ? isBn ? "Kyerɛw WhatsApp nkrasɛm..." : "Type WhatsApp message..."
+                    : isBn ? "Kyerɛw nkrasɛm wɔ ha..." : "Type a message here..."
                 }
                 className="flex-1 border-2 border-nv-200 focus:border-em-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm bg-white text-ink placeholder:text-ink/40 shadow-2xs transition-colors outline-none"
               />
@@ -622,7 +622,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                 type="submit"
                 disabled={!inputText.trim()}
                 className="w-10 h-10 rounded-xl bg-em-600 hover:bg-em-700 disabled:opacity-40 text-white flex items-center justify-center shadow-md transition-colors flex-shrink-0"
-                title={isBn ? "পাঠান" : "Send"}
+                title={isBn ? "Mane" : "Send"}
               >
                 <Send size={16} />
               </button>

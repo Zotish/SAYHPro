@@ -64,10 +64,10 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
 
   const couriersList = [
     { id: "all", name: "All Couriers", nameBn: "Nyinaa Kɔmafoɔ", logo: "📦" },
-    { id: "steadfast", name: "Steadfast Courier", nameBn: "স্টেডফাস্ট", logo: "⚡", active: true },
-    { id: "pathao", name: "Pathao Courier", nameBn: "পাঠাও Kɔmafoɔ", logo: "🛵", active: true },
-    { id: "redx", name: "RedX Delivery", nameBn: "রেডএক্স", logo: "🔴", active: true },
-    { id: "ecourier", name: "eCourier BD", nameBn: "ই-Kɔmafoɔ", logo: "🚚", active: true },
+    { id: "ems", name: "Ghana Post EMS", nameBn: "Ghana Post EMS", logo: "📮", active: true },
+    { id: "fedex", name: "FedEx Ghana", nameBn: "FedEx Ghana", logo: "⚡", active: true },
+    { id: "dhl", name: "DHL Express Ghana", nameBn: "DHL Ghana", logo: "🟡", active: true },
+    { id: "bolt", name: "Bolt Send Ghana", nameBn: "Bolt Send", logo: "🛵", active: true },
   ];
 
   const totalCodPending = courierParcels
@@ -93,35 +93,35 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} />
-          <span>{isBn ? "Otɔfo Foforɔ পার্সেল বুক করুন" : "Book New Parcel"}</span>
+          <span>{isBn ? "Kora Parcel Foforɔ" : "Book New Parcel"}</span>
         </button>
       </div>
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Nyinaa পার্সেল" : "Total Parcels"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery Parcels Nyinaa" : "Total Parcels"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum(courierParcels.length)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Aka সিওডি" : "Pending COD"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Cash on Delivery a Ɛretwɛn" : "Pending COD"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {formatTaka(totalCodPending)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery রেট" : "Success Rate"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Mpuntuo Gyinabea" : "Success Rate"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum("96.8")}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery সময়" : "Delivery Time"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Bere a Ɛbɛduru" : "Delivery Time"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum("24")}
           </div>
@@ -145,8 +145,8 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
       {/* Parcels List Table */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-bold text-ink text-base">{isBn ? "ট্র্যাকিং" : "Tracking"}</h3>
-          <span className="text-xs text-ink font-semibold">{tNum(filteredParcels.length)} {isBn ? "টি পার্সেল" : "parcels"}</span>
+          <h3 className="font-display font-bold text-ink text-base">{isBn ? "Nhwehwɛmu" : "Tracking"}</h3>
+          <span className="text-xs text-ink font-semibold">{tNum(filteredParcels.length)} {isBn ? "parcels" : "parcels"}</span>
         </div>
 
         <div className="overflow-x-auto">
@@ -217,7 +217,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
                 <Truck size={20} className="text-ink" />
-                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Kɔmafoɔ Parcel বুক করুন" : "Book Courier Parcel"}</h3>
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Kora Delivery Parcel" : "Book Courier Parcel"}</h3>
               </div>
               <button onClick={() => setShowBookModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
@@ -225,7 +225,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
             <form onSubmit={handleBookParcel} className="space-y-3.5 text-xs sm:text-sm">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Kɔmafoɔ সার্ভিস নির্বাচন" : "Select Courier"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Paw Deliveryfoɔ" : "Select Courier"} *</label>
                   <select
                     value={courier}
                     onChange={e => setCourier(e.target.value as any)}
@@ -317,7 +317,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "পার্সেল বুকিং নিশ্চিত করুন" : "Confirm Booking"}
+                  {isBn ? "Si Booking No So Dua" : "Confirm Booking"}
                 </button>
               </div>
             </form>

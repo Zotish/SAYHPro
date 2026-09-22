@@ -229,10 +229,10 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
           {/* Trust Badges Row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             {[
-              { label: isBn ? "Digital Kɛseɛ Pɛpɛɛpɛ" : "100% Accurate Measure", sub: isBn ? "বিএসটিআই মানসম্মত" : "Standard Certified", icon: Sparkles },
-              { label: isBn ? "Kɔmafoɔ a Wɔba Pɛpɛɛpɛ" : "99.4% On-Time Dispatch", sub: isBn ? "দ্রুততম সেবা" : "Fast & Reliable", icon: CheckCircle2 },
-              { label: isBn ? "Aka Kyerɛwtohɔ a Emu Da Hɔ" : "Instant SMS Confirmation", sub: isBn ? "স্বয়ংক্রিয় হিসাব" : "Digital Receipts", icon: MessageSquare },
-              { label: isBn ? "এনবিআর ট্যাক্স অনুগত" : "NBR Tax Compliant", sub: isBn ? "ভ্যাট চালান যুক্ত" : "Mushak 6.3 Ready", icon: ShieldCheck },
+              { label: isBn ? "Digital Kɛseɛ Pɛpɛɛpɛ" : "100% Accurate Measure", sub: isBn ? "Mmara Kwan So Ahyɛnsodeɛ" : "Standard Certified", icon: Sparkles },
+              { label: isBn ? "Kɔmafoɔ a Wɔba Pɛpɛɛpɛ" : "99.4% On-Time Dispatch", sub: isBn ? "Ntɛmntɛm & Ahotosoɔ" : "Fast & Reliable", icon: CheckCircle2 },
+              { label: isBn ? "Aka Kyerɛwtohɔ a Emu Da Hɔ" : "Instant SMS Confirmation", sub: isBn ? "Intanɛte So Kasaa" : "Digital Receipts", icon: MessageSquare },
+              { label: isBn ? "GRA Tax Mmara Pɛpɛɛpɛ" : "NBR Tax Compliant", sub: isBn ? "GRA VAT Invois Asiesie" : "Mushak 6.3 Ready", icon: ShieldCheck },
             ].map((badge, idx) => (
               <div key={idx} className="p-2.5 rounded-xl border border-nv-200 bg-nv-50/50 flex flex-col justify-between">
                 <badge.icon size={16} className="text-em-700 mb-1" />

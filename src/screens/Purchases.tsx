@@ -107,8 +107,8 @@ export default function Purchases({ lang }: PurchasesProps) {
         {[
           { label: "Total Purchases", labelBn: "Nnoɔma a Wɔatɔ Nyinaa", value: formatTaka(totalPurchasesAmount) },
           { label: "Payable to Suppliers", labelBn: "Agorɔfoɔ Aka", value: formatTaka(totalDueToSuppliers) },
-          { label: "Total Orders", labelBn: "Nyinaa অর্ডার", value: tNum(purchases.length) },
-          { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
+          { label: "Total Orders", labelBn: "Ntɔdeɛ Nyinaa", value: tNum(purchases.length) },
+          { label: "Active Suppliers", labelBn: "Adwumawuranom Dodoɔ", value: tNum(suppliers.length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -120,7 +120,7 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Color-Coded Purchasing Advisory Strip */}
       <div className="bg-gradient-to-r from-em-50/60 via-nv-50/30 to-white border border-em-200 rounded-2xl p-4 flex flex-col gap-2.5 shadow-2xs">
         <div className="font-bold text-xs sm:text-sm text-ink">
-          {isBn ? "স্মার্ট Nnoɔma a Wɔatɔ অ্যানালিটিক্স:" : "Smart Purchasing Advisory:"}
+          {isBn ? "Nyansa Ntɔdeɛ Afotusɛm:" : "Smart Purchasing Advisory:"}
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
@@ -128,7 +128,7 @@ export default function Purchases({ lang }: PurchasesProps) {
             onClick={handleAutoFillUrgent}
             className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <span>{tNum(urgentCount)} {isBn ? "টি Ntɛmntɛm" : "Urgent"}</span>
+            <span>{tNum(urgentCount)} {isBn ? "Ntɛmntɛm Pa Ara" : "Urgent"}</span>
           </button>
 
           <button
@@ -136,7 +136,7 @@ export default function Purchases({ lang }: PurchasesProps) {
             className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <Plus size={14} />
-            <span>{isBn ? "অটো-ফিল" : "Auto-Fill"}</span>
+            <span>{isBn ? "Hyehyɛ No Ntɛm" : "Auto-Fill"}</span>
           </button>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function Purchases({ lang }: PurchasesProps) {
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
             <div className="flex items-center gap-2">
               <Truck size={20} className="text-ink" />
-              <h3 className="font-display font-bold text-ink text-base">{isBn ? "Purchase Order Foforɔ এন্ট্রি" : "Record Purchase Order"}</h3>
+              <h3 className="font-display font-bold text-ink text-base">{isBn ? "Kyerɛw Nnoɔma a Wɔatɔ Invois" : "Record Purchase Order"}</h3>
             </div>
             <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
@@ -168,7 +168,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "চালান / Invois নং" : "Supplier Invoice No."}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Wura Invois Nɔma" : "Supplier Invoice No."}</label>
                 <input
                   type="text"
                   value={invoiceNo}
@@ -179,7 +179,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Da" : "Date"}</label>
                 <input
                   type="date"
                   value={purchaseDate}
@@ -192,13 +192,13 @@ export default function Purchases({ lang }: PurchasesProps) {
             {/* Line Items */}
             <div className="space-y-2 pt-2 border-t border-nv-100">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "Nnoɔma তালিকা (Akorae বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
+                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "Nnoɔma (Bɛkɔ akorae mu ntɛm)" : "Products (Will auto-add to Stock)"}</span>
                 <button
                   type="button"
                   onClick={addItem}
                   className="text-xs font-bold text-ink hover:underline flex items-center gap-1"
                 >
-                  <Plus size={14} /> {isBn ? "আরেকটি Fa Nnoɔma Ka Ho" : "Add Item"}
+                  <Plus size={14} /> {isBn ? "Fa Nnoɔma Ka Ho" : "Add Item"}
                 </button>
               </div>
 
@@ -276,7 +276,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Payment Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Akawnt" : "Payment Account"}</label>
                 <select
                   value={paymentMethod}
                   onChange={e => setPaymentMethod(e.target.value)}
@@ -299,7 +299,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                 type="submit"
                 className="px-6 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
               >
-                {isBn ? "Nnoɔma a Wɔatɔ নিশ্চিত করুন (Akorae যুক্ত হবে)" : "Confirm Purchase"}
+                {isBn ? "Si Ntɔdeɛ No So Dua" : "Confirm Purchase"}
               </button>
             </div>
           </form>
@@ -315,7 +315,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               value={search}
               onChange={e => setSearch(e.target.value)}
               type="text"
-              placeholder={isBn ? "Agorɔfoɔ বা অর্ডার আইডি দিয়ে Hwehwɛ..." : "Search by supplier or order ID..."}
+              placeholder={isBn ? "Hwehwɛ adwumawura anaa order ID..." : "Search by supplier or order ID..."}
               className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:bg-white"
             />
           </div>
@@ -325,13 +325,13 @@ export default function Purchases({ lang }: PurchasesProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অর্ডার আইডি" : "Order ID"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ntɔdeɛ Nɔma" : "Order ID"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Agorɔfoɔ" : "Supplier"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Da" : "Date"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ne Nyinaa" : "Total"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Wɔatua Pɛpɛɛpɛ" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Gyinabea" : "Status"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">

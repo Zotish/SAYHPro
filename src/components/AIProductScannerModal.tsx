@@ -32,7 +32,7 @@ interface MarketProductMatch {
   tags: string[];
 }
 
-// Bangladesh FMCG retail market database for packet recognition
+// Ghana FMCG retail market database for packet recognition
 const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   {
     name: "Radhuni Turmeric Powder 100g",
@@ -403,7 +403,7 @@ export default function AIProductScannerModal({
                     </div>
                     <p className="text-nv-400 text-[11px] max-w-xs mx-auto">
                       {isBn
-                        ? "ক্যামেরা চালু না হলেও নিচে যেকোনো স্যাম্পল প্যাকেটে ক্লিক করে এআই ডিটেকশন টেস্ট করতে পারবেন।"
+                        ? "Sɛ kamera no ammue a, wubetumi a-tua nnoɔma nhwɛsodeɛ a ɛwɔ aseɛ no so na woasɔ AI detection no ahwɛ."
                         : "You can click any demo product packet below or upload a photo to test AI packet extraction."}
                     </p>
                   </div>

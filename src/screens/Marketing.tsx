@@ -152,7 +152,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast whitespace-nowrap"
           >
             <Plus size={15} />
-            <span>{isBn ? "Otɔfo Foforɔ ক্যাম্পেইন" : "New Campaign"}</span>
+            <span>{isBn ? "Kampaen Foforɔ" : "New Campaign"}</span>
           </button>
         </div>
       </div>
@@ -160,28 +160,28 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
       {/* KPI Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "প্রেরিত এসএমএস" : "SMS Sent"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "SMS Akɔ" : "SMS Sent"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(smsCampaigns.reduce((sum, c) => sum + c.recipientCount, 0))}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "এসএমএস ক্রেডিট" : "SMS Credits"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "SMS Dodoɔ" : "SMS Credits"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(smsBalance)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Katalɔg Nkabom" : "Catalog Sync"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(products.length)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "বিজ্ঞাপনের অর্ডার" : "Ad Orders"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Dawubɔ Ntɔdeɛ" : "Ad Orders"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(metaAdSync.conversions)}
           </div>
@@ -196,7 +196,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             ${tab === "sms" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <MessageSquare size={16} />
-          <span>{isBn ? "এসএমএস" : "SMS"}</span>
+          <span>{isBn ? "SMS" : "SMS"}</span>
         </button>
 
         <button
@@ -205,7 +205,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             ${tab === "facebook" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <FacebookIcon size={16} />
-          <span>{isBn ? "ফেNyinaaুক" : "Facebook"}</span>
+          <span>{isBn ? "Facebook" : "Facebook"}</span>
         </button>
 
         <button
@@ -214,7 +214,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             ${tab === "templates" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <Sparkles size={16} />
-          <span>{isBn ? "টেমপ্লেট" : "Templates"}</span>
+          <span>{isBn ? "Nhwɛsodeɛ" : "Templates"}</span>
         </button>
       </div>
 
@@ -222,12 +222,12 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
       {tab === "sms" && (
         <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাম্পেইন ইতিহাস" : "Campaign History"}</h3>
+            <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "Kampaen Abakɔsɛm" : "Campaign History"}</h3>
             <button
               onClick={() => setShowNewSmsModal(true)}
               className="text-xs text-ink font-bold hover:underline flex items-center gap-1 whitespace-nowrap"
             >
-              <Plus size={14} /> {isBn ? "এসএমএস পাঠান" : "Send SMS"}
+              <Plus size={14} /> {isBn ? "Mane SMS" : "Send SMS"}
             </button>
           </div>
 
@@ -259,7 +259,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                       {isBn ? c.messageBn : c.message}
                     </td>
                     <td className="px-4 py-3 text-right font-bold text-ink">
-                      {tNum(c.recipientCount)} {isBn ? "জন" : "users"}
+                      {tNum(c.recipientCount)} {isBn ? "adwumadifoɔ" : "users"}
                     </td>
                     <td className="px-4 py-3 text-right font-bold text-ink">
                       {formatTaka(c.cost)}
@@ -267,7 +267,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                     <td className="px-4 py-3 text-right">
                       <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold
                         ${c.status === "sent" ? "bg-em-50 text-ink" : "bg-ac-50 text-ink"}`}>
-                        {c.status === "sent" ? (isBn ? "প্রেরিত" : "Sent") : (isBn ? "শিডিউলড" : "Scheduled")}
+                        {c.status === "sent" ? (isBn ? "Wɔamane" : "Sent") : (isBn ? "Wɔahyehyɛ Bere" : "Scheduled")}
                       </span>
                     </td>
                   </tr>
@@ -289,9 +289,9 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                   <FacebookIcon size={20} />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</h3>
+                  <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "Katalɔg Nkabom" : "Catalog Sync"}</h3>
                   <span className="text-xs text-ink font-semibold flex items-center gap-1 whitespace-nowrap">
-                    <CheckCircle2 size={12} /> {isBn ? "সিঙ্ক সক্রিয়" : "Sync Active"}
+                    <CheckCircle2 size={12} /> {isBn ? "Nkabom Reyɛ Adwuma" : "Sync Active"}
                   </span>
                 </div>
               </div>
@@ -299,21 +299,21 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                 onClick={() => updateMetaSync({ catalogSynced: true })}
                 className="px-3 py-1.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl text-xs font-bold transition-fast flex items-center gap-1 whitespace-nowrap flex-shrink-0"
               >
-                <RefreshCw size={12} /> {isBn ? "পুনরায় সিঙ্ক" : "Resync"}
+                <RefreshCw size={12} /> {isBn ? "San Nkabom Bio" : "Resync"}
               </button>
             </div>
 
             <div className="space-y-3 text-xs sm:text-sm">
               <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
-                <span className="text-ink whitespace-nowrap">{isBn ? "পিক্সেল আইডি" : "Pixel ID"}</span>
+                <span className="text-ink whitespace-nowrap">{isBn ? "Pixel ID" : "Pixel ID"}</span>
                 <span className="font-mono font-bold text-ink whitespace-nowrap">{metaAdSync.pixelId}</span>
               </div>
               <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
-                <span className="text-ink whitespace-nowrap">{isBn ? "সিঙ্ক Nnoɔma" : "Synced Products"}</span>
+                <span className="text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔakabom" : "Synced Products"}</span>
                 <span className="font-bold text-ink whitespace-nowrap">{tNum(products.length)} {isBn ? "nnoɔma" : "Products"}</span>
               </div>
               <div className="p-3 bg-nv-50 rounded-2xl flex items-center justify-between gap-3">
-                <span className="text-ink whitespace-nowrap">{isBn ? "শপ লিঙ্ক" : "Shop Link"}</span>
+                <span className="text-ink whitespace-nowrap">{isBn ? "Dukan Link" : "Shop Link"}</span>
                 <a href="#" className="text-ink font-bold flex items-center gap-1 hover:underline whitespace-nowrap">
                   fb.com/rahimstorebd <ExternalLink size={12} />
                 </a>
@@ -325,26 +325,26 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
           <div className="bg-nv-900 rounded-3xl p-6 text-white shadow-xl flex flex-col justify-between">
             <div>
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-nv-500/30 text-nv-200 text-xs font-bold mb-3 border border-nv-400/30">
-                {isBn ? "মেটা বিজ্ঞাপন" : "Meta Ads"}
+                {isBn ? "Meta Dawubɔ" : "Meta Ads"}
               </div>
-              <h3 className="font-display font-extrabold text-xl mb-2">{isBn ? "আপনার Nnoɔma বুস্ট করুন" : "Boost Your Product"}</h3>
+              <h3 className="font-display font-extrabold text-xl mb-2">{isBn ? "Ma Wo Nnoɔma Nnya Atɔfoɔ" : "Boost Your Product"}</h3>
               <p className="text-xs text-nv-100 leading-relaxed mb-4">
                 {isBn
-                  ? "ফেNyinaaুক ও ইনস্টাgে বিজ্ঞাপন দিয়ে বেশি কাস্টমার ও অর্ডার পান।"
+                  ? "Fa Facebook ne Instagram dawubɔ nya atɔfoɔ ne ntɔdeɛ pii."
                   : "Run Facebook & Instagram ads to get more customers and orders."}
               </p>
             </div>
 
             <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
               <div>
-                <span className="text-[10px] text-nv-200 uppercase">{isBn ? "আনুমানিক রিচ" : "Estimated Reach"}</span>
-                <div className="text-lg font-bold text-white">{isBn ? "২৫,০০০ - ৫০,০০০" : "25,000 - 50,000"}</div>
+                <span className="text-[10px] text-nv-200 uppercase">{isBn ? "Atɔfoɔ Dodoɔ a Wɔbɛhunu" : "Estimated Reach"}</span>
+                <div className="text-lg font-bold text-white">{isBn ? "25,000 - 50,000" : "25,000 - 50,000"}</div>
               </div>
               <button
-                onClick={() => toast({ type: "success", title: isBn ? "বিজ্ঞাপন চালু হয়েছে!" : "Campaign Launched!", message: "Meta Ad will go live after review." })}
+                onClick={() => toast({ type: "success", title: isBn ? "Kampaen No Afiri Aseɛ!" : "Campaign Launched!", message: "Meta Ad will go live after review." })}
                 className="px-4 py-2.5 bg-nv-500 hover:bg-nv-600 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg transition-all whitespace-nowrap"
               >
-                {isBn ? "বিজ্ঞাপন বুস্ট করুন" : "Launch Ad"} →
+                {isBn ? "Hyɛ Dawubɔ Aseɛ" : "Launch Ad"} →
               </button>
             </div>
           </div>
@@ -379,7 +379,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                 }}
                 className="w-full py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold transition-fast"
               >
-                {isBn ? "এই টেমপ্লেট ব্যবহার করুন" : "Use This Template"} →
+                {isBn ? "Fa Nhwɛsodeɛ Yi Di Dwuma" : "Use This Template"} →
               </button>
             </div>
           ))}
@@ -393,14 +393,14 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
                 <MessageSquare size={20} className="text-ink" />
-                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Otɔfo Foforɔ এসএমএস প্রচার" : "Broadcast SMS Campaign"}</h3>
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Mane SMS Kampaen" : "Broadcast SMS Campaign"}</h3>
               </div>
               <button onClick={() => setShowNewSmsModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
 
             <form onSubmit={handleSendCampaign} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাম্পেইন শিরোনাম" : "Campaign Title"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Kampaen Din" : "Campaign Title"} *</label>
                 <input
                   type="text"
                   required
@@ -413,21 +413,21 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাম্পেইন টাইপ" : "Type"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Ahosuo" : "Type"}</label>
                   <select
                     value={campaignType}
                     onChange={e => setCampaignType(e.target.value as any)}
                     className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white"
                   >
-                    <option value="promotional">Promotional / অফার</option>
-                    <option value="due_reminder">Due Reminder / Aka তাগাদা</option>
-                    <option value="festival">Festival / উৎNyinaa</option>
+                    <option value="promotional">Promotional / Dawubɔ</option>
+                    <option value="due_reminder">Due Reminder / Aka Nkaebɔ</option>
+                    <option value="festival">Festival / Afahyɛ</option>
                     <option value="new_arrival">New Arrival / Otɔfo Foforɔ Nnoɔma</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "টার্গেট অডিয়েন্স" : "Target Audience"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Atɔfoɔ Pɔtee" : "Target Audience"}</label>
                   <select
                     value={targetAudience}
                     onChange={e => setTargetAudience(e.target.value as any)}
@@ -441,13 +441,13 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "এসএমএস মেসেজ টেক্সট" : "SMS Text Content"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "SMS Mu Nsɛm" : "SMS Text Content"} *</label>
                 <textarea
                   rows={3}
                   required
                   value={isBn ? smsTextBn : smsText}
                   onChange={e => isBn ? setSmsTextBn(e.target.value) : setSmsText(e.target.value)}
-                  placeholder={isBn ? "এখানে Twi (Akan)য় মেসেজ লিখুন..." : "Type your message here..."}
+                  placeholder={isBn ? "Kyerɛw wo nkrasɛm wɔ ha..." : "Type your message here..."}
                   className="w-full border border-nv-200 rounded-xl p-3 focus:border-em-500 font-sans"
                 />
                 <div className="flex justify-between text-[11px] text-ink mt-1">
@@ -458,11 +458,11 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
 
               <div className="p-3 bg-em-50 rounded-2xl flex items-center justify-between text-xs">
                 <div>
-                  <span className="text-ink font-semibold">{isBn ? "প্রাপক সংখ্যা: " : "Recipients: "} {tNum(recipientCount)}</span>
-                  <div className="text-[11px] text-ink">{isBn ? "আনুমানিক Ka: " : "Estimated Cost: "} {formatTaka(estimatedCost)}</div>
+                  <span className="text-ink font-semibold">{isBn ? "Atɔfoɔ Dodoɔ: " : "Recipients: "} {tNum(recipientCount)}</span>
+                  <div className="text-[11px] text-ink">{isBn ? "Ka a Wɔabu: " : "Estimated Cost: "} {formatTaka(estimatedCost)}</div>
                 </div>
                 <div className="text-right">
-                  <span className="text-ink">{isBn ? "বর্তমান Sika a Aka:" : "SMS Balance:"}</span>
+                  <span className="text-ink">{isBn ? "SMS Sika a Aka:" : "SMS Balance:"}</span>
                   <div className="font-extrabold text-ink">{tNum(smsBalance)} SMS</div>
                 </div>
               </div>
@@ -480,7 +480,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md flex items-center justify-center gap-1.5"
                 >
                   <Send size={15} />
-                  <span>{isBn ? "এসএমএস পাঠান" : "Broadcast SMS"}</span>
+                  <span>{isBn ? "Mane SMS Pii" : "Broadcast SMS"}</span>
                 </button>
               </div>
             </form>
@@ -495,7 +495,7 @@ export default function Marketing({ lang, setScreen, onBack }: MarketingProps) {
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
                 <Smartphone size={20} className="text-ink" />
-                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "এসএমএস Sika a Aka রিচার্জ" : "Recharge SMS Balance"}</h3>
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Recharge SMS Sika" : "Recharge SMS Balance"}</h3>
               </div>
               <button onClick={() => setShowTopupModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>

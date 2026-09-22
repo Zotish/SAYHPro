@@ -104,10 +104,10 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
       {/* Stats Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}` },
+          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: tNum(customers.length) },
           { label: "Total Purchases", labelBn: "Nyinaa Tɔn", value: formatTaka(totalPurchases) },
           { label: "Outstanding Dues", labelBn: "Nyinaa Aka", value: formatTaka(totalDue) },
-          { label: "VIP Customers", labelBn: "Otɔfo Titiriw (VIP) Otɔfoɔ", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}` },
+          { label: "VIP Customers", labelBn: "Otɔfo Titiriw (VIP) Otɔfoɔ", value: tNum(vipCount) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -124,7 +124,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
             value={search}
             onChange={e => setSearch(e.target.value)}
             type="text"
-            placeholder={isBn ? "নাম বা ফোন নম্বর দিয়ে Hwehwɛ..." : "Search by name or phone..."}
+            placeholder={isBn ? "Hwehwɛ din anaa fon nɔma..." : "Search by name or phone..."}
             className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
           />
         </div>
@@ -154,12 +154,12 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Otɔfoɔ" : "Customer"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Telefon" : "Contact"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান Aka" : "Current Due"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ভিজিট সংখ্যা" : "Visits"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Status"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Seesei Aka" : "Current Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nsrahwɛfoɔ" : "Visits"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Gyinabea" : "Status"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Nneyɛeɛ" : "Actions"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
@@ -185,7 +185,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                         {c.due > 0 ? formatTaka(c.due) : "₵ 0"}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-ink">{tNum(c.visits)} {isBn ? "বার" : "times"}</td>
+                    <td className="px-4 py-3 text-xs text-ink">{tNum(c.visits)} {isBn ? "mmrɛ" : "times"}</td>
                     <td className="px-4 py-3">
                       <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${sc.cls}`}>
                         {isBn ? sc.labelBn : sc.label}
@@ -197,7 +197,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                           onClick={() => setSelectedCustomer(c)}
                           className="px-2.5 py-1 bg-nv-100 hover:bg-nv-200 text-ink rounded-lg text-xs font-semibold transition-fast"
                         >
-                          {isBn ? "প্রোফাইল" : "View"}
+                          {isBn ? "Hwɛ" : "View"}
                         </button>
                         <a
                           href={`tel:${c.phone}`}
@@ -241,11 +241,11 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                 <div className="num font-bold text-base text-ink">{formatTaka(selectedCustomer.totalPurchases)}</div>
               </div>
               <div className="p-3 bg-red-50 rounded-2xl text-center">
-                <div className="text-[11px] text-ink">{isBn ? "বর্তমান Aka" : "Current Due"}</div>
+                <div className="text-[11px] text-ink">{isBn ? "Seesei Aka" : "Current Due"}</div>
                 <div className="num font-bold text-base text-ink">{formatTaka(selectedCustomer.due)}</div>
               </div>
               <div className="p-3 bg-nv-50 rounded-2xl text-center">
-                <div className="text-[11px] text-ink">{isBn ? "Nyinaa ভিজিট" : "Visits"}</div>
+                <div className="text-[11px] text-ink">{isBn ? "Nsrahwɛfoɔ" : "Visits"}</div>
                 <div className="num font-bold text-base text-ink">{tNum(selectedCustomer.visits)}</div>
               </div>
             </div>
@@ -268,14 +268,14 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                 className="flex-1 py-2.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5"
               >
                 <Phone size={14} />
-                <span>{isBn ? "কল" : "Call"}</span>
+                <span>{isBn ? "Frɛ" : "Call"}</span>
               </a>
               <button
                 onClick={() => setScreen("messages")}
                 className="flex-1 py-2.5 bg-em-50 hover:bg-em-100 text-em-800 border border-em-200 rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5"
               >
                 <MessageSquare size={14} />
-                <span>{isBn ? "চ্যাট" : "Chat"}</span>
+                <span>{isBn ? "Nkɔmmɔ" : "Chat"}</span>
               </button>
             </div>
 
@@ -287,7 +287,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                 }}
                 className="text-xs text-ink hover:underline flex items-center gap-1"
               >
-                <Trash2 size={13} /> {isBn ? "Otɔfoɔ মুছে ফেলুন" : "Delete Customer"}
+                <Trash2 size={13} /> {isBn ? "Pepa Otɔfoɔ" : "Delete Customer"}
               </button>
               <button
                 onClick={() => setSelectedCustomer(null)}
@@ -305,7 +305,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "Aka পরিশোধ গ্রহণ" : "Collect Payment"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Gye Akatua" : "Collect Payment"}</h3>
               <button onClick={() => setShowPayModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -324,7 +324,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "অ্যাকাউন্ট" : "Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akawnt" : "Account"}</label>
                 <select
                   value={payAccountId}
                   onChange={e => setPayAccountId(e.target.value)}
@@ -346,7 +346,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "জমা নিশ্চিত" : "Confirm"}
+                  {isBn ? "Si So Dua" : "Confirm"}
                 </button>
               </div>
             </form>

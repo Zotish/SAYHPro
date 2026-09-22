@@ -130,9 +130,9 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           { label: "Total Outstanding Due", labelBn: "Aka Nyinaa a Ɛda Hɔ", value: formatTaka(totalDueAmount) },
-          { label: "Owing Customers", labelBn: "Atɔfoɔ a Wɔde Aka", value: `${tNum(customersWithDue.length)} ${isBn ? "জন" : "Customers"}` },
-          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : "Registered"}` },
-          { label: "Collection Account", labelBn: "ডিফল্ট জমা", value: "Cash (নগদ)" },
+          { label: "Owing Customers", labelBn: "Atɔfoɔ a Wɔde Aka", value: `${tNum(customersWithDue.length)} ${isBn ? "Atɔfoɔ" : "Customers"}` },
+          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "Wɔakyerɛw Din" : "Registered"}` },
+          { label: "Collection Account", labelBn: "Sika Gyebea", value: "Cash (Sika Pɔtee)" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -148,7 +148,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
           value={search}
           onChange={e => setSearch(e.target.value)}
           type="text"
-          placeholder={isBn ? "Otɔfoɔের নাম বা ফোন দিয়ে Hwehwɛ..." : "Search customers by name or phone..."}
+          placeholder={isBn ? "Hwehwɛ atɔfoɔ din anaa fon..." : "Search customers by name or phone..."}
           className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
         />
       </div>
@@ -160,11 +160,11 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Otɔfoɔ" : "Customer"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Telefon" : "Contact"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka Aka" : "Current Due"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Gyinabea" : "Status"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Nneyɛeɛ" : "Actions"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
@@ -201,7 +201,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                             onClick={() => handleOpenCollect(c)}
                             className="px-3 py-1 bg-em-700 hover:bg-em-800 text-white rounded-lg text-xs font-bold transition-fast shadow-xs"
                           >
-                            {isBn ? "জমা" : "Collect"}
+                            {isBn ? "Gye Sika" : "Collect"}
                           </button>
                           <button
                             onClick={() => handleOpenSMS(c)}
@@ -213,7 +213,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                           <button
                             onClick={() => setScreen("messages")}
                             className="p-1.5 bg-em-50 text-em-700 hover:bg-em-100 rounded-lg transition-fast border border-em-200"
-                            title={isBn ? "চ্যাট করুন" : "Chat"}
+                            title={isBn ? "Nkɔmmɔ" : "Chat"}
                           >
                             <MessageCircle size={14} />
                           </button>
@@ -268,7 +268,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "জমা অ্যাকাউন্ট" : "Deposit Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akawnt a Wode Sika Regu Mu" : "Deposit Account"}</label>
                 <select
                   value={collectAccount}
                   onChange={e => setCollectAccount(e.target.value)}
@@ -279,12 +279,12 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "মন্তব্য / বিবরণ" : "Note"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nsɛm" : "Note"}</label>
                 <input
                   type="text"
                   value={collectNote}
                   onChange={e => setCollectNote(e.target.value)}
-                  placeholder={isBn ? "যেমন: নগদ পরিশোধ" : "e.g. Cash settlement"}
+                  placeholder={isBn ? "e.g. Sika pɔtee tua" : "e.g. Cash settlement"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
@@ -301,7 +301,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "আদায় নিশ্চিত" : "Confirm Collection"}
+                  {isBn ? "Si Sika a Woagye No So Dua" : "Confirm Collection"}
                 </button>
               </div>
             </form>
@@ -314,7 +314,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Aka যুক্ত করুন" : "Add Due Entry"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Fa Aka Ka Ho" : "Add Due Entry"}</h3>
               <button onClick={() => setShowAddDueModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -322,19 +322,19 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
 
             <form onSubmit={handleConfirmAddDue} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔ Din" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
                   value={dueCustomerName}
                   onChange={e => setDueCustomerName(e.target.value)}
-                  placeholder={isBn ? "যেমন: করিম আহমেদ" : "e.g. Karim Ahmed"}
+                  placeholder={isBn ? "e.g. Kofi Mensah" : "e.g. Karim Ahmed"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho (ফোন)" : "Contact (Phone)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Telefon Nɔma" : "Contact (Phone)"} *</label>
                 <input
                   type="tel"
                   required
@@ -346,7 +346,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "ঠিকানা" : "Address"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Beaeɛ" : "Address"}</label>
                 <input
                   type="text"
                   value={dueCustomerAddress}
@@ -404,7 +404,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "এসএমএস রিমাইন্ডার" : "Send SMS Reminder"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Mane SMS Nkaebɔ" : "Send SMS Reminder"}</h3>
               <button onClick={() => setShowSMSModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -412,12 +412,12 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
 
             <div className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "প্রাপক" : "Recipient"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Deɛ Ɔregye" : "Recipient"}</label>
                 <div className="font-bold text-ink">{selectedCustomer.name} ({selectedCustomer.phone})</div>
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "মেসেজ টেমপ্লেট" : "Message Body"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nkrasɛm No Mu Nsɛm" : "Message Body"}</label>
                 <textarea
                   rows={4}
                   value={smsMessage}
@@ -439,7 +439,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                 className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md flex items-center justify-center gap-1.5"
               >
                 <Send size={14} />
-                <span>{isBn ? "পাঠান" : "Send SMS"}</span>
+                <span>{isBn ? "Mane SMS" : "Send SMS"}</span>
               </button>
             </div>
           </div>

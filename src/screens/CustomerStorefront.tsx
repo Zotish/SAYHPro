@@ -109,7 +109,7 @@ export default function CustomerStorefront({
       product: products[0] || {
         id: 1,
         name: "Sunflower Cooking Oil 5L",
-        nameBn: "সানফ্লাওয়ার রান্নার তেল ৫L",
+        nameBn: "Dinor Nku & Ngoo 5L",
         sellPrice: 300,
         buyPrice: 250,
         unit: "Piece",
@@ -154,7 +154,7 @@ export default function CustomerStorefront({
       ...unique.map(cat => ({
         id: cat,
         name: cat,
-        nameBn: cat === "Grocery" ? "Nnuane & Provisions" : cat === "Dairy" ? "Nufusuo & Dairy" : cat === "Snacks" ? "Biscuits & Snacks" : cat === "Beverages" ? "Nsa & Anonneɛ" : cat === "Personal Care" ? "প্রসাধন রূপচর্চা" : cat === "Household" ? "গৃহস্থালী ক্লিন" : cat,
+        nameBn: cat === "Grocery" ? "Nnuane & Provisions" : cat === "Dairy" ? "Nufusuo & Dairy" : cat === "Snacks" ? "Biscuits & Snacks" : cat === "Beverages" ? "Nsa & Anonneɛ" : cat === "Personal Care" ? "Ahosiesie Nnoɔma" : cat === "Household" ? "Ofie Nnoɔma" : cat,
         icon: cat === "Grocery" ? "🌾" : cat === "Dairy" ? "🥛" : cat === "Snacks" ? "🍿" : cat === "Beverages" ? "🧃" : cat === "Personal Care" ? "🧴" : "📦",
         bg: cat === "Grocery" ? "bg-amber-50 text-amber-700" : cat === "Dairy" ? "bg-blue-50 text-blue-700" : cat === "Snacks" ? "bg-orange-50 text-orange-700" : "bg-purple-50 text-purple-700",
         badge: undefined
@@ -330,7 +330,7 @@ export default function CustomerStorefront({
     toast({
       type: "success",
       title: isBn ? "Order No Ayɛ Yie Pɛpɛɛpɛ!" : "Order Placed Successfully!",
-      message: isBn ? `অর্ডার #${generatedId} নিশ্চিত হয়েছে।` : `Order #${generatedId} confirmed.`,
+      message: isBn ? `Ntɔdeɛ #${generatedId} agyina pɛpɛɛpɛ.` : `Order #${generatedId} confirmed.`,
     });
   };
 
@@ -426,7 +426,7 @@ export default function CustomerStorefront({
                     try {
                       await navigator.share({
                         title: settings.shopName,
-                        text: isBn ? `${settings.shopName}-wɔ Intanɛte শপ থেকে কেনাকাটা করুন:` : `Shop online from ${settings.shopName}:`,
+                        text: isBn ? `Tɔ nnoɔma wɔ intanɛte so firi ${settings.shopName}:` : `Shop online from ${settings.shopName}:`,
                         url: liveCustomerUrl,
                       });
                       return;
@@ -437,7 +437,7 @@ export default function CustomerStorefront({
                   navigator.clipboard.writeText(liveCustomerUrl);
                   toast({
                     type: "success",
-                    title: isBn ? "কাস্টমার লিংক কপি হয়েছে!" : "Customer Link Copied!",
+                    title: isBn ? "Wɔakɔpi Otɔfoɔ Link No!" : "Customer Link Copied!",
                     message: liveCustomerUrl,
                   });
                 }}
@@ -535,7 +535,7 @@ export default function CustomerStorefront({
 
                       <h2 className="text-base sm:text-lg font-black text-white leading-tight">
                         {isBn
-                          ? "নিত্যপ্রয়োজনীয় মুদি সামগ্রীতে সর্বোচ্চ ৪০% পর্যন্ত ছাড়!"
+                          ? "Nnuane ne provisions nnoɔma so teɛ kɔsi 40%!"
                           : "Save Up to 40% on Daily Groceries & Essentials"}
                       </h2>
 
@@ -735,7 +735,7 @@ export default function CustomerStorefront({
                             {renderProductImage(product.image, "text-5xl group-hover:scale-110 transition-transform duration-200")}
                             {product.stock <= 5 && product.stock > 0 && (
                               <span className="absolute bottom-1 left-1 bg-red-100 text-red-700 text-[8px] font-bold px-1 rounded">
-                                {isBn ? `মাত্র ${tNum(product.stock)}টি Aka` : `Only ${product.stock} left`}
+                                {isBn ? `${product.stock} pɛ na aka` : `Only ${product.stock} left`}
                               </span>
                             )}
                           </div>
@@ -833,7 +833,7 @@ export default function CustomerStorefront({
                                     : "bg-gray-200 text-gray-400 border border-gray-300 cursor-not-allowed"
                                 }`}
                               >
-                                <span>{isBn ? "কার্টে Fa Ka Ho" : "Add to Cart"}</span>
+                                <span>{isBn ? "Fa Gu Kɛntɛn Mu" : "Add to Cart"}</span>
                               </button>
                             )}
                           </div>
@@ -846,35 +846,35 @@ export default function CustomerStorefront({
                 {/* 4.6 TRUST BADGES & VALUE PROPOSITION */}
                 <div className="p-3 bg-white mx-2 rounded-xl border border-gray-200 space-y-3 mt-4">
                   <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider text-center">
-                    {isBn ? `কেন ${settings.shopName} থেকে কিনবেন?` : `Why Shop at ${settings.shopName}?`}
+                    {isBn ? `Adɛn nti na ɛsɛ sɛ wotɔ nnoɔma wɔ ${settings.shopName}?` : `Why Shop at ${settings.shopName}?`}
                   </h4>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                       <Truck size={18} className="text-[#007185] flex-shrink-0" />
                       <div>
-                        <div className="font-bold text-[#0f1111]">{isBn ? "দ্রুত Delivery" : "Fast Delivery"}</div>
-                        <div className="text-[10px] text-gray-500">{isBn ? "Dɔnhwerew 45 Expressে" : "Within 45-60 mins"}</div>
+                        <div className="font-bold text-[#0f1111]">{isBn ? "Delivery Ntɛmntɛm" : "Fast Delivery"}</div>
+                        <div className="text-[10px] text-gray-500">{isBn ? "Wɔ simma 45-60 ntam" : "Within 45-60 mins"}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                       <ShieldCheck size={18} className="text-[#007600] flex-shrink-0" />
                       <div>
-                        <div className="font-bold text-[#0f1111]">{isBn ? "খাঁnnoɔma" : "100% Genuine"}</div>
-                        <div className="text-[10px] text-gray-500">{isBn ? "মানের নিশ্চয়তা" : "Verified Quality"}</div>
+                        <div className="font-bold text-[#0f1111]">{isBn ? "100% Nnoɔma Pa" : "100% Genuine"}</div>
+                        <div className="text-[10px] text-gray-500">{isBn ? "Nnoɔma Pa a Wɔahwɛ Mu" : "Verified Quality"}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                       <CreditCard size={18} className="text-[#f08804] flex-shrink-0" />
                       <div>
-                        <div className="font-bold text-[#0f1111]">{isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}</div>
-                        <div className="text-[10px] text-gray-500">{isBn ? "Nnoɔma দেখে দাম Nna" : "Pay at doorstep"}</div>
+                        <div className="font-bold text-[#0f1111]">{isBn ? "Sika Pɔtee Delivery Akyi" : "Cash on Delivery"}</div>
+                        <div className="text-[10px] text-gray-500">{isBn ? "Tua sika wɔ wo fie" : "Pay at doorstep"}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                       <MessageCircle size={18} className="text-[#25D366] flex-shrink-0" />
                       <div>
-                        <div className="font-bold text-[#0f1111]">{isBn ? "হোয়াটসঅ্যাপ সাপোর্ট" : "WhatsApp Chat"}</div>
-                        <div className="text-[10px] text-gray-500">{isBn ? "২৪/৭ সরাসরি সাহায্য" : "Direct response"}</div>
+                        <div className="font-bold text-[#0f1111]">{isBn ? "WhatsApp Nkɔmmɔ" : "WhatsApp Chat"}</div>
+                        <div className="text-[10px] text-gray-500">{isBn ? "Mmuaeɛ ntɛm" : "Direct response"}</div>
                       </div>
                     </div>
                   </div>
@@ -894,7 +894,7 @@ export default function CustomerStorefront({
                         {customer.name.slice(0, 1).toUpperCase()}
                       </div>
                       <div>
-                        <div className="text-[11px] text-teal-900 font-semibold">{isBn ? "স্বাগতম," : "Hello,"}</div>
+                        <div className="text-[11px] text-teal-900 font-semibold">{isBn ? "Akwaaba," : "Hello,"}</div>
                         <div className="text-base font-extrabold text-[#0f1111] leading-tight">{customer.name}</div>
                         <div className="text-[11px] text-gray-700 font-mono mt-0.5">{customer.phone}</div>
                       </div>
@@ -908,7 +908,7 @@ export default function CustomerStorefront({
                       }}
                       className="text-xs font-bold text-[#007185] bg-white/80 hover:bg-white px-2.5 py-1 rounded-md shadow-2xs cursor-pointer"
                     >
-                      {isBn ? "পরিবর্তন" : "Edit"}
+                      {isBn ? "Sesa" : "Edit"}
                     </button>
                   </div>
                 ) : (
@@ -920,14 +920,14 @@ export default function CustomerStorefront({
                       </div>
                       <div>
                         <div className="inline-block bg-teal-800 text-white text-[9px] font-extrabold px-1.5 py-0.2 rounded uppercase">
-                          {isBn ? "গেস্ট কাস্টমার" : "Guest Shopper"}
+                          {isBn ? "Otɔfoɔ a Ɔbaa Kwa" : "Guest Shopper"}
                         </div>
                         <h3 className="text-base font-extrabold text-[#0f1111] leading-tight">
-                          {isBn ? "স্বাগতম, প্রিয় Otɔfoɔ! 👋" : "Welcome, Guest Customer! 👋"}
+                          {isBn ? "Akwaaba, Yɛn Otɔfoɔ Pa! 👋" : "Welcome, Guest Customer! 👋"}
                         </h3>
                         <p className="text-[11px] text-teal-950 font-medium leading-snug">
                           {isBn
-                            ? "কোনো পাসওয়ার্ড বা সাইন-আপের ঝামেলা নেই। সরাসরি কেনাকাটা করুন।"
+                            ? "Password anaa sign-up biara nni ho. Tɔ nnoɔma ntɛm pa ara."
                             : "Shop directly without passwords or signup forms."}
                         </p>
                       </div>
@@ -942,24 +942,24 @@ export default function CustomerStorefront({
                       if (customerOrders.length > 0) {
                         toast({
                           type: "info",
-                          title: isBn ? "চলমান অর্ডার" : "Active Orders",
-                          message: isBn ? `${tNum(customerOrders.length)}টি অর্ডার প্রসেসিং হচ্ছে।` : `${customerOrders.length} order in progress.`,
+                          title: isBn ? "Ntɔdeɛ a Ɛrekɔ So" : "Active Orders",
+                          message: isBn ? `${customerOrders.length} ntɔdeɛ rekɔ so.` : `${customerOrders.length} order in progress.`,
                         });
                       } else {
                         toast({
                           type: "info",
-                          title: isBn ? "কোনো অর্ডার নেই" : "No Orders Yet",
-                          message: isBn ? "Nnoɔma কিনতে কার্টে Nnoɔma Fa Ka Ho।" : "Add items to cart to place an order.",
+                          title: isBn ? "Ntɔdeɛ biara nni hɔ seesei" : "No Orders Yet",
+                          message: isBn ? "Fa nnoɔma gu kɛntɛn mu na hyɛ ntɔdeɛ aseɛ." : "Add items to cart to place an order.",
                         });
                       }
                     }}
                     className="p-3 bg-white rounded-lg border border-gray-200 text-left hover:border-gray-400 transition-colors shadow-2xs cursor-pointer"
                   >
-                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "আপনার অর্ডার" : "Your Orders"}</div>
+                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "Wo Ntɔdeɛ Nyinaa" : "Your Orders"}</div>
                     <div className="text-[10px] text-gray-500 mt-0.5">
                       {customerOrders.length > 0
-                        ? (isBn ? `${tNum(customerOrders.length)}টি সক্রিয় অর্ডার` : `${customerOrders.length} active orders`)
-                        : (isBn ? "এখনো অর্ডার করা হয়নি" : "No orders placed yet")}
+                        ? (isBn ? `${customerOrders.length} ntɔdeɛ a ɛrekɔ so` : `${customerOrders.length} active orders`)
+                        : (isBn ? "Ntɔdeɛ biara nni hɔ" : "No orders placed yet")}
                     </div>
                   </button>
 
@@ -967,21 +967,21 @@ export default function CustomerStorefront({
                     onClick={() => {
                       toast({
                         type: "info",
-                        title: isBn ? "পছন্দের তালিকা" : "Your Wishlist",
+                        title: isBn ? "Nnoɔma a Wopɛ" : "Your Wishlist",
                         message: `${wishlist.length} items in wishlist`,
                       });
                     }}
                     className="p-3 bg-white rounded-lg border border-gray-200 text-left hover:border-gray-400 transition-colors shadow-2xs cursor-pointer"
                   >
-                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "পছন্দের Nnoɔma (Wishlist)" : "Your Wishlist"}</div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">{wishlist.length} {isBn ? "nnoɔma সেভ আছে" : "saved items"}</div>
+                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "Nnoɔma a Wopɛ" : "Your Wishlist"}</div>
+                    <div className="text-[10px] text-gray-500 mt-0.5">{wishlist.length} {isBn ? "nnoɔma a wɔakora so" : "saved items"}</div>
                   </button>
 
                   <button
                     onClick={() => setIsLocationModalOpen(true)}
                     className="p-3 bg-white rounded-lg border border-gray-200 text-left hover:border-gray-400 transition-colors shadow-2xs cursor-pointer"
                   >
-                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "Delivery এলাকা" : "Delivery Area"}</div>
+                    <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "Delivery Beaeɛ" : "Delivery Area"}</div>
                     <div className="text-[10px] text-gray-500 mt-0.5 truncate">{selectedLocation}</div>
                   </button>
 
@@ -993,9 +993,9 @@ export default function CustomerStorefront({
                   >
                     <div className="text-xs font-extrabold text-[#007600] flex items-center gap-1">
                       <MessageCircle size={13} />
-                      <span>{isBn ? "হোয়াটসঅ্যাপ হেল্প" : "Customer Care"}</span>
+                      <span>{isBn ? "Otɔfoɔ Nhwɛsoɔ" : "Customer Care"}</span>
                     </div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">{isBn ? "সরাসরি Dukanদারের সাথে চ্যাট" : "Direct WhatsApp Help"}</div>
+                    <div className="text-[10px] text-gray-500 mt-0.5">{isBn ? "WhatsApp Mmoa Pɔtee" : "Direct WhatsApp Help"}</div>
                   </button>
                 </div>
 
@@ -1004,11 +1004,11 @@ export default function CustomerStorefront({
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-extrabold text-[#0f1111] flex items-center gap-1.5">
                       <Package size={14} className="text-[#007185]" />
-                      <span>{isBn ? "আপনার অর্ডারসমূহ (Order History)" : "Your Orders"}</span>
+                      <span>{isBn ? "Wo Ntɔdeɛ Nyinaa" : "Your Orders"}</span>
                     </h4>
                     {customerOrders.length > 0 && (
                       <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">
-                        {tNum(customerOrders.length)} {isBn ? "টি অর্ডার" : "Orders"}
+                        {tNum(customerOrders.length)} {isBn ? "Ntɔdeɛ Nyinaa" : "Orders"}
                       </span>
                     )}
                   </div>
@@ -1034,7 +1034,7 @@ export default function CustomerStorefront({
                           <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-bold bg-emerald-50/70 p-2 rounded-lg border border-emerald-200">
                             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                             <span>
-                              {isBn ? "অর্ডার গ্রহণ করা হয়েছে — Dukanে প্যাকিং চলছে" : "Order Confirmed — Packing at store"}
+                              {isBn ? "Wɔagye Ntɔdeɛ No — Ɛrehyehyɛ wɔ dukan mu" : "Order Confirmed — Packing at store"}
                             </span>
                           </div>
 
@@ -1069,7 +1069,7 @@ export default function CustomerStorefront({
                               }}
                               className="bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] text-[11px] font-bold px-3 py-1 rounded-full border border-[#fcd200] shadow-2xs"
                             >
-                              {isBn ? "পুনরায় কিনুন" : "Buy Again"}
+                              {isBn ? "San Tɔ Bio" : "Buy Again"}
                             </button>
                           </div>
                         </div>
@@ -1080,18 +1080,18 @@ export default function CustomerStorefront({
                     <div className="p-4 text-center space-y-2 bg-gray-50 rounded-xl border border-dashed border-gray-300">
                       <div className="text-3xl">📦</div>
                       <div className="text-xs font-bold text-[#0f1111]">
-                        {isBn ? "আপনার কোনো পূর্ববর্তী অর্ডার নেই" : "No orders placed yet"}
+                        {isBn ? "Ntɔdeɛ biara nni hɔ" : "No orders placed yet"}
                       </div>
                       <p className="text-[11px] text-gray-500 max-w-xs mx-auto">
                         {isBn
-                          ? "পছন্দের Nnoɔma কার্টে নিয়ে অর্ডার প্লেস করুন। কোনো অ্যাকাউন্ট খোলার দরকার নেই!"
+                          ? "Fa nnoɔma gu wo kɛntɛn mu na hyɛ ntɔdeɛ aseɛ. Wonhia akawnt biara!"
                           : "Add items to your cart and place an order. No account needed!"}
                       </p>
                       <button
                         onClick={() => setActiveTab("home")}
                         className="mt-1 bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] text-xs font-bold px-4 py-1.5 rounded-full border border-[#fcd200] shadow-2xs cursor-pointer"
                       >
-                        {isBn ? "কেনাকাটা শুরু করুন" : "Start Shopping"}
+                        {isBn ? "Firi Aseɛ Tɔ Nnoɔma" : "Start Shopping"}
                       </button>
                     </div>
                   )}
@@ -1101,11 +1101,11 @@ export default function CustomerStorefront({
                 {!customer.isRegistered && (
                   <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
                     <h4 className="text-xs font-extrabold text-[#0f1111]">
-                      {isBn ? "পূর্বে অর্ডার করেছেন? ট্র্যাকিং দেখুন" : "Already placed an order? Track it"}
+                      {isBn ? "Woahyehyɛ ntɔdeɛ dedaw? Hwɛ gyinabea" : "Already placed an order? Track it"}
                     </h4>
                     <p className="text-[11px] text-gray-500">
                       {isBn
-                        ? "আপনার মোবাইল নম্বরটি লিখলে পূর্ববর্তী অর্ডারের স্ট্যাটাস দেখতে পারবেন:"
+                        ? "Twerɛ wo fon nɔma sɛdeɛ wobɛhunu wo ntɔdeɛ gyinabea:"
                         : "Enter your phone number to look up past order status:"}
                     </p>
                     <div className="flex gap-2">
@@ -1113,7 +1113,7 @@ export default function CustomerStorefront({
                         type="tel"
                         value={phoneLookupInput}
                         onChange={e => setPhoneLookupInput(e.target.value)}
-                        placeholder="017XXXXXXXX"
+                        placeholder="024XXXXXXX"
                         className="flex-1 text-xs p-2 rounded-lg border border-gray-300 outline-none font-mono"
                       />
                       <button
@@ -1142,20 +1142,20 @@ export default function CustomerStorefront({
                             ]);
                             toast({
                               type: "success",
-                              title: isBn ? "অর্ডার লোড হয়েছে!" : "Order Found!",
-                              message: isBn ? "আপনার প্রোফাইল ও অর্ডার হিস্ট্রি সংযুক্ত হয়েছে।" : "Your order history has been linked.",
+                              title: isBn ? "Yɛanya Ntɔdeɛ No!" : "Order Found!",
+                              message: isBn ? "Wɔade wo ntɔdeɛ abakɔsɛm abom." : "Your order history has been linked.",
                             });
                           } else {
                             toast({
                               type: "error",
-                              title: isBn ? "সঠিক নম্বর Nna" : "Invalid Phone",
-                              message: isBn ? "১১ ডিজিটের মোবাইল নম্বর লিখুন।" : "Please enter a valid phone number.",
+                              title: isBn ? "Telefon Nɔma No Nnyɛ" : "Invalid Phone",
+                              message: isBn ? "Yɛsrɛ wo hyehyɛ telefon nɔma a ɛteɛ." : "Please enter a valid phone number.",
                             });
                           }
                         }}
                         className="bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] text-xs font-bold px-3 py-2 rounded-lg border border-[#fcd200]"
                       >
-                        {isBn ? "ট্র্যাক" : "Track"}
+                        {isBn ? "Hwɛ Gyinabea" : "Track"}
                       </button>
                     </div>
                   </div>
@@ -1165,7 +1165,7 @@ export default function CustomerStorefront({
                 <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
                   <div className="flex items-center gap-1.5 text-xs font-extrabold text-[#0f1111]">
                     <Store size={15} className="text-[#007185]" />
-                    <span>{isBn ? "Dukan বিবরণ ও Ka hoাKa ho" : "About the Store"}</span>
+                    <span>{isBn ? "Dukan No Ho Nsɛm" : "About the Store"}</span>
                   </div>
                   <div className="text-xs text-gray-600 leading-relaxed">
                     <p className="font-bold text-[#0f1111]">{settings.shopName}</p>
@@ -1185,7 +1185,7 @@ export default function CustomerStorefront({
                 <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs space-y-3">
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-gray-700">
-                      {isBn ? `সাবটোটাল (${tNum(totalItemsCount)} nnoɔma):` : `Subtotal (${totalItemsCount} items):`}
+                      {isBn ? `Nyinaa Nketewa (Nnoɔma ${totalItemsCount}):` : `Subtotal (${totalItemsCount} items):`}
                     </span>
                     <span className="text-xl font-black text-[#0f1111]">
                       {formatTaka(subtotal)}
@@ -1196,12 +1196,12 @@ export default function CustomerStorefront({
                   {isFreeDelivery ? (
                     <div className="flex items-center gap-1.5 text-xs text-[#007600] font-bold bg-emerald-50 p-2 rounded-lg border border-emerald-200">
                       <CheckCircle size={14} />
-                      <span>{isBn ? "আপনার অর্ডারটি ফ্রি Deliveryর Ka ho্য!" : "Your order qualifies for FREE Delivery!"}</span>
+                      <span>{isBn ? "Wo ntɔdeɛ no anya FREE Delivery!" : "Your order qualifies for FREE Delivery!"}</span>
                     </div>
                   ) : (
                     <div className="space-y-1 bg-amber-50 p-2.5 rounded-lg border border-amber-200 text-xs text-amber-900">
                       <div className="flex justify-between font-bold text-[11px]">
-                        <span>{isBn ? "ফ্রি Delivery পেতে আর মাত্র" : "Add more for FREE delivery"}</span>
+                        <span>{isBn ? "Fa bi ka ho na wo nsa aka FREE delivery" : "Add more for FREE delivery"}</span>
                         <span>{formatTaka(freeDeliveryThreshold - subtotal)}</span>
                       </div>
                       <div className="w-full bg-amber-200 h-2 rounded-full overflow-hidden">
@@ -1248,7 +1248,7 @@ export default function CustomerStorefront({
                     className="w-full py-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-bold text-xs shadow-xs transition-transform active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <MessageCircle size={15} />
-                    <span>{isBn ? "হোয়াটসঅ্যাপে ১-ক্লিকে অর্ডার Nna" : "Order via WhatsApp with 1 Tap"}</span>
+                    <span>{isBn ? "Fa 1-Tap Tɔ wɔ WhatsApp So" : "Order via WhatsApp with 1 Tap"}</span>
                   </button>
                 </div>
 
@@ -1259,14 +1259,14 @@ export default function CustomerStorefront({
                     type="text"
                     value={couponCode}
                     onChange={e => setCouponCode(e.target.value)}
-                    placeholder={isBn ? "কুপন কোড (SAVE50 / AMAZON100)" : "Promo code (e.g. SAVE50)"}
+                    placeholder={isBn ? "Promo code (e.g. SAVE20)" : "Promo code (e.g. SAVE50)"}
                     className="flex-1 text-xs uppercase font-mono text-[#0f1111] outline-none"
                   />
                   <button
                     onClick={handleApplyCoupon}
                     className="bg-gray-100 hover:bg-gray-200 text-[#0f1111] text-xs font-bold px-3 py-1.5 rounded-md border border-gray-300 cursor-pointer"
                   >
-                    {isBn ? "প্রয়োগ" : "Apply"}
+                    {isBn ? "Fa Yɛ Adwuma" : "Apply"}
                   </button>
                 </div>
 
@@ -1276,16 +1276,16 @@ export default function CustomerStorefront({
                     <div className="bg-white p-8 rounded-xl text-center space-y-3 border border-gray-200">
                       <div className="text-4xl">🛒</div>
                       <div className="font-extrabold text-sm text-[#0f1111]">
-                        {isBn ? "আপনার কার্ট এখন খালি" : "Your Amazon Cart is empty"}
+                        {isBn ? "Wo Kɛntɛn da mpan" : "Your Amazon Cart is empty"}
                       </div>
                       <p className="text-xs text-gray-500">
-                        {isBn ? "আমাদের সেরা ডিল ও মুদি Nnoɔma ঘুরে দেখুন!" : "Check out today's deals to fill your cart."}
+                        {isBn ? "Hwɛ ɛnnɛ boɔ so teɛ nnoɔma ma wo kɛntɛn nyɛ ma." : "Check out today's deals to fill your cart."}
                       </p>
                       <button
                         onClick={() => setActiveTab("home")}
                         className="bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] font-bold text-xs px-4 py-2 rounded-full border border-[#fcd200]"
                       >
-                        {isBn ? "কেনাকাটা শুরু করুন" : "Continue Shopping"}
+                        {isBn ? "Toa Ntɔdeɛ So" : "Continue Shopping"}
                       </button>
                     </div>
                   ) : (
@@ -1350,13 +1350,13 @@ export default function CustomerStorefront({
                                 removeFromCart(product.id);
                                 toast({
                                   type: "info",
-                                  title: isBn ? "সংরক্ষিত হয়েছে" : "Saved for Later",
-                                  message: isBn ? "Nnoɔmaটি পছন্দের তালিকায় Ka ho করা হয়েছে।" : "Item moved to saved items.",
+                                  title: isBn ? "Wɔakora So Ma Akyire" : "Saved for Later",
+                                  message: isBn ? "Wɔde nnoɔma no akɔ deɛ wɔakora so mu." : "Item moved to saved items.",
                                 });
                               }}
                               className="text-xs text-[#007185] hover:underline font-medium"
                             >
-                              {isBn ? "পরে কিনুন" : "Save for later"}
+                              {isBn ? "Kora so ma akyire" : "Save for later"}
                             </button>
                           </div>
                         </div>
@@ -1378,7 +1378,7 @@ export default function CustomerStorefront({
                     </div>
                     <div>
                       <div className="text-xs font-bold text-[#0f1111]">{settings.shopName} Menu</div>
-                      <div className="text-[10px] text-gray-500">{isBn ? "Nkyekyɛmu Nyinaa ও সার্ভিস" : "Explore all store sections"}</div>
+                      <div className="text-[10px] text-gray-500">{isBn ? "Hwɛ dukan no nkyekyɛmu nyinaa" : "Explore all store sections"}</div>
                     </div>
                   </div>
                   <button
@@ -1391,7 +1391,7 @@ export default function CustomerStorefront({
 
                 {/* Explore Departments Grid */}
                 <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
-                  <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "Nyinaa ডিপার্টমেন্ট" : "Shop by Category"}</h4>
+                  <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "Tɔ Nnoɔma Sɛdeɛ Kuw Teɛ" : "Shop by Category"}</h4>
                   <div className="grid grid-cols-2 gap-2 pt-1">
                     {categories.filter(c => c.id !== "all").map(cat => (
                       <button
@@ -1414,7 +1414,7 @@ export default function CustomerStorefront({
 
                 {/* Customer Service & Merchant Help */}
                 <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
-                  <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "কাস্টমার সার্ভিস" : "Customer Service & Help"}</h4>
+                  <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "Atɔfoɔ Som & Mmoa" : "Customer Service & Help"}</h4>
                   <div className="divide-y divide-gray-100 text-xs">
                     <button
                       onClick={() => {
@@ -1424,7 +1424,7 @@ export default function CustomerStorefront({
                     >
                       <span className="flex items-center gap-2">
                         <MessageCircle size={14} className="text-emerald-600" />
-                        <span>{isBn ? "হোয়াটসঅ্যাপ কাস্টমার সাপোর্ট" : "Live WhatsApp Support"}</span>
+                        <span>{isBn ? "WhatsApp Mmoa Seesei" : "Live WhatsApp Support"}</span>
                       </span>
                       <ChevronRight size={14} className="text-gray-400" />
                     </button>
@@ -1437,7 +1437,7 @@ export default function CustomerStorefront({
                     >
                       <span className="flex items-center gap-2">
                         <Phone size={14} className="text-[#007185]" />
-                        <span>{isBn ? "Dukanদারের সাথে কথা বলুন" : "Call Store Hotline"}</span>
+                        <span>{isBn ? "Frɛ Dukan Fon So" : "Call Store Hotline"}</span>
                       </span>
                       <ChevronRight size={14} className="text-gray-400" />
                     </button>
@@ -1446,15 +1446,15 @@ export default function CustomerStorefront({
                       onClick={() => {
                         toast({
                           type: "info",
-                          title: isBn ? "রিটার্ন ও রিফান্ড নীতি" : "Return & Refund Policy",
-                          message: isBn ? "Nnoɔma পৌঁছানোর পর যেকোনো ত্রুটিতে তাৎক্ষণিক রিপ্লেসমেন্ট।" : "Instant return & replacement on delivery.",
+                          title: isBn ? "Nnoɔma Sanma ne Sika Sanba Mmara" : "Return & Refund Policy",
+                          message: isBn ? "Sɛ anyɛ yie a, gye foforɔ wɔ delivery bere mu." : "Instant return & replacement on delivery.",
                         });
                       }}
                       className="w-full py-2.5 flex items-center justify-between text-[#0f1111] hover:text-[#007185] font-medium"
                     >
                       <span className="flex items-center gap-2">
                         <ShieldCheck size={14} className="text-[#007600]" />
-                        <span>{isBn ? "রিটার্ন এবং মান পলিসি" : "Returns & Guarantees"}</span>
+                        <span>{isBn ? "Sanba & Bɔhyɛ" : "Returns & Guarantees"}</span>
                       </span>
                       <ChevronRight size={14} className="text-gray-400" />
                     </button>
@@ -1493,7 +1493,7 @@ export default function CustomerStorefront({
                 <span className="absolute -top-1.5 w-8 h-1 bg-[#007185] rounded-full" />
               )}
               <User size={20} className={activeTab === "you" ? "stroke-[2.5]" : "stroke-[1.8]"} />
-              <span className="text-[10px] tracking-tight">{isBn ? "অ্যাকাউন্ট" : "You"}</span>
+              <span className="text-[10px] tracking-tight">{isBn ? "Wo" : "You"}</span>
             </button>
 
             {/* Tab 3: Cart with Yellow Badge */}
@@ -1514,7 +1514,7 @@ export default function CustomerStorefront({
                   </span>
                 )}
               </div>
-              <span className="text-[10px] tracking-tight">{isBn ? "কার্ট" : "Cart"}</span>
+              <span className="text-[10px] tracking-tight">{isBn ? "Kɛntɛn" : "Cart"}</span>
             </button>
 
             {/* Tab 4: Menu */}
@@ -1528,7 +1528,7 @@ export default function CustomerStorefront({
                 <span className="absolute -top-1.5 w-8 h-1 bg-[#007185] rounded-full" />
               )}
               <Menu size={20} className={activeTab === "menu" ? "stroke-[2.5]" : "stroke-[1.8]"} />
-              <span className="text-[10px] tracking-tight">{isBn ? "মেনু" : "Menu"}</span>
+              <span className="text-[10px] tracking-tight">{isBn ? "Dwumadie Ahodoɔ" : "Menu"}</span>
             </button>
           </nav>
         </div>
@@ -1596,7 +1596,7 @@ export default function CustomerStorefront({
                 </div>
                 <div className="text-xs text-gray-700 pt-1 flex items-center gap-1 font-medium">
                   <Truck size={14} className="text-[#007185]" />
-                  <span>{isBn ? "ফ্রি এক্সপ্রেস Delivery পাওয়া যাবে" : "Eligible for FREE Express Delivery"}</span>
+                  <span>{isBn ? "Wobɛtumi anya FREE Express Delivery" : "Eligible for FREE Express Delivery"}</span>
                 </div>
               </div>
 
@@ -1604,11 +1604,11 @@ export default function CustomerStorefront({
               <div className="text-xs">
                 {quickViewProduct.stock > 0 ? (
                   <span className="text-[#007600] font-bold text-sm">
-                    {isBn ? "Akoraeে আছে — এখনই অর্ডার করুন" : "In Stock - Order now for fast delivery"}
+                    {isBn ? "Ɛwɔ Hɔ - Tɔ seesei ma delivery ntɛm" : "In Stock - Order now for fast delivery"}
                   </span>
                 ) : (
                   <span className="text-[#b12704] font-bold">
-                    {isBn ? "বর্তমানে Akorae Asa" : "Currently out of stock"}
+                    {isBn ? "Seesei nnoɔma no asa wɔ akorae" : "Currently out of stock"}
                   </span>
                 )}
               </div>
@@ -1622,7 +1622,7 @@ export default function CustomerStorefront({
                   }}
                   className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-bold text-sm rounded-full border border-[#fcd200] shadow-xs cursor-pointer"
                 >
-                  {isBn ? "কার্টে Fa Ka Ho (Add to Cart)" : "Add to Cart"}
+                  {isBn ? "Fa Gu Kɛntɛn Mu" : "Add to Cart"}
                 </button>
 
                 <button
@@ -1636,14 +1636,14 @@ export default function CustomerStorefront({
                   }}
                   className="w-full py-3 bg-[#ffa41c] hover:bg-[#fa8900] active:bg-[#e07b00] text-[#0f1111] font-bold text-sm rounded-full border border-[#ff8f00] shadow-xs cursor-pointer"
                 >
-                  {isBn ? "এখনই কিনুন (Buy Now)" : "Buy Now"}
+                  {isBn ? "Tɔ Seesei Ara" : "Buy Now"}
                 </button>
               </div>
 
               {/* Secure transaction guarantee */}
               <div className="text-[11px] text-gray-500 text-center flex items-center justify-center gap-1 pt-1">
                 <ShieldCheck size={14} className="text-gray-400" />
-                <span>{isBn ? "Akorae Dɔɔso লেনদেন ও Sika (Cash) অন Delivery" : "Secure transaction • Cash on Delivery"}</span>
+                <span>{isBn ? "Ahobammbɔ • Sika Pɔtee Delivery Akyi" : "Secure transaction • Cash on Delivery"}</span>
               </div>
             </div>
           </div>
@@ -1659,7 +1659,7 @@ export default function CustomerStorefront({
             <div className="flex items-center justify-between pb-2 border-b border-gray-200">
               <h3 className="text-sm font-extrabold text-[#0f1111] flex items-center gap-1.5">
                 <MapPin size={16} className="text-[#007185]" />
-                <span>{isBn ? "Delivery এলাকা নির্বাচন করুন" : "Choose your location"}</span>
+                <span>{isBn ? "Paw wo beaeɛ" : "Choose your location"}</span>
               </h3>
               <button onClick={() => setIsLocationModalOpen(false)} className="text-gray-400 hover:text-black">
                 <X size={16} />
@@ -1667,7 +1667,7 @@ export default function CustomerStorefront({
             </div>
 
             <p className="text-xs text-gray-600">
-              {isBn ? "আপনার এলাকা অনুযায়ী এক্সপ্রেস Deliveryর সময় নির্ধারিত হবে:" : "Select your area to see accurate delivery speed and availability:"}
+              {isBn ? "Paw wo beaeɛ na hunu delivery ntɛmntɛm ne sɛdeɛ ɛwɔ hɔ:" : "Select your area to see accurate delivery speed and availability:"}
             </p>
 
             <div className="space-y-1.5 max-h-60 overflow-y-auto">
@@ -1690,7 +1690,7 @@ export default function CustomerStorefront({
                     setIsLocationModalOpen(false);
                     toast({
                       type: "success",
-                      title: isBn ? "ঠিকানা আপডেট হয়েছে" : "Location Set",
+                      title: isBn ? "Beaeɛ No Asi Pɛpɛɛpɛ" : "Location Set",
                       message: loc.name,
                     });
                   }}
@@ -1720,7 +1720,7 @@ export default function CustomerStorefront({
           <div className="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl border border-gray-200">
             <div className="flex items-center justify-between pb-2 border-b border-gray-200">
               <h3 className="text-sm font-extrabold text-[#0f1111]">
-                {isBn ? "প্রোফাইল তথ্য পরিবর্তন" : "Edit Customer Profile"}
+                {isBn ? "Sesa Otɔfoɔ Ho Nsɛm" : "Edit Customer Profile"}
               </h3>
               <button onClick={() => setIsEditProfileOpen(false)} className="text-gray-400 hover:text-black">
                 <X size={16} />
@@ -1730,7 +1730,7 @@ export default function CustomerStorefront({
             <div className="space-y-3">
               <div>
                 <label className="text-[11px] font-bold text-gray-700 block mb-1">
-                  {isBn ? "আপনার নাম" : "Your Name"}
+                  {isBn ? "Wo Din" : "Your Name"}
                 </label>
                 <input
                   type="text"
@@ -1742,7 +1742,7 @@ export default function CustomerStorefront({
 
               <div>
                 <label className="text-[11px] font-bold text-gray-700 block mb-1">
-                  {isBn ? "মোবাইল নম্বর" : "Phone Number"}
+                  {isBn ? "Telefon Nɔma" : "Phone Number"}
                 </label>
                 <input
                   type="tel"
@@ -1766,14 +1766,14 @@ export default function CustomerStorefront({
                     setIsEditProfileOpen(false);
                     toast({
                       type: "success",
-                      title: isBn ? "প্রোফাইল আপডেট হয়েছে" : "Profile Updated",
+                      title: isBn ? "Wo ho nsɛm ayɛ foforɔ" : "Profile Updated",
                       message: tempProfileName.trim(),
                     });
                   }
                 }}
                 className="w-full py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] font-bold text-xs rounded-full border border-[#fcd200] shadow-xs cursor-pointer"
               >
-                {isBn ? "Kora so করুন" : "Save Changes"}
+                {isBn ? "Kora Nsesaeɛ So" : "Save Changes"}
               </button>
             </div>
           </div>
@@ -1793,13 +1793,13 @@ export default function CustomerStorefront({
             <div>
               <h3 className="text-sm font-extrabold text-[#0f1111]">
                 {isMediaSearchOpen === "camera"
-                  ? (isBn ? "অ্যামাজন লেন্স (বারকোড / ছবি স্ক্যান)" : "Amazon Visual Lens Search")
-                  : (isBn ? "অ্যামাজন ভয়েস সার্চ" : "Amazon Voice Assistant")}
+                  ? (isBn ? "Mfonyin Nhwehwɛmu" : "Amazon Visual Lens Search")
+                  : (isBn ? "Nne So Nhwehwɛmu" : "Amazon Voice Assistant")}
               </h3>
               <p className="text-xs text-gray-500 mt-1">
                 {isMediaSearchOpen === "camera"
-                  ? (isBn ? "Nnoɔma ছবি বা প্যাকেজের বারকোড স্ক্যান করুন" : "Point camera at an item or barcode to search instantly")
-                  : (isBn ? "দয়া করে বলুন: 'রান্নার তেল' অথবা 'মুদি সামগ্রী'..." : "Say: 'Sunflower cooking oil' or 'Rice'...")}
+                  ? (isBn ? "Kyerɛ mfonyintwafoɔ kɔ nnoɔma anaa barcode so na hwehwɛ ntɛm" : "Point camera at an item or barcode to search instantly")
+                  : (isBn ? "Ka: 'Frytol ngoo' anaa 'Ɛmo'..." : "Say: 'Sunflower cooking oil' or 'Rice'...")}
               </p>
             </div>
 
@@ -1831,7 +1831,7 @@ export default function CustomerStorefront({
                 </div>
                 <h3 className="font-extrabold text-sm">
                   {checkoutStep === "details"
-                    ? (isBn ? "অ্যামাজন এক্সপ্রেস চেকআউট" : "Amazon Express Checkout")
+                    ? (isBn ? "Express Tua Ka" : "Amazon Express Checkout")
                     : (isBn ? "Order No Ayɛ Yie Pɛpɛɛpɛ!" : "Order Placed Successfully!")}
                 </h3>
               </div>
@@ -1848,33 +1848,33 @@ export default function CustomerStorefront({
                 {/* Zero-signup notice */}
                 <div className="flex items-center gap-1.5 text-xs text-emerald-800 bg-emerald-50 p-2 rounded-lg border border-emerald-200 font-medium">
                   <CheckCircle size={14} className="text-emerald-600 flex-shrink-0" />
-                  <span>{isBn ? "কোনো পাসওয়ার্ড দরকার নেই — শুধু ঠিকানা Nna ও অর্ডার করুন!" : "Zero Sign-up: Enter address & place your order instantly."}</span>
+                  <span>{isBn ? "Wonhia sign-up biara: Hyehyɛ address na hyɛ ntɔdeɛ aseɛ ntɛm." : "Zero Sign-up: Enter address & place your order instantly."}</span>
                 </div>
 
                 {/* Step 1: Shipping Address */}
                 <div className="space-y-2">
                   <div className="text-xs font-black uppercase text-gray-500 tracking-wider flex items-center gap-1">
                     <span className="w-4 h-4 rounded-full bg-[#febd69] text-black text-[10px] font-bold flex items-center justify-center">1</span>
-                    <span>{isBn ? "Delivery ঠিকানা (Shipping Address)" : "1. Shipping Address"}</span>
+                    <span>{isBn ? "1. Delivery Beaeɛ" : "1. Shipping Address"}</span>
                   </div>
 
                   <div className="space-y-2">
                     <div>
                       <label className="text-[11px] font-bold text-gray-700 block mb-0.5">
-                        {isBn ? "আপনার পুরো নাম" : "Your Full Name"} *
+                        {isBn ? "Wo Din Nyinaa" : "Your Full Name"} *
                       </label>
                       <input
                         type="text"
                         value={checkoutName}
                         onChange={e => setCheckoutName(e.target.value)}
-                        placeholder={isBn ? "যেমন: তানভীর হাসান / সোহেল" : "e.g. Tanvir Hasan"}
+                        placeholder={isBn ? "e.g. Yaw Asante" : "e.g. Tanvir Hasan"}
                         className="w-full text-xs p-2 rounded-lg border border-gray-300 focus:border-[#f08804] outline-none"
                       />
                     </div>
 
                     <div>
                       <label className="text-[11px] font-bold text-gray-700 block mb-0.5">
-                        {isBn ? "মোবাইল নম্বর" : "Mobile Phone Number"} *
+                        {isBn ? "Mobile Telefon Nɔma" : "Mobile Phone Number"} *
                       </label>
                       <input
                         type="tel"
@@ -1887,20 +1887,20 @@ export default function CustomerStorefront({
 
                     <div>
                       <label className="text-[11px] font-bold text-gray-700 block mb-0.5">
-                        {isBn ? "রাস্তা ও বাসার ঠিকানা" : "Street Address / House / Road"} *
+                        {isBn ? "Tempɔn Address / Ofie / Kube" : "Street Address / House / Road"} *
                       </label>
                       <input
                         type="text"
                         value={checkoutAddress}
                         onChange={e => setCheckoutAddress(e.target.value)}
-                        placeholder={isBn ? "বাসা নম্বর, রোড নম্বর, এলাকা" : "House #, Road #, Flat #"}
+                        placeholder={isBn ? "Ofie Nɔma, Tempɔn, Beaeɛ" : "House #, Road #, Flat #"}
                         className="w-full text-xs p-2 rounded-lg border border-gray-300 focus:border-[#f08804] outline-none"
                       />
                     </div>
 
                     <div>
                       <label className="text-[11px] font-bold text-gray-700 block mb-0.5">
-                        {isBn ? "এলাকা ও থানা" : "Area & City"}
+                        {isBn ? "Mmantam & Kuropɔn" : "Area & City"}
                       </label>
                       <select
                         value={checkoutArea}
@@ -1924,7 +1924,7 @@ export default function CustomerStorefront({
                 <div className="space-y-2 pt-2 border-t border-gray-200">
                   <div className="text-xs font-black uppercase text-gray-500 tracking-wider flex items-center gap-1">
                     <span className="w-4 h-4 rounded-full bg-[#febd69] text-black text-[10px] font-bold flex items-center justify-center">2</span>
-                    <span>{isBn ? "পেমেন্ট Kwan a Wɔfaa So (Payment Method)" : "2. Payment Method"}</span>
+                    <span>{isBn ? "2. Kwan a Wobɛfa So Atua" : "2. Payment Method"}</span>
                   </div>
 
                   <div className="space-y-1.5">
@@ -1945,7 +1945,7 @@ export default function CustomerStorefront({
                           onChange={() => setPaymentMethod("cod")}
                           className="accent-[#f08804]"
                         />
-                        <span>{isBn ? "Sika (Cash) অন Delivery (Cash on Delivery)" : "Cash on Delivery (COD)"}</span>
+                        <span>{isBn ? "Sika Pɔtee Delivery Akyi (COD)" : "Cash on Delivery (COD)"}</span>
                       </div>
                       <span className="text-[10px] bg-gray-100 px-1.5 py-0.5 rounded font-normal">Pay cash</span>
                     </label>
@@ -1989,7 +1989,7 @@ export default function CustomerStorefront({
                           onChange={() => setPaymentMethod("whatsapp")}
                           className="accent-emerald-600"
                         />
-                        <span>{isBn ? "হোয়াটসঅ্যাপের Kwan a Wɔfaa Soে কনফার্ম করুন" : "Confirm via WhatsApp Chat"}</span>
+                        <span>{isBn ? "Si So Dua wɔ WhatsApp Nkɔmmɔ Mu" : "Confirm via WhatsApp Chat"}</span>
                       </div>
                       <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">1-Click</span>
                     </label>
@@ -1999,18 +1999,18 @@ export default function CustomerStorefront({
                 {/* Step 3: Order Summary */}
                 <div className="space-y-1.5 pt-2 border-t border-gray-200 text-xs">
                   <div className="flex justify-between text-gray-600">
-                    <span>{isBn ? "Nnoɔma সাবটোটাল:" : "Items Total:"}</span>
+                    <span>{isBn ? "Nnoɔma Nyinaa:" : "Items Total:"}</span>
                     <span>{formatTaka(subtotal)}</span>
                   </div>
 
                   <div className="flex justify-between text-gray-600">
-                    <span>{isBn ? "Delivery ফি:" : "Delivery Fee:"}</span>
+                    <span>{isBn ? "Delivery Ka:" : "Delivery Fee:"}</span>
                     <span>{deliveryFee === 0 ? <strong className="text-emerald-700">FREE</strong> : formatTaka(deliveryFee)}</span>
                   </div>
 
                   {couponDiscount > 0 && (
                     <div className="flex justify-between text-[#cc0c39] font-bold">
-                      <span>{isBn ? "ডিসকাউন্ট কুপন:" : "Promo Discount:"}</span>
+                      <span>{isBn ? "Boɔ So Teɛ:" : "Promo Discount:"}</span>
                       <span>-{formatTaka(couponDiscount)}</span>
                     </div>
                   )}
@@ -2027,7 +2027,7 @@ export default function CustomerStorefront({
                   className="w-full py-3.5 bg-[#ffd814] hover:bg-[#f7ca00] active:bg-[#f0b800] text-[#0f1111] font-bold text-sm rounded-full border border-[#fcd200] shadow-md transition-transform active:scale-95 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <ShieldCheck size={16} />
-                  <span>{isBn ? `অর্ডার নিশ্চিত করুন (${formatTaka(grandTotal)})` : `Place Your Order in BDT`}</span>
+                  <span>{isBn ? `Hyɛ Wo Ntɔdeɛ Aseɛ wɔ ₵ Mu` : `Place Your Order in BDT`}</span>
                 </button>
               </div>
             ) : (
@@ -2039,28 +2039,28 @@ export default function CustomerStorefront({
 
                 <div>
                   <h3 className="text-lg font-black text-[#0f1111]">
-                    {isBn ? "Order No Ayɛ Yie Pɛpɛɛpɛ! ধন্যবাদ।" : "Order placed, thank you!"}
+                    {isBn ? "Ntɔdeɛ no akɔ, medaase!" : "Order placed, thank you!"}
                   </h3>
                   <p className="text-xs text-gray-500 mt-1">
-                    {isBn ? `অর্ডার নম্বর: #${orderId}` : `Confirmation sent. Order #${orderId}`}
+                    {isBn ? `Wɔamane nkratoɔ. Ntɔdeɛ #${orderId}` : `Confirmation sent. Order #${orderId}`}
                   </p>
                 </div>
 
                 {/* Simulated Tracking timeline */}
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-3 text-left text-xs">
-                  <div className="font-bold text-gray-700">{isBn ? "Delivery ট্র্যাকিং স্ট্যাটাস:" : "Estimated Delivery Status:"}</div>
+                  <div className="font-bold text-gray-700">{isBn ? "Delivery Gyinabea a Wɔahwɛ:" : "Estimated Delivery Status:"}</div>
                   <div className="space-y-2 font-medium">
                     <div className="flex items-center gap-2 text-emerald-700 font-bold">
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
-                      <span>{isBn ? "অর্ডার গ্রহণ করা হয়েছে" : "Order Placed & Confirmed"}</span>
+                      <span>{isBn ? "Wɔahyehyɛ Ntɔdeɛ No & Asi So Dua" : "Order Placed & Confirmed"}</span>
                     </div>
                     <div className="flex items-center gap-2 text-[#007185] font-bold">
                       <span className="w-2.5 h-2.5 rounded-full bg-[#007185] animate-pulse" />
-                      <span>{isBn ? "Dukanে প্যাkgং চলছে" : `Packing at ${settings.shopName}`}</span>
+                      <span>{isBn ? "Ɛrehyehyɛ wɔ ${settings.shopName}" : `Packing at ${settings.shopName}`}</span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-400">
                       <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
-                      <span>{isBn ? "রাইডার Deliveryর জন্য বের হবে" : "Out for delivery (Today, 45m)"}</span>
+                      <span>{isBn ? "Ɛrekɔ delivery (Ɛnnɛ, 45m)" : "Out for delivery (Today, 45m)"}</span>
                     </div>
                   </div>
                 </div>
@@ -2073,7 +2073,7 @@ export default function CustomerStorefront({
                     }}
                     className="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-[#0f1111] font-bold text-xs rounded-full border border-gray-300 cursor-pointer"
                   >
-                    {isBn ? "অর্ডার ট্র্যাকিং দেখুন" : "View in Your Orders"}
+                    {isBn ? "Hwɛ Wɔ Wo Ntɔdeɛ Mu" : "View in Your Orders"}
                   </button>
                   <button
                     onClick={() => {
@@ -2082,7 +2082,7 @@ export default function CustomerStorefront({
                     }}
                     className="flex-1 py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] text-[#0f1111] font-bold text-xs rounded-full border border-[#fcd200] cursor-pointer"
                   >
-                    {isBn ? "Pii (More) কেনাকাটা" : "Continue Shopping"}
+                    {isBn ? "Toa Ntɔdeɛ So" : "Continue Shopping"}
                   </button>
                 </div>
               </div>

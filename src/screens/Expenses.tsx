@@ -14,9 +14,9 @@ const expenseCategories = [
   { id: "Salary", label: "Salary", labelBn: "Akatua (Salary)", icon: Users, color: "#D97706" },
   { id: "Transport", label: "Transport", labelBn: "Kwantuo Ka (Transport)", icon: Truck, color: "#FBBF24" },
   { id: "Food", label: "Food", labelBn: "Aduane (Food)", icon: Coffee, color: "#475569" },
-  { id: "Maintenance", label: "Maintenance", labelBn: "রক্ষণাবেক্ষণ", icon: Wrench, color: "#94A3B8" },
+  { id: "Maintenance", label: "Maintenance", labelBn: "Nnoɔma Siesie", icon: Wrench, color: "#94A3B8" },
   { id: "Marketing", label: "Marketing", labelBn: "Dawubɔ", icon: Megaphone, color: "#166534" },
-  { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#CBD5E1" },
+  { id: "Miscellaneous", label: "Miscellaneous", labelBn: "Dukan Ka Nketewa", icon: Grid, color: "#CBD5E1" },
 ];
 
 export default function Expenses({ lang, onBack }: ExpensesProps) {
@@ -96,7 +96,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
       {showForm && (
         <div className="bg-white rounded-2xl shadow-md border border-nv-200 p-5 animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
-            <h3 className="font-display font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Ka এন্ট্রি" : "Record New Expense"}</h3>
+            <h3 className="font-display font-bold text-ink text-base">{isBn ? "Kyerɛw Dukan Ka Foforɔ" : "Record New Expense"}</h3>
             <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
             </button>
@@ -105,7 +105,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
           <form onSubmit={handleCreateExpense} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Ka বিভাগ" : "Category"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Nkyekyɛmu" : "Category"} *</label>
                 <select
                   value={selectedCat}
                   onChange={e => setSelectedCat(e.target.value)}
@@ -132,7 +132,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So" : "Paid From Account"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Wɔtua Firi Akawnt" : "Paid From Account"}</label>
                 <select
                   value={paidFrom}
                   onChange={e => setPaidFrom(e.target.value)}
@@ -147,7 +147,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Da" : "Date"}</label>
                 <input
                   type="date"
                   value={date}
@@ -157,12 +157,12 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div className="sm:col-span-2 lg:col-span-4">
-                <label className="block font-semibold text-ink mb-1">{isBn ? "সংক্ষিপ্ত বিবরণ / নোট" : "Description / Note"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Nkyerɛkyerɛmu / Nsɛm" : "Description / Note"}</label>
                 <input
                   type="text"
                   value={note}
                   onChange={e => setNote(e.target.value)}
-                  placeholder={isBn ? "যেমন: জানুয়ারি Bosomeের Dukan Ka (Shop Rent) বা Anyinam Ahoɔden (Electricity) বিল..." : "e.g. Electricity bill or staff lunch..."}
+                  placeholder={isBn ? "e.g. Anyinam ahoɔden ka anaa adwumayɛfoɔ aduane..." : "e.g. Electricity bill or staff lunch..."}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2.5 focus:border-em-500"
                 />
               </div>
@@ -180,7 +180,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                 type="submit"
                 className="px-6 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
               >
-                {isBn ? "Ka Kora so করুন" : "Save Expense"}
+                {isBn ? "Kora Ka No So" : "Save Expense"}
               </button>
             </div>
           </form>
@@ -192,7 +192,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
         {/* Category Breakdown Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
           <h3 className="font-display font-bold text-ink text-sm mb-3">
-            {isBn ? "বিভাগ অনুযায়ী Ka" : "Expenses by Category"}
+            {isBn ? "Ka Ahodoɔ Sɛdeɛ Ɛteɛ" : "Expenses by Category"}
           </h3>
 
           <div className="h-52 relative">
@@ -237,7 +237,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
           <div className="p-4 border-b border-nv-100 flex items-center justify-between gap-3">
             <h3 className="font-display font-bold text-ink text-sm">
-              {isBn ? "Ka তালিকা" : "Expense Transactions"}
+              {isBn ? "Dukan Ka Nsesaeɛ" : "Expense Transactions"}
             </h3>
             <div className="relative max-w-xs flex-1">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink" />
@@ -255,12 +255,12 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিভাগ" : "Category"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধ" : "Account"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "নোট" : "Note"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "কাজ" : "Action"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nkyekyɛmu" : "Category"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Sika Dodoɔ" : "Amount"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Akawnt" : "Account"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Da" : "Date"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nsɛm" : "Note"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Dwumadie" : "Action"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
@@ -289,7 +289,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                 {filtered.length === 0 && (
                   <tr>
                     <td colSpan={6} className="text-center py-12 text-ink">
-                      {isBn ? "কোনো Ka পাওয়া যায়নি" : "No expense records found"}
+                      {isBn ? "Ka kyerɛw biara nni hɔ" : "No expense records found"}
                     </td>
                   </tr>
                 )}

@@ -695,7 +695,7 @@ const initialSettings: ShopSettings = {
   businessType: "Supermarket & Provisions / Nnoɔma Fie",
   phone: "+233 24 412 3456",
   address: "Plot 14, Oxford Street, Osu, Accra, Ghana",
-  currency: "GHS (₵)",
+  currency: "₵",
   taxRate: 0,
   autoPrint: true,
   soundEnabled: true,
@@ -832,7 +832,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Migration for Ghana localization
   if (typeof window !== "undefined") {
     try {
-      const LOC_VERSION = "ghana_v2";
+      const LOC_VERSION = "ghana_v5";
       if (localStorage.getItem("dukan_loc_version") !== LOC_VERSION) {
         localStorage.setItem("dukan_loc_version", LOC_VERSION);
         localStorage.removeItem("dukan_products");
@@ -1169,7 +1169,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProducts(prev => [newProduct, ...prev]);
     toast({
       type: "success",
-      title: lang === "bn" ? "Nnoɔma Ka ho করা হয়েছে!" : "Product Added!",
+      title: lang === "bn" ? "Wɔde Nnoɔma Foforɔ Aka Ho!" : "Product Added!",
       message: `${p.name} (Stock: ${p.stock})`,
     });
   };
@@ -1187,7 +1187,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
     toast({
       type: "info",
-      title: lang === "bn" ? "Nnoɔma আপডেট হয়েছে!" : "Product Updated!",
+      title: lang === "bn" ? "Nnoɔma No Ayɛ Foforɔ!" : "Product Updated!",
     });
   };
 
@@ -1196,7 +1196,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProducts(prev => prev.filter(item => item.id !== id));
     toast({
       type: "error",
-      title: lang === "bn" ? "Nnoɔma মুছে ফেলা হয়েছে" : "Product Deleted",
+      title: lang === "bn" ? "Wɔapepa Nnoɔma No" : "Product Deleted",
       message: p?.name,
     });
   };
@@ -1217,7 +1217,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
     toast({
       type: "success",
-      title: lang === "bn" ? "Akorae সমন্বয় সম্পন্ন" : "Stock Adjusted",
+      title: lang === "bn" ? "Akorae Nnoɔma Asiesie Pɛpɛɛpɛ" : "Stock Adjusted",
       message: `${reason}: ${qtyDelta > 0 ? "+" : ""}${qtyDelta}`,
     });
   };
@@ -1271,7 +1271,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: `TX-${Date.now()}`,
         type: "in",
         desc: `Sale ${invoiceNumber} — ${saleData.customer}`,
-        descBn: `Tɔn আয় ${invoiceNumber}`,
+        descBn: `Tɔn Sika ${invoiceNumber}`,
         account: accId.toUpperCase(),
         amount: saleData.paid,
         time: `${timeStr} Today`,
@@ -1338,19 +1338,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCustomers(prev => [newCust, ...prev]);
     toast({
       type: "success",
-      title: lang === "bn" ? "Otɔfoɔ Ka ho করা হয়েছে!" : "Customer Added!",
+      title: lang === "bn" ? "Wɔde Otɔfoɔ Foforɔ Aka Ho!" : "Customer Added!",
       message: c.name,
     });
   };
 
   const updateCustomer = (id: number, c: Partial<Customer>) => {
     setCustomers(prev => prev.map(item => (item.id === id ? { ...item, ...c } : item)));
-    toast({ type: "info", title: lang === "bn" ? "Otɔfoɔের তথ্য আপডেট হয়েছে" : "Customer Updated" });
+    toast({ type: "info", title: lang === "bn" ? "Otɔfoɔ Nsɛm Ayɛ Foforɔ" : "Customer Updated" });
   };
 
   const deleteCustomer = (id: number) => {
     setCustomers(prev => prev.filter(item => item.id !== id));
-    toast({ type: "error", title: lang === "bn" ? "Otɔfoɔ মুছে ফেলা হয়েছে" : "Customer Deleted" });
+    toast({ type: "error", title: lang === "bn" ? "Wɔapepa Otɔfoɔ No" : "Customer Deleted" });
   };
 
   const recordCustomerPayment = (customerId: number, amount: number, accountId: string, note?: string) => {
@@ -1386,7 +1386,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: `TX-${Date.now()}`,
         type: "in",
         desc: `Due Collected — ${cust.name}`,
-        descBn: `Aka গ্রহণ — ${cust.nameBn || cust.name}`,
+        descBn: `Aka a Wɔagye — ${cust.nameBn || cust.name}`,
         account: accountId.toUpperCase(),
         amount: amount,
         time: "Today",
@@ -1434,7 +1434,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSuppliers(prev => [newSup, ...prev]);
     toast({
       type: "success",
-      title: lang === "bn" ? "Agorɔfoɔ যুক্ত হয়েছে!" : "Supplier Added!",
+      title: lang === "bn" ? "Wɔde Adwumawura Aka Ho!" : "Supplier Added!",
       message: sup.name,
     });
   };
@@ -1469,7 +1469,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: `TX-${Date.now()}`,
         type: "out",
         desc: `Supplier Payment — ${sup.name}`,
-        descBn: `Agorɔfoɔ পেমেন্ট — ${sup.nameBn || sup.name}`,
+        descBn: `Adwumawura Akatua — ${sup.nameBn || sup.name}`,
         account: accountId.toUpperCase(),
         amount: amount,
         time: "Today",
@@ -1613,7 +1613,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteExpense = (id: string) => {
     setExpenses(prev => prev.filter(e => e.id !== id));
-    toast({ type: "info", title: lang === "bn" ? "Ka মুছে ফেলা হয়েছে" : "Expense Deleted" });
+    toast({ type: "info", title: lang === "bn" ? "Wɔapepa Ka No" : "Expense Deleted" });
   };
 
   // Cash & Accounts Actions
@@ -1701,19 +1701,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setEmployees(prev => [...prev, newEmp]);
     toast({
       type: "success",
-      title: lang === "bn" ? "Adwumayɛfoɔ যুক্ত হয়েছে!" : "Employee Added!",
+      title: lang === "bn" ? "Wɔde Adwumayɛfoɔ Aka Ho!" : "Employee Added!",
       message: emp.name,
     });
   };
 
   const updateEmployee = (id: number, emp: Partial<Employee>) => {
     setEmployees(prev => prev.map(item => (item.id === id ? { ...item, ...emp } : item)));
-    toast({ type: "info", title: lang === "bn" ? "Adwumayɛfoɔ আপডেট হয়েছে" : "Employee Updated" });
+    toast({ type: "info", title: lang === "bn" ? "Adwumayɛfoɔ Nsɛm Ayɛ Foforɔ" : "Employee Updated" });
   };
 
   const deleteEmployee = (id: number) => {
     setEmployees(prev => prev.filter(item => item.id !== id));
-    toast({ type: "error", title: lang === "bn" ? "Adwumayɛfoɔ মুছে ফেলা হয়েছে" : "Employee Deleted" });
+    toast({ type: "error", title: lang === "bn" ? "Wɔapepa Adwumayɛfoɔ No" : "Employee Deleted" });
   };
 
   const paySalary = (empId: number, accountId: string) => {
@@ -1749,12 +1749,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const markAllNotificationsRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-    toast({ type: "info", title: lang === "bn" ? "Nyinaa নোটিফিকেশন পড়া হিসেবে চিহ্নিত" : "All notifications marked as read" });
+    toast({ type: "info", title: lang === "bn" ? "Wɔakenkan Nkaebɔ Nyinaa" : "All notifications marked as read" });
   };
 
   const clearNotifications = () => {
     setNotifications([]);
-    toast({ type: "info", title: lang === "bn" ? "Nyinaa নোটিফিকেশন মুছে ফেলা হয়েছে" : "All notifications cleared" });
+    toast({ type: "info", title: lang === "bn" ? "Wɔapepa Nkaebɔ Nyinaa" : "All notifications cleared" });
   };
 
   const addNotification = (item: Omit<NotificationItem, "id" | "time" | "read">) => {
@@ -1773,7 +1773,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSettings(prev => ({ ...prev, ...s }));
     toast({
       type: "success",
-      title: lang === "bn" ? "Nhyehyɛeɛ সংরক্ষিত হয়েছে!" : "Settings Saved!",
+      title: lang === "bn" ? "Nhyehyɛeɛ No Akora So!" : "Settings Saved!",
     });
   };
 
@@ -1863,7 +1863,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }));
           toast({
             type: "success",
-            title: lang === "bn" ? "অবদান রেকর্ড ও ইমপ্যাক্ট স্বীকৃত!" : "Contribution Recorded & Impact Recognized!",
+            title: lang === "bn" ? "Wɔakyerɛw Wo Mmoa Pɛpɛɛpɛ!" : "Contribution Recorded & Impact Recognized!",
             message: `${c.action} (+${c.vgoRewarded} VGO Value Units)`,
           });
         },
@@ -1872,7 +1872,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           if (!fromW || fromW.balanceVGO < amount) {
             toast({
               type: "error",
-              title: lang === "bn" ? "অপর্যাপ্ত Sika a Aka" : "Insufficient VGO Balance",
+              title: lang === "bn" ? "Sika a Aka Nso!" : "Insufficient VGO Balance",
               message: "Cannot transfer more than available wallet balance.",
             });
             return;
@@ -1884,7 +1884,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }));
           toast({
             type: "success",
-            title: lang === "bn" ? "ভ্যালু ট্রান্সফার সফল!" : "Value Transferred Successfully!",
+            title: lang === "bn" ? "Wɔatwe Sika No Awie Pɛpɛɛpɛ!" : "Value Transferred Successfully!",
             message: `${amount} VGO moved across network (${note || "Direct Settlement"}).`,
           });
         },
@@ -1898,7 +1898,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           } : item));
           toast({
             type: "success",
-            title: lang === "bn" ? "নেটওয়ার্ক স্ট্যাকিং সম্পন্ন!" : "Network Staking Completed!",
+            title: lang === "bn" ? "Network Staking Awie Pɛpɛɛpɛ!" : "Network Staking Completed!",
             message: `${amount} VGO staked for collective yield sharing.`,
           });
         },
@@ -1917,7 +1917,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           })));
           toast({
             type: "success",
-            title: lang === "bn" ? "নেটওয়ার্ক ডিভিডেন্ড Kyɛ সম্পন্ন!" : "Network Value Shared!",
+            title: lang === "bn" ? "Wɔakyɛ Network Mfasoɔ No Awie!" : "Network Value Shared!",
             message: `${amount} VGO distributed across connected nodes (${poolType}).`,
           });
         },
@@ -1937,7 +1937,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setSmsBalance(prev => Math.max(0, prev - c.recipientCount));
           toast({
             type: "success",
-            title: lang === "bn" ? "এসএমএস ক্যাম্পেইন পাঠানো হয়েছে!" : "SMS Campaign Sent!",
+            title: lang === "bn" ? "Wɔamane SMS Kampaen No!" : "SMS Campaign Sent!",
             message: `Sent to ${c.recipientCount} customers.`,
           });
         },
@@ -1945,7 +1945,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setMetaAdSync(prev => ({ ...prev, ...sync }));
           toast({
             type: "success",
-            title: lang === "bn" ? "মেটা/ফেNyinaaুক সিঙ্ক আপডেট সম্পন্ন!" : "Meta / Facebook Sync Updated!",
+            title: lang === "bn" ? "Meta / Facebook Nkabom Ayɛ Foforɔ!" : "Meta / Facebook Sync Updated!",
             message: "Catalog & Pixel settings synchronized.",
           });
         },
@@ -1953,7 +1953,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setSmsBalance(prev => prev + credits);
           toast({
             type: "success",
-            title: lang === "bn" ? "এসএমএস Sika a Aka রিচার্জ সফল!" : "SMS Balance Recharged!",
+            title: lang === "bn" ? "SMS Sika No Akɔ Mu Pɛpɛɛpɛ!" : "SMS Balance Recharged!",
             message: `+${credits} SMS added to account.`,
           });
         },
@@ -1974,7 +1974,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setCourierParcels(prev => [newParcel, ...prev]);
           toast({
             type: "success",
-            title: lang === "bn" ? "পার্সেল বুকিং সফল!" : "Courier Parcel Booked!",
+            title: lang === "bn" ? "Delivery Parcel No Akora So!" : "Courier Parcel Booked!",
             message: `Tracking: ${trackingCode} (${parcel.courier.toUpperCase()})`,
           });
         },
@@ -1986,7 +1986,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           } : p));
           toast({
             type: "success",
-            title: lang === "bn" ? "পার্সেল স্ট্যাটাস আপডেট!" : "Parcel Status Updated!",
+            title: lang === "bn" ? "Parcel Gyinabea Ayɛ Foforɔ!" : "Parcel Status Updated!",
             message: `Status updated to ${status}.`,
           });
         },
@@ -2012,7 +2012,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setBankApplications(prev => [newApp, ...prev]);
           toast({
             type: "success",
-            title: lang === "bn" ? "Sikakorabea অ্যাকাউন্ট অনুমোদিত ও চালু!" : "Digital Bank Account Activated!",
+            title: lang === "bn" ? "Digital Sikakorabea Akawnt No Reyɛ Adwuma!" : "Digital Bank Account Activated!",
             message: `${bankName} A/C: ${newApp.accountNumber}`,
           });
         },
@@ -2052,8 +2052,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setDigitalPayments(prev => ({ ...prev, ...config }));
           toast({
             type: "success",
-            title: lang === "bn" ? "পেমেন্ট গেটওয়ে Nhyehyɛeɛ সংরক্ষিত!" : "Digital Payment Settings Saved!",
-            message: "Bangla QR & merchant gateway updated.",
+            title: lang === "bn" ? "Akatua Nhyehyɛeɛ No Akora So!" : "Digital Payment Settings Saved!",
+            message: "GhQR & MoMo merchant gateway updated.",
           });
         },
 
@@ -2076,7 +2076,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }));
           toast({
             type: "success",
-            title: lang === "bn" ? "রিসেল প্রোডাক্ট আপডেট!" : "Resell Product Updated!",
+            title: lang === "bn" ? "Tɔn-Bio Nnoɔma No Ayɛ Foforɔ!" : "Resell Product Updated!",
             message: "Store catalog updated with wholesale margin.",
           });
         },
@@ -2087,7 +2087,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setStorefront(prev => ({ ...prev, ...s }));
           toast({
             type: "success",
-            title: lang === "bn" ? "Intanɛte Dukan ওয়েবসাইট সংরক্ষিত!" : "Online Storefront Updated!",
+            title: lang === "bn" ? "Intanɛte Dukan No Akora So!" : "Online Storefront Updated!",
             message: "Live website preview updated.",
           });
         },
@@ -2099,7 +2099,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setMonitoringRules(prev => prev.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r));
           toast({
             type: "success",
-            title: lang === "bn" ? "মনিটরিং রুল আপডেট!" : "Monitoring Rule Toggled!",
+            title: lang === "bn" ? "Nhwɛsoɔ Mmara No Ayɛ Foforɔ!" : "Monitoring Rule Toggled!",
             message: "Alert trigger rule updated.",
           });
         },
@@ -2107,7 +2107,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setBusinessAlerts(prev => prev.map(a => a.id === id ? { ...a, resolved: true } : a));
           toast({
             type: "success",
-            title: lang === "bn" ? "Kɔkɔbɔ সমাধান করা হয়েছে!" : "Alert Resolved!",
+            title: lang === "bn" ? "Wɔasiesie Kɔkɔbɔ No!" : "Alert Resolved!",
             message: "Marked as resolved.",
           });
         },

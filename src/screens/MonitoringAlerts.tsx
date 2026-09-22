@@ -74,14 +74,14 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "ডেইলি এসএমএস" : "Daily SMS"}</div>
+          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "Da Biara SMS" : "Daily SMS"}</div>
           <div className="text-lg sm:text-xl font-bold text-ink">
-            {isBn ? "১০:০০ PM" : "10:00 PM"}
+            {isBn ? "10:00 Anwummere" : "10:00 PM"}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "ঝুঁকির মাত্রা" : "Risk Level"}</div>
+          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "Asiane Gyinabea" : "Risk Level"}</div>
           <div className="text-lg sm:text-xl font-bold text-ink">
             {isBn ? "Akorae Dɔɔso (Low)" : "Low (Safe)"}
           </div>
@@ -94,7 +94,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         <div className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
           <h3 className="font-display font-bold text-ink text-base flex items-center gap-2 pb-2 border-b border-nv-100">
             <Sliders size={18} className="text-ink" />
-            <span>{isBn ? "অটোমেটেড মনিটরিং রুলস" : "Automated Trigger Rules"}</span>
+            <span>{isBn ? "Mfididwuma Nhyehyɛeɛ Mmara" : "Automated Trigger Rules"}</span>
           </h3>
 
           <div className="space-y-3 text-xs sm:text-sm">
@@ -129,7 +129,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         <div className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-nv-100">
             <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">
-              {isBn ? "লাইভ Kɔkɔbɔ ফিড" : "Live Alerts Feed"}
+              {isBn ? "Dukan Ho Kɔkɔbɔ Seesei" : "Live Alerts Feed"}
             </h3>
 
             <div className="flex gap-1.5 overflow-x-auto pb-1 sm:pb-0 flex-shrink-0">
@@ -163,7 +163,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
                       {alert.severity}
                     </span>
                     <span className="text-[11px] text-ink/70 font-mono">
-                      {isBn ? (alert.time === "Yesterday" ? "গতƆkyena" : alert.time.replace("hours ago", "ঘণ্টা আগে")) : alert.time}
+                      {isBn ? (alert.time === "Yesterday" ? "Ɛnora" : alert.time.replace("hours ago", "dɔnhwerew a atwam")) : alert.time}
                     </span>
                   </div>
 
@@ -176,7 +176,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
                     onClick={() => resolveBusinessAlert(alert.id)}
                     className="px-3 py-1.5 bg-white border border-nv-200 hover:border-em-500 text-ink rounded-xl text-xs font-bold shadow-2xs transition-fast flex-shrink-0 flex items-center gap-1"
                   >
-                    <Check size={13} /> {isBn ? "সমাধান" : "Resolve"}
+                    <Check size={13} /> {isBn ? "Siesie No" : "Resolve"}
                   </button>
                 ) : (
                   <span className="text-xs text-ink/70 font-bold flex items-center gap-1 flex-shrink-0">

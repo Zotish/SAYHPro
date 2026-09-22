@@ -123,7 +123,7 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
               </span>
             </div>
             <div className="text-[11px] text-ink/70 mt-1 truncate">
-              {isBn ? "Akorae Asa / ব্যাপক চাহিদা" : "Out of stock / high demand"}
+              {isBn ? "Akorae asa / Atɔfoɔ pɛ pa ara" : "Out of stock / high demand"}
             </div>
           </button>
 
@@ -144,7 +144,7 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
               </span>
             </div>
             <div className="text-[11px] text-ink/70 mt-1 truncate">
-              {isBn ? "৭ Nnaের মধ্যে ফুরিয়ে যাবে" : "Runs out within 7 days"}
+              {isBn ? "Bɛsa wɔ nna 7 mu" : "Runs out within 7 days"}
             </div>
           </button>
         </div>
@@ -155,10 +155,10 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
             <div className="py-12 text-center text-ink/60 bg-em-50/30 rounded-xl border border-dashed border-em-200">
               <CheckCircle size={32} className="mx-auto text-em-600 mb-2" />
               <p className="font-semibold text-sm">
-                {isBn ? "এই ক্যাটাগরিতে কোনো Nnoɔma নেই" : "No products in this tier right now"}
+                {isBn ? "Nnoɔma biara nni ha seesei" : "No products in this tier right now"}
               </p>
               <p className="text-xs text-ink/50 mt-1">
-                {isBn ? "আপনার Akorae Wɔ Hɔ রয়েছে" : "Current inventory levels are adequate"}
+                {isBn ? "Seesei akorae nnoɔma dɔɔso pɛpɛɛpɛ" : "Current inventory levels are adequate"}
               </p>
             </div>
           ) : (
@@ -178,14 +178,14 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
                     <span className="text-ink/30">•</span>
                     <span className="font-semibold text-ink text-[11px] sm:text-xs">
                       {daysOfStockLeft === 0
-                        ? (isBn ? "Akorae Asa (০ Nna)" : "0d stock left")
-                        : (isBn ? `${tNum(daysOfStockLeft)} Nnaের মজুদ Aka` : `${tNum(daysOfStockLeft)}d stock left`)}
+                        ? (isBn ? "0 nna nnoɔma aka (Asa)" : "0d stock left")
+                        : (isBn ? `${tNum(daysOfStockLeft)} nna nnoɔma aka` : `${tNum(daysOfStockLeft)}d stock left`)}
                     </span>
                     {p.buyPrice > 0 && (
                       <>
                         <span className="text-ink/30 hidden sm:inline">•</span>
                         <span className="text-ink/60 text-[11px] hidden sm:inline">
-                          {isBn ? "Nnoɔma a Wɔatɔমূল্য" : "Cost"}: {formatTaka(p.buyPrice)}
+                          {isBn ? "Boɔ" : "Cost"}: {formatTaka(p.buyPrice)}
                         </span>
                       </>
                     )}
@@ -194,7 +194,7 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
 
                 <div className="text-right flex-shrink-0">
                   <div className="text-[10px] sm:text-[11px] text-ink/60">
-                    {isBn ? "প্রস্তাবিত Nnoɔma a Wɔatɔ" : "Suggested"}
+                    {isBn ? "Deɛ Yɛkamfo Kyerɛ" : "Suggested"}
                   </div>
                   <div className="num font-extrabold text-xs sm:text-sm text-em-800">
                     +{tNum(suggestedBuyQty)} {isBn ? (p.unit === "Piece" ? "Pcs" : p.unit === "KG" ? "kg" : p.unit === "Liter" ? "L" : p.unit) : p.unit}

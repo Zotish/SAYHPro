@@ -137,7 +137,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
         </div>
         <p className="text-[11px] text-em-200 mt-1.5 leading-snug">
           {isBn
-            ? `${tNum(dueCount)} জন Otɔfoɔের কাছে Nyinaa ${formatTaka(totalDues)} Aka Wɔ Hɔ।`
+            ? `Atɔfoɔ ${tNum(dueCount)} na ɛde ${formatTaka(totalDues)} aka a ɛda hɔ.`
             : `${tNum(dueCount)} customers owe you ${formatTaka(totalDues)} in total.`}
         </p>
         <span className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 rounded-lg bg-ac-400 text-ink text-xs font-semibold">
@@ -152,10 +152,10 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
       className="w-full bg-nv-50 border-2 border-dashed border-nv-300 rounded-xl px-4 py-4 flex flex-col items-center justify-center gap-1 text-center min-h-[132px]"
     >
       <span className="text-xs font-semibold text-ink">
-        {isBn ? "বিজ্ঞাপন / ব্যানার / প্রচার প্রচারণা" : "Ad, banner, or campaign slot"}
+        {isBn ? "Dawubɔ anaa kampaen beaeɛ" : "Ad, banner, or campaign slot"}
       </span>
       <span className="text-[11px] text-ink/70">
-        {isBn ? "আপনার অফার বা Otɔfo Foforɔ Nnoɔma খবর এখানে Nna" : "Promote new arrivals or seasonal discounts here"}
+        {isBn ? "Mane nnoɔma foforɔ anaa boɔ so teɛ wɔ ha" : "Promote new arrivals or seasonal discounts here"}
       </span>
     </div>,
   ];
@@ -183,7 +183,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
           {/* User/Profile Avatar on the Left (Replaced RA square) */}
           <button
             onClick={() => setScreen("settings")}
-            aria-label={isBn ? "প্রোফাইল Nhyehyɛeɛ" : "Profile Settings"}
+            aria-label={isBn ? "Wo Ho Nsɛm Nhyehyɛeɛ" : "Profile Settings"}
             className="w-10 h-10 rounded-full bg-nv-100 flex items-center justify-center text-ink active:scale-95 hover:bg-nv-150 transition-all flex-shrink-0 border border-nv-200 shadow-2xs"
           >
             <User size={20} className="text-ink" />
@@ -197,7 +197,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             {/* Golden Circular Verified Badge */}
             <span
               className="inline-flex items-center justify-center flex-shrink-0"
-              title={isBn ? "ভেরিফায়েড অ্যাকাউন্ট" : "Verified Account"}
+              title={isBn ? "Akawnt a Wɔahwɛ Mu Paara" : "Verified Account"}
             >
               <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] drop-shadow-2xs">
                 <circle cx="12" cy="12" r="11" fill="#D97706" />
@@ -218,7 +218,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             {/* Messaging Quick Button */}
             <button
               onClick={() => setScreen("messages")}
-              aria-label={isBn ? "মেসেজিং" : "Messages"}
+              aria-label={isBn ? "Nkrasɛm Nyinaa" : "Messages"}
               className="relative w-9 h-9 rounded-full flex items-center justify-center text-ink active:bg-nv-100 transition-colors"
             >
               <MessageCircle size={18} />
@@ -230,7 +230,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             {/* Support */}
             <button
               onClick={() => setScreen("alerts")}
-              aria-label={isBn ? "সহায়তা" : "Support"}
+              aria-label={isBn ? "Mmoa" : "Support"}
               className="w-9 h-9 rounded-full flex items-center justify-center text-ink active:bg-nv-100 transition-colors"
             >
               <Headphones size={18} />
@@ -263,7 +263,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="font-bold text-xs text-ink">{isBn ? "Adwuma Gyinabea:" : "Rating:"}</span>
-                <span className="num font-black text-amber-600 text-xs">{tNum(4.9)}/৫</span>
+                <span className="num font-black text-amber-600 text-xs">{tNum(4.9)}/5</span>
                 <div className="flex items-center text-amber-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} size={11} className="fill-amber-400 text-amber-400" />
@@ -271,7 +271,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
                 </div>
               </div>
               <p className="text-[10px] text-ink/60 truncate">
-                {isBn ? "৩৮৪ টি রিভিউ • 98.7% Atɔfoɔ Ani Agye" : "384 reviews • 98.7% satisfaction rate"}
+                {isBn ? "Nkratoɔ 384 • 98.7% Atɔfoɔ anigyeɛ" : "384 reviews • 98.7% satisfaction rate"}
               </p>
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             onClick={() => setShowRatingModal(true)}
             className="px-2.5 py-1 bg-white active:bg-nv-100 border border-nv-200 text-ink rounded-lg text-xs font-semibold flex-shrink-0 shadow-2xs"
           >
-            {isBn ? "রিভিউ" : "Reviews"} →
+            {isBn ? "Nkratoɔ" : "Reviews"} →
           </button>
         </div>
 
@@ -288,7 +288,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
         <section className="bg-white rounded-xl border border-nv-200">
           <div className="flex items-center justify-between px-4 pt-3.5 pb-3">
             <h2 className="font-display text-[15px] font-semibold text-ink">
-              {isBn ? "আপডেট" : "Update"}
+              {isBn ? "Sesa No Foforɔ" : "Update"}
             </h2>
             <div className="inline-flex items-center p-0.5 bg-nv-100 border border-nv-200 rounded-lg">
               {[
@@ -317,7 +317,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "Ɛnnɛকের আয়" : "Income"}</span>
+                <span>{isBn ? "Sika a Ɛba Mu" : "Income"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div className="num text-base font-semibold text-ink">{formatTaka(income)}</div>
@@ -327,7 +327,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "Ɛnnɛকের ব্যয়" : "Expense"}</span>
+                <span>{isBn ? "Dukan Ka" : "Expense"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div className="num text-base font-semibold text-ink">{formatTaka(expense)}</div>
@@ -337,7 +337,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "Mfasoɔ/ক্ষতি" : "Profit / Loss"}</span>
+                <span>{isBn ? "Mfasoɔ / Nkogu" : "Profit / Loss"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div

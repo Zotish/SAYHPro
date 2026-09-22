@@ -97,7 +97,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
           { label: "Total Payable Due", labelBn: "Agorɔfoɔ Aka Nyinaa", value: formatTaka(totalDue) },
           { label: "Total Purchases", labelBn: "Nnoɔma a Wɔatɔ Nyinaa", value: formatTaka(totalPurchases) },
           { label: "Total Paid", labelBn: "Akatua Nyinaa", value: formatTaka(totalPaid) },
-          { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
+          { label: "Active Suppliers", labelBn: "Adwumawuranom Dodoɔ", value: tNum(suppliers.length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -113,7 +113,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           type="text"
-          placeholder={isBn ? "Agorɔfoɔ বা ফোন দিয়ে Hwehwɛ..." : "Search suppliers by name or phone..."}
+          placeholder={isBn ? "Hwehwɛ adwumawuranom din anaa fon..." : "Search suppliers by name or phone..."}
           className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
         />
       </div>
@@ -125,11 +125,11 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Agorɔfoɔ" : "Supplier"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Telefon" : "Contact"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Wɔatua Pɛpɛɛpɛ" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Nneyɛeɛ" : "Actions"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
@@ -165,7 +165,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                           }}
                           className="px-3 py-1 bg-em-700 hover:bg-em-800 text-white rounded-lg text-xs font-bold transition-fast shadow-xs"
                         >
-                          {isBn ? "পরিশোধ" : "Pay Due"}
+                          {isBn ? "Tua Aka" : "Pay Due"}
                         </button>
                       )}
                       <a
@@ -179,7 +179,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                         <button
                           onClick={() => setScreen("messages")}
                           className="p-1.5 bg-em-50 text-em-700 hover:bg-em-100 rounded-lg transition-fast border border-em-200"
-                          title={isBn ? "চ্যাট করুন" : "Chat with supplier"}
+                          title={isBn ? "Kasa kyerɛ adwumawura no" : "Chat with supplier"}
                         >
                           <MessageCircle size={14} />
                         </button>
@@ -206,7 +206,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
 
             <form onSubmit={handleCreateSupplier} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "কোম্পানি / নাম" : "Company / Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Adwumakuo / Din" : "Company / Name"} *</label>
                 <input
                   type="text"
                   required
@@ -218,7 +218,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho নম্বর" : "Contact Phone"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Telefon Nɔma" : "Contact Phone"} *</label>
                 <input
                   type="tel"
                   required
@@ -230,7 +230,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma ধরণ" : "Category"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nkyekyɛmu" : "Category"}</label>
                 <input
                   type="text"
                   value={category}
@@ -263,7 +263,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "Kora so করুন" : "Save Supplier"}
+                  {isBn ? "Kora Nnoɔma Wura No So" : "Save Supplier"}
                 </button>
               </div>
             </form>
@@ -276,7 +276,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "Agorɔfoɔকে পরিশোধ" : "Pay Supplier"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Tua Nnoɔma Wura Ka" : "Pay Supplier"}</h3>
               <button onClick={() => setShowPayModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -300,7 +300,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Paid From Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Wɔtua Firi Akawnt" : "Paid From Account"}</label>
                 <select
                   value={payAccountId}
                   onChange={e => setPayAccountId(e.target.value)}
@@ -322,7 +322,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "পরিশোধ নিশ্চিত করুন" : "Confirm Payment"}
+                  {isBn ? "Si Akatua No So Dua" : "Confirm Payment"}
                 </button>
               </div>
             </form>

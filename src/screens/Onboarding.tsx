@@ -262,7 +262,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
               </div>
 
               <div className="p-3 bg-nv-50 rounded-2xl text-xs text-ink">
-                Default Currency: <span className="font-bold text-ink">GHS — Ghana Cedi (₵)</span>
+                Default Currency: <span className="font-bold text-ink">Ghana Cedi (₵)</span>
               </div>
 
               <div className="flex gap-2 pt-2">

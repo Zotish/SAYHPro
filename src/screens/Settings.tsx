@@ -113,16 +113,16 @@ export default function Settings({ lang, setLang }: SettingsProps) {
 
       toast({
         type: "success",
-        title: isBn ? "ডেটা Export সম্পন্ন হয়েছে!" : "Data Exported Successfully!",
+        title: isBn ? "Data No Akɔ Pɛpɛɛpɛ!" : "Data Exported Successfully!",
         message: isBn
-          ? "Dukan সমস্ত Nnoɔma, Tɔn, অ্যাকাউন্ট ও কাস্টমার ডেটা ব্যাকআপ হিসেবে ডাউনলোড হয়েছে।"
+          ? "Dukan nnoɔma, tɔn, akawnt ne atɔfoɔ data nyinaa akɔ JSON backup mu pɛpɛɛpɛ."
           : "All shop products, sales, accounts, and customer data exported to JSON backup.",
       });
     } catch {
       toast({
         type: "error",
-        title: isBn ? "Export ব্যর্থ হয়েছে" : "Export Failed",
-        message: isBn ? "দয়া করে পুনরায় চেষ্টা করুন।" : "An error occurred while exporting data.",
+        title: isBn ? "Antumi Antwe Data No" : "Export Failed",
+        message: isBn ? "Mfomsoɔ bi sii berɛ a data no rekɔ." : "An error occurred while exporting data.",
       });
     }
   };
@@ -154,13 +154,13 @@ export default function Settings({ lang, setLang }: SettingsProps) {
           {activeSection === "shop" && (
             <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-5">
               <div className="border-b border-nv-100 pb-3">
-                <h3 className="font-display font-bold text-ink text-base">{isBn ? "Dukan মূল তথ্য" : "Shop Information"}</h3>
+                <h3 className="font-display font-bold text-ink text-base">{isBn ? "Dukan Ho Nsɛm" : "Shop Information"}</h3>
               </div>
 
               <form onSubmit={handleSaveShopInfo} className="space-y-4 text-xs sm:text-sm">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan নাম (ইংরেজি)" : "Shop Name (English)"} *</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan Din (English)" : "Shop Name (English)"} *</label>
                     <input
                       type="text"
                       required
@@ -171,7 +171,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan নাম (Twi (Akan))" : "Shop Name (Bangla)"}</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan Din (Twi / Akan)" : "Shop Name (Twi / Akan)"}</label>
                     <input
                       type="text"
                       value={shopNameBn}
@@ -181,7 +181,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "মালিকের নাম" : "Owner Name"} *</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Wura Din" : "Owner Name"} *</label>
                     <input
                       type="text"
                       required
@@ -192,7 +192,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "ব্যবসার ধরণ" : "Business Type"}</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Adwuma Ahosuo" : "Business Type"}</label>
                     <select
                       value={businessType}
                       onChange={e => setBusinessType(e.target.value)}
@@ -203,7 +203,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Ka hoাKa ho মোবাইল" : "Contact Phone"} *</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Telefon Nɔma" : "Contact Phone"} *</label>
                     <input
                       type="tel"
                       required
@@ -214,19 +214,19 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "মুদ্রা" : "Currency"}</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Sika Nhyehyɛeɛ" : "Currency"}</label>
                     <select
                       value={currency}
                       onChange={e => setCurrency(e.target.value)}
                       className="w-full border border-nv-200 rounded-xl px-3.5 py-2.5 bg-white focus:border-em-500"
                     >
-                      <option value="GHS (₵)">GHS — Ghana Cedi (₵)</option>
+                      <option value="₵">₵ — Ghana Cedi</option>
                       <option value="USD ($)">USD ($)</option>
                     </select>
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "ঠিকানা" : "Shop Address"}</label>
+                    <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan Beaeɛ" : "Shop Address"}</label>
                     <textarea
                       rows={2}
                       value={address}
@@ -242,7 +242,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                     className="flex items-center gap-2 px-6 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md transition-fast"
                   >
                     <Save size={16} />
-                    <span>{isBn ? "পরিবর্তন Kora so করুন" : "Save Changes"}</span>
+                    <span>{isBn ? "Kora Nsesaeɛ So" : "Save Changes"}</span>
                   </button>
                 </div>
               </form>
@@ -265,7 +265,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                       ${lang === "en" ? "border-em-500 bg-em-50/50 shadow-sm" : "border-nv-200 hover:border-nv-300"}`}
                   >
                     <div>
-                      <div className="font-bold text-ink">English (US)</div>
+                      <div className="font-bold text-ink">English (Ghana)</div>
                       <div className="text-xs text-ink">Default interface language</div>
                     </div>
                     {lang === "en" && <Check className="text-ink" size={18} />}
@@ -322,13 +322,13 @@ export default function Settings({ lang, setLang }: SettingsProps) {
           {activeSection === "print" && (
             <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
               <div className="border-b border-nv-100 pb-3">
-                <h3 className="font-display font-bold text-ink text-base">{isBn ? "Tintimিং ও Invois প্রিফারেন্স" : "Printer Configuration"}</h3>
+                <h3 className="font-display font-bold text-ink text-base">{isBn ? "Tintim Nhyehyɛeɛ" : "Printer Configuration"}</h3>
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm">
                 <div className="flex items-center justify-between p-3.5 bg-nv-50 rounded-2xl">
                   <div>
-                    <div className="font-semibold text-ink">{isBn ? "Tɔnের পর অটো-Tintim" : "Auto-open Print dialog after POS sale"}</div>
+                    <div className="font-semibold text-ink">{isBn ? "Bue Tintim adaka tɔn akyi" : "Auto-open Print dialog after POS sale"}</div>
                     <div className="text-xs text-ink">Automatically launches printer prompt on checkout completion</div>
                   </div>
                   <input
@@ -340,7 +340,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                 </div>
 
                 <div className="p-3.5 bg-nv-50 rounded-2xl space-y-2">
-                  <div className="font-semibold text-ink">{isBn ? "Kasaa (Receipt)ের নিচের টেক্সট (Footer Note)" : "Receipt Footer Message"}</div>
+                  <div className="font-semibold text-ink">{isBn ? "Kasaa Aseɛ Asɛm" : "Receipt Footer Message"}</div>
                   <input
                     type="text"
                     defaultValue="Thank you for shopping with us! Please come again."
@@ -355,14 +355,14 @@ export default function Settings({ lang, setLang }: SettingsProps) {
           {activeSection === "system" && (
             <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
               <div className="border-b border-nv-100 pb-3">
-                <h3 className="font-display font-bold text-ink text-base">{isBn ? "সিস্টেম ও ডেমো ডেটা রিসেট" : "Data Management"}</h3>
+                <h3 className="font-display font-bold text-ink text-base">{isBn ? "Nsɛm Nhyehyɛeɛ" : "Data Management"}</h3>
               </div>
 
               <div className="p-4 bg-red-50 border border-red-200 rounded-2xl space-y-3">
                 <div>
-                  <h4 className="font-bold text-ink text-sm">{isBn ? "ফ্যাক্টরি রিসেট / ডেমো ডেটা পুনরুদ্ধার" : "Reset Data to Initial Demo State"}</h4>
+                  <h4 className="font-bold text-ink text-sm">{isBn ? "San Hyɛ Data Nyinaa Aseɛ" : "Reset Data to Initial Demo State"}</h4>
                   <p className="text-xs text-ink mt-0.5">
-                    {isBn ? "এটি Nyinaa Tɔn, Otɔfo Foforɔ Nnoɔma ও কাস্টমার রেকর্ড মুছে প্রাথমিক ডেমো অবস্থায় ফিরিয়ে আনবে।" : "This will reset all products, sales, accounts, and dues back to initial demo seeds."}
+                    {isBn ? "Eyi bɛsan ahyɛ nnoɔma, tɔn, akawnt ne atɔfoɔ data nyinaa aseɛ akɔ demo mu." : "This will reset all products, sales, accounts, and dues back to initial demo seeds."}
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2.5 pt-1">
@@ -372,7 +372,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                     className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-fast shadow-sm flex items-center gap-1.5"
                   >
                     <RotateCcw size={14} />
-                    <span>{isBn ? "ডেমো ডেটা রিসেট করুন" : "Reset All Demo Data"}</span>
+                    <span>{isBn ? "San Hyɛ Demo Data Aseɛ" : "Reset All Demo Data"}</span>
                   </button>
 
                   <button
@@ -381,7 +381,7 @@ export default function Settings({ lang, setLang }: SettingsProps) {
                     className="px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold transition-fast shadow-sm flex items-center gap-1.5"
                   >
                     <Download size={14} />
-                    <span>{isBn ? "ডেটা Export করুন" : "Export Data"}</span>
+                    <span>{isBn ? "Twe Data No Gu Hɔ" : "Export Data"}</span>
                   </button>
                 </div>
               </div>

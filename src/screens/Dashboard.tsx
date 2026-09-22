@@ -163,7 +163,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             </div>
             <p className="text-xs text-ink/60 mt-0.5">
               {isBn
-                ? `${tNum(384)} টি যাচাইকৃত Otɔfoɔ রিভিউ • ৯৮.৭% সন্তুষ্টির রেকর্ড`
+                ? `Nkratoɔ ${tNum(384)} a wɔahwɛ mu • 98.7% atɔfoɔ anigyeɛ`
                 : "Based on 384 verified customer reviews • 98.7% satisfaction rate"}
             </p>
           </div>
@@ -334,7 +334,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                   <span className="w-2 h-2 rounded-full" style={{ background: c.color }} />
                   <span className="text-ink">{c.name}</span>
                 </div>
-                <span className="num font-semibold text-ink">{tNum(c.value)} {isBn ? "টি" : "pcs"}</span>
+                <span className="num font-semibold text-ink">{tNum(c.value)} {isBn ? "pcs" : "pcs"}</span>
               </div>
             ))}
           </div>
@@ -371,7 +371,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                   <tr key={s.id} className="hover:bg-nv-50 transition-fast">
                     <td className="px-4 py-3 font-mono text-ink whitespace-nowrap">{tNum(s.invoiceNo)}</td>
                     <td className="px-4 py-3 font-medium text-ink whitespace-nowrap">{s.customer}</td>
-                    <td className="px-4 py-3 text-ink whitespace-nowrap">{tNum(s.items.length)} {isBn ? "টি" : "items"}</td>
+                    <td className="px-4 py-3 text-ink whitespace-nowrap">{tNum(s.items.length)} {isBn ? "nnoɔma" : "items"}</td>
                     <td className="px-4 py-3 num font-semibold text-ink whitespace-nowrap">{formatTaka(s.grandTotal)}</td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase

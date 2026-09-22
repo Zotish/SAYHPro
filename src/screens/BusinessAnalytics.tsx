@@ -38,13 +38,13 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
     { day: "Thu", dayBn: "Yawo", sales: 31000, profit: 8900 },
     { day: "Fri", dayBn: "Efi", sales: 62000, profit: 21000 },
     { day: "Sat", dayBn: "Meme", sales: 48000, profit: 15400 },
-    { day: "Sun", dayBn: "রবি", sales: income || 51200, profit: Math.abs(profit) || 16200 },
+    { day: "Sun", dayBn: "Kwesida", sales: income || 51200, profit: Math.abs(profit) || 16200 },
   ];
 
   const categoryAnalytics = [
     { name: isBn ? "Nnuane & ProvisionsNnoɔma" : "Grocery & Staples", percent: 45, color: "bg-em-600" },
-    { name: isBn ? "প্রসাধন ও স্বাস্থ্য" : "Personal Care", percent: 28, color: "bg-amber-500" },
-    { name: isBn ? "দুগ্ধজাত ও পানীয়" : "Dairy & Beverages", percent: 27, color: "bg-ac-600" },
+    { name: isBn ? "Ahosiesie Nnoɔma" : "Personal Care", percent: 28, color: "bg-amber-500" },
+    { name: isBn ? "Nufusuo & Nsa" : "Dairy & Beverages", percent: 27, color: "bg-ac-600" },
   ];
 
   const topProducts = products.slice(0, 3).map((p, idx) => ({
@@ -91,7 +91,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
             </div>
             <div>
               <h2 className="font-display text-sm sm:text-base font-bold text-ink">
-                {isBn ? "ব্যবসায়িক অ্যানালিটিক্স ও ইনসাইটস" : "Business Analytics & Insights"}
+                {isBn ? "Dukan Akontaabuo Ntianso" : "Business Analytics & Insights"}
               </h2>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
             onClick={() => setScreen("advisory")}
             className="hidden sm:flex text-xs font-bold text-em-700 hover:text-em-800 items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-em-50 transition-colors"
           >
-            <span>{isBn ? "Nnoɔma a Wɔatɔ পরামর্শ" : "Buy Advisory"}</span>
+            <span>{isBn ? "Ntɔdeɛ Afotusɛm" : "Buy Advisory"}</span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -107,12 +107,12 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         {/* Period Filter Buttons */}
         <div className="flex items-center gap-2 pt-2.5 border-t border-em-100/80 flex-wrap">
           <span className="text-xs font-semibold text-ink/70 mr-1">
-            {isBn ? "সময়Ɔkyena:" : "Period:"}
+            {isBn ? "Bere:" : "Period:"}
           </span>
           {[
             { id: "day" as const, label: "Today", labelBn: "Ɛnnɛ" },
-            { id: "week" as const, label: "7 Days", labelBn: "৭ Nna" },
-            { id: "month" as const, label: "30 Days", labelBn: "৩০ Nna" },
+            { id: "week" as const, label: "7 Days", labelBn: "Nna 7" },
+            { id: "month" as const, label: "30 Days", labelBn: "Nna 30" },
           ].map(p => (
             <button
               key={p.id}
@@ -135,7 +135,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
           <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
             <span className="font-semibold">{isBn ? "Nyinaa Tɔn" : "Total Revenue"}</span>
             <span className="text-[10px] sm:text-xs font-bold text-em-700 bg-em-50 px-1.5 py-0.5 rounded-md">
-              +১৮.৪%
+              +18.4%
             </span>
           </div>
           <div className="num text-lg sm:text-xl font-extrabold text-ink my-1">
@@ -145,7 +145,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
 
         <div className="p-3.5 sm:p-4 bg-white rounded-2xl border border-nv-200 shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-            <span className="font-semibold">{isBn ? "নিট মুনাফা" : "Net Profit"}</span>
+            <span className="font-semibold">{isBn ? "Mfasoɔ Pɔtee" : "Net Profit"}</span>
             <span className="text-[10px] sm:text-xs font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md">
               {tNum(32.5)}%
             </span>
@@ -157,7 +157,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
 
         <div className="p-3.5 sm:p-4 bg-white rounded-2xl border border-nv-200 shadow-xs flex flex-col justify-between">
           <div className="text-xs font-semibold text-ink/70 mb-1">
-            {isBn ? "গড় অর্ডার মূল্য" : "Avg Order Value"}
+            {isBn ? "Ntɔdeɛ Biara Boɔ" : "Avg Order Value"}
           </div>
           <div className="num text-lg sm:text-xl font-extrabold text-ink my-1">
             {formatTaka(avgOrderValue)}
@@ -166,9 +166,9 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
 
         <div className="p-3.5 sm:p-4 bg-white rounded-2xl border border-nv-200 shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-            <span className="font-semibold">{isBn ? "Aka অনুপাত" : "Dues Ratio"}</span>
+            <span className="font-semibold">{isBn ? "Aka Nkyekyɛmu" : "Dues Ratio"}</span>
             <span className="text-[10px] sm:text-xs font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-md">
-              {isBn ? "৮৪% আদায়" : "84% Collected"}
+              {isBn ? "84% Wɔagye" : "84% Collected"}
             </span>
           </div>
           <div className="num text-lg sm:text-xl font-extrabold text-ink my-1">
@@ -184,7 +184,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
             {isBn ? "Dapɛn Tɔn Nnoɔma (₵)" : "Weekly Revenue Trend (₵)"}
           </span>
           <span className="text-xs text-ink/60 font-medium">
-            {isBn ? "গত ৭ Nnaের রেকর্ড" : "Last 7 days"}
+            {isBn ? "Nna 7 a atwam" : "Last 7 days"}
           </span>
         </div>
 
@@ -219,7 +219,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <span className="font-display text-sm font-bold text-ink">
-              {isBn ? "ক্যাটাগরি অনুযায়ী Tɔn অবদান" : "Category Sales Contribution"}
+              {isBn ? "Kuw Biara Tɔn Mfasoɔ" : "Category Sales Contribution"}
             </span>
             <span className="text-xs text-em-700 font-bold">{tNum(100)}%</span>
           </div>
@@ -243,9 +243,9 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <span className="font-display text-sm font-bold text-ink">
-              {isBn ? "শীর্ষ বিক্রিত Nnoɔmaসমূহ" : "Top Performing Products"}
+              {isBn ? "Nnoɔma a Ɛkɔ Pa Ara" : "Top Performing Products"}
             </span>
-            <span className="text-xs text-ink/60">{isBn ? "চাহিদা অনুযায়ী" : "By volume"}</span>
+            <span className="text-xs text-ink/60">{isBn ? "Sɛdeɛ ne kɛseɛ teɛ" : "By volume"}</span>
           </div>
 
           <div className="divide-y divide-nv-100">
@@ -260,7 +260,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
                       {isBn ? tp.nameBn || tp.name : tp.name}
                     </div>
                     <div className="text-[11px] text-ink/60">
-                      {tNum(tp.soldQty)} {isBn ? "টি বিক্রি হয়েছে" : "units sold"}
+                      {tNum(tp.soldQty)} {isBn ? "dodoɔ a wɔatɔn" : "units sold"}
                     </div>
                   </div>
                 </div>
@@ -269,7 +269,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
                     {formatTaka(tp.revenue)}
                   </div>
                   <span className="text-[10px] text-em-700 font-semibold">
-                    {isBn ? "শীর্ষ আয়" : "High revenue"}
+                    {isBn ? "Sika dodoɔ a aba mu" : "High revenue"}
                   </span>
                 </div>
               </div>

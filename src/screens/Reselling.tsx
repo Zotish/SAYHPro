@@ -65,35 +65,35 @@ export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
             ${filterMode === "added" ? "bg-em-700 text-white" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
           <Store size={16} />
-          <span>{isBn ? "আমার রিসেল স্টোর (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
+          <span>{isBn ? "Me Tɔn-Bio Dukan (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
         </button>
       </div>
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Dukanে সক্রিয় রিসেল Nnoɔma" : "Active In Store"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Ɛwɔ Dukan Mu Seesei" : "Active In Store"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum(totalAddedCount)} {isBn ? "nnoɔma" : "Products"}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "সম্ভাব্য মুনাফা Mfasoɔ %" : "Potential Resell Margin"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Mfasoɔ a Wobɛnya Sɛ Wosan Tɔn a" : "Potential Resell Margin"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {formatTaka(totalEstimatedProfit)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Agorɔfoɔ সরাসরি Delivery" : "Direct Drop-Ship"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Drop-Ship a Wɔde Kɔ Pɔtee" : "Direct Drop-Ship"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("100%")}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Nnoɔma Dodoɔ Tɔn Bɔhyɛ" : "Wholesale Guarantee"}</div>
           <div className="text-xl sm:text-2xl font-extrabold text-ink">
             {tNum("35-45%")}
           </div>
@@ -121,7 +121,7 @@ export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder={isBn ? "রিসেল Nnoɔma Hwehwɛ..." : "Search wholesale catalog..."}
+            placeholder={isBn ? "Hwehwɛ dodoɔ tɔn katalɔg mu..." : "Search wholesale catalog..."}
             className="w-full pl-8 pr-3 py-1.5 border border-nv-200 rounded-xl text-xs focus:border-em-500"
           />
         </div>
@@ -152,15 +152,15 @@ export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
 
               <div className="mt-4 p-3 bg-nv-50 rounded-2xl space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-ink">{isBn ? "পাইকারি মূল্য (Wholesale):" : "Wholesale Price:"}</span>
+                  <span className="text-ink">{isBn ? "Dodoɔ Tɔn Boɔ:" : "Wholesale Price:"}</span>
                   <span className="font-bold text-ink">{formatTaka(p.wholesalePrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-ink">{isBn ? "প্রস্তাবিত Boɔ a Wɔtɔn:" : "Suggested Retail:"}</span>
+                  <span className="text-ink">{isBn ? "Dwa Boɔ a Wɔahyɛ Da:" : "Suggested Retail:"}</span>
                   <span className="font-bold text-ink">{formatTaka(p.suggestedRetailPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs pt-1 border-t border-nv-200/60">
-                  <span className="font-semibold text-ink">{isBn ? "আপনার নিশ্চিত Mfasoɔ:" : "Your Profit Margin:"}</span>
+                  <span className="font-semibold text-ink">{isBn ? "Wo Mfasoɔ Pɛpɛɛpɛ:" : "Your Profit Margin:"}</span>
                   <span className="font-extrabold text-ink text-sm">+{formatTaka(p.suggestedRetailPrice - p.wholesalePrice)}</span>
                 </div>
               </div>
@@ -174,12 +174,12 @@ export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
               {p.isAddedToStore ? (
                 <>
                   <Check size={15} />
-                  <span>{isBn ? "Dukanে সক্রিয় (Added)" : "Added to My Store"}</span>
+                  <span>{isBn ? "Wɔde Agu Dukan Mu" : "Added to My Store"}</span>
                 </>
               ) : (
                 <>
                   <Plus size={15} />
-                  <span>{isBn ? "Dukanে Fa Ka Ho (+মুনাফা)" : "Add to My Store"}</span>
+                  <span>{isBn ? "Fa Gu Me Dukan Mu" : "Add to My Store"}</span>
                 </>
               )}
             </button>

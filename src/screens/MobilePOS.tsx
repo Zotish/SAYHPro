@@ -140,7 +140,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
               }}
               className="w-full py-3.5 bg-nv-900 text-white rounded-2xl text-sm font-bold shadow-md"
             >
-              {isBn ? "Kasaa (Receipt) দেখুন / Tintim" : "View Invoice"}
+              {isBn ? "Hwɛ Invois No" : "View Invoice"}
             </button>
             <button
               onClick={() => {
@@ -235,7 +235,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                     <div className="w-full flex items-center justify-between mt-2.5 pt-2 border-t border-nv-100">
                       <span className="num font-bold text-ink text-xs">{formatTaka(p.sellPrice, lang)}</span>
                       <span className={`text-[10px] font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
-                        {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি Aka" : "left"}`}
+                        {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "aka" : "left"}`}
                       </span>
                     </div>
                   </button>
@@ -252,7 +252,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                 className="w-full py-3.5 bg-em-600 text-white rounded-2xl font-bold text-sm flex items-center justify-between px-5 shadow-lg"
               >
                 <span className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center text-xs font-bold">{tNum(cartCount)}</span>
-                <span>{isBn ? "কার্ট দেখুন ও পেমেন্ট" : "View Cart & Pay"}</span>
+                <span>{isBn ? "Hwɛ Kɛntɛn & Tua Ka" : "View Cart & Pay"}</span>
                 <span className="num font-extrabold text-base">{formatTaka(total)}</span>
               </button>
             </div>
@@ -267,7 +267,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             <button onClick={() => setView("products")} className="p-1 rounded-lg bg-white/10">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="font-display font-bold text-lg">{isBn ? "কার্ট পর্যালোচনা" : "Order Cart"}</h1>
+            <h1 className="font-display font-bold text-lg">{isBn ? "Ntɔdeɛ Kɛntɛn" : "Order Cart"}</h1>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
@@ -299,14 +299,14 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
 
           <div className="p-4 bg-white border-t border-nv-200 space-y-3">
             <div className="flex justify-between items-center text-sm font-bold text-ink">
-              <span>{isBn ? "Nyinaa পরিমাণ" : "Total Amount"}</span>
+              <span>{isBn ? "Sika Nyinaa Dodow" : "Total Amount"}</span>
               <span className="num text-xl text-ink">{formatTaka(total)}</span>
             </div>
             <button
               onClick={() => setView("payment")}
               className="w-full py-4 bg-em-700 text-white rounded-2xl font-bold text-base shadow-lg"
             >
-              {isBn ? "পেমেন্ট নির্বাচন করুন" : "Proceed to Payment"} →
+              {isBn ? "Kɔ Akatua No Mu" : "Proceed to Payment"} →
             </button>
           </div>
         </>
@@ -319,7 +319,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             <button onClick={() => setView("cart")} className="p-1 rounded-lg bg-white/10">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="font-display font-bold text-lg">{isBn ? "পেমেন্ট Kwan a Wɔfaa So" : "Payment"}</h1>
+            <h1 className="font-display font-bold text-lg">{isBn ? "Akatua" : "Payment"}</h1>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -329,7 +329,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             </div>
 
             <div>
-              <p className="text-xs font-bold text-ink uppercase tracking-wider mb-2">{isBn ? "পদ্ধতি নির্বাচন" : "Select Payment Method"}</p>
+              <p className="text-xs font-bold text-ink uppercase tracking-wider mb-2">{isBn ? "Paw Kwan a Wobɛfa So Atua" : "Select Payment Method"}</p>
               <div className="grid grid-cols-3 gap-2">
                 {payMethods.map(m => (
                   <button
@@ -358,7 +358,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                 />
                 {change > 0 && (
                   <p className="text-xs font-bold text-ink">
-                    {isBn ? `ফেরত দিতে হবে: ${formatTaka(change)}` : `Change: ${formatTaka(change)}`}
+                    {isBn ? `Nsesaeɛ: ${formatTaka(change)}` : `Change: ${formatTaka(change)}`}
                   </p>
                 )}
               </div>
@@ -371,7 +371,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
               className="w-full py-4 bg-em-600 text-white rounded-2xl font-bold text-base shadow-xl flex items-center justify-center gap-2"
             >
               <CheckCircle size={20} />
-              <span>{isBn ? "Tɔn সম্পন্ন করুন" : "Complete Sale"}</span>
+              <span>{isBn ? "Wie Tɔn No" : "Complete Sale"}</span>
             </button>
           </div>
         </>
