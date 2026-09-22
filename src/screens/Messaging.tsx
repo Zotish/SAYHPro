@@ -78,12 +78,12 @@ const defaultConversations: Conversation[] = [
     avatar: "AO",
     online: false,
     unreadCount: 0,
-    lastMessage: "I will clear the GH₵ 1,450 balance via MTN MoMo by tomorrow.",
+    lastMessage: "I will clear the ₵ 1,450 balance via MTN MoMo by tomorrow.",
     lastMessageTime: "Yesterday",
     channel: "sms",
     messages: [
-      { id: "m11", sender: "me", text: "Dear Abena, your store ledger shows pending balance of GH₵ 1,450.", time: "Yesterday, 3:00 PM", status: "read", channel: "sms", attachment: { type: "receipt", title: "Due Ledger Statement", amount: 1450 } },
-      { id: "m12", sender: "them", text: "Received it Kofi. I will clear the GH₵ 1,450 balance via MTN MoMo by tomorrow.", time: "Yesterday, 3:20 PM", status: "read", channel: "sms" },
+      { id: "m11", sender: "me", text: "Dear Abena, your store ledger shows pending balance of ₵ 1,450.", time: "Yesterday, 3:00 PM", status: "read", channel: "sms", attachment: { type: "receipt", title: "Due Ledger Statement", amount: 1450 } },
+      { id: "m12", sender: "them", text: "Received it Kofi. I will clear the ₵ 1,450 balance via MTN MoMo by tomorrow.", time: "Yesterday, 3:20 PM", status: "read", channel: "sms" },
     ]
   },
   {
@@ -161,7 +161,7 @@ const defaultConversations: Conversation[] = [
     lastMessageTime: "Yesterday",
     channel: "chat",
     messages: [
-      { id: "o1", sender: "them", text: "Closing cash count matched with system POS. Total cash in drawer: GH₵ 4,235.", time: "Yesterday, 10:15 PM", status: "read", channel: "chat" },
+      { id: "o1", sender: "them", text: "Closing cash count matched with system POS. Total cash in drawer: ₵ 4,235.", time: "Yesterday, 10:15 PM", status: "read", channel: "chat" },
       { id: "o2", sender: "me", text: "Well done Kofi, lock the safe.", time: "Yesterday, 10:20 PM", status: "read", channel: "chat" }
     ]
   },
@@ -271,14 +271,14 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
 
   const handleSendDueReminder = () => {
     const reminder = isBn
-      ? `সম্মানিত ${activeConv.nameBn}, ${settings.shopName} থেকে আপনার বকেয়া হিসাবের আপডেট। অনুগ্রহ করে সুবিধা মতো পরিশোধ করুন। ধন্যবাদ!`
+      ? `সম্মানিত ${activeConv.nameBn}, ${settings.shopName} থেকে আপনার Aka হিসাবের আপডেট। অনুগ্রহ করে সুবিধা মতো পরিশোধ করুন। ধন্যবাদ!`
       : `Dear ${activeConv.name}, polite reminder from ${settings.shopName} regarding your store due ledger. Please settle at your convenience.`;
     handleSendMessage(reminder);
   };
 
   const handleSendInvoiceLink = () => {
     const invoiceMsg = isBn
-      ? `আপনার সর্বশেষ ক্রয়ের ডিজিটাল রসিদ: https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`
+      ? `আপনার সর্বশেষ Nnoɔma a Wɔatɔের ডিজিটাল Kasaa (Receipt): https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`
       : `Digital receipt for your latest purchase: https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`;
     handleSendMessage(invoiceMsg);
   };
@@ -293,13 +293,13 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
           <div className="flex items-center gap-2.5 px-3.5 py-3 border-b border-nv-100 bg-white sm:hidden flex-shrink-0">
             <button
               onClick={() => setScreen("mobile-dashboard")}
-              aria-label={isBn ? "হোমে ফিরে যান" : "Back to Home"}
+              aria-label={isBn ? "Fie (Home)ে ফিরে যান" : "Back to Home"}
               className="w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 flex-shrink-0"
             >
               <ArrowLeft size={16} />
             </button>
             <h2 className="font-display font-bold text-base text-ink flex-1">
-              {isBn ? "মেসেজিং ও চ্যাট" : "Messages & Chat"}
+              {isBn ? "Nkitahodie & Nkɔmbɔ" : "Messages & Chat"}
             </h2>
           </div>
           {/* Search & Tabs */}
@@ -310,7 +310,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder={isBn ? "নাম বা মোবাইল নম্বর খুঁজুন..." : "Search by name or phone..."}
+                placeholder={isBn ? "নাম বা মোবাইল নম্বর Hwehwɛ..." : "Search by name or phone..."}
                 className="w-full pl-9 pr-3 py-1.5 bg-nv-50 border border-nv-200 rounded-xl text-xs text-ink placeholder:text-ink/40 focus:border-em-500"
               />
             </div>
@@ -318,10 +318,10 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
             {/* Category Filter Tabs */}
             <div className="flex gap-1 overflow-x-auto pb-0.5">
               {[
-                { id: "all" as const, label: "All", labelBn: "সকল" },
-                { id: "customer" as const, label: "Customers", labelBn: "গ্রাহক", icon: Users },
-                { id: "supplier" as const, label: "Suppliers", labelBn: "সাপ্লায়ার", icon: Truck },
-                { id: "other" as const, label: "Staff/Other", labelBn: "অন্যান্য", icon: UserCheck },
+                { id: "all" as const, label: "All", labelBn: "Nyinaa" },
+                { id: "customer" as const, label: "Customers", labelBn: "Otɔfoɔ", icon: Users },
+                { id: "supplier" as const, label: "Suppliers", labelBn: "Agorɔfoɔ", icon: Truck },
+                { id: "other" as const, label: "Staff/Other", labelBn: "Nnoɔma Foforɔ (Others)", icon: UserCheck },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -422,7 +422,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
               <button
                 onClick={() => setMobileChatOpen(false)}
                 className="sm:hidden w-8 h-8 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 flex-shrink-0"
-                title={isBn ? "পেছনে যান" : "Back to chats"}
+                title={isBn ? "San Kɔ Akyi" : "Back to chats"}
               >
                 <ArrowLeft size={16} />
               </button>
@@ -453,7 +453,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
                     onClick={handleSendInvoiceLink}
                     className="px-2 sm:px-2.5 py-1 sm:py-1.5 bg-nv-100 hover:bg-nv-200 active:scale-95 text-ink rounded-xl text-[11px] sm:text-xs font-semibold transition-all whitespace-nowrap"
                   >
-                    {isBn ? "ইনভয়েস" : "Invoice"}
+                    {isBn ? "Invois" : "Invoice"}
                   </button>
                 </>
               )}
@@ -481,7 +481,7 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5">
             <div className="flex justify-center">
               <span className="text-[10px] uppercase font-bold text-ink/40 bg-nv-100 px-3 py-1 rounded-full">
-                {isBn ? "আজকের কথোপকথন" : "Conversation Today"}
+                {isBn ? "Ɛnnɛকের কথোপকথন" : "Conversation Today"}
               </span>
             </div>
 
@@ -547,8 +547,8 @@ export default function Messaging({ lang, setScreen }: MessagingProps) {
             </span>
             {[
               isBn ? "আপনার অর্ডার প্রস্তুত আছে।" : "Your order is packed & ready.",
-              isBn ? "বকেয়া টাকা ব্যাংকে/বিকাশে পেয়েছি।" : "Payment received, ledger updated.",
-              isBn ? "নতুন স্টক আগামীকাল পৌঁছাবে।" : "New stock arrives tomorrow.",
+              isBn ? "Aka Sika Sikakorabeaে/বিকাশে পেয়েছি।" : "Payment received, ledger updated.",
+              isBn ? "Otɔfo Foforɔ Akorae আগামীƆkyena পৌঁছাবে।" : "New stock arrives tomorrow.",
             ].map((chip, idx) => (
               <button
                 key={idx}

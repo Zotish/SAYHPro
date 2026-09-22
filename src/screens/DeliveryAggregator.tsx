@@ -63,11 +63,11 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
   );
 
   const couriersList = [
-    { id: "all", name: "All Couriers", nameBn: "সকল কুরিয়ার", logo: "📦" },
+    { id: "all", name: "All Couriers", nameBn: "Nyinaa Kɔmafoɔ", logo: "📦" },
     { id: "steadfast", name: "Steadfast Courier", nameBn: "স্টেডফাস্ট", logo: "⚡", active: true },
-    { id: "pathao", name: "Pathao Courier", nameBn: "পাঠাও কুরিয়ার", logo: "🛵", active: true },
+    { id: "pathao", name: "Pathao Courier", nameBn: "পাঠাও Kɔmafoɔ", logo: "🛵", active: true },
     { id: "redx", name: "RedX Delivery", nameBn: "রেডএক্স", logo: "🔴", active: true },
-    { id: "ecourier", name: "eCourier BD", nameBn: "ই-কুরিয়ার", logo: "🚚", active: true },
+    { id: "ecourier", name: "eCourier BD", nameBn: "ই-Kɔmafoɔ", logo: "🚚", active: true },
   ];
 
   const totalCodPending = courierParcels
@@ -81,7 +81,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -93,35 +93,35 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
           <Plus size={16} />
-          <span>{isBn ? "নতুন পার্সেল বুক করুন" : "Book New Parcel"}</span>
+          <span>{isBn ? "Otɔfo Foforɔ পার্সেল বুক করুন" : "Book New Parcel"}</span>
         </button>
       </div>
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "মোট পার্সেল" : "Total Parcels"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Nyinaa পার্সেল" : "Total Parcels"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum(courierParcels.length)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "বকেয়া সিওডি" : "Pending COD"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Aka সিওডি" : "Pending COD"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {formatTaka(totalCodPending)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ডেলিভারি রেট" : "Success Rate"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery রেট" : "Success Rate"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum("96.8")}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ডেলিভারি সময়" : "Delivery Time"}</div>
+          <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery সময়" : "Delivery Time"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">
             {tNum("24")}
           </div>
@@ -217,7 +217,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
                 <Truck size={20} className="text-ink" />
-                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "কুরিয়ার পার্সেল বুক করুন" : "Book Courier Parcel"}</h3>
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Kɔmafoɔ Parcel বুক করুন" : "Book Courier Parcel"}</h3>
               </div>
               <button onClick={() => setShowBookModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
@@ -225,7 +225,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
             <form onSubmit={handleBookParcel} className="space-y-3.5 text-xs sm:text-sm">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "কুরিয়ার সার্ভিস নির্বাচন" : "Select Courier"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Kɔmafoɔ সার্ভিস নির্বাচন" : "Select Courier"} *</label>
                   <select
                     value={courier}
                     onChange={e => setCourier(e.target.value as any)}
@@ -245,9 +245,9 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
                     onChange={e => setZone(e.target.value as any)}
                     className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white font-medium"
                   >
-                    <option value="inside_dhaka">Inside Accra (GH₵ 20)</option>
-                    <option value="sub_dhaka">Greater Accra / Tema / Spintex (GH₵ 30)</option>
-                    <option value="outside_dhaka">Upcountry / Kumasi / Takoradi (GH₵ 45)</option>
+                    <option value="inside_dhaka">Inside Accra (₵ 20)</option>
+                    <option value="sub_dhaka">Greater Accra / Tema / Spintex (₵ 30)</option>
+                    <option value="outside_dhaka">Upcountry / Kumasi / Takoradi (₵ 45)</option>
                   </select>
                 </div>
               </div>
@@ -289,7 +289,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Cash on Delivery (COD) Sika Dodoɔ (GH₵) *" : "Cash on Delivery (COD) Amount (GH₵) *"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Cash on Delivery (COD) Sika Dodoɔ (₵) *" : "Cash on Delivery (COD) Amount (₵) *"}</label>
                 <input
                   type="number"
                   required
@@ -311,7 +311,7 @@ export default function DeliveryAggregator({ lang, setScreen, onBack }: Delivery
                   onClick={() => setShowBookModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

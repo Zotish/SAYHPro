@@ -41,7 +41,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -49,25 +49,25 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         ) : <div />}
 
         <button
-          onClick={() => toast({ type: "success", title: isBn ? "সিস্টেম স্ক্যান সম্পন্ন!" : "System Scan Complete!", message: "All 4 health monitors are active and synced." })}
+          onClick={() => toast({ type: "success", title: isBn ? "System Nhwehwɛmu Awie!" : "System Scan Complete!", message: "All 4 health monitors are active and synced." })}
           className="ml-auto flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shadow-2xs whitespace-nowrap"
         >
           <RefreshCw size={14} className="text-ink" />
-          <span>{isBn ? "এখনই স্ক্যান করুন" : "Run Live Health Check"}</span>
+          <span>{isBn ? "Hwehwɛ Mfiridwuma Mu Seesei" : "Run Live Health Check"}</span>
         </button>
       </div>
 
       {/* KPI Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "পেন্ডিং অ্যালার্ট" : "Pending Alerts"}</div>
+          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "Kɔkɔbɔ a Ɛda Hɔ" : "Pending Alerts"}</div>
           <div className="text-lg sm:text-xl font-bold text-ink">
             {tNum(unresolvedCount)}
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
-          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "অ্যাক্টিভ রুলস" : "Active Rules"}</div>
+          <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "Mmara a Ɛreyɛ Adwuma" : "Active Rules"}</div>
           <div className="text-lg sm:text-xl font-bold text-ink">
             {tNum(activeRulesCount)} / {tNum(monitoringRules.length)}
           </div>
@@ -83,7 +83,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-nv-200">
           <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "ঝুঁকির মাত্রা" : "Risk Level"}</div>
           <div className="text-lg sm:text-xl font-bold text-ink">
-            {isBn ? "নিরাপদ (Low)" : "Low (Safe)"}
+            {isBn ? "Akorae Dɔɔso (Low)" : "Low (Safe)"}
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
         <div className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-nv-100">
             <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">
-              {isBn ? "লাইভ অ্যালার্ট ফিড" : "Live Alerts Feed"}
+              {isBn ? "লাইভ Kɔkɔbɔ ফিড" : "Live Alerts Feed"}
             </h3>
 
             <div className="flex gap-1.5 overflow-x-auto pb-1 sm:pb-0 flex-shrink-0">
@@ -163,7 +163,7 @@ export default function MonitoringAlerts({ lang, setScreen, onBack }: Monitoring
                       {alert.severity}
                     </span>
                     <span className="text-[11px] text-ink/70 font-mono">
-                      {isBn ? (alert.time === "Yesterday" ? "গতকাল" : alert.time.replace("hours ago", "ঘণ্টা আগে")) : alert.time}
+                      {isBn ? (alert.time === "Yesterday" ? "গতƆkyena" : alert.time.replace("hours ago", "ঘণ্টা আগে")) : alert.time}
                     </span>
                   </div>
 

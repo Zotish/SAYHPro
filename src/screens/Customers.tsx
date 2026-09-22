@@ -9,10 +9,10 @@ interface CustomersProps {
 }
 
 const statusConfig = {
-  vip: { label: "VIP", labelBn: "ভিআইপি", cls: "bg-ac-50 text-ink border border-ac-200" },
-  regular: { label: "Regular", labelBn: "নিয়মিত", cls: "bg-em-50 text-ink border border-em-200" },
-  new: { label: "New", labelBn: "নতুন", cls: "bg-nv-50 text-ink border border-nv-200" },
-  due: { label: "Has Due", labelBn: "বাকি আছে", cls: "bg-red-50 text-ink border border-red-200" },
+  vip: { label: "VIP", labelBn: "Otɔfo Titiriw (VIP)", cls: "bg-ac-50 text-ink border border-ac-200" },
+  regular: { label: "Regular", labelBn: "Otɔfo Penee", cls: "bg-em-50 text-ink border border-em-200" },
+  new: { label: "New", labelBn: "Otɔfo Foforɔ", cls: "bg-nv-50 text-ink border border-nv-200" },
+  due: { label: "Has Due", labelBn: "Aka Wɔ Hɔ", cls: "bg-red-50 text-ink border border-red-200" },
 };
 
 export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
@@ -86,7 +86,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -97,17 +97,17 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
           onClick={() => setShowAddModal(true)}
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
-          <Plus size={16} /> {isBn ? "গ্রাহক যোগ করুন" : "Add Customer"}
+          <Plus size={16} /> {isBn ? "Otɔfoɔ Fa Ka Ho" : "Add Customer"}
         </button>
       </div>
 
       {/* Stats Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}` },
-          { label: "Total Purchases", labelBn: "মোট বিক্রয়", value: formatTaka(totalPurchases) },
-          { label: "Outstanding Dues", labelBn: "মোট বাকি", value: formatTaka(totalDue) },
-          { label: "VIP Customers", labelBn: "ভিআইপি গ্রাহক", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}` },
+          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}` },
+          { label: "Total Purchases", labelBn: "Nyinaa Tɔn", value: formatTaka(totalPurchases) },
+          { label: "Outstanding Dues", labelBn: "Nyinaa Aka", value: formatTaka(totalDue) },
+          { label: "VIP Customers", labelBn: "Otɔfo Titiriw (VIP) Otɔfoɔ", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}` },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -124,16 +124,16 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
             value={search}
             onChange={e => setSearch(e.target.value)}
             type="text"
-            placeholder={isBn ? "নাম বা ফোন নম্বর দিয়ে খুঁজুন..." : "Search by name or phone..."}
+            placeholder={isBn ? "নাম বা ফোন নম্বর দিয়ে Hwehwɛ..." : "Search by name or phone..."}
             className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
           />
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-1">
           {[
-            { id: "all", label: "All", labelBn: "সব" },
-            { id: "vip", label: "VIP", labelBn: "ভিআইপি" },
-            { id: "due", label: "Has Due", labelBn: "বাকি আছে" },
-            { id: "regular", label: "Regular", labelBn: "নিয়মিত" },
+            { id: "all", label: "All", labelBn: "Nyinaa" },
+            { id: "vip", label: "VIP", labelBn: "Otɔfo Titiriw (VIP)" },
+            { id: "due", label: "Has Due", labelBn: "Aka Wɔ Hɔ" },
+            { id: "regular", label: "Regular", labelBn: "Otɔfo Penee" },
           ].map(f => (
             <button
               key={f.id}
@@ -153,10 +153,10 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "গ্রাহক" : "Customer"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "যোগাযোগ" : "Contact"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট ক্রয়" : "Total Purchases"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান বাকি" : "Current Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Otɔfoɔ" : "Customer"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান Aka" : "Current Due"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ভিজিট সংখ্যা" : "Visits"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Status"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
@@ -182,7 +182,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                     <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(c.totalPurchases)}</td>
                     <td className="px-4 py-3">
                       <span className={`num font-bold ${c.due > 0 ? "text-ink" : "text-ink"}`}>
-                        {c.due > 0 ? formatTaka(c.due) : "GH₵ 0"}
+                        {c.due > 0 ? formatTaka(c.due) : "₵ 0"}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-xs text-ink">{tNum(c.visits)} {isBn ? "বার" : "times"}</td>
@@ -237,15 +237,15 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
 
             <div className="grid grid-cols-3 gap-3">
               <div className="p-3 bg-nv-50 rounded-2xl text-center">
-                <div className="text-[11px] text-ink">{isBn ? "মোট ক্রয়" : "Purchases"}</div>
+                <div className="text-[11px] text-ink">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Purchases"}</div>
                 <div className="num font-bold text-base text-ink">{formatTaka(selectedCustomer.totalPurchases)}</div>
               </div>
               <div className="p-3 bg-red-50 rounded-2xl text-center">
-                <div className="text-[11px] text-ink">{isBn ? "বর্তমান বাকি" : "Current Due"}</div>
+                <div className="text-[11px] text-ink">{isBn ? "বর্তমান Aka" : "Current Due"}</div>
                 <div className="num font-bold text-base text-ink">{formatTaka(selectedCustomer.due)}</div>
               </div>
               <div className="p-3 bg-nv-50 rounded-2xl text-center">
-                <div className="text-[11px] text-ink">{isBn ? "মোট ভিজিট" : "Visits"}</div>
+                <div className="text-[11px] text-ink">{isBn ? "Nyinaa ভিজিট" : "Visits"}</div>
                 <div className="num font-bold text-base text-ink">{tNum(selectedCustomer.visits)}</div>
               </div>
             </div>
@@ -260,7 +260,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold text-xs shadow-md flex items-center justify-center gap-1.5"
                 >
                   <CreditCard size={15} />
-                  <span>{isBn ? "বাকি টাকা জমা" : "Collect Due"}</span>
+                  <span>{isBn ? "Gye Aka No" : "Collect Due"}</span>
                 </button>
               )}
               <a
@@ -287,13 +287,13 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                 }}
                 className="text-xs text-ink hover:underline flex items-center gap-1"
               >
-                <Trash2 size={13} /> {isBn ? "গ্রাহক মুছে ফেলুন" : "Delete Customer"}
+                <Trash2 size={13} /> {isBn ? "Otɔfoɔ মুছে ফেলুন" : "Delete Customer"}
               </button>
               <button
                 onClick={() => setSelectedCustomer(null)}
                 className="px-4 py-1.5 bg-nv-100 text-ink rounded-xl text-xs font-semibold"
               >
-                {isBn ? "বন্ধ করুন" : "Close"}
+                {isBn ? "To Mu" : "Close"}
               </button>
             </div>
           </div>
@@ -305,7 +305,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "বাকি পরিশোধ গ্রহণ" : "Collect Payment"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Aka পরিশোধ গ্রহণ" : "Collect Payment"}</h3>
               <button onClick={() => setShowPayModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -313,7 +313,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
 
             <form onSubmit={handlePaySubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (₵)" : "Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -340,7 +340,7 @@ export default function Customers({ lang, setScreen, onBack }: CustomersProps) {
                   onClick={() => setShowPayModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

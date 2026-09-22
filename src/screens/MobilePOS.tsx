@@ -47,7 +47,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
 
   const addToCart = (p: Product) => {
     if (p.stock <= 0) {
-      toast({ type: "error", title: isBn ? "স্টক শেষ" : "Out of Stock" });
+      toast({ type: "error", title: isBn ? "Akorae Asa" : "Out of Stock" });
       return;
     }
 
@@ -119,7 +119,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             <CheckCircle size={44} className="stroke-[2.5]" />
           </div>
           <h2 className="font-display text-2xl font-bold text-ink mb-1">
-            {isBn ? "বিক্রয় সফলভাবে সম্পন্ন!" : "Sale Completed!"}
+            {isBn ? "Tɔn No Awie Pɛpɛɛpɛ!" : "Sale Completed!"}
           </h2>
           <div className="num text-4xl font-extrabold text-ink mb-1">{formatTaka(total)}</div>
           <p className="text-ink text-xs mb-4">{tNum(lastSale?.invoiceNo || "INV-1044")} · Walk-in Customer</p>
@@ -127,7 +127,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
           {change > 0 && (
             <div className="bg-em-50 border border-em-200 rounded-2xl px-6 py-2.5 mb-6">
               <p className="text-ink font-bold text-base">
-                {isBn ? `ফেরত: ${formatTaka(change)}` : `Change: ${formatTaka(change)}`}
+                {isBn ? `Nsakyerae: ${formatTaka(change)}` : `Change: ${formatTaka(change)}`}
               </p>
             </div>
           )}
@@ -140,7 +140,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
               }}
               className="w-full py-3.5 bg-nv-900 text-white rounded-2xl text-sm font-bold shadow-md"
             >
-              {isBn ? "রসিদ দেখুন / প্রিন্ট" : "View Invoice"}
+              {isBn ? "Kasaa (Receipt) দেখুন / Tintim" : "View Invoice"}
             </button>
             <button
               onClick={() => {
@@ -150,7 +150,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
               }}
               className="w-full py-3 bg-nv-100 hover:bg-nv-200 text-ink rounded-2xl text-sm font-bold"
             >
-              {isBn ? "নতুন বিক্রয় করুন" : "Start New Sale"}
+              {isBn ? "Yɛ Tɔn Foforɔ" : "Start New Sale"}
             </button>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                 <button onClick={() => setScreen("mobile-dashboard")} className="p-1 rounded-lg bg-white/10">
                   <ArrowLeft size={20} />
                 </button>
-                <h1 className="font-display font-bold text-lg">{isBn ? "মোবাইল বিক্রয় (POS)" : "Mobile POS"}</h1>
+                <h1 className="font-display font-bold text-lg">{isBn ? "Mobaele Tɔn (POS)" : "Mobile POS"}</h1>
               </div>
               {cartCount > 0 && (
                 <button
@@ -183,7 +183,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 type="text"
-                placeholder={isBn ? "পণ্য খুঁজুন..." : "Search products..."}
+                placeholder={isBn ? "Nnoɔma Hwehwɛ..." : "Search products..."}
                 className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white text-ink placeholder:text-ink text-xs focus:outline-none"
               />
             </div>
@@ -235,7 +235,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
                     <div className="w-full flex items-center justify-between mt-2.5 pt-2 border-t border-nv-100">
                       <span className="num font-bold text-ink text-xs">{formatTaka(p.sellPrice, lang)}</span>
                       <span className={`text-[10px] font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
-                        {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
+                        {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি Aka" : "left"}`}
                       </span>
                     </div>
                   </button>
@@ -299,7 +299,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
 
           <div className="p-4 bg-white border-t border-nv-200 space-y-3">
             <div className="flex justify-between items-center text-sm font-bold text-ink">
-              <span>{isBn ? "মোট পরিমাণ" : "Total Amount"}</span>
+              <span>{isBn ? "Nyinaa পরিমাণ" : "Total Amount"}</span>
               <span className="num text-xl text-ink">{formatTaka(total)}</span>
             </div>
             <button
@@ -319,12 +319,12 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             <button onClick={() => setView("cart")} className="p-1 rounded-lg bg-white/10">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="font-display font-bold text-lg">{isBn ? "পেমেন্ট মাধ্যম" : "Payment"}</h1>
+            <h1 className="font-display font-bold text-lg">{isBn ? "পেমেন্ট Kwan a Wɔfaa So" : "Payment"}</h1>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             <div className="bg-white rounded-3xl p-6 text-center border border-nv-200 shadow-sm">
-              <p className="text-xs font-semibold text-ink">{isBn ? "পরিশোধযোগ্য টাকা" : "Grand Total Due"}</p>
+              <p className="text-xs font-semibold text-ink">{isBn ? "Ne Nyinaa a Ɛsɛ Sɛ Wotua" : "Grand Total Due"}</p>
               <div className="num text-4xl font-extrabold text-ink mt-1">{formatTaka(total)}</div>
             </div>
 
@@ -348,7 +348,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
 
             {payment === "cash" && (
               <div className="bg-white rounded-2xl p-4 border border-nv-200 space-y-2">
-                <label className="text-xs font-semibold text-ink">{isBn ? "নগদ গৃহীত টাকা" : "Cash Given"}</label>
+                <label className="text-xs font-semibold text-ink">{isBn ? "Sika a Wɔagye Pɔtee" : "Cash Given"}</label>
                 <input
                   type="number"
                   value={cashGiven}
@@ -371,7 +371,7 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
               className="w-full py-4 bg-em-600 text-white rounded-2xl font-bold text-base shadow-xl flex items-center justify-center gap-2"
             >
               <CheckCircle size={20} />
-              <span>{isBn ? "বিক্রয় সম্পন্ন করুন" : "Complete Sale"}</span>
+              <span>{isBn ? "Tɔn সম্পন্ন করুন" : "Complete Sale"}</span>
             </button>
           </div>
         </>

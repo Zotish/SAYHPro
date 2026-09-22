@@ -13,9 +13,9 @@ interface ProductsProps {
 
 const statusBadge = (status: Product["status"], isBn: boolean) => {
   const map = {
-    "in-stock": { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", cls: "bg-em-50 text-ink border border-em-200" },
-    "low-stock": { label: "Low Stock", labelBn: "কম স্টক", cls: "bg-ac-50 text-ink border border-ac-200" },
-    "out-of-stock": { label: "Out of Stock", labelBn: "স্টক শেষ", cls: "bg-red-50 text-ink border border-red-200" },
+    "in-stock": { label: "In Stock", labelBn: "Akorae Wɔ Hɔ", cls: "bg-em-50 text-ink border border-em-200" },
+    "low-stock": { label: "Low Stock", labelBn: "Akorae Aka Kakra", cls: "bg-ac-50 text-ink border border-ac-200" },
+    "out-of-stock": { label: "Out of Stock", labelBn: "Akorae Asa", cls: "bg-red-50 text-ink border border-red-200" },
   };
   const m = map[status] || map["in-stock"];
   return (
@@ -173,7 +173,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -186,7 +186,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shrink-0"
           >
             <Download size={15} />
-            <span>{isBn ? "এক্সপোর্ট" : "Export CSV"}</span>
+            <span>{isBn ? "Export" : "Export CSV"}</span>
           </button>
 
           {/* Unified Add Product Button with Integrated AI Camera Scan */}
@@ -199,7 +199,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               className="flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold hover:bg-em-800 transition-fast cursor-pointer whitespace-nowrap"
             >
               <Plus size={16} />
-              <span>{isBn ? "নতুন পণ্য যোগ করুন" : "Add Product"}</span>
+              <span>{isBn ? "Otɔfo Foforɔ Fa Nnoɔma Ka Ho" : "Add Product"}</span>
             </button>
             <button
               onClick={() => setShowAIScanner(true)}
@@ -216,10 +216,10 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length) },
-          { label: "In Stock Items", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(p => p.status === "in-stock").length) },
-          { label: "Low Stock Items", labelBn: "কম স্টক", value: tNum(products.filter(p => p.status === "low-stock").length) },
-          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
+          { label: "Total Products", labelBn: "Nyinaa Nnoɔma", value: tNum(products.length) },
+          { label: "In Stock Items", labelBn: "Akorae Wɔ Hɔ", value: tNum(products.filter(p => p.status === "in-stock").length) },
+          { label: "Low Stock Items", labelBn: "Akorae Aka Kakra", value: tNum(products.filter(p => p.status === "low-stock").length) },
+          { label: "Out of Stock", labelBn: "Akorae শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -237,7 +237,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder={isBn ? "নাম বা SKU দিয়ে খুঁজুন..." : "Search by product name or SKU..."}
+              placeholder={isBn ? "নাম বা SKU দিয়ে Hwehwɛ..." : "Search by product name or SKU..."}
               className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:border-em-500 transition-fast"
             />
           </div>
@@ -248,7 +248,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             className="text-xs font-semibold text-ink bg-nv-50 border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
           >
             {categories.map(c => (
-              <option key={c} value={c}>{c === "All" && isBn ? "সকল ক্যাটাগরি" : c}</option>
+              <option key={c} value={c}>{c === "All" && isBn ? "Nkyekyɛmu Nyinaa" : c}</option>
             ))}
           </select>
         </div>
@@ -281,11 +281,11 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পণ্য" : "Product"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma" : "Product"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিক্রয় মূল্য" : "Sell Price"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্রয় খরচ" : "Cost"}</th>
-                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "স্টক" : "Stock"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Boɔ a Wɔtɔn" : "Sell Price"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Ka" : "Cost"}</th>
+                  <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Akorae" : "Stock"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
                   <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
                 </tr>
@@ -339,7 +339,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 {filtered.length === 0 && (
                   <tr>
                     <td colSpan={7} className="text-center py-10 text-ink text-xs">
-                      {isBn ? "কোনো পণ্য খুঁজে পাওয়া যায়নি" : "No matching products found"}
+                      {isBn ? "কোনো Nnoɔma খুঁজে পাওয়া যায়নি" : "No matching products found"}
                     </td>
                   </tr>
                 )}
@@ -389,7 +389,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
           <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-nv-200 p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <h3 className="font-display font-bold text-ink text-lg">
-                {editingProduct ? (isBn ? "পণ্য সম্পাদনা করুন" : "Edit Product") : (isBn ? "নতুন পণ্য যোগ করুন" : "Add New Product")}
+                {editingProduct ? (isBn ? "Nnoɔma Sesa করুন" : "Edit Product") : (isBn ? "Otɔfo Foforɔ Fa Nnoɔma Ka Ho" : "Add New Product")}
               </h3>
               <button
                 onClick={() => {
@@ -434,7 +434,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             <form onSubmit={editingProduct ? handleUpdateProduct : handleCreateProduct} className="space-y-4 text-xs sm:text-sm">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "পণ্যের নাম (ইংরেজি)" : "Product Name (EN)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (ইংরেজি)" : "Product Name (EN)"} *</label>
                   <input
                     type="text"
                     required
@@ -446,7 +446,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "পণ্যের নাম (বাংলা)" : "Product Name (Bangla)"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (Twi (Akan))" : "Product Name (Bangla)"}</label>
                   <input
                     type="text"
                     value={nameBn}
@@ -489,7 +489,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔ Boɔ (GH₵)" : "Buy Price (Cost)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔ Boɔ (₵)" : "Buy Price (Cost)"} *</label>
                   <input
                     type="number"
                     required
@@ -501,7 +501,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔn Boɔ (GH₵)" : "Selling Price (GH₵)"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Tɔn Boɔ (₵)" : "Selling Price (₵)"} *</label>
                   <input
                     type="number"
                     required
@@ -513,7 +513,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "বর্তমান স্টক" : "Current Stock Quantity"} *</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "বর্তমান Akorae" : "Current Stock Quantity"} *</label>
                   <input
                     type="number"
                     required
@@ -525,7 +525,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "কম স্টক সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Akorae Aka Kakra সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
                   <input
                     type="number"
                     value={minStock}
@@ -545,13 +545,13 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                   }}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {editingProduct ? (isBn ? "আপডেট করুন" : "Update Product") : (isBn ? "সংরক্ষণ করুন" : "Save Product")}
+                  {editingProduct ? (isBn ? "আপডেট করুন" : "Update Product") : (isBn ? "Kora so করুন" : "Save Product")}
                 </button>
               </div>
             </form>
@@ -589,7 +589,7 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
               }}
               className="w-full py-2 bg-nv-900 hover:bg-black text-white rounded-xl text-xs font-bold"
             >
-              {isBn ? "বারকোড প্রিন্ট করুন" : "Print Label"}
+              {isBn ? "Tintim Barcode করুন" : "Print Label"}
             </button>
           </div>
         </div>

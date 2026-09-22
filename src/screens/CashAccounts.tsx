@@ -11,12 +11,12 @@ interface CashAccountsProps {
 }
 
 const incomeCategories = [
-  { id: "Sales", label: "Product Sale", labelBn: "পণ্য বিক্রয়" },
+  { id: "Sales", label: "Product Sale", labelBn: "Nnoɔma Tɔn" },
   { id: "Service", label: "Service / Repair Fee", labelBn: "সার্ভিস / মেরামত ফি" },
   { id: "Commission", label: "Commission & Brokerage", labelBn: "কমিশন ও পারিশ্রমিক" },
-  { id: "Delivery", label: "Delivery Charge", labelBn: "ডেলিভারি চার্জ" },
-  { id: "Scrap", label: "Scrap / Waste Sales", labelBn: "স্ক্র্যাপ / বর্জ্য বিক্রয়" },
-  { id: "Other", label: "Other Business Income", labelBn: "অন্যান্য বাণিজ্যিক আয়" },
+  { id: "Delivery", label: "Delivery Charge", labelBn: "Delivery চার্জ" },
+  { id: "Scrap", label: "Scrap / Waste Sales", labelBn: "স্ক্র্যাপ / বর্জ্য Tɔn" },
+  { id: "Other", label: "Other Business Income", labelBn: "Nnoɔma Foforɔ (Others) বাণিজ্যিক আয়" },
 ];
 
 export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsProps) {
@@ -50,11 +50,11 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
   const totalOut = accounts.reduce((s, a) => s + a.out, 0);
 
   const flowData = [
-    { day: "Mon", dayBn: "সোম", in: 42000, out: 18000 },
-    { day: "Tue", dayBn: "মঙ্গল", in: 38000, out: 22000 },
-    { day: "Wed", dayBn: "বুধ", in: 55000, out: 15000 },
-    { day: "Thu", dayBn: "বৃহঃ", in: 31000, out: 28000 },
-    { day: "Fri", dayBn: "শুক্র", in: totalIn, out: totalOut },
+    { day: "Mon", dayBn: "Dwo", in: 42000, out: 18000 },
+    { day: "Tue", dayBn: "Bena", in: 38000, out: 22000 },
+    { day: "Wed", dayBn: "Wuku", in: 55000, out: 15000 },
+    { day: "Thu", dayBn: "Yawo", in: 31000, out: 28000 },
+    { day: "Fri", dayBn: "Efi", in: totalIn, out: totalOut },
   ];
 
   const handleIncomeSubmit = (e: React.FormEvent) => {
@@ -63,7 +63,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
 
     const catObj = incomeCategories.find(c => c.id === incomeCategory) || incomeCategories[0];
     const catName = isBn ? catObj.labelBn : catObj.label;
-    const payerName = incomeSource.trim() || (isBn ? "সাধারণ গ্রাহক" : "Walk-in Customer");
+    const payerName = incomeSource.trim() || (isBn ? "সাধারণ Otɔfoɔ" : "Walk-in Customer");
     const fullNote = `${catName} - ${payerName}${incomeNote ? ` (${incomeNote})` : ""}`;
 
     addCashDeposit(incomeAccountId, Number(incomeAmount), fullNote);
@@ -74,7 +74,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
     toast({
       type: "success",
       title: isBn ? "ইনকাম এন্ট্রি সংরক্ষিত হয়েছে!" : "Income Entry Recorded!",
-      message: `${payerName}: GH₵ ${Number(incomeAmount).toLocaleString()}`,
+      message: `${payerName}: ₵ ${Number(incomeAmount).toLocaleString()}`,
     });
   };
 
@@ -114,7 +114,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
         {onBack && (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 self-start"
           >
             <ArrowLeft size={18} />
@@ -137,7 +137,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
             onClick={() => setShowModal("add")}
             className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 bg-nv-100 hover:bg-nv-200 text-ink rounded-xl text-xs sm:text-sm font-semibold border border-nv-200 transition-fast"
           >
-            <Plus size={16} /> {isBn ? "ক্যাশ জমা" : "Deposit"}
+            <Plus size={16} /> {isBn ? "Hyɛ Sika Mu" : "Deposit"}
           </button>
         </div>
       </div>
@@ -146,19 +146,19 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
       <div className="bg-em-50 border border-em-100 rounded-3xl p-6 text-ink shadow-sm relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <p className="text-ink text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "মোট বর্তমান ব্যালেন্স" : "Total Combined Balance"}</p>
+            <p className="text-ink text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "Nyinaa বর্তমান Sika a Aka" : "Total Combined Balance"}</p>
             <div className="num text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">{formatTaka(totalBalance)}</div>
             <p className="text-ink text-xs mt-1">{tNum(accounts.length)} {isBn ? "টি সক্রিয় অ্যাকাউন্ট মনিটর করা হচ্ছে" : "active accounts monitored"}</p>
           </div>
 
           <div className="flex items-center gap-6 sm:gap-8 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-em-200 md:pl-8">
             <div>
-              <div className="text-xs text-ink">{isBn ? "আজকের মোট জমা (In)" : "Total Cash In"}</div>
+              <div className="text-xs text-ink">{isBn ? "Ɛnnɛকের Nyinaa জমা (In)" : "Total Cash In"}</div>
               <div className="num font-bold text-base sm:text-lg text-ink">{formatTaka(totalIn)}</div>
             </div>
 
             <div>
-              <div className="text-xs text-ink">{isBn ? "আজকের মোট খরচ (Out)" : "Total Cash Out"}</div>
+              <div className="text-xs text-ink">{isBn ? "Ɛnnɛকের Nyinaa Ka (Out)" : "Total Cash Out"}</div>
               <div className="num font-bold text-base sm:text-lg text-ink">{formatTaka(totalOut)}</div>
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
 
       {/* Accounts List Grid */}
       <div>
-        <h3 className="font-display font-bold text-ink text-sm mb-3">{isBn ? "অ্যাকাউন্ট ব্যালেন্স" : "Account Balances"}</h3>
+        <h3 className="font-display font-bold text-ink text-sm mb-3">{isBn ? "অ্যাকাউন্ট Sika a Aka" : "Account Balances"}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {accounts.map(acc => (
             <div
@@ -193,7 +193,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
         {/* Cash Flow Bar Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
           <h3 className="font-display font-bold text-ink text-sm mb-3">
-            {isBn ? "ক্যাশ ফ্লো (আয় বনাম ব্যয়)" : "Weekly Cash Flow"}
+            {isBn ? "Sika (Cash) ফ্লো (আয় বনাম ব্যয়)" : "Weekly Cash Flow"}
           </h3>
 
           <div className="h-52">
@@ -215,7 +215,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-[#FCA5A5]" />
-              <span className="text-ink">{isBn ? "খরচ (Cash Out)" : "Cash Out"}</span>
+              <span className="text-ink">{isBn ? "Ka (Cash Out)" : "Cash Out"}</span>
             </div>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                 {isBn ? "লেনদেন ও ইনকাম রেজিস্টার" : "Transactions & Income Register"}
               </h3>
               <p className="text-xs text-ink/60 mt-0.5">
-                {isBn ? "দৈনিক ক্যাশ ইনকাম ও অ্যাকাউন্টের লেনদেন" : "Daily cash entries and account transactions"}
+                {isBn ? "দৈনিক Sika (Cash) ইনকাম ও অ্যাকাউন্টের লেনদেন" : "Daily cash entries and account transactions"}
               </p>
             </div>
 
@@ -256,7 +256,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                 }`}
               >
                 <ArrowRightLeft size={14} />
-                <span>{isBn ? "ক্যাশ লেনদেন" : "Cash Ledger"}</span>
+                <span>{isBn ? "Sika (Cash) লেনদেন" : "Cash Ledger"}</span>
                 <span className="num ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-nv-200 text-ink font-bold">
                   {tNum(transactions.length)}
                 </span>
@@ -313,7 +313,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                         onClick={() => setSelectedSale(sale)}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-ink hover:text-ink px-2.5 py-1.5 rounded-lg border border-nv-200 hover:bg-nv-100 active:bg-nv-200 transition-colors"
                       >
-                        <span>{isBn ? "বিস্তারিত" : "See more"}</span>
+                        <span>{isBn ? "Hwɛ Ne Nyinaa" : "See more"}</span>
                         <ChevronRight size={14} />
                       </button>
                     </div>
@@ -371,7 +371,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   <Receipt size={17} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-ink text-base">{isBn ? "নতুন ইনকাম এন্ট্রি" : "New Income Entry"}</h3>
+                  <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ ইনকাম এন্ট্রি" : "New Income Entry"}</h3>
                   <p className="text-[11px] text-ink/60">{isBn ? "ব্যবসায়িক আয় ও নগদ প্রাপ্তি রেকর্ড করুন" : "Record business revenue & cash receipts"}</p>
                 </div>
               </div>
@@ -397,7 +397,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "গ্রাহক বা উৎস" : "Customer / Source"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔ বা উৎস" : "Customer / Source"}</label>
                 <input
                   type="text"
                   value={incomeSource}
@@ -408,7 +408,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Income Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (₵)" : "Income Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -451,7 +451,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   onClick={() => setShowModal(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -475,7 +475,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   <Receipt size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-ink text-base">{isBn ? "ইনকাম রসিদ বিবরণ" : "Income Receipt Details"}</h3>
+                  <h3 className="font-bold text-ink text-base">{isBn ? "ইনকাম Kasaa (Receipt) বিবরণ" : "Income Receipt Details"}</h3>
                   <p className="text-[11px] text-ink/60 font-mono">#{selectedSale.invoiceNo} • {tNum(selectedSale.date)} {tNum(selectedSale.time)}</p>
                 </div>
               </div>
@@ -488,7 +488,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               {/* Customer & Payment details */}
               <div className="p-3 bg-nv-50 rounded-xl border border-nv-200/70 space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="text-ink/70">{isBn ? "গ্রাহক:" : "Customer:"}</span>
+                  <span className="text-ink/70">{isBn ? "Otɔfoɔ:" : "Customer:"}</span>
                   <span className="font-bold text-ink">{selectedSale.customer}</span>
                 </div>
                 {selectedSale.customerPhone && (
@@ -498,14 +498,14 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-ink/70">{isBn ? "পেমেন্ট মাধ্যম:" : "Payment Method:"}</span>
+                  <span className="text-ink/70">{isBn ? "পেমেন্ট Kwan a Wɔfaa So:" : "Payment Method:"}</span>
                   <span className="font-semibold text-ink uppercase">{selectedSale.paymentMethod}</span>
                 </div>
               </div>
 
               {/* Items breakdown */}
               <div>
-                <div className="font-semibold text-ink mb-1.5">{isBn ? "পণ্যের তালিকা:" : "Purchased Items:"}</div>
+                <div className="font-semibold text-ink mb-1.5">{isBn ? "Nnoɔma তালিকা:" : "Purchased Items:"}</div>
                 <div className="divide-y divide-nv-100 border border-nv-200 rounded-xl overflow-hidden">
                   {selectedSale.items.map((item, idx) => (
                     <div key={idx} className="p-2.5 flex items-center justify-between text-xs">
@@ -540,7 +540,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   </div>
                 )}
                 <div className="flex justify-between text-sm font-bold text-ink pt-2 border-t border-nv-200">
-                  <span>{isBn ? "মোট আয় (Grand Total):" : "Grand Total:"}</span>
+                  <span>{isBn ? "Nyinaa আয় (Grand Total):" : "Grand Total:"}</span>
                   <span className="num text-base font-extrabold text-em-700">+{formatTaka(selectedSale.grandTotal)}</span>
                 </div>
               </div>
@@ -551,7 +551,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   onClick={() => setSelectedSale(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বন্ধ করুন" : "Close"}
+                  {isBn ? "To Mu" : "Close"}
                 </button>
                 {setScreen && (
                   <button
@@ -564,7 +564,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                     className="flex-1 py-2.5 bg-ink text-white rounded-xl font-bold hover:bg-ink/90 flex items-center justify-center gap-1.5"
                   >
                     <FileText size={15} />
-                    <span>{isBn ? "ইনভয়েস দেখুন" : "View Invoice"}</span>
+                    <span>{isBn ? "Invois দেখুন" : "View Invoice"}</span>
                   </button>
                 )}
               </div>
@@ -578,7 +578,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "ক্যাশ জমা করুন" : "Add Cash / Deposit"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Hyɛ Sika Mu করুন" : "Add Cash / Deposit"}</h3>
               <button onClick={() => setShowModal(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -601,7 +601,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Regu Mu (GH₵)" : "Deposit Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Regu Mu (₵)" : "Deposit Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -618,7 +618,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   type="text"
                   value={depositNote}
                   onChange={e => setDepositNote(e.target.value)}
-                  placeholder={isBn ? "যেমন: ব্যাংকে নগদ জমা বা পার্সোনাল ক্যাশ..." : "e.g. Bank cash injection"}
+                  placeholder={isBn ? "যেমন: Sikakorabeaে নগদ জমা বা পার্সোনাল Sika (Cash)..." : "e.g. Bank cash injection"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
@@ -629,7 +629,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   onClick={() => setShowModal(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -648,7 +648,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "টাকা ট্রান্সফার করুন" : "Transfer Funds"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Mane Sika (Transfer)" : "Transfer Funds"}</h3>
               <button onClick={() => setShowModal(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -686,7 +686,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Rekɔ (GH₵)" : "Transfer Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ a Wode Rekɔ (₵)" : "Transfer Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -703,7 +703,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                   onClick={() => setShowModal(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

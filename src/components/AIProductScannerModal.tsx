@@ -36,7 +36,7 @@ interface MarketProductMatch {
 const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   {
     name: "Radhuni Turmeric Powder 100g",
-    nameBn: "রাঁধুনী হলুদ গুঁড়া ১০০গ্রাম",
+    nameBn: "Tasty Tom Tomato Mix 70g",
     brand: "Radhuni",
     amount: "100g",
     category: "Grocery",
@@ -47,11 +47,11 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
     sku: "RAD-TUR-100",
     image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&auto=format&fit=crop&q=80",
     confidence: 99.2,
-    tags: ["হস্তনির্মিত মসলা", "100% Pure", "BSTI Certified", "Halal"]
+    tags: ["Ghana Provisions", "100% Pure", "BSTI Certified", "Halal"]
   },
   {
     name: "Fresh Fortified Soybean Oil 1L",
-    nameBn: "ফ্রেশ সয়াবিন তেল ১লিটার",
+    nameBn: "Frytol Vegetable Cooking Oil 1L",
     brand: "Fresh",
     amount: "1 Liter",
     category: "Grocery",
@@ -66,7 +66,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "Pran Frooto Mango Drink 250ml",
-    nameBn: "প্রাণ ফ্রুটো ম্যাঙ্গো ২৫০মি.লি.",
+    nameBn: "Don Simon Multifrutas Juice 1L",
     brand: "Pran",
     amount: "250ml",
     category: "Beverages",
@@ -81,7 +81,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "ACI Pure Vacuum Evaporated Salt 1kg",
-    nameBn: "এসিআই পিওর ভ্যাকিউম লবণ ১কেজি",
+    nameBn: "Annapurna Iodized Salt 500g",
     brand: "ACI Pure",
     amount: "1kg",
     category: "Grocery",
@@ -96,7 +96,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "Maggi 2-Minute Masala Noodles 4-Pack",
-    nameBn: "ম্যাগি ২-মিনিট মাসালা নুডলস ৪-প্যাক",
+    nameBn: "Indomie Instant Noodles 70g",
     brand: "Nestlé Maggi",
     amount: "4x62g (248g)",
     category: "Snacks & Bakery",
@@ -111,7 +111,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "Dettol Original Soap 75g",
-    nameBn: "ডেটোল অরিজিনাল সাবান ৭৫গ্রাম",
+    nameBn: "Geisha Soap Shea Butter 175g",
     brand: "Dettol",
     amount: "75g",
     category: "Personal Care",
@@ -126,7 +126,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "Dano Daily Pushti Milk Powder 500g",
-    nameBn: "ডানো ডেইলি পুষ্টি গুঁড়ো দুধ ৫০০গ্রাম",
+    nameBn: "Ideal Evaporated Milk 160g",
     brand: "Arla Dano",
     amount: "500g",
     category: "Dairy & Eggs",
@@ -141,7 +141,7 @@ const FMCG_PACKET_DATABASE: MarketProductMatch[] = [
   },
   {
     name: "Ispahani Mirzapore Best Leaf Tea 400g",
-    nameBn: "ইস্পাহানি মির্জাপুর সেরা পাতা চা ৪০০গ্রাম",
+    nameBn: "Lipton Yellow Label Tea 25 Bags",
     brand: "Ispahani",
     amount: "400g",
     category: "Beverages",
@@ -315,11 +315,11 @@ export default function AIProductScannerModal({
 
     if (mode === "add-stock" && existing) {
       // Direct stock increment
-      adjustStock(existing.id, qty, isBn ? `এআই ক্যামেরা স্ক্যান চালান (+${qty})` : `AI Camera Scan Inbound (+${qty})`);
+      adjustStock(existing.id, qty, isBn ? `AI Camera Scan (+${qty})` : `AI Camera Scan Inbound (+${qty})`);
       onStockAdded?.(existing.id, qty);
       toast({
         type: "success",
-        title: isBn ? "স্টক বৃদ্ধি সফল!" : "Stock Added Successfully!",
+        title: isBn ? "Akorae No Ayɛ Kɛseɛ Yie!" : "Stock Added Successfully!",
         message: `${isBn ? match.nameBn : match.name} (+${tNum(qty)} ${match.unit})`
       });
       onClose();
@@ -328,10 +328,10 @@ export default function AIProductScannerModal({
 
     if (existing) {
       // If adding product but already exists, increment stock and alert
-      adjustStock(existing.id, qty, isBn ? "এআই স্ক্যান রি-স্টক" : "AI Scan Restock");
+      adjustStock(existing.id, qty, isBn ? "AI Scan Restock" : "AI Scan Restock");
       toast({
         type: "success",
-        title: isBn ? "পণ্যটি আগেই ছিল — স্টক আপডেট হয়েছে!" : "Product Exists — Stock Updated!",
+        title: isBn ? "Nnoɔma No Wɔ Hɔ Dada — Akorae Ayɛ Foforɔ!" : "Product Exists — Stock Updated!",
         message: `${isBn ? match.nameBn : match.name}: +${tNum(qty)} ${match.unit}`
       });
       onClose();
@@ -356,7 +356,7 @@ export default function AIProductScannerModal({
 
     toast({
       type: "success",
-      title: isBn ? "এআই স্ক্যানে নতুন পণ্য যুক্ত হয়েছে!" : "New Product Added via AI Scan!",
+      title: isBn ? "Nnoɔma Foforɔ Aka Ho Wɔ AI Scan So!" : "New Product Added via AI Scan!",
       message: `${isBn ? match.nameBn : match.name} (${formatTaka(sell)})`
     });
 
@@ -370,7 +370,7 @@ export default function AIProductScannerModal({
         <div className="px-5 pt-4 pb-1 bg-white flex items-center justify-end">
           <button
             onClick={onClose}
-            aria-label={isBn ? "বন্ধ করুন" : "Close"}
+            aria-label={isBn ? "To Mu" : "Close"}
             className="w-8 h-8 rounded-full bg-nv-100 hover:bg-nv-200 text-ink flex items-center justify-center transition-colors"
           >
             <X size={18} />
@@ -399,7 +399,7 @@ export default function AIProductScannerModal({
                       <Camera size={26} />
                     </div>
                     <div className="text-white text-xs font-semibold">
-                      {isBn ? "ক্যামেরা প্রস্তুত হচ্ছে অথবা ব্রাউজার অ্যাক্সেস দিন" : "Camera Initializing or Permission Needed"}
+                      {isBn ? "Camera resiesie ne ho..." : "Camera Initializing or Permission Needed"}
                     </div>
                     <p className="text-nv-400 text-[11px] max-w-xs mx-auto">
                       {isBn
@@ -415,10 +415,10 @@ export default function AIProductScannerModal({
                   <div className="flex items-center justify-between text-[11px] text-white/80 font-mono">
                     <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/40 backdrop-blur-xs border border-white/10">
                       <span className="w-2 h-2 rounded-full bg-em-400 animate-ping" />
-                      {isBn ? "লাইভ ডিটেকশন চালু" : "Optical AI Live"}
+                      {isBn ? "Live AI Detection Reyɛ Adwuma" : "Optical AI Live"}
                     </span>
                     <span className="px-2.5 py-1 rounded-lg bg-black/40 backdrop-blur-xs border border-white/10">
-                      {isBn ? "বাংলাদেশ FMCG ডাটাবেজ" : "BD FMCG Retail Engine"}
+                      {isBn ? "Ghana FMCG Retail Engine" : "BD FMCG Retail Engine"}
                     </span>
                   </div>
 
@@ -437,7 +437,7 @@ export default function AIProductScannerModal({
 
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-[10px] text-white/70 font-mono px-2 py-0.5 bg-black/50 rounded-md">
-                        {isBn ? "প্যাকেটের নাম বা গায়ে ফোকাস করুন" : "Focus on packet label or text"}
+                        {isBn ? "Hwɛ nnoɔma no din anaa ahyɛnsodeɛ no so" : "Focus on packet label or text"}
                       </span>
                     </div>
                   </div>
@@ -445,7 +445,7 @@ export default function AIProductScannerModal({
                   {/* Bottom HUD Hint */}
                   <div className="text-center">
                     <span className="text-[10px] text-white/80 bg-black/60 backdrop-blur-xs px-3 py-1 rounded-full border border-white/15">
-                      {isBn ? "পণ্যের নাম, ওজন (যেমন 100g, 1L) ও দাম স্বয়ংক্রিয় রিড হবে" : "Auto-detects Brand, Weight, MRP & Wholesale Price"}
+                      {isBn ? "Ɛhunu Din, Kɛseɛ (100g, 1L) ne Boɔ ntɛmntɛm" : "Auto-detects Brand, Weight, MRP & Wholesale Price"}
                     </span>
                   </div>
                 </div>
@@ -465,12 +465,12 @@ export default function AIProductScannerModal({
                   {isScanning ? (
                     <>
                       <RefreshCw size={16} className="animate-spin" />
-                      <span>{isBn ? "এআই ডিটেক্ট করছে..." : "AI Processing Packet..."}</span>
+                      <span>{isBn ? "AI rehwehwɛ mu..." : "AI Processing Packet..."}</span>
                     </>
                   ) : (
                     <>
                       <Camera size={16} />
-                      <span>{isBn ? "প্যাকেটের ছবি তুলুন (AI Scan)" : "Capture & AI Detect"}</span>
+                      <span>{isBn ? "Twa Mfoni (AI Scan)" : "Capture & AI Detect"}</span>
                     </>
                   )}
                 </button>
@@ -479,7 +479,7 @@ export default function AIProductScannerModal({
                   <button
                     type="button"
                     onClick={handleToggleCameraFacing}
-                    title={isBn ? "ক্যামেরা পরিবর্তন" : "Switch Camera"}
+                    title={isBn ? "Sesa Camera" : "Switch Camera"}
                     className="p-3 bg-nv-100 hover:bg-nv-200 text-ink rounded-2xl border border-nv-200 transition-colors"
                   >
                     <FlipHorizontal size={18} />
@@ -489,7 +489,7 @@ export default function AIProductScannerModal({
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  title={isBn ? "ছবি আপলোড" : "Upload Image"}
+                  title={isBn ? "Fa Mfoni Gu So" : "Upload Image"}
                   className="p-3 bg-nv-100 hover:bg-nv-200 text-ink rounded-2xl border border-nv-200 transition-colors"
                 >
                   <Upload size={18} />
@@ -508,9 +508,9 @@ export default function AIProductScannerModal({
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-ink flex items-center gap-1.5">
                     <Sparkles size={13} className="text-amber-500" />
-                    <span>{isBn ? "দ্রুত টেস্ট করতে স্যাম্পল প্যাকেট সিলেক্ট করুন:" : "Quick Demo: Click to Simulate AI Packet Scan:"}</span>
+                    <span>{isBn ? "Sɔ hwɛ: Fa nnoɔma yi yɛ nhwɛsoɔ:" : "Quick Demo: Click to Simulate AI Packet Scan:"}</span>
                   </span>
-                  <span className="text-[10px] text-ink/60">{isBn ? "রিয়েল রিটেল পণ্য" : "Popular BD FMCG"}</span>
+                  <span className="text-[10px] text-ink/60">{isBn ? "Ghana FMCG Nnoɔma" : "Popular BD FMCG"}</span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -578,9 +578,9 @@ export default function AIProductScannerModal({
                     </h4>
 
                     <div className="flex items-center gap-2 flex-wrap text-xs text-ink/80 pt-0.5">
-                      <span>{isBn ? "ব্র্যান্ড:" : "Brand:"} <strong className="text-ink">{detectedProduct.brand}</strong></span>
+                      <span>{isBn ? "Brand:" : "Brand:"} <strong className="text-ink">{detectedProduct.brand}</strong></span>
                       <span>•</span>
-                      <span>{isBn ? "প্যাকেট সাইজ:" : "Pack Size:"} <strong className="text-ink">{detectedProduct.amount}</strong></span>
+                      <span>{isBn ? "Kɛseɛ:" : "Pack Size:"} <strong className="text-ink">{detectedProduct.amount}</strong></span>
                     </div>
 
                     {/* AI Tags */}
@@ -597,15 +597,15 @@ export default function AIProductScannerModal({
                 {/* Market Price & Margin Bar */}
                 <div className="grid grid-cols-3 gap-2 p-3 bg-white rounded-xl border border-nv-200 text-center">
                   <div>
-                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "পাইকারি মূল্য (Buy)" : "Wholesale Buy"}</div>
+                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "Boɔ a Wɔtɔeɛ (Buy)" : "Wholesale Buy"}</div>
                     <div className="num font-bold text-xs sm:text-sm text-ink">{formatTaka(Number(customBuyPrice) || detectedProduct.buyPrice)}</div>
                   </div>
                   <div className="border-x border-nv-100">
-                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "খুচরা মূল্য (Sell)" : "Retail Sell"}</div>
+                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "Boɔ a Wɔtɔn (Sell)" : "Retail Sell"}</div>
                     <div className="num font-bold text-xs sm:text-sm text-em-700">{formatTaka(Number(customSellPrice) || detectedProduct.sellPrice)}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "লাভের মার্জিন" : "Profit Margin"}</div>
+                    <div className="text-[10px] text-ink/60 font-medium">{isBn ? "Mfasoɔ %" : "Profit Margin"}</div>
                     <div className="num font-bold text-xs sm:text-sm text-emerald-600">
                       +{Math.round((((Number(customSellPrice) || detectedProduct.sellPrice) - (Number(customBuyPrice) || detectedProduct.buyPrice)) / (Number(customBuyPrice) || detectedProduct.buyPrice)) * 100)}%
                     </div>
@@ -616,16 +616,16 @@ export default function AIProductScannerModal({
               {/* Editable Fields for Confirmation */}
               <div className="bg-nv-50 p-3.5 rounded-2xl border border-nv-200 space-y-3 text-xs sm:text-sm">
                 <div className="font-bold text-ink flex items-center justify-between">
-                  <span>{isBn ? "স্টক ও মূল্য নিশ্চিত করুন:" : "Confirm Quantity & Pricing:"}</span>
+                  <span>{isBn ? "Gye Dodoɔ ne Boɔ Tom:" : "Confirm Quantity & Pricing:"}</span>
                   <span className="text-[11px] text-ink/60 font-normal">
-                    {mode === "add-stock" ? (isBn ? "স্টক ইন পরিমাণ" : "Stock-In Quantity") : (isBn ? "প্রাথমিক স্টক" : "Initial Stock")}
+                    {mode === "add-stock" ? (isBn ? "Akorae a Wode Reba" : "Stock-In Quantity") : (isBn ? "Akorae a Ɛwɔ Hɔ" : "Initial Stock")}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2.5">
                   <div>
                     <label className="block text-[11px] font-semibold text-ink mb-1">
-                      {isBn ? "পরিমাণ (পিস)" : "Quantity"}
+                      {isBn ? "Dodoɔ (Pcs)" : "Quantity"}
                     </label>
                     <input
                       type="number"
@@ -638,7 +638,7 @@ export default function AIProductScannerModal({
 
                   <div>
                     <label className="block text-[11px] font-semibold text-ink mb-1">
-                      {isBn ? "Tɔ Boɔ (GH₵)" : "Buy Price (GH₵)"}
+                      {isBn ? "Tɔ Boɔ (₵)" : "Buy Price (₵)"}
                     </label>
                     <input
                       type="number"
@@ -650,7 +650,7 @@ export default function AIProductScannerModal({
 
                   <div>
                     <label className="block text-[11px] font-semibold text-ink mb-1">
-                      {isBn ? "Tɔn Boɔ (GH₵)" : "Sell Price (GH₵)"}
+                      {isBn ? "Tɔn Boɔ (₵)" : "Sell Price (₵)"}
                     </label>
                     <input
                       type="number"
@@ -673,7 +673,7 @@ export default function AIProductScannerModal({
                   className="py-3 px-4 rounded-xl border border-nv-200 hover:bg-nv-50 text-xs font-semibold text-ink flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <RefreshCw size={14} />
-                  <span>{isBn ? "পুনরায় স্ক্যান" : "Scan Another"}</span>
+                  <span>{isBn ? "San Scan Bio" : "Scan Another"}</span>
                 </button>
 
                 <button
@@ -684,8 +684,8 @@ export default function AIProductScannerModal({
                   <Check size={16} />
                   <span>
                     {mode === "add-stock"
-                      ? (isBn ? `স্টকে যোগ করুন (+${customStockQty} ${detectedProduct.unit})` : `Add to Stock (+${customStockQty} ${detectedProduct.unit})`)
-                      : (isBn ? "প্রোডাক্ট লিস্টে যুক্ত করুন" : "Save to Product List")}
+                      ? (isBn ? `Fa Ka Akorae Ho (+${customStockQty} ${detectedProduct.unit})` : `Add to Stock (+${customStockQty} ${detectedProduct.unit})`)
+                      : (isBn ? "Fa Ka Nnoɔma Din Ho" : "Save to Product List")}
                   </span>
                 </button>
               </div>

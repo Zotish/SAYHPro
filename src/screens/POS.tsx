@@ -63,7 +63,7 @@ export default function POS({ lang, setScreen }: POSProps) {
     if (product.stock <= 0) {
       toast({
         type: "error",
-        title: isBn ? "স্টক শেষ!" : "Out of Stock!",
+        title: isBn ? "Akorae Asa!" : "Out of Stock!",
         message: `${cleanProductName(product.name)} is currently out of stock.`,
       });
       return;
@@ -75,7 +75,7 @@ export default function POS({ lang, setScreen }: POSProps) {
         if (existing.qty >= product.stock) {
           toast({
             type: "warning",
-            title: isBn ? "সর্বোচ্চ স্টক সীমা" : "Stock Limit Reached",
+            title: isBn ? "Akorae Boro So" : "Stock Limit Reached",
             message: `Only ${product.stock} pcs available.`,
           });
           return prev;
@@ -110,7 +110,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             if (prod && newQty > prod.stock) {
               toast({
                 type: "warning",
-                title: isBn ? "স্টক সীমা" : "Stock Limit",
+                title: isBn ? "Akorae Gyinabea" : "Stock Limit",
                 message: `Max ${prod.stock} pcs in stock`,
               });
               return item;
@@ -152,7 +152,7 @@ export default function POS({ lang, setScreen }: POSProps) {
     if (cart.length === 0) {
       toast({
         type: "warning",
-        title: isBn ? "কার্ট খালি!" : "Cart is empty!",
+        title: isBn ? "Kɛntɛn No Da Mpan!" : "Cart is empty!",
         message: "Please add products to cart before checkout.",
       });
       return;
@@ -202,7 +202,7 @@ export default function POS({ lang, setScreen }: POSProps) {
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder={isBn ? "পণ্য বা SKU খুঁজুন..." : "Search products by name or SKU..."}
+              placeholder={isBn ? "Nnoɔma বা SKU Hwehwɛ..." : "Search products by name or SKU..."}
               className="w-full pl-10 pr-3 py-2 sm:py-2.5 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:border-em-500 transition-fast"
             />
           </div>
@@ -225,7 +225,7 @@ export default function POS({ lang, setScreen }: POSProps) {
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-fast
                 ${selectedCategory === cat ? "bg-em-700 text-white shadow-2xs" : "bg-nv-50 hover:bg-nv-100 text-ink"}`}
             >
-              {cat === "All" && isBn ? "সকল পণ্য" : cat}
+              {cat === "All" && isBn ? "Nyinaa Nnoɔma" : cat}
             </button>
           ))}
         </div>
@@ -283,7 +283,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                       {formatTaka(p.sellPrice, lang)}
                     </span>
                     <span className={`text-[11px] sm:text-xs font-semibold ${isOutOfStock ? "text-red-500 font-bold" : p.stock <= p.min ? "text-amber-600 font-bold" : "text-nv-600"}`}>
-                      {isOutOfStock ? (isBn ? "স্টক শেষ" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি বাকি" : "left"}`}
+                      {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি Aka" : "left"}`}
                     </span>
                   </div>
                 </button>
@@ -311,7 +311,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             >
               {customers.map(c => (
                 <option key={c.id} value={c.name}>
-                  {c.name} {c.due > 0 ? `(Due: GH₵${tNum(c.due)})` : ""}
+                  {c.name} {c.due > 0 ? `(Due: ₵${tNum(c.due)})` : ""}
                 </option>
               ))}
             </select>
@@ -357,7 +357,7 @@ export default function POS({ lang, setScreen }: POSProps) {
           {cart.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center text-ink py-10">
               <ShoppingCart size={36} className="text-ink mb-2 stroke-[1.5]" />
-              <p className="text-xs">{isBn ? "কার্টে পণ্য যোগ করুন" : "No items in cart"}</p>
+              <p className="text-xs">{isBn ? "কার্টে Fa Nnoɔma Ka Ho" : "No items in cart"}</p>
             </div>
           )}
         </div>
@@ -371,7 +371,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             </div>
 
             <div className="flex justify-between items-center text-ink">
-              <span>{isBn ? "Discount (GH₵)" : "Discount (GH₵)"}:</span>
+              <span>{isBn ? "Discount (₵)" : "Discount (₵)"}:</span>
               <input
                 type="number"
                 min="0"
@@ -383,7 +383,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             </div>
 
             <div className="flex justify-between items-center text-sm font-bold text-ink pt-1 border-t border-nv-100">
-              <span>{isBn ? "সর্বমোট টাকা" : "Grand Total"}:</span>
+              <span>{isBn ? "Ne Nyinaa Pɛpɛɛpɛ" : "Grand Total"}:</span>
               <span className="num text-lg text-ink">{formatTaka(grandTotal)}</span>
             </div>
           </div>
@@ -391,7 +391,7 @@ export default function POS({ lang, setScreen }: POSProps) {
           {/* Payment Method Selector */}
           <div>
             <span className="block text-[11px] font-bold text-ink uppercase tracking-wider mb-1.5">
-              {isBn ? "পেমেন্ট মাধ্যম" : "Payment Method"}
+              {isBn ? "পেমেন্ট Kwan a Wɔfaa So" : "Payment Method"}
             </span>
             <div className="grid grid-cols-5 gap-1">
               {paymentMethods.map(m => (
@@ -438,7 +438,7 @@ export default function POS({ lang, setScreen }: POSProps) {
               ${cart.length > 0 ? "bg-em-600 hover:bg-em-700 text-white" : "bg-nv-200 text-ink cursor-not-allowed"}`}
           >
             <CheckCircle size={18} />
-            <span>{isBn ? `বিক্রয় সম্পন্ন (${formatTaka(grandTotal)})` : `Complete Sale (${formatTaka(grandTotal)})`}</span>
+            <span>{isBn ? `Tɔn সম্পন্ন (${formatTaka(grandTotal)})` : `Complete Sale (${formatTaka(grandTotal)})`}</span>
           </button>
         </div>
       </div>
@@ -502,14 +502,14 @@ export default function POS({ lang, setScreen }: POSProps) {
 
             <div className="pt-3 border-t border-nv-100 space-y-3">
               <div className="flex justify-between items-center font-bold text-base text-ink">
-                <span>{isBn ? "মোট টাকা" : "Total"}:</span>
+                <span>{isBn ? "Ne Nyinaa" : "Total"}:</span>
                 <span className="num text-xl text-ink">{formatTaka(grandTotal)}</span>
               </div>
               <button
                 onClick={handleCheckout}
                 className="w-full py-4 bg-em-700 hover:bg-em-800 text-white rounded-2xl font-bold text-base shadow-lg"
               >
-                {isBn ? "বিক্রয় সম্পন্ন করুন" : "Complete Checkout"}
+                {isBn ? "Tɔn সম্পন্ন করুন" : "Complete Checkout"}
               </button>
             </div>
           </div>
@@ -525,7 +525,7 @@ export default function POS({ lang, setScreen }: POSProps) {
             </div>
             <div>
               <h3 className="font-display font-bold text-xl text-ink">
-                {isBn ? "বিক্রয় সফলভাবে সম্পন্ন!" : "Sale Completed!"}
+                {isBn ? "Tɔn No Awie Pɛpɛɛpɛ!" : "Sale Completed!"}
               </h3>
               <p className="text-xs text-ink mt-1">
                 {isBn ? `চালান নং: ${tNum(completedSaleData.invoiceNo)}` : `Invoice: ${completedSaleData.invoiceNo}`}
@@ -533,11 +533,11 @@ export default function POS({ lang, setScreen }: POSProps) {
             </div>
 
             <div className="bg-nv-50 p-4 rounded-2xl space-y-1 border border-nv-200">
-              <div className="text-xs text-ink">{isBn ? "মোট মূল্য" : "Grand Total"}</div>
+              <div className="text-xs text-ink">{isBn ? "Nyinaa মূল্য" : "Grand Total"}</div>
               <div className="num text-3xl font-extrabold text-ink">{formatTaka(completedSaleData.grandTotal)}</div>
               {completedSaleData.change > 0 && (
                 <div className="text-xs font-bold text-ink pt-1 border-t border-nv-200">
-                  {isBn ? `ফেরত: ${formatTaka(completedSaleData.change)}` : `Change: ${formatTaka(completedSaleData.change)}`}
+                  {isBn ? `Nsakyerae: ${formatTaka(completedSaleData.change)}` : `Change: ${formatTaka(completedSaleData.change)}`}
                 </div>
               )}
             </div>
@@ -551,13 +551,13 @@ export default function POS({ lang, setScreen }: POSProps) {
                 }}
                 className="w-full py-3 bg-nv-900 hover:bg-black text-white rounded-xl text-xs font-bold shadow-md transition-fast"
               >
-                {isBn ? "রসিদ দেখুন / প্রিন্ট" : "Print Receipt / Invoice"}
+                {isBn ? "Kasaa (Receipt) দেখুন / Tintim" : "Print Receipt / Invoice"}
               </button>
               <button
                 onClick={() => setShowSaleCompletedModal(false)}
                 className="w-full py-2.5 border border-nv-200 hover:bg-nv-50 text-ink rounded-xl text-xs font-semibold transition-fast"
               >
-                {isBn ? "নতুন বিক্রয় করুন" : "Next Sale"}
+                {isBn ? "Yɛ Tɔn Foforɔ" : "Next Sale"}
               </button>
             </div>
           </div>
@@ -569,7 +569,7 @@ export default function POS({ lang, setScreen }: POSProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "নতুন গ্রাহক যুক্ত করুন" : "Add Customer"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Fa Otɔfoɔ Foforɔ Ka Ho যুক্ত করুন" : "Add Customer"}</h3>
               <button onClick={() => setShowAddCustomerModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -577,7 +577,7 @@ export default function POS({ lang, setScreen }: POSProps) {
 
             <form onSubmit={handleCreateCustomer} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
@@ -606,7 +606,7 @@ export default function POS({ lang, setScreen }: POSProps) {
                   onClick={() => setShowAddCustomerModal(false)}
                   className="flex-1 py-2 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -635,11 +635,11 @@ export default function POS({ lang, setScreen }: POSProps) {
               <div className="w-full h-32 border-2 border-dashed border-em-400/60 rounded-xl flex items-center justify-center">
                 <div className="w-full h-0.5 bg-red-500 shadow-lg shadow-red-500 animate-bounce" />
               </div>
-              <p className="text-white/60 text-xs mt-3">{isBn ? "পণ্যের বারকোড ক্যামেরার সামনে ধরুন" : "Point barcode at camera scanner"}</p>
+              <p className="text-white/60 text-xs mt-3">{isBn ? "Nnoɔma বারকোড ক্যামেরার সামনে ধরুন" : "Point barcode at camera scanner"}</p>
             </div>
 
             <div className="text-xs text-ink">
-              {isBn ? "দ্রুত টেস্ট করতে একটি পণ্যে চাপুন:" : "Or quick scan sample item:"}
+              {isBn ? "দ্রুত টেস্ট করতে একnnoɔmaে চাপুন:" : "Or quick scan sample item:"}
             </div>
 
             <div className="flex gap-2">

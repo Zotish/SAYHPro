@@ -72,8 +72,8 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
         <button
           onClick={handleBack}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-nv-100 hover:bg-nv-200 active:bg-nv-300 flex items-center justify-center text-ink transition-colors flex-shrink-0 cursor-pointer"
-          title={isBn ? "পেছনে যান" : "Go Back"}
-          aria-label={isBn ? "পেছনে যান" : "Go Back"}
+          title={isBn ? "San Kɔ Akyi" : "Go Back"}
+          aria-label={isBn ? "San Kɔ Akyi" : "Go Back"}
         >
           <ArrowLeft size={20} />
         </button>
@@ -81,8 +81,8 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
         <button
           onClick={handleBack}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-nv-100 hover:bg-nv-200 active:bg-nv-300 flex items-center justify-center text-ink transition-colors flex-shrink-0 cursor-pointer"
-          title={isBn ? "বন্ধ করুন" : "Close"}
-          aria-label={isBn ? "বন্ধ করুন" : "Close"}
+          title={isBn ? "To Mu" : "Close"}
+          aria-label={isBn ? "To Mu" : "Close"}
         >
           <X size={19} />
         </button>
@@ -98,7 +98,7 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
             </div>
             <div>
               <h2 className="font-display text-sm sm:text-base font-bold text-ink">
-                {isBn ? "কোনটি কেনা উচিত (ক্রয় পরামর্শ)" : "What to Buy Next (Advisory)"}
+                {isBn ? "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)" : "What to Buy Next (Advisory)"}
               </h2>
             </div>
           </div>
@@ -116,14 +116,14 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
           >
             <div className="flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-ink">
-                {isBn ? "জরুরি কিনুন" : "Urgent Buy"}
+                {isBn ? "Tɔ Ntɛmntɛm (Urgent)" : "Urgent Buy"}
               </span>
               <span className="num text-xs sm:text-sm font-bold text-ink">
                 {tNum(urgentAdvisory.length)}
               </span>
             </div>
             <div className="text-[11px] text-ink/70 mt-1 truncate">
-              {isBn ? "স্টক শেষ / ব্যাপক চাহিদা" : "Out of stock / high demand"}
+              {isBn ? "Akorae Asa / ব্যাপক চাহিদা" : "Out of stock / high demand"}
             </div>
           </button>
 
@@ -137,14 +137,14 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
           >
             <div className="flex items-center justify-between">
               <span className="text-xs sm:text-sm font-bold text-ink">
-                {isBn ? "শীঘ্রই কিনুন" : "Buy Soon"}
+                {isBn ? "Tɔ Bi Ntɛm" : "Buy Soon"}
               </span>
               <span className="num text-xs sm:text-sm font-bold text-ink">
                 {tNum(soonAdvisory.length)}
               </span>
             </div>
             <div className="text-[11px] text-ink/70 mt-1 truncate">
-              {isBn ? "৭ দিনের মধ্যে ফুরিয়ে যাবে" : "Runs out within 7 days"}
+              {isBn ? "৭ Nnaের মধ্যে ফুরিয়ে যাবে" : "Runs out within 7 days"}
             </div>
           </button>
         </div>
@@ -155,10 +155,10 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
             <div className="py-12 text-center text-ink/60 bg-em-50/30 rounded-xl border border-dashed border-em-200">
               <CheckCircle size={32} className="mx-auto text-em-600 mb-2" />
               <p className="font-semibold text-sm">
-                {isBn ? "এই ক্যাটাগরিতে কোনো পণ্য নেই" : "No products in this tier right now"}
+                {isBn ? "এই ক্যাটাগরিতে কোনো Nnoɔma নেই" : "No products in this tier right now"}
               </p>
               <p className="text-xs text-ink/50 mt-1">
-                {isBn ? "আপনার পর্যাপ্ত স্টক রয়েছে" : "Current inventory levels are adequate"}
+                {isBn ? "আপনার Akorae Wɔ Hɔ রয়েছে" : "Current inventory levels are adequate"}
               </p>
             </div>
           ) : (
@@ -173,19 +173,19 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
                   </div>
                   <div className="text-[11px] sm:text-xs text-ink/70 flex items-center gap-2 mt-1 flex-wrap">
                     <span className="num font-bold text-ink">
-                      {tNum(p.stock)} {isBn ? (p.unit === "Piece" ? "পিস" : p.unit === "KG" ? "কেজি" : p.unit === "Liter" ? "লিটার" : p.unit) : p.unit}
+                      {tNum(p.stock)} {isBn ? (p.unit === "Piece" ? "Pcs" : p.unit === "KG" ? "kg" : p.unit === "Liter" ? "L" : p.unit) : p.unit}
                     </span>
                     <span className="text-ink/30">•</span>
                     <span className="font-semibold text-ink text-[11px] sm:text-xs">
                       {daysOfStockLeft === 0
-                        ? (isBn ? "স্টক শেষ (০ দিন)" : "0d stock left")
-                        : (isBn ? `${tNum(daysOfStockLeft)} দিনের মজুদ বাকি` : `${tNum(daysOfStockLeft)}d stock left`)}
+                        ? (isBn ? "Akorae Asa (০ Nna)" : "0d stock left")
+                        : (isBn ? `${tNum(daysOfStockLeft)} Nnaের মজুদ Aka` : `${tNum(daysOfStockLeft)}d stock left`)}
                     </span>
                     {p.buyPrice > 0 && (
                       <>
                         <span className="text-ink/30 hidden sm:inline">•</span>
                         <span className="text-ink/60 text-[11px] hidden sm:inline">
-                          {isBn ? "ক্রয়মূল্য" : "Cost"}: {formatTaka(p.buyPrice)}
+                          {isBn ? "Nnoɔma a Wɔatɔমূল্য" : "Cost"}: {formatTaka(p.buyPrice)}
                         </span>
                       </>
                     )}
@@ -194,10 +194,10 @@ export default function BuyAdvisory({ lang, setScreen, onBack }: BuyAdvisoryProp
 
                 <div className="text-right flex-shrink-0">
                   <div className="text-[10px] sm:text-[11px] text-ink/60">
-                    {isBn ? "প্রস্তাবিত ক্রয়" : "Suggested"}
+                    {isBn ? "প্রস্তাবিত Nnoɔma a Wɔatɔ" : "Suggested"}
                   </div>
                   <div className="num font-extrabold text-xs sm:text-sm text-em-800">
-                    +{tNum(suggestedBuyQty)} {isBn ? (p.unit === "Piece" ? "পিস" : p.unit === "KG" ? "কেজি" : p.unit === "Liter" ? "লিটার" : p.unit) : p.unit}
+                    +{tNum(suggestedBuyQty)} {isBn ? (p.unit === "Piece" ? "Pcs" : p.unit === "KG" ? "kg" : p.unit === "Liter" ? "L" : p.unit) : p.unit}
                   </div>
                   {estimatedBudget > 0 && (
                     <div className="text-[10px] text-ink/50 mt-0.5">

@@ -32,7 +32,7 @@ export default function Notifications({ lang }: NotificationsProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-ink flex items-center gap-2.5">
-            <span>{isBn ? "বিজ্ঞপ্তি ও সতর্কতা" : "Notifications & Alerts"}</span>
+            <span>{isBn ? "Nkaebɔ & Kɔkɔbɔ" : "Notifications & Alerts"}</span>
             {unreadCount > 0 && (
               <span className="px-2.5 py-0.5 bg-red-500 text-white rounded-full text-xs font-extrabold shadow-xs">
                 {tNum(unreadCount)}
@@ -41,8 +41,8 @@ export default function Notifications({ lang }: NotificationsProps) {
           </h1>
           <p className="text-ink text-xs sm:text-sm mt-0.5">
             {unreadCount > 0
-              ? (isBn ? `${tNum(unreadCount)}টি অপঠিত নোটিফিকেশন রয়েছে` : `${unreadCount} unread alerts requiring attention`)
-              : (isBn ? "সকল নোটিফিকেশন পড়া সম্পন্ন" : "All notifications are caught up")}
+              ? (isBn ? `${tNum(unreadCount)}nkaebɔ a wonkenkanee da` : `${unreadCount} unread alerts requiring attention`)
+              : (isBn ? "Woakenkan nkaebɔ nyinaa awie" : "All notifications are caught up")}
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default function Notifications({ lang }: NotificationsProps) {
               className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
             >
               <CheckCircle size={15} />
-              <span>{isBn ? "সব পড়া হিসেবে চিহ্নিত" : "Mark all as read"}</span>
+              <span>{isBn ? "Hyɛ sɛ woakenkan nyinaa" : "Mark all as read"}</span>
             </button>
           )}
           {notifications.length > 0 && (
@@ -75,7 +75,7 @@ export default function Notifications({ lang }: NotificationsProps) {
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-fast
             ${filter === "all" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:border-nv-300"}`}
         >
-          {isBn ? "সকল বিজ্ঞপ্তি" : "All"} ({tNum(notifications.length)})
+          {isBn ? "Nkaebɔ Nyinaa" : "All"} ({tNum(notifications.length)})
         </button>
         <button
           onClick={() => setFilter("unread")}
@@ -123,7 +123,7 @@ export default function Notifications({ lang }: NotificationsProps) {
         {filtered.length === 0 && (
           <div className="bg-white rounded-3xl border border-nv-200 p-12 text-center shadow-sm">
             <Bell size={40} className="text-ink mx-auto mb-3" />
-            <h3 className="font-bold text-ink text-sm">{isBn ? "কোনো বিজ্ঞপ্তি নেই" : "No notifications"}</h3>
+            <h3 className="font-bold text-ink text-sm">{isBn ? "কোনো Nkaebɔ নেই" : "No notifications"}</h3>
             <p className="text-ink text-xs mt-0.5">{isBn ? "আপনি আপ-টু-ডেট আছেন!" : "You're all caught up with your store alerts!"}</p>
           </div>
         )}

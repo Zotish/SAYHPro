@@ -164,7 +164,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           {shopMenuOpen && (
             <div className="absolute top-full left-3 right-3 mt-1.5 bg-white border border-nv-200 rounded-xl shadow-xl p-1.5 z-50 animate-in fade-in zoom-in-95">
               <div className="text-[10px] font-semibold text-nv-400 uppercase px-2 py-1">
-                {isBn ? "শাখা পরিবর্তন" : "Select Branch"}
+                {isBn ? "Sesa Baa (Select Branch)" : "Select Branch"}
               </div>
               {branches.map(branch => (
                 <button
@@ -194,7 +194,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-em-600 hover:bg-em-700 text-white font-semibold text-sm transition-colors shadow-xs cursor-pointer"
           >
             <Plus size={17} />
-            <span>{isBn ? "নতুন বিক্রয় (POS)" : "New Sale (POS)"}</span>
+            <span>{isBn ? "Tua Ka / POS Foforɔ" : "New Sale (POS)"}</span>
           </button>
         </div>
 
@@ -243,12 +243,12 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           {/* Quick Demo Shortcuts */}
           <div className="pt-3 mt-3 border-t border-nv-200">
             <p className="text-nv-400 text-[11px] font-semibold px-3 mb-1.5 uppercase tracking-wider">
-              {isBn ? "অন্যান্য ভিউ" : "Special Views"}
+              {isBn ? "Hwɛbea Foforɔ (Special Views)" : "Special Views"}
             </p>
             {[
-              { id: "invoice", label: "Invoice & Receipt", labelBn: "ইনভয়েস ভিউ" },
-              { id: "mobile-pos", label: "Mobile POS View", labelBn: "মোবাইল বিক্রয়" },
-              { id: "storefront", label: "Customer Storefront (Live)", labelBn: "লাইভ কাস্টমার শপ" },
+              { id: "invoice", label: "Invoice & Receipt", labelBn: "Invois Hwɛbea" },
+              { id: "mobile-pos", label: "Mobile POS View", labelBn: "Mobaele Tɔn" },
+              { id: "storefront", label: "Customer Storefront (Live)", labelBn: "Kastama Dukan" },
             ].map(item => (
               <button
                 key={item.id}
@@ -278,7 +278,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             </div>
             <button
               onClick={() => onLogout?.()}
-              title={isBn ? "লগআউট" : "Logout"}
+              title={isBn ? "Pue Wɔ Mu (Logout)" : "Logout"}
               className="text-nv-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-nv-100 transition-fast cursor-pointer"
             >
               <LogOut size={14} />
@@ -301,7 +301,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
             className="flex-1 max-w-sm flex items-center gap-2 px-3 py-2 bg-nv-50 hover:bg-nv-100 border border-nv-200 rounded-xl text-left text-sm text-ink transition-fast"
           >
             <Search size={15} className="text-ink flex-shrink-0" />
-            <span className="flex-1 truncate">{isBn ? "পণ্য বা গ্রাহক খুঁজুন..." : "Search anything..."}</span>
+            <span className="flex-1 truncate">{isBn ? "Hwehwɛ nnoɔma anaa atɔfoɔ..." : "Search anything..."}</span>
             <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white border border-nv-200 text-ink rounded">
               ⌘K
             </kbd>
@@ -325,7 +325,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           <button
             onClick={() => setScreen("messages")}
             className="relative w-9 h-9 flex items-center justify-center rounded-xl hover:bg-nv-100 text-ink transition-fast border border-nv-200"
-            title={isBn ? "মেসেজিং ও চ্যাট" : "Messaging & Chat"}
+            title={isBn ? "Nkitahodie & Nkɔmbɔ" : "Messaging & Chat"}
           >
             <MessageCircle size={18} />
             <span className="absolute -top-1 -right-1 w-4 h-4 bg-em-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
@@ -352,7 +352,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
               <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-nv-200 rounded-2xl shadow-2xl p-3 z-50 animate-in fade-in zoom-in-95">
                 <div className="flex items-center justify-between pb-2 border-b border-nv-100 px-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-display font-bold text-ink text-sm">{isBn ? "বিজ্ঞপ্তি" : "Notifications"}</span>
+                    <span className="font-display font-bold text-ink text-sm">{isBn ? "Nkaebɔ" : "Notifications"}</span>
                     {unreadNotifs.length > 0 && (
                       <span className="px-1.5 py-0.2 text-[10px] bg-red-100 text-ink rounded-full font-bold">
                         {tNum(unreadNotifs.length)}
@@ -364,7 +364,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                       onClick={markAllNotificationsRead}
                       className="text-xs text-ink font-semibold hover:underline"
                     >
-                      {isBn ? "সব পড়া হয়েছে" : "Mark all read"}
+                      {isBn ? "Kenkan ne nyinaa" : "Mark all read"}
                     </button>
                   )}
                 </div>
@@ -387,7 +387,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                   ))}
                   {notifications.length === 0 && (
                     <div className="py-6 text-center text-ink text-xs">
-                      {isBn ? "কোনো নতুন বিজ্ঞপ্তি নেই" : "No notifications"}
+                      {isBn ? "Nkaebɔ foforɔ biara nni hɔ" : "No notifications"}
                     </div>
                   )}
                 </div>
@@ -399,7 +399,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                   }}
                   className="w-full mt-2 py-2 bg-nv-50 hover:bg-nv-100 text-ink text-xs font-semibold rounded-xl text-center transition-fast"
                 >
-                  {isBn ? "সব বিজ্ঞপ্তি দেখুন" : "View all notifications"} →
+                  {isBn ? "Hwɛ nkaebɔ nyinaa" : "View all notifications"} →
                 </button>
               </div>
             )}
@@ -433,7 +433,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                     className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-nv-50 transition-fast text-left"
                   >
                     <Settings size={14} />
-                    <span>{isBn ? "দোকান সেটিংস" : "Shop Settings"}</span>
+                    <span>{isBn ? "Dukan Nhyehyɛeɛ" : "Shop Settings"}</span>
                   </button>
                   <button
                     onClick={() => {
@@ -443,7 +443,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                     className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-nv-50 transition-fast text-left"
                   >
                     <BarChart2 size={14} />
-                    <span>{isBn ? "রিপোর্ট ও লাভ-ক্ষতি" : "Financial Reports"}</span>
+                    <span>{isBn ? "Amanneɛbɔ & Mfasoɔ" : "Financial Reports"}</span>
                   </button>
                   <button
                     onClick={() => {
@@ -453,7 +453,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
                     className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-ink hover:bg-red-50 transition-fast text-left mt-1 border-t border-nv-100 pt-2"
                   >
                     <LogOut size={14} />
-                    <span>{isBn ? "লগআউট" : "Logout"}</span>
+                    <span>{isBn ? "Pue Wɔ Mu (Logout)" : "Logout"}</span>
                   </button>
                 </div>
               </div>

@@ -76,7 +76,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -87,17 +87,17 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
           onClick={() => setShowAddModal(true)}
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
-          <Plus size={16} /> {isBn ? "সাপ্লায়ার যোগ করুন" : "Add Supplier"}
+          <Plus size={16} /> {isBn ? "Fa Agorɔfoɔ Foforɔ Ka Ho" : "Add Supplier"}
         </button>
       </div>
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Payable Due", labelBn: "মোট সাপ্লায়ার দেনা", value: formatTaka(totalDue) },
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchases) },
-          { label: "Total Paid", labelBn: "মোট পরিশোধ", value: formatTaka(totalPaid) },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: tNum(suppliers.length) },
+          { label: "Total Payable Due", labelBn: "Agorɔfoɔ Aka Nyinaa", value: formatTaka(totalDue) },
+          { label: "Total Purchases", labelBn: "Nnoɔma a Wɔatɔ Nyinaa", value: formatTaka(totalPurchases) },
+          { label: "Total Paid", labelBn: "Akatua Nyinaa", value: formatTaka(totalPaid) },
+          { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -113,7 +113,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           type="text"
-          placeholder={isBn ? "সাপ্লায়ার বা ফোন দিয়ে খুঁজুন..." : "Search suppliers by name or phone..."}
+          placeholder={isBn ? "Agorɔfoɔ বা ফোন দিয়ে Hwehwɛ..." : "Search suppliers by name or phone..."}
           className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
         />
       </div>
@@ -124,11 +124,11 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "যোগাযোগ" : "Contact"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট ক্রয়" : "Total Purchases"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Agorɔfoɔ" : "Supplier"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Wɔatua Pɛpɛɛpɛ" : "Paid"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
               </tr>
             </thead>
@@ -151,7 +151,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(s.paid)}</td>
                   <td className="px-4 py-3">
                     <span className={`num font-bold ${s.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {s.due > 0 ? formatTaka(s.due) : "GH₵ 0"}
+                      {s.due > 0 ? formatTaka(s.due) : "₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -198,7 +198,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "নতুন সাপ্লায়ার যোগ করুন" : "Add Supplier"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Fa Agorɔfoɔ Foforɔ Ka Ho" : "Add Supplier"}</h3>
               <button onClick={() => setShowAddModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -218,7 +218,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "যোগাযোগ নম্বর" : "Contact Phone"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho নম্বর" : "Contact Phone"} *</label>
                 <input
                   type="tel"
                   required
@@ -230,7 +230,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পণ্যের ধরণ" : "Category"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma ধরণ" : "Category"}</label>
                 <input
                   type="text"
                   value={category}
@@ -241,7 +241,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Aka a Ɛda Hɔ (GH₵)" : "Opening Payable (GH₵)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Aka a Ɛda Hɔ (₵)" : "Opening Payable (₵)"}</label>
                 <input
                   type="number"
                   value={openingDue}
@@ -257,13 +257,13 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   onClick={() => setShowAddModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "সংরক্ষণ করুন" : "Save Supplier"}
+                  {isBn ? "Kora so করুন" : "Save Supplier"}
                 </button>
               </div>
             </form>
@@ -276,7 +276,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "সাপ্লায়ারকে পরিশোধ" : "Pay Supplier"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Agorɔfoɔকে পরিশোধ" : "Pay Supplier"}</h3>
               <button onClick={() => setShowPayModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -288,7 +288,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
               </p>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Dodoɔ (GH₵)" : "Payment Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Dodoɔ (₵)" : "Payment Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -316,7 +316,7 @@ export default function Suppliers({ lang, setScreen, onBack }: SuppliersProps) {
                   onClick={() => setShowPayModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

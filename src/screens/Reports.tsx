@@ -160,36 +160,36 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       tier = "urgent";
       colorName = "red";
       badgeText = "Urgent Buy / Restock";
-      badgeTextBn = "জরুরি কেনা দরকার (স্টক শেষ/ঝুঁকি)";
+      badgeTextBn = "Ntɛmntɛm কেনা দরকার (Akorae Asa/ঝুঁকি)";
       explanation = "Stock is critically low while demand is high. Restock immediately to prevent losing customers and profits.";
-      explanationBn = "স্টক মারাত্মকভাবে কমে গেছে বা শূন্য, অথচ পণ্যের ব্যাপক চাহিদা। কাস্টমার যেন ফিরে না যায় সেজন্য দ্রুত কিনুন।";
+      explanationBn = "Akorae মারাত্মকভাবে কমে গেছে বা শূন্য, অথচ Nnoɔma ব্যাপক চাহিদা। কাস্টমার যেন ফিরে না যায় সেজন্য দ্রুত কিনুন।";
       recommendedBuyQty = Math.max(20, p.min * 2 - p.stock);
     } else if (p.stock <= p.min * 1.6 || daysOfStockLeft <= 7) {
       // 🟡 YELLOW: Reorder soon
       tier = "soon";
       colorName = "yellow";
       badgeText = "Reorder Soon (3-7 Days)";
-      badgeTextBn = "শীঘ্রই শেষ হবে (৩-৭ দিন)";
+      badgeTextBn = "Ɛrensa Ntɛm (৩-৭ Nna)";
       explanation = "Approaching reorder point. Plan order in next supplier shipment batch.";
-      explanationBn = "আগামী কয়েকদিনের মধ্যে ফুরিয়ে যাবে। পরবর্তী সাপ্লায়ার চালানে অর্ডার অন্তর্ভুক্ত করুন।";
+      explanationBn = "আগামী কয়েকNnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী Agorɔfoɔ চালানে অর্ডার অন্তর্ভুক্ত করুন।";
       recommendedBuyQty = Math.max(12, Math.round(p.min * 1.5 - p.stock));
     } else if (daysOfStockLeft <= 45) {
       // 🟢 GREEN: Optimal safe stock
       tier = "safe";
       colorName = "green";
       badgeText = "Optimal / Safe (Do Not Buy)";
-      badgeTextBn = "পর্যাপ্ত স্টক (এখন কেনার দরকার নেই)";
+      badgeTextBn = "Akorae Wɔ Hɔ (এখন কেনার দরকার নেই)";
       explanation = "Healthy stock level with sufficient buffer. Cash flow is safely preserved.";
-      explanationBn = "দোকানে পর্যাপ্ত স্টক মজুত আছে। এখন নতুন করে নগদ টাকা আটকানোর কোনো প্রয়োজন নেই।";
+      explanationBn = "Dukanে Akorae Wɔ Hɔ মজুত আছে। এখন Otɔfo Foforɔ করে নগদ Sika আটকানোর কোনো প্রয়োজন নেই।";
       recommendedBuyQty = 0;
     } else {
       // ⚪ / 🔵 GRAY: Slow moving / Overstock
       tier = "slow";
       colorName = "gray";
       badgeText = "Slow Moving / Overstocked";
-      badgeTextBn = "কম চাহিদা / অতিরিক্ত স্টক (কিনবেন না)";
+      badgeTextBn = "Tɔn Ntoasoɔ Brɛoo / অতিরিক্ত Akorae (কিনবেন না)";
       explanation = "Low sales turnover. Do not purchase more units; prioritize clearing current inventory.";
-      explanationBn = "বিক্রি ধীরগতির বা অতিরিক্ত স্টক রয়েছে। ভুলেও আর কিনবেন না, আগের স্টক বিক্রির দিকে নজর দিন।";
+      explanationBn = "বিক্রি ধীরগতির বা অতিরিক্ত Akorae রয়েছে। ভুলেও আর কিনবেন না, আগের Akorae Tɔn দিকে নজর Nna।";
       recommendedBuyQty = 0;
     }
 
@@ -224,7 +224,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
   const handleExportReport = () => {
     toast({
       type: "success",
-      title: isBn ? "রিপোর্ট ডাউনলোড হয়েছে!" : "Report Exported!",
+      title: isBn ? "Amanneɛbɔ ডাউনলোড হয়েছে!" : "Report Exported!",
       message: "Financial and tax audit report saved to CSV.",
     });
   };
@@ -257,7 +257,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
     setTaxChallanInput("");
     toast({
       type: "success",
-      title: isBn ? "ট্যাক্স সফলভাবে পরিশোধিত!" : "Tax Payment Recorded!",
+      title: isBn ? "ট্যাক্স সফলভাবে Wɔatua Pɛpɛɛpɛ!" : "Tax Payment Recorded!",
       message: isBn
         ? `চালান নং ${generatedChallan} এনবিআর সিস্টেমে নথিভুক্ত হয়েছে।`
         : `Challan No. ${generatedChallan} successfully linked to NBR return.`,
@@ -271,7 +271,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -283,13 +283,13 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             onClick={handlePrint}
             className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
           >
-            <Printer size={15} /> {isBn ? "প্রিন্ট" : "Print"}
+            <Printer size={15} /> {isBn ? "Tintim" : "Print"}
           </button>
           <button
             onClick={handleExportReport}
             className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
           >
-            <Download size={15} /> {isBn ? "এক্সপোর্ট" : "Export CSV"}
+            <Download size={15} /> {isBn ? "Export" : "Export CSV"}
           </button>
         </div>
       </div>
@@ -297,17 +297,17 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* KPI Cards Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "মোট আয় (Revenue)" : "Total Revenue"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "Nyinaa আয় (Revenue)" : "Total Revenue"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "গ্রস লাভ (Gross Profit)" : "Gross Profit"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(grossProfit)}</div>
         </div>
 
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
-          <div className="text-xs text-ink mb-1">{isBn ? "নিট লাভ (Net Profit)" : "Net Profit"}</div>
+          <div className="text-xs text-ink mb-1">{isBn ? "Mfasoɔ Pɔtee (Net Profit)" : "Net Profit"}</div>
           <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(netProfit)}</div>
         </div>
 
@@ -320,12 +320,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* Tabs */}
       <div className="flex gap-2 border-b border-nv-200 pb-1 overflow-x-auto">
         {[
-          { id: "pl" as const, label: "Profit & Loss", labelBn: "লাভ ও ক্ষতি বিবরণী" },
-          { id: "tax" as const, label: "Tax Report & Payment", labelBn: "কর ও ভ্যাট রিপোর্ট ও পরিশোধ", highlight: true },
-          { id: "advisory" as const, label: "Stock Buy Advisory (Color Coded)", labelBn: "কোনটি কেনা উচিত (ক্রয় পরামর্শ)", highlight: true },
-          { id: "sales" as const, label: "Sales Audit", labelBn: "বিক্রয় রিপোর্ট" },
-          { id: "expenses" as const, label: "Expenses", labelBn: "খরচের হিসাব" },
-          { id: "dues" as const, label: "Dues & Payables", labelBn: "বাকি ও দেনা" },
+          { id: "pl" as const, label: "Profit & Loss", labelBn: "Mfasoɔ ও ক্ষতি বিবরণী" },
+          { id: "tax" as const, label: "Tax Report & Payment", labelBn: "কর ও ভ্যাট Amanneɛbɔ ও পরিশোধ", highlight: true },
+          { id: "advisory" as const, label: "Stock Buy Advisory (Color Coded)", labelBn: "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)", highlight: true },
+          { id: "sales" as const, label: "Sales Audit", labelBn: "Tɔn Amanneɛbɔ" },
+          { id: "expenses" as const, label: "Expenses", labelBn: "Ka হিসাব" },
+          { id: "dues" as const, label: "Dues & Payables", labelBn: "Aka ও দেনা" },
         ].map(tab => (
           <button
             key={tab.id}
@@ -349,7 +349,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
               <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-                <span>{isBn ? "করযোগ্য মোট বিক্রয়" : "Taxable Sales Turnover"}</span>
+                <span>{isBn ? "করKa ho্য Nyinaa Tɔn" : "Taxable Sales Turnover"}</span>
                 <Receipt size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
@@ -357,7 +357,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <div className="bg-white rounded-2xl p-4 border border-nv-200 shadow-xs">
               <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-                <span>{isBn ? "গ্রাহক থেকে সংগৃহীত ভ্যাট" : "Output VAT Collected"}</span>
+                <span>{isBn ? "Otɔfoɔ থেকে সংগৃহীত ভ্যাট" : "Output VAT Collected"}</span>
                 <Landmark size={15} className="text-ink/50" />
               </div>
               <div className="num text-xl font-bold text-ink">{formatTaka(totalSalesVatCollected)}</div>
@@ -409,8 +409,8 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-nv-50 border-b border-nv-200">
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "মাস ও অর্থবছর" : "Tax Period"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "করযোগ্য বিক্রয়" : "Sales Turnover"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Bosome ও অর্থAfe" : "Tax Period"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "করKa ho্য Tɔn" : "Sales Turnover"}</th>
                     <th className="px-4 py-3 font-bold text-ink">{isBn ? "সংগৃহীত ভ্যাট (৫%)" : "Output VAT"}</th>
                     <th className="px-4 py-3 font-bold text-ink">{isBn ? "রেয়াত ক্রেডিট" : "Input Rebate"}</th>
                     <th className="px-4 py-3 font-bold text-ink">{isBn ? "নিট প্রদেয় কর" : "Net Tax Payable"}</th>
@@ -432,13 +432,13 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                         {rec.status === "paid" ? (
                           <div>
                             <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-em-50 text-em-800 border border-em-200">
-                              <Check size={12} /> {isBn ? "পরিশোধিত" : "Paid"}
+                              <Check size={12} /> {isBn ? "Wɔatua Pɛpɛɛpɛ" : "Paid"}
                             </span>
                             <div className="text-[10px] font-mono text-ink/60 mt-0.5">{rec.challanNo}</div>
                           </div>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                            <AlertCircle size={12} /> {isBn ? "বকেয়া (পরিশোধ করুন)" : "Payment Due"}
+                            <AlertCircle size={12} /> {isBn ? "Aka (পরিশোধ করুন)" : "Payment Due"}
                           </span>
                         )}
                       </td>
@@ -451,7 +451,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                             }}
                             className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-lg font-bold text-xs shadow-xs transition-colors"
                           >
-                            {isBn ? "এখনই দিন" : "Pay Now"}
+                            {isBn ? "এখনই Nna" : "Pay Now"}
                           </button>
                         ) : (
                           <button
@@ -464,7 +464,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                             }}
                             className="px-3 py-1.5 bg-nv-100 hover:bg-nv-200 text-ink rounded-lg font-semibold text-xs transition-colors"
                           >
-                            {isBn ? "ভাউচার রসিদ" : "Challan PDF"}
+                            {isBn ? "ভাউচার Kasaa (Receipt)" : "Challan PDF"}
                           </button>
                         )}
                       </td>
@@ -477,7 +477,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
         </div>
       )}
 
-      {/* 2. Stock Buy Advisory (কোনটি কেনা উচিত - Color Coded) */}
+      {/* 2. Stock Buy Advisory (Deɛ Ɛsɛ Sɛ Wotɔ (Advisory) - Color Coded) */}
       {activeTab === "advisory" && (
         <div className="space-y-6">
           {/* Top Explanation Banner */}
@@ -486,11 +486,11 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <div>
                 <h3 className="font-display font-bold text-lg text-ink flex items-center gap-2">
                   <Package className="text-em-700" size={20} />
-                  {isBn ? "কোনটি কেনা উচিত — ক্রয়ের স্মার্ট অ্যানালিটিক্স" : "What to Buy Next — Purchasing Advisory"}
+                  {isBn ? "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory) — Nnoɔma a Wɔatɔের স্মার্ট অ্যানালিটিক্স" : "What to Buy Next — Purchasing Advisory"}
                 </h3>
                 <p className="text-xs text-ink/70">
                   {isBn
-                    ? "পণ্যের বিক্রির গতি ও মজুত বিবেচনা করে রং দিয়ে নির্দেশিকা: কোন পণ্যটি এখনই কেনা আবশ্যক এবং কোনটি অতিরিক্ত না কেনা উচিত"
+                    ? "Nnoɔma Tɔn গতি ও মজুত বিবেচনা করে রং দিয়ে নির্দেশিকা: কোন Nnoɔmaটি এখনই কেনা আবশ্যক এবং কোনটি অতিরিক্ত না কেনা উচিত"
                     : "Color-coded inventory demand analytics recommending exactly what to reorder vs what to avoid"}
                 </p>
               </div>
@@ -500,7 +500,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-colors self-start sm:self-auto"
               >
                 <ShoppingCart size={15} />
-                {isBn ? "সাপ্লায়ার অর্ডার করুন" : "Open Purchase Order"}
+                {isBn ? "Agorɔfoɔ অর্ডার করুন" : "Open Purchase Order"}
               </button>
             </div>
 
@@ -518,15 +518,15 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
-                    {isBn ? "🔴 জরুরি কেনা দরকার" : "🔴 Urgent Buy"}
+                    {isBn ? "🔴 Ntɛmntɛm কেনা দরকার" : "🔴 Urgent Buy"}
                   </span>
                   <span className="num font-bold text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-full">
-                    {tNum(urgentCount)} {isBn ? "টি পণ্য" : "items"}
+                    {tNum(urgentCount)} {isBn ? "nnoɔma" : "items"}
                   </span>
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "স্টক ০ বা বিপদসীমায়, অথচ ব্যাপক চাহিদা। দ্রুত না আনলে বিক্রি নষ্ট হবে।"
+                    ? "Akorae ০ বা বিপদসীমায়, অথচ ব্যাপক চাহিদা। দ্রুত না আনলে বিক্রি নষ্ট হবে।"
                     : "Critically low stock with active demand. High lost sales risk!"}
                 </p>
               </div>
@@ -543,15 +543,15 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    {isBn ? "🟡 শীঘ্রই শেষ হবে" : "🟡 Reorder Soon"}
+                    {isBn ? "🟡 Ɛrensa Ntɛm" : "🟡 Reorder Soon"}
                   </span>
                   <span className="num font-bold text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
-                    {tNum(soonCount)} {isBn ? "টি পণ্য" : "items"}
+                    {tNum(soonCount)} {isBn ? "nnoɔma" : "items"}
                   </span>
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "৩ থেকে ৭ দিনের মধ্যে ফুরিয়ে যাবে। পরবর্তী চালানে অর্ডার করুন।"
+                    ? "৩ থেকে ৭ Nnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী চালানে অর্ডার করুন।"
                     : "Will run out in 3-7 days. Include in upcoming purchase batch."}
                 </p>
               </div>
@@ -568,15 +568,15 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    {isBn ? "🟢 পর্যাপ্ত স্টক আছে" : "🟢 Safe / Optimal"}
+                    {isBn ? "🟢 Akorae Wɔ Hɔ আছে" : "🟢 Safe / Optimal"}
                   </span>
                   <span className="num font-bold text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
-                    {tNum(safeCount)} {isBn ? "টি পণ্য" : "items"}
+                    {tNum(safeCount)} {isBn ? "nnoɔma" : "items"}
                   </span>
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "১৫-৪৫ দিনের স্টক রয়েছে। নতুন করে কেনার দরকার নেই; ক্যাশ নিরাপদ।"
+                    ? "১৫-৪৫ Nnaের Akorae রয়েছে। Otɔfo Foforɔ করে কেনার দরকার নেই; Sika (Cash) Akorae Dɔɔso।"
                     : "Healthy buffer (15-45 days). No purchase needed; preserves cash."}
                 </p>
               </div>
@@ -593,15 +593,15 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
                     <span className="w-2.5 h-2.5 rounded-full bg-slate-400" />
-                    {isBn ? "⚪ কম চাহিদা (কিনবেন না)" : "⚪ Avoid Overstock"}
+                    {isBn ? "⚪ Tɔn Ntoasoɔ Brɛoo (কিনবেন না)" : "⚪ Avoid Overstock"}
                   </span>
                   <span className="num font-bold text-xs bg-slate-200 text-slate-800 px-2 py-0.5 rounded-full">
-                    {tNum(slowCount)} {isBn ? "টি পণ্য" : "items"}
+                    {tNum(slowCount)} {isBn ? "nnoɔma" : "items"}
                   </span>
                 </div>
                 <p className="text-[11px] text-ink/70 leading-snug">
                   {isBn
-                    ? "বিক্রি ধীরগতির। অতিরিক্ত কেনা থেকে বিরত থাকুন, টাকা আটকে থাকবে।"
+                    ? "বিক্রি ধীরগতির। অতিরিক্ত কেনা থেকে বিরত থাকুন, Sika আটকে থাকবে।"
                     : "Slow mover / excess inventory. Avoid purchasing more units."}
                 </p>
               </div>
@@ -612,7 +612,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-nv-200">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-xs font-bold text-ink mr-1 flex items-center gap-1">
-                <Filter size={13} /> {isBn ? "ফিল্টার:" : "Filter:"}
+                <Filter size={13} /> {isBn ? "Yi Mu:" : "Filter:"}
               </span>
               <button
                 onClick={() => setAdvisoryFilter("all")}
@@ -620,7 +620,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   advisoryFilter === "all" ? "bg-ink text-white" : "bg-nv-100 text-ink hover:bg-nv-200"
                 }`}
               >
-                {isBn ? "সকল পণ্য" : "All Products"} ({tNum(buyAdvisoryList.length)})
+                {isBn ? "Nyinaa Nnoɔma" : "All Products"} ({tNum(buyAdvisoryList.length)})
               </button>
               <button
                 onClick={() => setAdvisoryFilter("urgent")}
@@ -628,7 +628,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   advisoryFilter === "urgent" ? "bg-red-600 text-white" : "bg-red-50 text-red-700 hover:bg-red-100"
                 }`}
               >
-                🔴 {isBn ? "জরুরি" : "Urgent"} ({tNum(urgentCount)})
+                🔴 {isBn ? "Ntɛmntɛm" : "Urgent"} ({tNum(urgentCount)})
               </button>
               <button
                 onClick={() => setAdvisoryFilter("soon")}
@@ -636,7 +636,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   advisoryFilter === "soon" ? "bg-amber-600 text-white" : "bg-amber-50 text-amber-700 hover:bg-amber-100"
                 }`}
               >
-                🟡 {isBn ? "শীঘ্রই" : "Soon"} ({tNum(soonCount)})
+                🟡 {isBn ? "Ɛrensa Ntɛm" : "Soon"} ({tNum(soonCount)})
               </button>
               <button
                 onClick={() => setAdvisoryFilter("safe")}
@@ -652,12 +652,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   advisoryFilter === "slow" ? "bg-slate-700 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                 }`}
               >
-                ⚪ {isBn ? "কম চাহিদা" : "Slow"} ({tNum(slowCount)})
+                ⚪ {isBn ? "Tɔn Ntoasoɔ Brɛoo" : "Slow"} ({tNum(slowCount)})
               </button>
             </div>
 
             <div className="text-xs text-ink flex items-center gap-1.5 self-start sm:self-auto">
-              <span className="text-ink/60">{isBn ? "প্রস্তাবিত রি-স্টক বাজেট:" : "Suggested Buy Budget:"}</span>
+              <span className="text-ink/60">{isBn ? "প্রস্তাবিত রি-Akorae বাজেট:" : "Suggested Buy Budget:"}</span>
               <span className="num font-bold text-em-700 text-sm">{formatTaka(totalRecommendedBudget)}</span>
             </div>
           </div>
@@ -668,12 +668,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-nv-50 border-b border-nv-200">
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "পণ্য ও বিভাগ" : "Product & Category"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "ক্রয় নির্দেশিকা (রং ভিত্তিক)" : "Color Buy Advisory"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "বর্তমান স্টক" : "Current Stock"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma ও বিভাগ" : "Product & Category"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma a Wɔatɔ নির্দেশিকা (রং ভিত্তিক)" : "Color Buy Advisory"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "বর্তমান Akorae" : "Current Stock"}</th>
                     <th className="px-4 py-3 font-bold text-ink">{isBn ? "সাপ্তাহিক চাহিদা" : "Sales Burn Rate"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "স্টক অবশিষ্ট" : "Days Left"}</th>
-                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "কত পিস কেনা উচিত" : "Suggested Qty"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "Akorae অবশিষ্ট" : "Days Left"}</th>
+                    <th className="px-4 py-3 font-bold text-ink">{isBn ? "কত Pcs কেনা উচিত" : "Suggested Qty"}</th>
                     <th className="px-4 py-3 font-bold text-ink">{isBn ? "প্রয়োজনীয় বাজেট" : "Est. Cost"}</th>
                     <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "ব্যবস্থা" : "Action"}</th>
                   </tr>
@@ -735,7 +735,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                         </td>
 
                         <td className="px-4 py-3 num">
-                          ~{tNum(weeklyRate)} {isBn ? "পিস/সপ্তাহ" : "pcs/wk"}
+                          ~{tNum(weeklyRate)} {isBn ? "Pcs/Dapɛn" : "pcs/wk"}
                         </td>
 
                         <td className="px-4 py-3 num">
@@ -744,7 +744,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                               daysOfStockLeft <= 3 ? "text-red-700 font-bold" : daysOfStockLeft <= 7 ? "text-amber-700" : "text-ink"
                             }`}
                           >
-                            {daysOfStockLeft > 90 ? "90+ days" : `${tNum(daysOfStockLeft)} ${isBn ? "দিন" : "days"}`}
+                            {daysOfStockLeft > 90 ? "90+ days" : `${tNum(daysOfStockLeft)} ${isBn ? "Nna" : "days"}`}
                           </span>
                         </td>
 
@@ -752,7 +752,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                           {recommendedBuyQty > 0 ? (
                             <span className="text-em-700 font-bold">+{tNum(recommendedBuyQty)} pcs</span>
                           ) : (
-                            <span className="text-ink/40 font-normal">০ {isBn ? "পিস" : "pcs"}</span>
+                            <span className="text-ink/40 font-normal">০ {isBn ? "Pcs" : "pcs"}</span>
                           )}
                         </td>
 
@@ -793,7 +793,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-6">
           <div className="border-b border-nv-100 pb-4">
             <h3 className="font-display font-bold text-ink text-lg">
-              {isBn ? "লাভ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
+              {isBn ? "Mfasoɔ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
             </h3>
           </div>
 
@@ -801,15 +801,15 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             {/* Income */}
             <div className="space-y-2">
               <div className="flex justify-between items-center font-bold text-ink border-b border-nv-100 pb-1">
-                <span>1. {isBn ? "বিক্রয় আয় (Revenue)" : "Gross Revenue from Sales"}</span>
+                <span>1. {isBn ? "Tɔn আয় (Revenue)" : "Gross Revenue from Sales"}</span>
                 <span className="num text-ink">{formatTaka(totalRevenue)}</span>
               </div>
               <div className="flex justify-between items-center text-ink pl-4">
-                <span>- {isBn ? "পণ্যের মোট ক্রয় খরচ (COGS)" : "Cost of Goods Sold (COGS)"}</span>
+                <span>- {isBn ? "Nnoɔma Nnoɔma a Wɔatɔ Nyinaa Ka (COGS)" : "Cost of Goods Sold (COGS)"}</span>
                 <span className="num text-ink">-{formatTaka(totalCOGS)}</span>
               </div>
               <div className="flex justify-between items-center font-bold text-ink bg-em-50/50 p-2.5 rounded-xl">
-                <span>= {isBn ? "গ্রস লাভ (Gross Profit)" : "Gross Profit"}</span>
+                <span>= {isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</span>
                 <span className="num font-bold text-ink">{formatTaka(grossProfit)} ({tNum(grossMargin)}%)</span>
               </div>
             </div>
@@ -817,7 +817,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
             {/* Operating Expenses */}
             <div className="space-y-2 pt-2">
               <div className="font-bold text-ink border-b border-nv-100 pb-1">
-                2. {isBn ? "দোকান পরিচালন ব্যয় (Operating Expenses)" : "Operating Expenses"}
+                2. {isBn ? "Dukan পরিচালন ব্যয় (Operating Expenses)" : "Operating Expenses"}
               </div>
               {Object.entries(expenseByCategory).map(([cat, amt]) => (
                 <div key={cat} className="flex justify-between items-center text-ink pl-4">
@@ -829,14 +829,14 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                 <div className="text-ink pl-4 text-xs">No operating expenses recorded yet</div>
               )}
               <div className="flex justify-between items-center font-bold text-ink bg-red-50/50 p-2.5 rounded-xl">
-                <span>= {isBn ? "মোট পরিচালন খরচ" : "Total Operating Expenses"}</span>
+                <span>= {isBn ? "Nyinaa পরিচালন Ka" : "Total Operating Expenses"}</span>
                 <span className="num font-bold text-ink">-{formatTaka(totalExpenses)}</span>
               </div>
             </div>
 
             {/* Final Net Profit */}
             <div className="flex justify-between items-center text-base sm:text-lg font-extrabold text-white sidebar-gradient p-4 rounded-2xl shadow-md">
-              <span>{isBn ? "চূড়ান্ত নিট লাভ (Net Profit)" : "Net Profit"}</span>
+              <span>{isBn ? "চূড়ান্ত Mfasoɔ Pɔtee (Net Profit)" : "Net Profit"}</span>
               <span className="num font-mono">{formatTaka(netProfit)}</span>
             </div>
           </div>
@@ -846,7 +846,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* 4. Sales Breakdown View */}
       {activeTab === "sales" && (
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
-          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "সকল বিক্রয় তালিকা" : "Completed Sales Records"}</h3>
+          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Nyinaa Tɔn তালিকা" : "Completed Sales Records"}</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
@@ -881,7 +881,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {/* 5. Expenses Tab */}
       {activeTab === "expenses" && (
         <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-6 space-y-4">
-          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "খরচের সম্পূর্ণ তালিকা" : "Expense Audit Trail"}</h3>
+          <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Ka সম্পূর্ণ তালিকা" : "Expense Audit Trail"}</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
@@ -913,7 +913,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
       {activeTab === "dues" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-5 space-y-3">
-            <h3 className="font-display font-bold text-ink text-base">{isBn ? "গ্রাহক বাকি (Receivables)" : "Customer Receivables"}</h3>
+            <h3 className="font-display font-bold text-ink text-base">{isBn ? "Otɔfoɔ Aka (Receivables)" : "Customer Receivables"}</h3>
             <div className="divide-y divide-nv-100">
               {customers.filter(c => c.due > 0).map(c => (
                 <div key={c.id} className="py-2.5 flex justify-between items-center text-xs sm:text-sm">
@@ -928,7 +928,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
           </div>
 
           <div className="bg-white rounded-3xl shadow-sm border border-nv-200 p-5 space-y-3">
-            <h3 className="font-display font-bold text-ink text-base">{isBn ? "সাপ্লায়ার দেনা (Payables)" : "Supplier Payables"}</h3>
+            <h3 className="font-display font-bold text-ink text-base">{isBn ? "Agorɔfoɔ Aka (Payables)" : "Supplier Payables"}</h3>
             <div className="divide-y divide-nv-100">
               {suppliers.filter(s => s.due > 0).map(s => (
                 <div key={s.id} className="py-2.5 flex justify-between items-center text-xs sm:text-sm">
@@ -955,7 +955,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               <div className="flex items-center gap-2">
                 <Landmark className="text-em-700" size={20} />
                 <h3 className="font-display font-bold text-ink text-base">
-                  {isBn ? "অনলাইন কর ও ভ্যাট পরিশোধ" : "NBR Tax & VAT e-Payment"}
+                  {isBn ? "Intanɛte GRA Tax & VAT Tua" : "NBR Tax & VAT e-Payment"}
                 </h3>
               </div>
               <button
@@ -968,7 +968,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
 
             <form onSubmit={handleTaxPaymentSubmit} className="space-y-4 text-xs sm:text-sm">
               <div className="p-3 bg-nv-50 rounded-2xl border border-nv-200 space-y-1">
-                <div className="text-xs text-ink/60">{isBn ? "ট্যাক্স পর্ব / মাস:" : "Tax Period:"}</div>
+                <div className="text-xs text-ink/60">{isBn ? "ট্যাক্স পর্ব / Bosome:" : "Tax Period:"}</div>
                 <div className="font-bold text-sm text-ink">
                   {isBn
                     ? `${selectedTaxMonth.monthBn} ${tNum(selectedTaxMonth.year)} (মূসক ৯.১)`
@@ -983,7 +983,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
               {/* Channel Selector */}
               <div>
                 <label className="block font-semibold text-ink mb-1.5">
-                  {isBn ? "পেমেন্ট মাধ্যম বেছে নিন" : "Select Payment Gateway"}
+                  {isBn ? "পেমেন্ট Kwan a Wɔfaa So বেছে নিন" : "Select Payment Gateway"}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
@@ -1030,7 +1030,7 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                   onClick={() => setShowTaxPayModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl text-ink font-semibold hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

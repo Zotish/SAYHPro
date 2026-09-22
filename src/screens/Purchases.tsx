@@ -8,9 +8,9 @@ interface PurchasesProps {
 
 const statusBadge = (status: string, isBn: boolean) => {
   const map: Record<string, { label: string; labelBn: string; cls: string; icon: React.ElementType }> = {
-    paid: { label: "Paid", labelBn: "পরিশোধিত", cls: "bg-em-50 text-ink border border-em-200", icon: CheckCircle },
-    partial: { label: "Partial", labelBn: "আংশিক বাকি", cls: "bg-ac-50 text-ink border border-ac-200", icon: Clock },
-    credit: { label: "Credit / Due", labelBn: "বাকিতে ক্রয়", cls: "bg-red-50 text-ink border border-red-200", icon: X },
+    paid: { label: "Paid", labelBn: "Wɔatua Pɛpɛɛpɛ", cls: "bg-em-50 text-ink border border-em-200", icon: CheckCircle },
+    partial: { label: "Partial", labelBn: "Wɔatua Fa Bi", cls: "bg-ac-50 text-ink border border-ac-200", icon: Clock },
+    credit: { label: "Credit / Due", labelBn: "Tɔ wɔ Aka So", cls: "bg-red-50 text-ink border border-red-200", icon: X },
   };
   const m = map[status] || map.paid;
   return (
@@ -98,17 +98,17 @@ export default function Purchases({ lang }: PurchasesProps) {
           onClick={() => setShowForm(!showForm)}
           className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md"
         >
-          <Plus size={16} /> {isBn ? "নতুন ক্রয় অর্ডার" : "New Purchase"}
+          <Plus size={16} /> {isBn ? "Purchase Order Foforɔ" : "New Purchase"}
         </button>
       </div>
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Purchases", labelBn: "মোট ক্রয়", value: formatTaka(totalPurchasesAmount) },
-          { label: "Payable to Suppliers", labelBn: "সাপ্লায়ার দেনা", value: formatTaka(totalDueToSuppliers) },
-          { label: "Total Orders", labelBn: "মোট অর্ডার", value: tNum(purchases.length) },
-          { label: "Active Suppliers", labelBn: "সাপ্লায়ার সংখ্যা", value: tNum(suppliers.length) },
+          { label: "Total Purchases", labelBn: "Nnoɔma a Wɔatɔ Nyinaa", value: formatTaka(totalPurchasesAmount) },
+          { label: "Payable to Suppliers", labelBn: "Agorɔfoɔ Aka", value: formatTaka(totalDueToSuppliers) },
+          { label: "Total Orders", labelBn: "Nyinaa অর্ডার", value: tNum(purchases.length) },
+          { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -120,7 +120,7 @@ export default function Purchases({ lang }: PurchasesProps) {
       {/* Color-Coded Purchasing Advisory Strip */}
       <div className="bg-gradient-to-r from-em-50/60 via-nv-50/30 to-white border border-em-200 rounded-2xl p-4 flex flex-col gap-2.5 shadow-2xs">
         <div className="font-bold text-xs sm:text-sm text-ink">
-          {isBn ? "স্মার্ট ক্রয় অ্যানালিটিক্স:" : "Smart Purchasing Advisory:"}
+          {isBn ? "স্মার্ট Nnoɔma a Wɔatɔ অ্যানালিটিক্স:" : "Smart Purchasing Advisory:"}
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
@@ -128,7 +128,7 @@ export default function Purchases({ lang }: PurchasesProps) {
             onClick={handleAutoFillUrgent}
             className="px-3 py-1.5 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <span>{tNum(urgentCount)} {isBn ? "টি জরুরি" : "Urgent"}</span>
+            <span>{tNum(urgentCount)} {isBn ? "টি Ntɛmntɛm" : "Urgent"}</span>
           </button>
 
           <button
@@ -147,7 +147,7 @@ export default function Purchases({ lang }: PurchasesProps) {
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
             <div className="flex items-center gap-2">
               <Truck size={20} className="text-ink" />
-              <h3 className="font-display font-bold text-ink text-base">{isBn ? "নতুন ক্রয় অর্ডার এন্ট্রি" : "Record Purchase Order"}</h3>
+              <h3 className="font-display font-bold text-ink text-base">{isBn ? "Purchase Order Foforɔ এন্ট্রি" : "Record Purchase Order"}</h3>
             </div>
             <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
@@ -157,7 +157,7 @@ export default function Purchases({ lang }: PurchasesProps) {
           <form onSubmit={handleCreatePurchase} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "সাপ্লায়ার" : "Supplier"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Agorɔfoɔ" : "Supplier"} *</label>
                 <select
                   value={supplierName}
                   onChange={e => setSupplierName(e.target.value)}
@@ -168,7 +168,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "চালান / ইনভয়েস নং" : "Supplier Invoice No."}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "চালান / Invois নং" : "Supplier Invoice No."}</label>
                 <input
                   type="text"
                   value={invoiceNo}
@@ -192,13 +192,13 @@ export default function Purchases({ lang }: PurchasesProps) {
             {/* Line Items */}
             <div className="space-y-2 pt-2 border-t border-nv-100">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "পণ্যের তালিকা (স্টক বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
+                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "Nnoɔma তালিকা (Akorae বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
                 <button
                   type="button"
                   onClick={addItem}
                   className="text-xs font-bold text-ink hover:underline flex items-center gap-1"
                 >
-                  <Plus size={14} /> {isBn ? "আরেকটি পণ্য যোগ করুন" : "Add Item"}
+                  <Plus size={14} /> {isBn ? "আরেকটি Fa Nnoɔma Ka Ho" : "Add Item"}
                 </button>
               </div>
 
@@ -229,7 +229,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                     </div>
 
                     <div className="flex items-center gap-1 w-28">
-                      <span className="text-[11px] text-ink">GH₵/pc:</span>
+                      <span className="text-[11px] text-ink">₵/pc:</span>
                       <input
                         type="number"
                         min="0"
@@ -260,12 +260,12 @@ export default function Purchases({ lang }: PurchasesProps) {
             {/* Payment Row */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-nv-100 text-xs sm:text-sm bg-nv-50/50 p-3 rounded-2xl">
               <div>
-                <span className="block text-ink">{isBn ? "মোট ক্রয় মূল্য" : "Total Cost"}</span>
+                <span className="block text-ink">{isBn ? "Nyinaa Boɔ a Wɔtɔeɛ" : "Total Cost"}</span>
                 <span className="num text-xl font-bold text-ink">{formatTaka(subtotal)}</span>
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua a Wɔatua (GH₵)" : "Paid Amount (GH₵)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua a Wɔatua (₵)" : "Paid Amount (₵)"}</label>
                 <input
                   type="number"
                   value={paidAmount}
@@ -293,13 +293,13 @@ export default function Purchases({ lang }: PurchasesProps) {
                 onClick={() => setShowForm(false)}
                 className="px-5 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
               >
-                {isBn ? "বাতিল" : "Cancel"}
+                {isBn ? "Gyae (Cancel)" : "Cancel"}
               </button>
               <button
                 type="submit"
                 className="px-6 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
               >
-                {isBn ? "ক্রয় নিশ্চিত করুন (স্টক যুক্ত হবে)" : "Confirm Purchase"}
+                {isBn ? "Nnoɔma a Wɔatɔ নিশ্চিত করুন (Akorae যুক্ত হবে)" : "Confirm Purchase"}
               </button>
             </div>
           </form>
@@ -315,7 +315,7 @@ export default function Purchases({ lang }: PurchasesProps) {
               value={search}
               onChange={e => setSearch(e.target.value)}
               type="text"
-              placeholder={isBn ? "সাপ্লায়ার বা অর্ডার আইডি দিয়ে খুঁজুন..." : "Search by supplier or order ID..."}
+              placeholder={isBn ? "Agorɔfoɔ বা অর্ডার আইডি দিয়ে Hwehwɛ..." : "Search by supplier or order ID..."}
               className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:bg-white"
             />
           </div>
@@ -326,11 +326,11 @@ export default function Purchases({ lang }: PurchasesProps) {
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অর্ডার আইডি" : "Order ID"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সাপ্লায়ার" : "Supplier"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Agorɔfoɔ" : "Supplier"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট টাকা" : "Total"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধিত" : "Paid"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বাকি দেনা" : "Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ne Nyinaa" : "Total"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Wɔatua Pɛpɛɛpɛ" : "Paid"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
               </tr>
             </thead>
@@ -344,7 +344,7 @@ export default function Purchases({ lang }: PurchasesProps) {
                   <td className="px-4 py-3 num font-semibold text-ink whitespace-nowrap">{formatTaka(p.paid)}</td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <span className={`num font-bold ${p.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {p.due > 0 ? formatTaka(p.due) : "GH₵ 0"}
+                      {p.due > 0 ? formatTaka(p.due) : "₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">{statusBadge(p.status, isBn)}</td>

@@ -58,25 +58,25 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
 
   const navigationItems = [
     { id: "dashboard", label: "Dashboard", labelBn: "ড্যাশবোর্ড", icon: LayoutDashboard },
-    { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "মার্কেটিং ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
-    { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "কুরিয়ার পার্সেল ও ডেলিভারি এগ্রিগেটর", icon: Truck },
-    { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল ব্যাংকিং, ঋণ ও বাংলা কিউআর পেমেন্ট", icon: Landmark },
+    { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "Dawubɔ ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
+    { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "Kɔmafoɔ Parcel ও Delivery এগ্রিগেটর", icon: Truck },
+    { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল Sikakorabeaিং, ঋণ ও Twi (Akan) কিউআর পেমেন্ট", icon: Landmark },
     { id: "reselling", label: "Reselling & Drop-Shipping Wholesale Catalog", labelBn: "রিসেলিং মার্কেট ও পাইকারি ক্যাটালগ", icon: Store },
-    { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "অনলাইন স্টোর ও ওয়েবসাইট বিল্ডার", icon: Globe2 },
-    { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "স্মার্ট মনিটরিং ও স্বয়ংক্রিয় অ্যালার্ট", icon: ShieldAlert },
+    { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "Intanɛte Dukan ও ওয়েবসাইট বিল্ডার", icon: Globe2 },
+    { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "স্মার্ট মনিটরিং ও স্বয়ংক্রিয় Kɔkɔbɔ", icon: ShieldAlert },
     { id: "pos", label: "POS / New Sale", labelBn: "বিক্রি করুন", icon: Scan },
-    { id: "products", label: "Products Catalog", labelBn: "পণ্য তালিকা", icon: Package },
-    { id: "dues", label: "Customer Dues", labelBn: "বাকির হিসাব", icon: CreditCard },
-    { id: "inventory", label: "Inventory Stock", labelBn: "ইনভেন্টরি", icon: Package },
-    { id: "expenses", label: "Expenses", labelBn: "খরচ", icon: Receipt },
-    { id: "purchases", label: "Purchases", labelBn: "ক্রয়", icon: Truck },
-    { id: "customers", label: "Customers", labelBn: "গ্রাহক", icon: Users },
-    { id: "cash", label: "Cash & Accounts", labelBn: "ক্যাশ ও হিসাব", icon: Wallet },
-    { id: "employees", label: "Employees", labelBn: "কর্মচারী", icon: UserCheck },
-    { id: "advisory", label: "Buy Advisory - What to Buy Next", labelBn: "কোনটি কেনা উচিত (ক্রয় পরামর্শ)", icon: Package },
+    { id: "products", label: "Products Catalog", labelBn: "Nnoɔma Din", icon: Package },
+    { id: "dues", label: "Customer Dues", labelBn: "Akaর হিসাব", icon: CreditCard },
+    { id: "inventory", label: "Inventory Stock", labelBn: "Akorae", icon: Package },
+    { id: "expenses", label: "Expenses", labelBn: "Ka", icon: Receipt },
+    { id: "purchases", label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ", icon: Truck },
+    { id: "customers", label: "Customers", labelBn: "Otɔfoɔ", icon: Users },
+    { id: "cash", label: "Cash & Accounts", labelBn: "Sika & Akawnt", icon: Wallet },
+    { id: "employees", label: "Employees", labelBn: "Adwumayɛfoɔ", icon: UserCheck },
+    { id: "advisory", label: "Buy Advisory - What to Buy Next", labelBn: "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)", icon: Package },
     { id: "analytics", label: "Business Analytics & Insights", labelBn: "ব্যবসায়িক অ্যানালিটিক্স", icon: BarChart2 },
-    { id: "reports", label: "Reports & Profit/Loss", labelBn: "রিপোর্ট", icon: BarChart2 },
-    { id: "settings", label: "Settings", labelBn: "সেটিংস", icon: Settings },
+    { id: "reports", label: "Reports & Profit/Loss", labelBn: "Amanneɛbɔ", icon: BarChart2 },
+    { id: "settings", label: "Settings", labelBn: "Nhyehyɛeɛ", icon: Settings },
   ].filter(item =>
     query.trim()
       ? item.label.toLowerCase().includes(query.toLowerCase()) || item.labelBn.includes(query)
@@ -99,7 +99,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder={isBn ? "পণ্য, গ্রাহক, ইনভয়েস বা মেনু খুঁজুন..." : "Search products, customers, invoices, or pages..."}
+            placeholder={isBn ? "Nnoɔma, Otɔfoɔ, Invois বা মেনু Hwehwɛ..." : "Search products, customers, invoices, or pages..."}
             className="flex-1 bg-transparent text-ink placeholder:text-ink text-base focus:outline-none"
           />
           {query && (
@@ -121,7 +121,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {filteredProducts.length > 0 && (
             <div>
               <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
-                {isBn ? "পণ্য" : "Products"}
+                {isBn ? "Nnoɔma" : "Products"}
               </p>
               <div className="space-y-1">
                 {filteredProducts.map(p => (
@@ -145,7 +145,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     </div>
                     <div className="text-right">
                       <div className="num font-bold text-sm text-ink">{formatTaka(p.sellPrice)}</div>
-                      <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "টি বাকি" : "in stock"}</div>
+                      <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "টি Aka" : "in stock"}</div>
                     </div>
                   </button>
                 ))}
@@ -157,7 +157,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {filteredCustomers.length > 0 && (
             <div>
               <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
-                {isBn ? "গ্রাহক" : "Customers"}
+                {isBn ? "Otɔfoɔ" : "Customers"}
               </p>
               <div className="space-y-1">
                 {filteredCustomers.map(c => (
@@ -179,7 +179,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                     </div>
                     <div className="text-right">
                       <div className={`num font-bold text-sm ${c.due > 0 ? "text-ink" : "text-ink"}`}>
-                        {c.due > 0 ? `${formatTaka(c.due)} ${isBn ? "বাকি" : "Due"}` : (isBn ? "বাকি নেই" : "No Due")}
+                        {c.due > 0 ? `${formatTaka(c.due)} ${isBn ? "Aka" : "Due"}` : (isBn ? "Aka Biara Nni Hɔ" : "No Due")}
                       </div>
                     </div>
                   </button>
@@ -192,7 +192,7 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
           {filteredSales.length > 0 && (
             <div>
               <p className="text-[11px] font-bold tracking-wider text-ink uppercase px-2 mb-1.5">
-                {isBn ? "ইনভয়েস" : "Invoices"}
+                {isBn ? "Invois" : "Invoices"}
               </p>
               <div className="space-y-1">
                 {filteredSales.map(s => (

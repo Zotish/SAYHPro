@@ -129,7 +129,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
             ))}
           </div>
           <p className="text-xs text-ink">
-            {isBn ? `ধাপ ${step} এর ${totalSteps}` : `Step ${step} of ${totalSteps}`}: <span className="font-bold text-ink">{stepLabels[step - 1]}</span>
+            {isBn ? `Anammɔn ${step} wɔ ${totalSteps}` : `Step ${step} of ${totalSteps}`}: <span className="font-bold text-ink">{stepLabels[step - 1]}</span>
           </p>
         </div>
 
@@ -262,7 +262,7 @@ export default function Onboarding({ lang, setLang, onComplete }: OnboardingProp
               </div>
 
               <div className="p-3 bg-nv-50 rounded-2xl text-xs text-ink">
-                Default Currency: <span className="font-bold text-ink">GHS — Ghana Cedi (GH₵)</span>
+                Default Currency: <span className="font-bold text-ink">GHS — Ghana Cedi (₵)</span>
               </div>
 
               <div className="flex gap-2 pt-2">

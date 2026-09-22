@@ -56,8 +56,8 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
   const handleOpenSMS = (c: Customer) => {
     setSelectedCustomer(c);
     const template = isBn
-      ? `Dear ${c.name}, nkaebɔ a ɛfa wo bosea a ɛda hɔ wɔ ${settings.shopName} ho. Ɛyɛ GH₵${c.due}. Yɛsrɛ wo tua wɔ MTN MoMo so kɔ ${settings.phone}. Medaase!`
-      : `Dear ${c.name}, friendly reminder that your outstanding balance at ${settings.shopName} is GH₵${c.due}. Kindly settle via MTN MoMo to ${settings.phone}. Thank you!`;
+      ? `Dear ${c.name}, nkaebɔ a ɛfa wo bosea a ɛda hɔ wɔ ${settings.shopName} ho. Ɛyɛ ₵${c.due}. Yɛsrɛ wo tua wɔ MTN MoMo so kɔ ${settings.phone}. Medaase!`
+      : `Dear ${c.name}, friendly reminder that your outstanding balance at ${settings.shopName} is ₵${c.due}. Kindly settle via MTN MoMo to ${settings.phone}. Thank you!`;
     setSmsMessage(template);
     setShowSMSModal(true);
   };
@@ -97,7 +97,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
   const handleSendSMS = () => {
     toast({
       type: "success",
-      title: isBn ? "এসএমএস পাঠানো হয়েছে!" : "SMS Reminder Sent!",
+      title: isBn ? "SMS Nkaebɔ Akɔ!" : "SMS Reminder Sent!",
       message: `Sent to ${selectedCustomer?.phone}`,
     });
     setShowSMSModal(false);
@@ -112,7 +112,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
         {onBack && (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -122,16 +122,16 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
           onClick={() => setShowAddDueModal(true)}
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast"
         >
-          <Plus size={16} /> {isBn ? "নতুন বাকি এন্ট্রি" : "Add Due Entry"}
+          <Plus size={16} /> {isBn ? "Kyerɛw Aka Foforɔ" : "Add Due Entry"}
         </button>
       </div>
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Outstanding Due", labelBn: "মোট বাকি পাওনা", value: formatTaka(totalDueAmount) },
-          { label: "Owing Customers", labelBn: "বাকিদার গ্রাহক", value: `${tNum(customersWithDue.length)} ${isBn ? "জন" : "Customers"}` },
-          { label: "Total Customers", labelBn: "মোট গ্রাহক", value: `${tNum(customers.length)} ${isBn ? "জন" : "Registered"}` },
+          { label: "Total Outstanding Due", labelBn: "Aka Nyinaa a Ɛda Hɔ", value: formatTaka(totalDueAmount) },
+          { label: "Owing Customers", labelBn: "Atɔfoɔ a Wɔde Aka", value: `${tNum(customersWithDue.length)} ${isBn ? "জন" : "Customers"}` },
+          { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : "Registered"}` },
           { label: "Collection Account", labelBn: "ডিফল্ট জমা", value: "Cash (নগদ)" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
@@ -148,7 +148,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
           value={search}
           onChange={e => setSearch(e.target.value)}
           type="text"
-          placeholder={isBn ? "গ্রাহকের নাম বা ফোন দিয়ে খুঁজুন..." : "Search customers by name or phone..."}
+          placeholder={isBn ? "Otɔfoɔের নাম বা ফোন দিয়ে Hwehwɛ..." : "Search customers by name or phone..."}
           className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-nv-200 rounded-xl focus:border-em-500"
         />
       </div>
@@ -159,10 +159,10 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "গ্রাহক" : "Customer"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "যোগাযোগ" : "Contact"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "মোট ক্রয়" : "Total Purchases"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বকেয়া বাকি" : "Current Due"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Otɔfoɔ" : "Customer"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma a Wɔatɔ Nyinaa" : "Total Purchases"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka Aka" : "Current Due"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
               </tr>
@@ -185,12 +185,12 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   <td className="px-4 py-3 num font-semibold text-ink">{formatTaka(c.totalPurchases)}</td>
                   <td className="px-4 py-3">
                     <span className={`num font-bold text-sm ${c.due > 0 ? "text-ink" : "text-ink"}`}>
-                      {c.due > 0 ? formatTaka(c.due) : "GH₵ 0"}
+                      {c.due > 0 ? formatTaka(c.due) : "₵ 0"}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${c.due > 0 ? "bg-red-50 text-ink border border-red-200" : "bg-em-50 text-ink border border-em-200"}`}>
-                      {c.due > 0 ? (isBn ? "বাকি আছে" : "Has Due") : (isBn ? "পরিশোধিত" : "Clear")}
+                      {c.due > 0 ? (isBn ? "Aka Wɔ Hɔ" : "Has Due") : (isBn ? "Wɔatua Pɛpɛɛpɛ" : "Clear")}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -240,7 +240,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "বাকি টাকা আদায়" : "Collect Due Payment"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Gye Aka No" : "Collect Due Payment"}</h3>
               <button onClick={() => setShowCollectModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -250,13 +250,13 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               <div className="p-3 bg-nv-50 rounded-xl space-y-1">
                 <div className="font-bold text-ink">{selectedCustomer.name}</div>
                 <div className="text-xs text-ink">
-                  {isBn ? "মোট বাকি: " : "Current Due: "}
+                  {isBn ? "Nyinaa Aka: " : "Current Due: "}
                   <span className="num font-bold text-ink">{formatTaka(selectedCustomer.due)}</span>
                 </div>
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika a Wɔatua (GH₵)" : "Collected Amount (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Sika a Wɔatua (₵)" : "Collected Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -295,7 +295,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   onClick={() => setShowCollectModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -314,7 +314,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "নতুন বাকি যুক্ত করুন" : "Add Due Entry"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Aka যুক্ত করুন" : "Add Due Entry"}</h3>
               <button onClick={() => setShowAddDueModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -322,7 +322,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
 
             <form onSubmit={handleConfirmAddDue} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
@@ -334,7 +334,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "যোগাযোগ (ফোন)" : "Contact (Phone)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho (ফোন)" : "Contact (Phone)"} *</label>
                 <input
                   type="tel"
                   required
@@ -357,7 +357,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma Nyinaa (GH₵)" : "Total Purchases (GH₵)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma Nyinaa (₵)" : "Total Purchases (₵)"}</label>
                 <input
                   type="number"
                   value={dueTotalPurchases}
@@ -368,7 +368,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Aka / Bosea (GH₵)" : "Current Due (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Aka / Bosea (₵)" : "Current Due (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -385,13 +385,13 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                   onClick={() => setShowAddDueModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "বাকি সংরক্ষণ" : "Save Due"}
+                  {isBn ? "Aka Kora so" : "Save Due"}
                 </button>
               </div>
             </form>
@@ -432,7 +432,7 @@ export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProp
                 onClick={() => setShowSMSModal(false)}
                 className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
               >
-                {isBn ? "বাতিল" : "Cancel"}
+                {isBn ? "Gyae (Cancel)" : "Cancel"}
               </button>
               <button
                 onClick={handleSendSMS}

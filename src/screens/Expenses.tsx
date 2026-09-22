@@ -9,13 +9,13 @@ interface ExpensesProps {
 }
 
 const expenseCategories = [
-  { id: "Shop Rent", label: "Shop Rent", labelBn: "দোকান ভাড়া", icon: Home, color: "#16A34A" },
-  { id: "Electricity", label: "Electricity", labelBn: "বিদ্যুৎ", icon: Zap, color: "#4ADE80" },
-  { id: "Salary", label: "Salary", labelBn: "বেতন", icon: Users, color: "#D97706" },
-  { id: "Transport", label: "Transport", labelBn: "পরিবহন", icon: Truck, color: "#FBBF24" },
-  { id: "Food", label: "Food", labelBn: "খাবার", icon: Coffee, color: "#475569" },
+  { id: "Shop Rent", label: "Shop Rent", labelBn: "Dukan Ka (Shop Rent)", icon: Home, color: "#16A34A" },
+  { id: "Electricity", label: "Electricity", labelBn: "Anyinam Ahoɔden (Electricity)", icon: Zap, color: "#4ADE80" },
+  { id: "Salary", label: "Salary", labelBn: "Akatua (Salary)", icon: Users, color: "#D97706" },
+  { id: "Transport", label: "Transport", labelBn: "Kwantuo Ka (Transport)", icon: Truck, color: "#FBBF24" },
+  { id: "Food", label: "Food", labelBn: "Aduane (Food)", icon: Coffee, color: "#475569" },
   { id: "Maintenance", label: "Maintenance", labelBn: "রক্ষণাবেক্ষণ", icon: Wrench, color: "#94A3B8" },
-  { id: "Marketing", label: "Marketing", labelBn: "মার্কেটিং", icon: Megaphone, color: "#166534" },
+  { id: "Marketing", label: "Marketing", labelBn: "Dawubɔ", icon: Megaphone, color: "#166534" },
   { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#CBD5E1" },
 ];
 
@@ -77,7 +77,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -88,7 +88,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
           onClick={() => setShowForm(!showForm)}
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
-          <Plus size={16} /> {isBn ? "নতুন খরচ যোগ করুন" : "Add Expense"}
+          <Plus size={16} /> {isBn ? "Otɔfo Foforɔ Ka Fa Ka Ho" : "Add Expense"}
         </button>
       </div>
 
@@ -96,7 +96,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
       {showForm && (
         <div className="bg-white rounded-2xl shadow-md border border-nv-200 p-5 animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
-            <h3 className="font-display font-bold text-ink text-base">{isBn ? "নতুন খরচ এন্ট্রি" : "Record New Expense"}</h3>
+            <h3 className="font-display font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Ka এন্ট্রি" : "Record New Expense"}</h3>
             <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
               <X size={18} />
             </button>
@@ -105,7 +105,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
           <form onSubmit={handleCreateExpense} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "খরচের বিভাগ" : "Category"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Ka বিভাগ" : "Category"} *</label>
                 <select
                   value={selectedCat}
                   onChange={e => setSelectedCat(e.target.value)}
@@ -120,7 +120,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (₵)" : "Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -132,7 +132,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিশোধ মাধ্যম" : "Paid From Account"}</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So" : "Paid From Account"}</label>
                 <select
                   value={paidFrom}
                   onChange={e => setPaidFrom(e.target.value)}
@@ -162,7 +162,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                   type="text"
                   value={note}
                   onChange={e => setNote(e.target.value)}
-                  placeholder={isBn ? "যেমন: জানুয়ারি মাসের দোকান ভাড়া বা বিদ্যুৎ বিল..." : "e.g. Electricity bill or staff lunch..."}
+                  placeholder={isBn ? "যেমন: জানুয়ারি Bosomeের Dukan Ka (Shop Rent) বা Anyinam Ahoɔden (Electricity) বিল..." : "e.g. Electricity bill or staff lunch..."}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2.5 focus:border-em-500"
                 />
               </div>
@@ -174,13 +174,13 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                 onClick={() => setShowForm(false)}
                 className="px-5 py-2 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
               >
-                {isBn ? "বাতিল" : "Cancel"}
+                {isBn ? "Gyae (Cancel)" : "Cancel"}
               </button>
               <button
                 type="submit"
                 className="px-6 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
               >
-                {isBn ? "খরচ সংরক্ষণ করুন" : "Save Expense"}
+                {isBn ? "Ka Kora so করুন" : "Save Expense"}
               </button>
             </div>
           </form>
@@ -192,7 +192,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
         {/* Category Breakdown Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
           <h3 className="font-display font-bold text-ink text-sm mb-3">
-            {isBn ? "বিভাগ অনুযায়ী খরচ" : "Expenses by Category"}
+            {isBn ? "বিভাগ অনুযায়ী Ka" : "Expenses by Category"}
           </h3>
 
           <div className="h-52 relative">
@@ -215,7 +215,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="num text-xs text-ink">{isBn ? "মোট" : "Total"}</span>
+              <span className="num text-xs text-ink">{isBn ? "Nyinaa" : "Total"}</span>
               <span className="num text-base font-bold text-ink">{formatTaka(totalExpense)}</span>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
           <div className="p-4 border-b border-nv-100 flex items-center justify-between gap-3">
             <h3 className="font-display font-bold text-ink text-sm">
-              {isBn ? "খরচের তালিকা" : "Expense Transactions"}
+              {isBn ? "Ka তালিকা" : "Expense Transactions"}
             </h3>
             <div className="relative max-w-xs flex-1">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink" />
@@ -245,7 +245,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 type="text"
-                placeholder={isBn ? "খুঁজুন..." : "Search expenses..."}
+                placeholder={isBn ? "Hwehwɛ..." : "Search expenses..."}
                 className="w-full pl-8 pr-3 py-1.5 text-xs bg-nv-50 border border-nv-200 rounded-xl"
               />
             </div>
@@ -289,7 +289,7 @@ export default function Expenses({ lang, onBack }: ExpensesProps) {
                 {filtered.length === 0 && (
                   <tr>
                     <td colSpan={6} className="text-center py-12 text-ink">
-                      {isBn ? "কোনো খরচ পাওয়া যায়নি" : "No expense records found"}
+                      {isBn ? "কোনো Ka পাওয়া যায়নি" : "No expense records found"}
                     </td>
                   </tr>
                 )}

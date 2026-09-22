@@ -41,7 +41,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
       name,
       nameBn: nameBn || name,
       role,
-      roleBn: role === "Cashier" ? "ক্যাশিয়ার" : role === "Store Manager" ? "স্টোর ম্যানেজার" : "স্টাফ",
+      roleBn: role === "Cashier" ? "Cashier" : role === "Store Manager" ? "Store Manager" : "Staff",
       phone,
       salary: Number(salary),
       joined: joined || "Dec 2024",
@@ -71,7 +71,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -82,17 +82,17 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
           onClick={() => setShowAddModal(true)}
           className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
         >
-          <Plus size={16} /> {isBn ? "নতুন কর্মচারী" : "Add Employee"}
+          <Plus size={16} /> {isBn ? "Fa Adwumayɛfoɔ Foforɔ Ka Ho" : "Add Employee"}
         </button>
       </div>
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Staff", labelBn: "মোট কর্মচারী", value: tNum(employees.length) },
-          { label: "Monthly Payroll", labelBn: "মাসিক মোট বেতন", value: formatTaka(totalSalary) },
-          { label: "Active Roles", labelBn: "সক্রিয় পদবী", value: tNum(4) },
-          { label: "Status", labelBn: "স্ট্যাটাস", value: isBn ? "সবাই সক্রিয়" : "All Active" },
+          { label: "Total Staff", labelBn: "Adwumayɛfoɔ Nyinaa", value: tNum(employees.length) },
+          { label: "Monthly Payroll", labelBn: "Akatua Nyinaa Bosome Biara", value: formatTaka(totalSalary) },
+          { label: "Active Roles", labelBn: "সক্রিয় Dibea", value: tNum(4) },
+          { label: "Status", labelBn: "স্ট্যাটাস", value: isBn ? "Nyinaaাই সক্রিয়" : "All Active" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -165,7 +165,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
 
                 <div className="grid grid-cols-3 gap-2 bg-nv-50 p-3 rounded-xl text-center my-3">
                   <div>
-                    <div className="text-[10px] text-ink">{isBn ? "মাসিক বেতন" : "Salary"}</div>
+                    <div className="text-[10px] text-ink">{isBn ? "Bosome Akatua" : "Salary"}</div>
                     <div className="num font-bold text-sm text-ink">{formatTaka(emp.salary)}</div>
                   </div>
                   <div>
@@ -173,7 +173,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                     <div className="text-xs font-mono text-ink truncate">{emp.phone}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-ink">{isBn ? "যোগদান" : "Joined"}</div>
+                    <div className="text-[10px] text-ink">{isBn ? "Ka hoদান" : "Joined"}</div>
                     <div className="text-xs text-ink">{emp.joined}</div>
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                     onClick={() => setPayingEmployee(emp)}
                     className="px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs font-bold shadow-xs transition-fast"
                   >
-                    {isBn ? "বেতন দিন" : "Pay Salary"}
+                    {isBn ? "Akatua (Salary) Nna" : "Pay Salary"}
                   </button>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "নতুন কর্মচারী যুক্ত করুন" : "Add Employee"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Fa Adwumayɛfoɔ Foforɔ Ka Ho যুক্ত করুন" : "Add Employee"}</h3>
               <button onClick={() => setShowAddModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -230,16 +230,16 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পদবী / দায়িত্ব" : "Role / Position"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Dibea / দায়িত্ব" : "Role / Position"} *</label>
                 <select
                   value={role}
                   onChange={e => setRole(e.target.value)}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500"
                 >
-                  <option value="Cashier">Cashier / ক্যাশিয়ার</option>
-                  <option value="Sales Staff">Sales Staff / বিক্রয় কর্মী</option>
+                  <option value="Cashier">Cashier / Cashier</option>
+                  <option value="Sales Staff">Sales Staff / Tɔn কর্মী</option>
                   <option value="Store Manager">Store Manager / ম্যানেজার</option>
-                  <option value="Inventory Staff">Inventory Staff / ইনভেন্টরি স্টাফ</option>
+                  <option value="Inventory Staff">Inventory Staff / Akorae Staff</option>
                 </select>
               </div>
 
@@ -256,7 +256,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua / Bosome (GH₵)" : "Monthly Salary (GH₵)"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua / Bosome (₵)" : "Monthly Salary (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -268,7 +268,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "কর্মচারীর ছবি (ঐচ্ছিক)" : "Employee Photo (Optional)"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Adwumayɛfoɔর ছবি (ঐচ্ছিক)" : "Employee Photo (Optional)"}</label>
                 <div className="flex items-center gap-3">
                   {photo ? (
                     <div className="relative w-12 h-12 rounded-2xl overflow-hidden border border-nv-200 shadow-xs flex-shrink-0">
@@ -289,7 +289,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   )}
                   <label className="cursor-pointer px-3 py-2 border border-nv-200 rounded-xl text-xs font-semibold text-ink bg-white hover:bg-nv-50 flex items-center gap-1.5 transition-fast shadow-2xs">
                     <Camera size={13} className="text-ink/70" />
-                    <span>{photo ? (isBn ? "ছবি পরিবর্তন" : "Change Photo") : (isBn ? "ছবি আপলোড করুন" : "Upload Photo")}</span>
+                    <span>{photo ? (isBn ? "ছবি পরিবর্তন" : "Change Photo") : (isBn ? "Fa Mfoni Gu So করুন" : "Upload Photo")}</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -315,13 +315,13 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   onClick={() => setShowAddModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "সংরক্ষণ করুন" : "Save Employee"}
+                  {isBn ? "Kora so করুন" : "Save Employee"}
                 </button>
               </div>
             </form>
@@ -334,7 +334,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "বেতন পরিশোধ" : "Pay Salary"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Tua Akatua" : "Pay Salary"}</h3>
               <button onClick={() => setPayingEmployee(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -347,7 +347,7 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ মাধ্যম (Account)" : "Payment Account"}</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So (Account)" : "Payment Account"}</label>
                 <select
                   value={payAccountId}
                   onChange={e => setPayAccountId(e.target.value)}
@@ -367,13 +367,13 @@ export default function Employees({ lang, onBack }: EmployeesProps) {
                   onClick={() => setPayingEmployee(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "বেতন নিশ্চিত করুন" : "Confirm Payout"}
+                  {isBn ? "Akatua (Salary) নিশ্চিত করুন" : "Confirm Payout"}
                 </button>
               </div>
             </form>

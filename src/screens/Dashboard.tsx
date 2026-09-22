@@ -39,7 +39,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
 
   const lowStockProducts = products.filter(p => p.status === "low-stock" || p.status === "out-of-stock");
 
-  // Smart Purchasing / Stock Buy Advisory (Color-Coded: কোনটি কেনা উচিত)
+  // Smart Purchasing / Stock Buy Advisory (Color-Coded: Deɛ Ɛsɛ Sɛ Wotɔ (Advisory))
   const buyAdvisoryItems = products.map(p => {
     const soldQty = sales.reduce((acc, s) => {
       const item = s.items.find(i => i.name === p.name);
@@ -52,28 +52,28 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
     let tier: "urgent" | "soon" | "safe" | "slow" = "safe";
     let colorName = "green";
     let badgeText = "Safe / Optimal";
-    let badgeTextBn = "পর্যাপ্ত স্টক";
+    let badgeTextBn = "Akorae Wɔ Hɔ";
 
     if (p.stock === 0 || p.stock <= p.min) {
       tier = "urgent";
       colorName = "red";
       badgeText = "🔴 Urgent Buy";
-      badgeTextBn = "🔴 জরুরি কিনুন";
+      badgeTextBn = "🔴 Tɔ Ntɛmntɛm (Urgent)";
     } else if (p.stock <= p.min * 1.6 || daysOfStockLeft <= 7) {
       tier = "soon";
       colorName = "yellow";
       badgeText = "🟡 Reorder Soon";
-      badgeTextBn = "🟡 শীঘ্রই শেষ হবে";
+      badgeTextBn = "🟡 Ɛrensa Ntɛm";
     } else if (daysOfStockLeft <= 45) {
       tier = "safe";
       colorName = "green";
       badgeText = "🟢 Safe Stock";
-      badgeTextBn = "🟢 পর্যাপ্ত স্টক";
+      badgeTextBn = "🟢 Akorae Wɔ Hɔ";
     } else {
       tier = "slow";
       colorName = "gray";
       badgeText = "⚪ Slow Mover";
-      badgeTextBn = "⚪ কম চাহিদা";
+      badgeTextBn = "⚪ Tɔn Ntoasoɔ Brɛoo";
     }
 
     const suggestedBuyQty = tier === "urgent" ? Math.max(20, p.min * 2 - p.stock) : tier === "soon" ? Math.max(12, Math.round(p.min * 1.5 - p.stock)) : 0;
@@ -85,13 +85,13 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
   const soonAdvisory = buyAdvisoryItems.filter(i => i.tier === "soon");
 
   const salesTrendData = [
-    { day: "Mon", dayBn: "সোম", sales: 32000, profit: 5800 },
-    { day: "Tue", dayBn: "মঙ্গল", sales: 41000, profit: 7200 },
-    { day: "Wed", dayBn: "বুধ", sales: 28000, profit: 4900 },
-    { day: "Thu", dayBn: "বৃহঃ", sales: 55000, profit: 9800 },
-    { day: "Fri", dayBn: "শুক্র", sales: 48250, profit: 8420 },
-    { day: "Sat", dayBn: "শনি", sales: 62000, profit: 11200 },
-    { day: "Today", dayBn: "আজ", sales: totalSalesAmount, profit: Math.max(0, grossProfit) },
+    { day: "Mon", dayBn: "Dwo", sales: 32000, profit: 5800 },
+    { day: "Tue", dayBn: "Bena", sales: 41000, profit: 7200 },
+    { day: "Wed", dayBn: "Wuku", sales: 28000, profit: 4900 },
+    { day: "Thu", dayBn: "Yawo", sales: 55000, profit: 9800 },
+    { day: "Fri", dayBn: "Efi", sales: 48250, profit: 8420 },
+    { day: "Sat", dayBn: "Meme", sales: 62000, profit: 11200 },
+    { day: "Today", dayBn: "Ɛnnɛ", sales: totalSalesAmount, profit: Math.max(0, grossProfit) },
   ];
 
   const categoryPieData = Array.from(new Set(products.map(p => p.category))).map((cat, idx) => {
@@ -116,14 +116,14 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
       {/* Header: title + period selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <h1 className="font-display text-base sm:text-lg font-semibold text-ink">
-          {isBn ? "ব্যবসায়িক ওভারভিউ" : "Business Overview"}
+          {isBn ? "Adwumayɛ Nhwɛso (Overview)" : "Business Overview"}
         </h1>
 
         <div className="inline-flex items-center p-0.5 bg-nv-100 border border-nv-200 rounded-lg self-start sm:self-auto">
           {[
-            { id: "today" as const, label: "Today", labelBn: "আজ" },
-            { id: "week" as const, label: "This Week", labelBn: "এই সপ্তাহ" },
-            { id: "month" as const, label: "This Month", labelBn: "এই মাস" },
+            { id: "today" as const, label: "Today", labelBn: "Ɛnnɛ" },
+            { id: "week" as const, label: "This Week", labelBn: "Dapɛn Yi" },
+            { id: "month" as const, label: "This Month", labelBn: "Bosome Yi" },
           ].map(p => {
             const isSelected = period === p.id;
             return (
@@ -150,7 +150,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-bold text-xs sm:text-sm text-ink">{isBn ? "ব্যবসায়িক রেটিং:" : "Business Rating:"}</span>
+              <span className="font-bold text-xs sm:text-sm text-ink">{isBn ? "Adwuma Gyinabea:" : "Business Rating:"}</span>
               <span className="num font-black text-amber-600 text-sm">{tNum(4.9)} / {tNum(5)}</span>
               <div className="flex items-center gap-0.5 text-amber-400">
                 {[...Array(5)].map((_, i) => (
@@ -158,12 +158,12 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                 ))}
               </div>
               <span className="text-[10px] px-2 py-0.2 rounded-full bg-em-50 text-em-800 border border-em-200 font-bold">
-                {isBn ? "শীর্ষ বিশ্বস্ত শপ" : "Top Rated Store"}
+                {isBn ? "Dukan a Wɔgye Di Pa Ara" : "Top Rated Store"}
               </span>
             </div>
             <p className="text-xs text-ink/60 mt-0.5">
               {isBn
-                ? `${tNum(384)} টি যাচাইকৃত গ্রাহক রিভিউ • ৯৮.৭% সন্তুষ্টির রেকর্ড`
+                ? `${tNum(384)} টি যাচাইকৃত Otɔfoɔ রিভিউ • ৯৮.৭% সন্তুষ্টির রেকর্ড`
                 : "Based on 384 verified customer reviews • 98.7% satisfaction rate"}
             </p>
           </div>
@@ -172,13 +172,13 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
           <span className="text-[11px] px-2.5 py-1 rounded-full bg-nv-50 text-ink border border-nv-200 font-semibold hidden md:inline-flex items-center gap-1">
             <ShieldCheck size={13} className="text-em-600" />
-            {isBn ? "এনবিআর কর অনুগত" : "NBR Tax Compliant"}
+            {isBn ? "GRA Tax Compliant" : "NBR Tax Compliant"}
           </span>
           <button
             onClick={() => setShowRatingModal(true)}
             className="px-3.5 py-1.5 bg-nv-50 hover:bg-nv-100 border border-nv-200 text-ink rounded-lg text-xs font-semibold transition-colors flex items-center gap-1"
           >
-            {isBn ? "রিভিউ ও রেটিং দেখুন" : "View Ratings & Reviews"} →
+            {isBn ? "Hwɛ Nsɛm a Wɔaka" : "View Ratings & Reviews"} →
           </button>
         </div>
       </div>
@@ -188,33 +188,33 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         {[
           {
             icon: ShoppingCart,
-            label: isBn ? "আজকের মোট বিক্রয়" : "Total Sales",
+            label: isBn ? "Ɛnnɛ Tɔn Nyinaa" : "Total Sales",
             value: formatTaka(totalSalesAmount),
-            meta: `+${tNum(14.2)}% ${isBn ? "গত সপ্তাহের তুলনায়" : "vs last week"}`,
+            meta: `+${tNum(14.2)}% ${isBn ? "sen dapɛn a ɛtwaam" : "vs last week"}`,
             metaTone: "text-ink",
             valueTone: "text-ink",
           },
           {
             icon: TrendingUp,
-            label: isBn ? "নিট লাভ" : "Net Profit",
+            label: isBn ? "Mfasoɔ Pɔtee" : "Net Profit",
             value: formatTaka(netProfit),
-            meta: `${tNum(((netProfit / (totalSalesAmount || 1)) * 100).toFixed(0))}% ${isBn ? "মার্জিন" : "margin"}`,
+            meta: `${tNum(((netProfit / (totalSalesAmount || 1)) * 100).toFixed(0))}% ${isBn ? "Mfasoɔ %" : "margin"}`,
             metaTone: "text-ink",
             valueTone: "text-ink",
           },
           {
             icon: Wallet,
-            label: isBn ? "ক্যাশ ও ব্যাংক" : "Cash & Bank",
+            label: isBn ? "Sika & Sikakorabea" : "Cash & Bank",
             value: formatTaka(totalCashBalance),
-            meta: `${tNum(accounts.length)} ${isBn ? "টি অ্যাকাউন্ট" : "accounts"}`,
+            meta: `${tNum(accounts.length)} ${isBn ? "akawnt" : "accounts"}`,
             metaTone: "text-ink",
             valueTone: "text-ink",
           },
           {
             icon: CreditCard,
-            label: isBn ? "গ্রাহক বকেয়া" : "Customer Dues",
+            label: isBn ? "Kastamafoɔ Aka" : "Customer Dues",
             value: formatTaka(totalCustomerDues),
-            meta: `${tNum(customers.filter(c => c.due > 0).length)} ${isBn ? "জন বাকিদার" : "owing"}`,
+            meta: `${tNum(customers.filter(c => c.due > 0).length)} ${isBn ? "atɔfoɔ a wɔde aka" : "owing"}`,
             metaTone: "text-ink",
             valueTone: "text-ink",
           },
@@ -233,22 +233,22 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
       {/* Quick Action Bar */}
       <div>
         <h3 className="font-display font-semibold text-ink text-sm mb-3">
-          {isBn ? "দ্রুত কাজ ও বিশেষ সুবিধাসমূহ" : "Quick Actions"}
+          {isBn ? "Nnwuma Ntɛmntɛm" : "Quick Actions"}
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
           {[
-            { label: "New Sale", labelBn: "নতুন বিক্রয় (POS)", icon: ShoppingCart, screen: "pos" },
-            { label: "Messaging", labelBn: "মেসেজিং ও চ্যাট", icon: MessageCircle, screen: "messages", badge: "Live" },
-            { label: "Add Product", labelBn: "পণ্য যোগ করুন", icon: Plus, screen: "addproduct" },
-            { label: "Collect Due", labelBn: "বাকি আদায়", icon: CreditCard, screen: "dues" },
-            { label: "Tax & VAT Pay", labelBn: "কর ও ভ্যাট পরিশোধ", icon: Landmark, screen: "reports" },
-            { label: "Buy Advisory", labelBn: "কোনটি কেনা উচিত", icon: Package, screen: "reports" },
-            { label: "Business Rating", labelBn: "রেটিং ও রিভিউ", icon: Star, onClick: () => setShowRatingModal(true) },
-            { label: "Marketing", labelBn: "মার্কেটিং ও SMS", icon: MessageSquare, screen: "marketing" },
-            { label: "Courier Parcel", labelBn: "কুরিয়ার পার্সেল", icon: Truck, screen: "delivery" },
-            { label: "Bank & Loans", labelBn: "ব্যাংক ও লোন", icon: Landmark, screen: "fintech" },
-            { label: "Store Website", labelBn: "অনলাইন স্টোর", icon: Globe2, screen: "website" },
-            { label: "Reports & P&L", labelBn: "লাভ-ক্ষতি রিপোর্ট", icon: BarChart2, screen: "reports" },
+            { label: "New Sale", labelBn: "Tua Ka / POS Foforɔ", icon: ShoppingCart, screen: "pos" },
+            { label: "Messaging", labelBn: "Nkitahodie & Nkɔmbɔ", icon: MessageCircle, screen: "messages", badge: "Live" },
+            { label: "Add Product", labelBn: "Fa Nnoɔma Ka Ho", icon: Plus, screen: "addproduct" },
+            { label: "Collect Due", labelBn: "Gye Aka No", icon: CreditCard, screen: "dues" },
+            { label: "Tax & VAT Pay", labelBn: "GRA Tax & VAT Tua", icon: Landmark, screen: "reports" },
+            { label: "Buy Advisory", labelBn: "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)", icon: Package, screen: "reports" },
+            { label: "Business Rating", labelBn: "Gyinabea & Nsɛm", icon: Star, onClick: () => setShowRatingModal(true) },
+            { label: "Marketing", labelBn: "Dawubɔ & SMS", icon: MessageSquare, screen: "marketing" },
+            { label: "Courier Parcel", labelBn: "Kɔmafoɔ Parcel", icon: Truck, screen: "delivery" },
+            { label: "Bank & Loans", labelBn: "Sikakorabea & Bosea", icon: Landmark, screen: "fintech" },
+            { label: "Store Website", labelBn: "Intanɛte Dukan", icon: Globe2, screen: "website" },
+            { label: "Reports & P&L", labelBn: "Mfasoɔ & Amanneɛbɔ", icon: BarChart2, screen: "reports" },
           ].map(action => (
             <button
               key={action.label}
@@ -275,10 +275,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         {/* Sales Trend Chart */}
         <div className="lg:col-span-2 bg-white rounded-xl border border-nv-200 p-5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display font-semibold text-ink text-sm">{isBn ? "বিক্রয় ও লাভের ট্রেন্ড" : "Sales & Profit Trend"}</h3>
+            <h3 className="font-display font-semibold text-ink text-sm">{isBn ? "Tɔn & Mfasoɔ Akwankyerɛ" : "Sales & Profit Trend"}</h3>
             <div className="flex items-center gap-3 text-xs font-medium text-ink">
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-em-600" /> {isBn ? "বিক্রয়" : "Sales"}</span>
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-ac-600" /> {isBn ? "লাভ" : "Profit"}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-em-600" /> {isBn ? "Tɔn" : "Sales"}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-ac-600" /> {isBn ? "Mfasoɔ" : "Profit"}</span>
             </div>
           </div>
 
@@ -308,7 +308,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         {/* Category Breakdown Pie Chart */}
         <div className="bg-white rounded-xl border border-nv-200 p-5 flex flex-col justify-between">
           <h3 className="font-display font-semibold text-ink text-base mb-2">
-            {isBn ? "বিভাগ ভিত্তিক পণ্য" : "Category Breakdown"}
+            {isBn ? "Nkyekyɛmu Nnoɔma" : "Category Breakdown"}
           </h3>
 
           <div className="h-52 relative">
@@ -319,11 +319,11 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(v: any) => [`${tNum(v)} ${isBn ? "টি পণ্য" : "products"}`, ""]} />
+                <Tooltip formatter={(v: any) => [`${tNum(v)} ${isBn ? "nnoɔma" : "products"}`, ""]} />
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] text-ink font-medium">{tNum(products.length)} {isBn ? "টি পণ্য" : "Items"}</span>
+              <span className="text-[10px] text-ink font-medium">{tNum(products.length)} {isBn ? "nnoɔma" : "Items"}</span>
             </div>
           </div>
 
@@ -347,10 +347,10 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
         <div className="lg:col-span-2 bg-white rounded-xl border border-nv-200 overflow-hidden flex flex-col">
           <div className="p-4 border-b border-nv-100 flex items-center justify-between">
             <h3 className="font-display font-semibold text-ink text-sm sm:text-base">
-              {isBn ? "সাম্প্রতিক বিক্রয় ও ইনভয়েস" : "Recent Sales & Invoices"}
+              {isBn ? "Tɔn a Wɔayɛ Nnansa Yi" : "Recent Sales & Invoices"}
             </h3>
             <button onClick={() => setScreen("pos")} className="text-xs font-medium text-ink hover:text-ink">
-              {isBn ? "নতুন বিক্রয়" : "New Sale"} →
+              {isBn ? "Tɔn Foforɔ" : "New Sale"} →
             </button>
           </div>
 
@@ -358,12 +358,12 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-nv-50 border-b border-nv-200">
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "ইনভয়েস" : "Invoice"}</th>
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "গ্রাহক" : "Customer"}</th>
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "আইটেম" : "Items"}</th>
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "মোট টাকা" : "Total"}</th>
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "মাধ্যম" : "Method"}</th>
-                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap text-right">{isBn ? "রসিদ" : "Receipt"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "Invois" : "Invoice"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "Otɔfoɔ" : "Customer"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "Nnoɔma" : "Items"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "Ne Nyinaa" : "Total"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap">{isBn ? "Kwan a Wɔfaa So" : "Method"}</th>
+                  <th className="px-4 py-2.5 font-medium text-ink whitespace-nowrap text-right">{isBn ? "Kasaa (Receipt)" : "Receipt"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-nv-100">
@@ -398,21 +398,21 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
           </div>
         </div>
 
-        {/* Smart Buy Advisory: Color Coded Widget (কোনটি কেনা উচিত) */}
+        {/* Smart Buy Advisory: Color Coded Widget (Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)) */}
         <div className="bg-white rounded-xl border border-nv-200 p-5 flex flex-col justify-between shadow-2xs">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-1.5">
                 <Package size={17} className="text-em-700" />
                 <h3 className="font-display font-semibold text-ink text-sm">
-                  {isBn ? "কোনটি কেনা উচিত (ক্রয় পরামর্শ)" : "What to Buy Next (Advisory)"}
+                  {isBn ? "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory)" : "What to Buy Next (Advisory)"}
                 </h3>
               </div>
               <button
                 onClick={() => setScreen("reports")}
                 className="text-xs font-medium text-ink hover:text-ink"
               >
-                {isBn ? "বিস্তারিত" : "Full Report"} →
+                {isBn ? "Hwɛ Ne Nyinaa" : "Full Report"} →
               </button>
             </div>
 
@@ -426,7 +426,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     : "bg-red-50 text-red-800 hover:bg-red-100"
                 }`}
               >
-                <span>🔴 {isBn ? "জরুরি কিনুন" : "Urgent"}</span>
+                <span>🔴 {isBn ? "Tɔ Ntɛmntɛm (Urgent)" : "Urgent"}</span>
                 <span className="text-[10px] px-1.5 py-0.1 rounded-full bg-white/20">
                   {tNum(urgentAdvisory.length)}
                 </span>
@@ -439,7 +439,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     : "bg-amber-50 text-amber-800 hover:bg-amber-100"
                 }`}
               >
-                <span>🟡 {isBn ? "শীঘ্রই কিনুন" : "Reorder Soon"}</span>
+                <span>🟡 {isBn ? "Tɔ Bi Ntɛm" : "Reorder Soon"}</span>
                 <span className="text-[10px] px-1.5 py-0.1 rounded-full bg-white/20">
                   {tNum(soonAdvisory.length)}
                 </span>
@@ -455,7 +455,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                     <div className="min-w-0">
                       <div className="text-xs font-medium text-ink truncate">{isBn ? p.nameBn : p.name}</div>
                       <div className="text-[10px] text-ink/60">
-                        {isBn ? `স্টক: ${tNum(p.stock)} পিস • বাকি: ${tNum(daysOfStockLeft)} দিন` : `Stock: ${p.stock} pcs • ${daysOfStockLeft}d left`}
+                        {isBn ? `Akorae: ${tNum(p.stock)} Pcs • Aka: ${tNum(daysOfStockLeft)} Nna` : `Stock: ${p.stock} pcs • ${daysOfStockLeft}d left`}
                       </div>
                     </div>
                   </div>
@@ -469,7 +469,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
                         tier === "urgent" ? "bg-red-100 text-red-800" : "bg-amber-100 text-amber-800"
                       }`}
                     >
-                      {tier === "urgent" ? (isBn ? "জরুরি" : "Must Buy") : (isBn ? "শীঘ্রই" : "Reorder")}
+                      {tier === "urgent" ? (isBn ? "Ntɛmntɛm" : "Must Buy") : (isBn ? "Ɛrensa Ntɛm" : "Reorder")}
                     </span>
                   </div>
                 </div>
@@ -477,7 +477,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
 
               {(advisorySubTab === "urgent" ? urgentAdvisory : soonAdvisory).length === 0 && (
                 <div className="py-8 text-center text-ink/50 text-xs">
-                  {isBn ? "এই ক্যাটাগরিতে কোনো পণ্য নেই!" : "No items need restocking here!"}
+                  {isBn ? "Nnoɔma biara nhia akorae foforɔ ha!" : "No items need restocking here!"}
                 </div>
               )}
             </div>
@@ -487,7 +487,7 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
             onClick={() => setScreen("purchases")}
             className="w-full mt-3 py-2.5 bg-nv-50 hover:bg-nv-100 text-ink text-xs font-medium rounded-lg transition-colors text-center border border-nv-200"
           >
-            {isBn ? "সাপ্লায়ার অর্ডার তৈরি করুন" : "Create Purchase Order"} →
+            {isBn ? "Yɛ Agorɔfoɔ Order" : "Create Purchase Order"} →
           </button>
         </div>
       </div>

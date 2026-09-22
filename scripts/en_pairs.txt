@@ -1,0 +1,1781 @@
+
+#166534" },
+  { id: "Miscellaneous", label: "Miscellaneous
+#475569" },
+  { id: "Maintenance", label: "Maintenance
+${customerOrders.length} active orders
+${customerOrders.length} order in progress.
+${selectedTaxMonth.month} ${selectedTaxMonth.year} (Mushak 9.1)
+${tNum(customers.length)} ${isBn ? "জন" : "Registered"}` },
+          { label: "Collection Account
+${tNum(daysOfStockLeft)}d stock left
+${tNum(dueCount)} customers owe you ${formatTaka(totalDues)} in total.
++ Income Entry
+0d stock left
+1-Click WhatsApp Ordering
+1. Shipping Address
+100% Genuine
+100% Verified
+10:00 PM
+2. Payment Method
+25,000 - 50,000
+384 reviews • 98.7% satisfaction rate
+84% Collected
+AI Camera Scan
+About the Store
+Account
+Account Balances
+Account No
+Action
+Actions
+Active Disbursed
+Active In Store
+Active Orders
+Active Payment Links
+Active Roles
+Active Suppliers
+Ad Orders
+Ad, banner, or campaign slot
+Add
+Add Cash / Deposit
+Add Customer
+Add Due Entry
+Add Employee
+Add Item
+Add items to cart to place an order.
+Add items to your cart and place an order. No account needed!
+Add more for FREE delivery
+Add to Cart
+Add to My Store
+Added to Cart!
+Added to My Store
+Address
+Adjust Inventory
+Adjust Stock
+Adjustment Type
+Alert Resolved!
+All Active
+All notifications cleared
+All notifications marked as read
+All products have adequate stock levels!
+All shop products, sales, accounts, and customer data exported to JSON backup.
+Already placed an order? Track it
+Amazon Express Checkout
+Amazon Visual Lens Search
+Amazon Voice Assistant
+Amount
+An error occurred while exporting data.
+Any additional notes...
+Apply
+Apply Instantly
+Apply Now
+Area & City
+Attach File
+Attach file
+Authentic Goods
+Auto-Fill
+Auto-detects name, weight, category & market price
+Auto-open Print dialog after POS sale
+Automated Trigger Rules
+Avg Order Value
+Back to Home
+Banking
+Barcode Label
+Barcode Scanner
+Based on 384 verified customer reviews • 98.7% satisfaction rate
+Based on verified customer orders
+Bill To
+Book Courier Parcel
+Book New Parcel
+Boost Your Product
+Broadcast SMS
+Broadcast SMS Campaign
+Business Analytics & Insights
+Business Type
+Buy Advisory
+Buy Again
+Buy Now
+By volume
+Call
+Call Store Hotline
+Call phone
+Campaign History
+Campaign Launched!
+Campaign Title
+Cart
+Cart Total
+Cash In
+Cash Ledger
+Cash On Delivery (COD)
+Cash Received:
+Cash on Delivery
+Cash on Delivery (COD)
+Catalog Sync
+Category
+Category Sales Contribution
+Challan No. ${generatedChallan} successfully linked to NBR return.
+Challan PDF
+Challan Voucher Downloaded!
+Change Photo
+Change Returned:
+Change to return:
+Change: ${formatTaka(change)}
+Chat
+Chat on WhatsApp
+Chat with supplier
+Check out today
+Checkout & Delivery
+Choose your location
+Collect
+Collect Payment
+Color Buy Advisory
+Color-coded inventory demand analytics recommending exactly what to reorder vs what to avoid
+Commission", label: "Commission & Brokerage
+Company / Name
+Complete Checkout
+Complete Sale
+Complete Sale (${formatTaka(grandTotal)})
+Completed Sales Records
+Confirm
+Confirm Booking
+Confirm Collection
+Confirm Deposit
+Confirm Order
+Confirm Payment
+Confirm Payout
+Confirm Purchase
+Confirm Tax Payment
+Confirm via WhatsApp Chat
+Confirmation sent. Order #${orderId}
+Contact
+Contact (Phone)
+Contact Phone
+Continue Shopping
+Contribution Recorded & Impact Recognized!
+Conversation Today
+Copy Customer Store Link
+Copy Link
+Cost
+Courier Parcel Booked!
+Courteous merchant & convenient COD.
+Create Link
+Create Payment Link
+Critically low stock with active demand. High lost sales risk!
+Currency
+Current Due
+Current Stock
+Current Stock Quantity
+Current inventory levels are adequate
+Currently out of stock
+Customer / Source
+Customer Added!
+Customer Care
+Customer Deleted
+Customer Link Copied!
+Customer Name
+Customer Reviews
+Customer Reviews & Ratings
+Customer Service & Help
+Customer Updated
+Customers
+Daily SMS
+Daily cash entries and account transactions
+Dairy & Beverages
+Damage / Out
+Data Exported Successfully!
+Data Management
+Date
+Date:
+Days Left
+Dear ${activeConv.name}, polite reminder from ${settings.shopName} regarding your store due ledger. Please settle at your convenience.
+Delete Customer
+Delivery Address
+Delivery Area
+Delivery Charge
+Delivery Fee:
+Delivery Time
+Delivery", label: "Delivery Charge
+Deposit Account
+Deposit To Account
+Description
+Description / Note
+Digital Bank Account Activated!
+Digital Payment Settings Saved!
+Digital Receipts
+Digital receipt for your latest purchase: https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}
+Direct Drop-Ship
+Direct WhatsApp Help
+Direct customer order chat
+Direct response
+Discount:
+Due
+Dues Ratio
+Edit
+Edit Customer Profile
+Edit Product
+Eligible for FREE Express Delivery
+Emoji Icon
+Employee Added!
+Employee Deleted
+Employee Photo (Optional)
+Employee Updated
+Enable COD checkout
+Enter your phone number to look up past order status:
+Est. Cost
+Estimated Cost: 
+Estimated Delivery Status:
+Estimated Reach
+Execute Transfer
+Expense
+Expense Audit Trail
+Expense Deleted
+Expense Transactions
+Expenses by Category
+Explore all store sections
+Export Data
+Export Failed
+Facebook
+Fast & Reliable
+Fast Delivery
+Fast delivery and authentic goods!
+Featured Products
+Free
+From Account
+Full Name
+Generate Link
+Grand Total
+Grand Total:
+Gross Profit
+Gross Revenue from Sales
+Guest Shopper
+Healthy buffer (15-45 days). No purchase needed; preserves cash.
+Hello,
+Hero Headline (Bangla)
+Hero Headline (English)
+High revenue
+House #, Road #, Flat #
+House, road, area, district
+In Stock - Order now for fast delivery
+In-App
+In-App Preview
+Income
+Income Category
+Income Entries
+Income Entry Recorded!
+Income Receipt Details
+Income entry
+Input Rebate
+Input VAT Rebate
+Instant SME Loan Disbursal
+Instant product recognition & stock in
+Instant return & replacement on delivery.
+Insufficient VGO Balance
+Invalid Phone
+Invoice:
+Invoice: ${completedSaleData.invoiceNo}
+Item & Qty
+Item Description
+Item moved to saved items.
+Items Total:
+Joined
+KYC:
+Last 7 days
+Launch Ad
+Launch Your Store
+Live Alerts Feed
+Live WhatsApp Support
+Loan Active
+Loans
+Location Set
+Low Stock Alert
+Low Stock Alert Limit
+Low Stock Alerts
+Menu
+Message Body
+Messages
+Meta / Facebook Sync Updated!
+Meta Ads
+Missing Details
+Mobile / WhatsApp
+Mobile Phone
+Mobile Phone Number
+Monitoring Rule Toggled!
+Monthly EMI
+Mushak 6.3 Ready
+My Resell Store (
+NBR Monthly VAT Returns
+NBR Tax Compliant
+Navigation & Pages
+Net Payable Amount:
+Net Profit
+Net Tax / VAT Due
+Net Tax Payable
+Net Tax Payable (Govt)
+Network Staking Completed!
+Network Value Shared!
+New Campaign
+New Income Entry
+New stock arrives tomorrow.
+No Orders Yet
+No conversations found
+No expense records found
+No income entries found
+No items in cart
+No matching products found
+No notifications
+No order
+No orders placed yet
+No products in this tier right now
+Note
+Note / Remarks
+Note / Source
+Nusrat Jahan
+OFFICIAL ONLINE STORE
+Online Storefront Updated!
+Only ${product.stock} left
+Open Bank Account
+Open Digital Bank Account
+Open Live Storefront in Real Browser
+Open Purchase Order
+Operating Expenses
+Or quick scan sample item:
+Order
+Order #${generatedId} confirmed.
+Order Cart
+Order Confirmed — Packing at store
+Order Found!
+Order ID
+Order Now
+Order Placed & Confirmed
+Order placed, thank you!
+Order via WhatsApp with 1 Tap
+Orders
+Other", label: "Other Business Income
+Out for delivery (Today, 45m)
+Out of Stock
+Out of stock / high demand
+Output VAT
+Output VAT Collected
+Owner Name
+Packing at ${settings.shopName}
+Paid From Account
+Parcel Status Updated!
+Pay Due
+Pay Now
+Pay Supplier
+Pay Tax Online
+Pay at doorstep
+Payment
+Payment Account
+Payment Due
+Payment Method
+Payment Method:
+Payment Purpose
+Payment Status
+Payment received, ledger updated.
+Payment:
+Payments
+Pending COD
+Period:
+Personal Care
+Phone Number
+Phone:
+Pixel ID
+Place Your Order in BDT
+Please enter a valid phone number.
+Please enter your name, phone and address.
+Point barcode at camera scanner
+Point camera at an item or barcode to search instantly
+Potential Resell Margin
+Pre-Approved
+Print Label
+Print Receipt
+Print Receipt / Invoice
+Printer Configuration
+Proceed to Checkout
+Proceed to Payment
+Product
+Product & Category
+Product Added!
+Product Deleted
+Product Name (EN)
+Product Updated!
+Products (Will auto-add to Stock)
+Profile Settings
+Profile Updated
+Profit & Loss Statement
+Profit / Loss
+Promo Discount:
+Promo code (e.g. SAVE50)
+Promote new arrivals or seasonal discounts here
+Publish Live Website
+Publish your online store in minutes with zero coding.
+Purchased Items:
+Qty
+Quality items delivered straight to your door
+Quick Replies:
+Rafiqul Islam
+Reason / Note
+Receipt Footer Message
+Recent Invoices:
+Recharge SMS Balance
+Recipient
+Recipients: 
+Record New Expense
+Record Purchase Order
+Record business revenue & cash receipts
+Registered
+Reminder
+Report Exported!
+Resell Product Updated!
+Reset All Demo Data
+Reset Data to Initial Demo State
+Resolve
+Resync
+Return & Refund Policy
+Returns & Guarantees
+Reviews
+Risk Level
+Role / Position
+Run Facebook & Instagram ads to get more customers and orders.
+Runs out within 7 days
+SMS
+SMS Balance Recharged!
+SMS Balance:
+SMS Campaign Sent!
+SMS Credits
+SMS Sent
+SMS Text Content
+Safe
+Sales Burn Rate
+Sales Turnover
+Save Adjustment
+Save Changes
+Save Customer
+Save Employee
+Save Expense
+Save Income Entry
+Save Product
+Save Supplier
+Save Up to 40% on Daily Groceries & Essentials
+Save for later
+Saved for Later
+Say: 
+Scan
+Scan Now
+Scan Product with AI Camera
+Scan packet with camera
+Scheduled
+Scrap", label: "Scrap / Waste Sales
+Search by name or phone...
+Search by product name or SKU...
+Search by supplier or order ID...
+Search customers by name or phone...
+Search inventory...
+Search products by name or SKU...
+Search products, customers, invoices, or pages...
+Search suppliers by name or phone...
+Search wholesale catalog...
+Secure transaction • Cash on Delivery
+Select Courier
+Select Different Accounts
+Select Payment Gateway
+Select Payment Method
+Select your area to see accurate delivery speed and availability:
+Send
+Send Now
+Send SMS
+Send SMS Reminder
+Send via:
+Sent
+Service", label: "Service / Repair Fee
+Settings Saved!
+Share Invoice
+Shop Address
+Shop Featured Items
+Shop Information
+Shop Link
+Shop Name (Bangla)
+Shop Name (English)
+Shop by Category
+Shop directly without passwords or signup forms.
+Shop online from ${settings.shopName}:
+Show social proof rating
+Slow mover / excess inventory. Avoid purchasing more units.
+Smart Purchasing Advisory:
+Smooth 1-click WhatsApp order experience!
+Standard Certified
+Start Shopping
+Status
+Status & Challan
+Stock Adjusted
+Stock by Category (Quantity)
+Store URL Subdomain
+Storefront Link Copied!
+Street Address / House / Road
+Sub-headline Description
+Submit KYC
+Subtotal
+Subtotal (${totalItemsCount} items):
+Subtotal:
+Success Rate
+Suggested
+Suggested Buy Budget:
+Suggested Qty
+Suggested Retail:
+Sun
+Supplier Added!
+Supplier Invoice No.
+Support
+Sync Active
+Synced Products
+Tanvir Hossain
+Target Audience
+Tax Payment Recorded!
+Tax Period
+Tax Period:
+Taxable Sales Turnover
+Templates
+Tenure
+Thank you ${customerName}, your order has been received by ${settings.shopName}!
+Thank you, received and confirming shortly!
+Theme Color Palette
+This will reset all products, sales, accounts, and dues back to initial demo seeds.
+Time
+To Account
+Today",
+      },
+      ...prev,
+    ]);
+
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Sika a Wɔatua Agye!" : "Payment Collected!",
+      message: `${cust.name}: ₵${amount.toLocaleString()} (Remaining Due: ₵${newDue.toLocaleString()})`,
+    });
+  };
+
+  const addCustomerDue = (customerId: number, amount: number, note?: string) => {
+    setCustomers(prev =>
+      prev.map(c =>
+        c.id === customerId
+          ? {
+              ...c,
+              due: c.due + amount,
+              status: "due",
+            }
+          : c
+      )
+    );
+    toast({
+      type: "warning",
+      title: lang === "bn" ? "Aka / Bosea Ahyɛ Mu" : "Due Recorded",
+      message: `₵${amount.toLocaleString()}`,
+    });
+  };
+
+  // Suppliers Actions
+  const addSupplier = (sup: Omit<Supplier, "id" | "totalPurchases" | "paid" | "avatar">) => {
+    const id = Date.now();
+    const avatar = sup.name.slice(0, 1).toUpperCase();
+    const newSup: Supplier = {
+      ...sup,
+      id,
+      totalPurchases: sup.due,
+      paid: 0,
+      avatar,
+    };
+    setSuppliers(prev => [newSup, ...prev]);
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Agorɔfoɔ যুক্ত হয়েছে!" : "Supplier Added!",
+      message: sup.name,
+    });
+  };
+
+  const recordSupplierPayment = (supplierId: number, amount: number, accountId: string) => {
+    const sup = suppliers.find(s => s.id === supplierId);
+    if (!sup) return;
+
+    setSuppliers(prev =>
+      prev.map(s =>
+        s.id === supplierId
+          ? {
+              ...s,
+              paid: s.paid + amount,
+              due: Math.max(0, s.due - amount),
+            }
+          : s
+      )
+    );
+
+    // Deduct cash from account
+    setAccounts(prev =>
+      prev.map(a =>
+        a.id === accountId
+          ? { ...a, balance: Math.max(0, a.balance - amount), out: a.out + amount }
+          : a
+      )
+    );
+
+    setTransactions(prev => [
+      {
+        id: `TX-${Date.now()}`,
+        type: "out",
+        desc: `Supplier Payment — ${sup.name}
+Top Announcement Ticker
+Top Performing Products
+Total Amount
+Total Cash In
+Total Cash Out
+Total Combined Balance
+Total Operating Expenses
+Total Orders
+Total Parcels
+Total Revenue
+Total Valuation
+Total Valuation: 
+Track
+Tracking
+Transactions & Income Register
+Transfer
+Trusted Online Store
+Type
+Type SMS message (1 credit)...
+Type WhatsApp message...
+Type a message here...
+Type your message here...
+Unit Price
+Unread
+Update
+Update Product
+Upload / change photo
+Upload NID and trade license to activate your account instantly.
+Upload Photo
+Urgent
+Use This Template
+VAT:
+Value Transferred Successfully!
+Verified Account
+Verified Quality
+View
+View Cart
+View Cart & Pay
+View Invoice
+View in Your Orders
+Visits
+Walk-in Customer
+Weekly Cash Flow
+Welcome, Guest Customer! 👋
+What to Buy Next — Purchasing Advisory
+WhatsApp Chat
+WhatsApp Number
+Wholesale Guarantee
+Wholesale Price:
+Why Shop at ${settings.shopName}?
+Will run out in 3-7 days. Include in upcoming purchase batch.
+Within 45-60 mins
+You
+You can click any demo product packet below or upload a photo to test AI packet extraction.
+Your Amazon Cart is empty
+Your Full Name
+Your Name
+Your Orders
+Your Profit Margin:
+Your Wishlist
+Your order history has been linked.
+Your order is packed & ready.
+Your order qualifies for FREE Delivery!
+Zero Sign-up: Enter address & place your order instantly.
+active accounts monitored
+added to cart.
+alerts", label: "Monitoring & Smart Business Alert System
+analytics", label: "Business Analytics & Insights
+bg-em-50 text-ink",
+      badge: "bg-em-100 text-ink",
+    });
+
+    setSales(prev => [newSale, ...prev]);
+    setCurrentInvoice(newSale);
+
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Wɔatɔ Nnoɔma Awie Pɛpɛɛpɛ!" : "Sale Completed Successfully!",
+      message: `${invoiceNumber} · ₵${saleData.grandTotal.toLocaleString()}`,
+    });
+
+    return newSale;
+  };
+
+  // Customers Actions
+  const addCustomer = (c: Omit<Customer, "id" | "totalPurchases" | "visits" | "lastVisit" | "rating" | "avatar"> & { totalPurchases?: number }) => {
+    const id = Date.now();
+    const avatar = c.nameBn ? c.nameBn.slice(0, 1) : c.name.slice(0, 1);
+    const newCust: Customer = {
+      ...c,
+      id,
+      totalPurchases: c.totalPurchases ?? 0,
+      visits: 1,
+      lastVisit: "Today",
+      rating: 5,
+      avatar,
+      status: c.due > 0 ? "due" : "new",
+    };
+    setCustomers(prev => [newCust, ...prev]);
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Otɔfoɔ Ka ho করা হয়েছে!" : "Customer Added!",
+      message: c.name,
+    });
+  };
+
+  const updateCustomer = (id: number, c: Partial<Customer>) => {
+    setCustomers(prev => prev.map(item => (item.id === id ? { ...item, ...c } : item)));
+    toast({ type: "info", title: lang === "bn" ? "Otɔfoɔের তথ্য আপডেট হয়েছে" : "Customer Updated" });
+  };
+
+  const deleteCustomer = (id: number) => {
+    setCustomers(prev => prev.filter(item => item.id !== id));
+    toast({ type: "error", title: lang === "bn" ? "Otɔfoɔ মুছে ফেলা হয়েছে" : "Customer Deleted" });
+  };
+
+  const recordCustomerPayment = (customerId: number, amount: number, accountId: string, note?: string) => {
+    const cust = customers.find(c => c.id === customerId);
+    if (!cust) return;
+
+    const newDue = Math.max(0, cust.due - amount);
+    setCustomers(prev =>
+      prev.map(c =>
+        c.id === customerId
+          ? {
+              ...c,
+              due: newDue,
+              lastPayment: "Today",
+              status: newDue === 0 ? "regular" : "due",
+            }
+          : c
+      )
+    );
+
+    // Add money to account
+    setAccounts(prev =>
+      prev.map(a =>
+        a.id === accountId
+          ? { ...a, balance: a.balance + amount, in: a.in + amount }
+          : a
+      )
+    );
+
+    // Record cash transaction
+    setTransactions(prev => [
+      {
+        id: `TX-${Date.now()}`,
+        type: "in",
+        desc: `Due Collected — ${cust.name}
+content" as const, label: "Content & Copy
+dashboard", label: "Dashboard
+delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)
+due",
+  },
+  {
+    id: "TAX-2026-08",
+    month: "August
+dues" as const, label: "Dues & Payables
+dues", label: "Customer Dues
+e.g. Bank cash injection
+e.g. Cash settlement
+e.g. Electricity bill or staff lunch...
+e.g. Karim Ahmed
+e.g. Received new shipment
+e.g. Tanvir Ahmed
+e.g. Tanvir Hasan
+en" | "bn";
+  onBack?: () => void;
+  previewMode?: boolean;
+}
+
+// Robust Product Image Renderer (Handles URLs, Unsplash images, local paths & emojis cleanly)
+const renderProductImage = (
+  img?: string,
+  sizeClass = "text-4xl",
+  imgClass = "w-full h-full object-contain p-1 rounded-md"
+) => {
+  if (!img) return <span className={sizeClass}>📦</span>;
+  const isUrl = img.startsWith("http://") || img.startsWith("https://") || img.startsWith("/") || img.startsWith("data:");
+  if (isUrl) {
+    return (
+      <img
+        src={img}
+        alt="Product"
+        className={imgClass}
+        loading="lazy"
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+          if (e.currentTarget.parentElement) {
+            e.currentTarget.parentElement.innerHTML = `<span class="${sizeClass}">📦</span>`;
+          }
+        }}
+      />
+    );
+  }
+  return <span className={sizeClass}>{img}</span>;
+};
+
+export default function CustomerStorefront({
+  lang: initialLang = "bn",
+  onBack,
+  previewMode = true,
+}: CustomerStorefrontProps) {
+  const { products, storefront, settings, formatTaka, tNum } = useApp();
+
+  // Local Language
+  const [lang, setLang] = useState<"en" | "bn">(initialLang);
+  const isBn = lang === "bn";
+
+  // Amazon Mobile App Active Bottom Navigation Tab: 'home' | 'you' | 'cart' | 'menu'
+  const [activeTab, setActiveTab] = useState<"home" | "you" | "cart" | "menu">("home");
+
+  // Search & Filter State
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "rating">("featured");
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [dealsOnly, setDealsOnly] = useState(false);
+
+  // Delivery Location
+  const [selectedLocation, setSelectedLocation] = useState("Accra, Greater Accra");
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+
+  // Voice/Camera Search simulation modal
+  const [isMediaSearchOpen, setIsMediaSearchOpen] = useState<"camera" | "voice" | null>(null);
+
+  // Customer Profile State (Guest by default, registers upon order)
+  const [customer, setCustomer] = useState<{
+    name: string;
+    phone: string;
+    address: string;
+    area: string;
+    isRegistered: boolean;
+  }>({
+    name: "",
+    phone: "",
+    address: "",
+    area: "Osu / Oxford Street, Accra",
+    isRegistered: false,
+  });
+
+  // Customer's Placed Orders
+  const [customerOrders, setCustomerOrders] = useState<Array<{
+    id: string;
+    date: string;
+    time: string;
+    status: "confirmed" | "packing" | "out_for_delivery" | "delivered";
+    items: Array<{ name: string; nameBn?: string; qty: number; price: number; image?: string }>;
+    total: number;
+    paymentMethod: "cod" | "bkash" | "whatsapp";
+  }>>([]);
+
+  // Edit Customer Profile Modal
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [tempProfileName, setTempProfileName] = useState("");
+  const [tempProfilePhone, setTempProfilePhone] = useState("");
+  const [phoneLookupInput, setPhoneLookupInput] = useState("");
+
+  // Cart State (Initialized with 1 demo product for quick preview)
+  const [cart, setCart] = useState<{ product: Product; qty: number }[]>([
+    {
+      product: products[0] || {
+        id: 1,
+        name: "Sunflower Cooking Oil 5L
+en" | "bn";
+  setScreen: (s: string) => void;
+}
+
+export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps) {
+  const {
+    storefront,
+    updateStorefront,
+    products,
+    settings,
+    tNum,
+    formatTaka
+  } = useApp();
+
+  const isBn = lang === "bn";
+  const [viewDevice, setViewDevice] = useState<"mobile" | "desktop">("mobile");
+  const [activeTab, setActiveTab] = useState<"design" | "content" | "settings">("design");
+  const [showLiveModal, setShowLiveModal] = useState(false);
+  const [cart, setCart] = useState<{ id: number; name: string; nameBn?: string; price: number; qty: number; image: string }[]>([]);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "bkash">("cod");
+
+  // Form State
+  const [subdomain, setSubdomain] = useState(storefront.subdomain);
+  const [headline, setHeadline] = useState(storefront.heroHeadline);
+  const [headlineBn, setHeadlineBn] = useState(storefront.heroHeadlineBn);
+  const [subheadline, setSubheadline] = useState(storefront.heroSubheadline);
+  const [subheadlineBn, setSubheadlineBn] = useState(storefront.heroSubheadlineBn);
+  const [themeColor, setThemeColor] = useState(storefront.themeColor);
+  const [whatsAppNumber, setWhatsAppNumber] = useState(storefront.whatsAppNumber);
+  const [showWhatsApp, setShowWhatsApp] = useState(storefront.showWhatsAppButton);
+  const [allowCOD, setAllowCOD] = useState(storefront.allowCOD);
+  const [showReviews, setShowReviews] = useState(storefront.showReviews);
+  const [announcement, setAnnouncement] = useState(storefront.announcementText);
+  const [announcementBn, setAnnouncementBn] = useState(storefront.announcementTextBn);
+
+  const publicUrl = `https://${subdomain}.sayhpro.com`;
+
+  const addToCart = (product: typeof products[0]) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === product.id);
+      if (existing) {
+        return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i);
+      }
+      return [...prev, { id: product.id, name: product.name, nameBn: product.nameBn, price: product.sellPrice, qty: 1, image: product.image || "📦" }];
+    });
+    toast({
+      type: "success",
+      title: isBn ? "কার্টে Ka ho হয়েছে!" : "Added to Cart!",
+      message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "কার্টে যুক্ত হয়েছে।" : "added to cart."}`,
+    });
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  const handleSave = () => {
+    updateStorefront({
+      subdomain,
+      heroHeadline: headline,
+      heroHeadlineBn: headlineBn,
+      heroSubheadline: subheadline,
+      heroSubheadlineBn: subheadlineBn,
+      themeColor,
+      whatsAppNumber,
+      showWhatsAppButton: showWhatsApp,
+      allowCOD,
+      showReviews,
+      announcementText: announcement,
+      announcementTextBn: announcementBn,
+    });
+  };
+
+  const colorThemes = [
+    { name: "Brand Green", color: "#16A34A" },
+    { name: "Amber", color: "#D97706" },
+    { name: "Deep Green", color: "#166534" },
+    { name: "Slate", color: "#334155" },
+    { name: "Midnight", color: "#0F172A" },
+  ];
+
+  return (
+    <div className="p-4 sm:p-6 space-y-6 pb-28 lg:pb-8">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
+        <div className="min-w-0">
+          <h1 className="font-display text-xl sm:text-2xl font-bold text-ink">{isBn ? "আপনার স্টোর চালু করুন" : "Launch Your Store"}</h1>
+          <p className="text-ink/70 text-xs sm:text-sm mt-0.5">
+            {isBn ? "কোডিং ছাড়াই সহজে আপনার Intanɛte Dukan তৈরি ও চালু করুন।" : "Publish your online store in minutes with zero coding."}
+          </p>
+        </div>
+
+        <div className="ml-auto sm:ml-0 flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setScreen("storefront")}
+            className="flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 active:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-transform active:scale-95 cursor-pointer"
+          >
+            <Eye size={15} />
+            <span>{isBn ? "অভ্যন্তরীণ প্রিভিউ" : "In-App Preview"}</span>
+          </button>
+          <button
+            onClick={() => {
+              const liveUrl = `${window.location.origin}/?screen=storefront`;
+              window.open(liveUrl, "_blank");
+            }}
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-em-300 bg-em-50 hover:bg-em-100 rounded-xl text-xs sm:text-sm font-bold text-em-800 transition-fast shadow-2xs whitespace-nowrap cursor-pointer"
+            title={isBn ? "আসল ব্রাউজারে কাস্টমার স্টোর খুলুন (External Browser)" : "Open Live Storefront in Real Browser"}
+          >
+            <Globe size={14} className="text-em-700" />
+            <span className="font-mono text-xs">{subdomain}.sayhpro.com</span>
+            <ExternalLink size={12} />
+          </button>
+          <button
+            onClick={() => {
+              const liveUrl = `${window.location.origin}/?screen=storefront`;
+              navigator.clipboard.writeText(liveUrl);
+              toast({
+                type: "success",
+                title: isBn ? "কাস্টমার স্টোর লিংক কপি হয়েছে!" : "Storefront Link Copied!",
+                message: liveUrl,
+              });
+            }}
+            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 bg-white hover:bg-nv-50 rounded-xl text-xs sm:text-sm font-semibold text-ink transition-fast shadow-2xs cursor-pointer"
+            title={isBn ? "কাস্টমারদের সাথে শেয়ার করতে লিংক কপি করুন" : "Copy Customer Store Link"}
+          >
+            <Copy size={13} />
+            <span>{isBn ? "কপি লিংক" : "Copy Link"}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Builder Grid: Editor Sidebar + Live Interactive Device Preview */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Editor Controls Panel (5 cols) */}
+        <div className="lg:col-span-5 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-nv-200 space-y-5">
+          {/* Sub-tabs */}
+          <div className="flex gap-2 border-b border-nv-200 pb-2">
+            {[
+              { id: "design" as const, label: "Design & Theme
+en" | "bn";
+  showPL?: boolean;
+  showTax?: boolean;
+  setScreen: (s: string) => void;
+  onBack?: () => void;
+}
+
+interface TaxMonthRecord {
+  id: string;
+  month: string;
+  monthBn: string;
+  year: number;
+  turnover: number;
+  outputVat: number;
+  inputRebate: number;
+  netPayable: number;
+  status: "paid" | "due";
+  challanNo?: string;
+  paidDate?: string;
+  paymentMethod?: string;
+}
+
+const initialTaxRecords: TaxMonthRecord[] = [
+  {
+    id: "TAX-2026-09",
+    month: "September
+expenses" as const, label: "Expenses
+fintech", label: "Banking, SME Loans & Bangla QR Digital Payments
+in stock
+info", time: "Yesterday", resolved: true },
+];
+
+const AppContext = createContext<AppContextType | undefined>(undefined);
+
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [lang, setLang] = useState<"en" | "bn">("en");
+
+  // Migration for Ghana localization
+  if (typeof window !== "undefined") {
+    try {
+      const LOC_VERSION = "ghana_v2";
+      if (localStorage.getItem("dukan_loc_version") !== LOC_VERSION) {
+        localStorage.setItem("dukan_loc_version", LOC_VERSION);
+        localStorage.removeItem("dukan_products");
+        localStorage.removeItem("dukan_sales");
+        localStorage.removeItem("dukan_customers");
+        localStorage.removeItem("dukan_suppliers");
+        localStorage.removeItem("dukan_purchases");
+        localStorage.removeItem("dukan_expenses");
+        localStorage.removeItem("dukan_accounts");
+        localStorage.removeItem("dukan_transactions");
+        localStorage.removeItem("dukan_employees");
+        localStorage.removeItem("dukan_notifications");
+        localStorage.removeItem("dukan_settings");
+        localStorage.removeItem("dukan_courier_parcels");
+        localStorage.removeItem("dukan_bank_apps");
+        localStorage.removeItem("dukan_loan_offers");
+        localStorage.removeItem("dukan_digital_payments");
+        localStorage.removeItem("dukan_payment_links");
+        localStorage.removeItem("dukan_storefront");
+        localStorage.removeItem("dukan_resell_products");
+        localStorage.removeItem("dukan_monitoring_rules");
+        localStorage.removeItem("dukan_business_alerts");
+      }
+    } catch {}
+  }
+
+  // Load from localStorage or defaults with auto-cleaning for short, understandable names
+  const [products, setProducts] = useState<Product[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_products");
+      if (saved) {
+        let parsed: Product[] = JSON.parse(saved);
+        parsed = parsed.map(p => ({
+          ...p,
+          name: cleanProductName(p.name),
+          nameBn: cleanProductNameBn(p.nameBn),
+        }));
+        if (!parsed.some(p => p.sku === "VEG-013" || p.name.toLowerCase().includes("potato"))) {
+          parsed.unshift(initialProducts[0]);
+        }
+        try {
+          localStorage.setItem("dukan_products", JSON.stringify(parsed));
+        } catch {}
+        return parsed;
+      }
+      return initialProducts;
+    } catch {
+      return initialProducts;
+    }
+  });
+
+  const [sales, setSales] = useState<Sale[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_sales");
+      return saved ? JSON.parse(saved) : initialSales;
+    } catch {
+      return initialSales;
+    }
+  });
+
+  const [customers, setCustomers] = useState<Customer[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_customers");
+      return saved ? JSON.parse(saved) : initialCustomers;
+    } catch {
+      return initialCustomers;
+    }
+  });
+
+  const [suppliers, setSuppliers] = useState<Supplier[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_suppliers");
+      return saved ? JSON.parse(saved) : initialSuppliers;
+    } catch {
+      return initialSuppliers;
+    }
+  });
+
+  const [purchases, setPurchases] = useState<Purchase[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_purchases");
+      return saved ? JSON.parse(saved) : initialPurchases;
+    } catch {
+      return initialPurchases;
+    }
+  });
+
+  const [expenses, setExpenses] = useState<Expense[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_expenses");
+      return saved ? JSON.parse(saved) : initialExpenses;
+    } catch {
+      return initialExpenses;
+    }
+  });
+
+  const [accounts, setAccounts] = useState<CashAccount[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_accounts");
+      return saved ? JSON.parse(saved) : initialAccounts;
+    } catch {
+      return initialAccounts;
+    }
+  });
+
+  const [transactions, setTransactions] = useState<CashTransaction[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_transactions");
+      return saved ? JSON.parse(saved) : initialTransactions;
+    } catch {
+      return initialTransactions;
+    }
+  });
+
+  const [employees, setEmployees] = useState<Employee[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_employees");
+      return saved ? JSON.parse(saved) : initialEmployees;
+    } catch {
+      return initialEmployees;
+    }
+  });
+
+  const [notifications, setNotifications] = useState<NotificationItem[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_notifications");
+      return saved ? JSON.parse(saved) : initialNotifications;
+    } catch {
+      return initialNotifications;
+    }
+  });
+
+  const [settings, setSettings] = useState<ShopSettings>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_settings");
+      return saved ? JSON.parse(saved) : initialSettings;
+    } catch {
+      return initialSettings;
+    }
+  });
+
+  const [currentInvoice, setCurrentInvoice] = useState<Sale | null>(() => {
+    return initialSales[0] || null;
+  });
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [quickModal, setQuickModal] = useState<string | null>(null);
+
+  const [vgoContributions, setVgoContributions] = useState<VGOContribution[]>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_contributions");
+      return saved ? JSON.parse(saved) : initialVgoContributions;
+    } catch {
+      return initialVgoContributions;
+    }
+  });
+
+  const [vgoWallets, setVgoWallets] = useState<VGOWallet[]>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_wallets");
+      return saved ? JSON.parse(saved) : initialVgoWallets;
+    } catch {
+      return initialVgoWallets;
+    }
+  });
+
+  const [vgoPool, setVgoPool] = useState<VGONetworkPool>(() => {
+    try {
+      const saved = localStorage.getItem("vgo_pool");
+      return saved ? JSON.parse(saved) : initialVgoPool;
+    } catch {
+      return initialVgoPool;
+    }
+  });
+
+  // 1. Marketing State
+  const [smsCampaigns, setSmsCampaigns] = useState<SMSCampaign[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_sms_campaigns");
+      return saved ? JSON.parse(saved) : initialSmsCampaigns;
+    } catch {
+      return initialSmsCampaigns;
+    }
+  });
+  const [smsBalance, setSmsBalance] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_sms_balance");
+      return saved ? JSON.parse(saved) : 420;
+    } catch {
+      return 420;
+    }
+  });
+  const [metaAdSync, setMetaAdSync] = useState<MetaAdSync>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_meta_sync");
+      return saved ? JSON.parse(saved) : initialMetaAdSync;
+    } catch {
+      return initialMetaAdSync;
+    }
+  });
+
+  // 2. Delivery Aggregator State
+  const [courierParcels, setCourierParcels] = useState<CourierParcel[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_courier_parcels");
+      return saved ? JSON.parse(saved) : initialCourierParcels;
+    } catch {
+      return initialCourierParcels;
+    }
+  });
+
+  // 3. Fintech, Banking & Loans State
+  const [bankApplications, setBankApplications] = useState<BankAccountApplication[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_bank_apps");
+      return saved ? JSON.parse(saved) : initialBankApplications;
+    } catch {
+      return initialBankApplications;
+    }
+  });
+  const [smeLoanOffers, setSmeLoanOffers] = useState<SMELoanOffer[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_loan_offers");
+      return saved ? JSON.parse(saved) : initialLoanOffers;
+    } catch {
+      return initialLoanOffers;
+    }
+  });
+  const [digitalPayments, setDigitalPayments] = useState<DigitalPaymentConfig>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_digital_payments");
+      return saved ? JSON.parse(saved) : initialDigitalPayments;
+    } catch {
+      return initialDigitalPayments;
+    }
+  });
+  const [paymentLinks, setPaymentLinks] = useState<PaymentLinkItem[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_payment_links");
+      return saved ? JSON.parse(saved) : initialPaymentLinks;
+    } catch {
+      return initialPaymentLinks;
+    }
+  });
+
+  // 4. Reselling State
+  const [resellProducts, setResellProducts] = useState<ResellProduct[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_resell_products");
+      return saved ? JSON.parse(saved) : initialResellProducts;
+    } catch {
+      return initialResellProducts;
+    }
+  });
+
+  // 5. Storefront State
+  const [storefront, setStorefront] = useState<StorefrontConfig>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_storefront");
+      return saved ? JSON.parse(saved) : initialStorefrontConfig;
+    } catch {
+      return initialStorefrontConfig;
+    }
+  });
+
+  // 6. Monitoring & Alerts State
+  const [monitoringRules, setMonitoringRules] = useState<MonitoringRule[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_monitoring_rules");
+      return saved ? JSON.parse(saved) : initialMonitoringRules;
+    } catch {
+      return initialMonitoringRules;
+    }
+  });
+  const [businessAlerts, setBusinessAlerts] = useState<BusinessAlert[]>(() => {
+    try {
+      const saved = localStorage.getItem("dukan_business_alerts");
+      return saved ? JSON.parse(saved) : initialBusinessAlerts;
+    } catch {
+      return initialBusinessAlerts;
+    }
+  });
+
+  // Sync to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("dukan_products", JSON.stringify(products));
+      localStorage.setItem("dukan_sales", JSON.stringify(sales));
+      localStorage.setItem("dukan_customers", JSON.stringify(customers));
+      localStorage.setItem("dukan_suppliers", JSON.stringify(suppliers));
+      localStorage.setItem("dukan_purchases", JSON.stringify(purchases));
+      localStorage.setItem("dukan_expenses", JSON.stringify(expenses));
+      localStorage.setItem("dukan_accounts", JSON.stringify(accounts));
+      localStorage.setItem("dukan_transactions", JSON.stringify(transactions));
+      localStorage.setItem("dukan_employees", JSON.stringify(employees));
+      localStorage.setItem("dukan_notifications", JSON.stringify(notifications));
+      localStorage.setItem("dukan_settings", JSON.stringify(settings));
+      localStorage.setItem("vgo_contributions", JSON.stringify(vgoContributions));
+      localStorage.setItem("vgo_wallets", JSON.stringify(vgoWallets));
+      localStorage.setItem("vgo_pool", JSON.stringify(vgoPool));
+      localStorage.setItem("dukan_sms_campaigns", JSON.stringify(smsCampaigns));
+      localStorage.setItem("dukan_sms_balance", JSON.stringify(smsBalance));
+      localStorage.setItem("dukan_meta_sync", JSON.stringify(metaAdSync));
+      localStorage.setItem("dukan_courier_parcels", JSON.stringify(courierParcels));
+      localStorage.setItem("dukan_bank_apps", JSON.stringify(bankApplications));
+      localStorage.setItem("dukan_loan_offers", JSON.stringify(smeLoanOffers));
+      localStorage.setItem("dukan_digital_payments", JSON.stringify(digitalPayments));
+      localStorage.setItem("dukan_payment_links", JSON.stringify(paymentLinks));
+      localStorage.setItem("dukan_resell_products", JSON.stringify(resellProducts));
+      localStorage.setItem("dukan_storefront", JSON.stringify(storefront));
+      localStorage.setItem("dukan_monitoring_rules", JSON.stringify(monitoringRules));
+      localStorage.setItem("dukan_business_alerts", JSON.stringify(businessAlerts));
+    } catch (e) {
+      console.error("Storage error:", e);
+    }
+  }, [
+    products, sales, customers, suppliers, purchases, expenses, accounts, transactions, employees,
+    notifications, settings, vgoContributions, vgoWallets, vgoPool, smsCampaigns, smsBalance, metaAdSync,
+    courierParcels, bankApplications, smeLoanOffers, digitalPayments, paymentLinks, resellProducts,
+    storefront, monitoringRules, businessAlerts
+  ]);
+
+  const updateProductStatus = (stock: number, min: number): "in-stock" | "low-stock" | "out-of-stock" => {
+    if (stock <= 0) return "out-of-stock";
+    if (stock <= min) return "low-stock";
+    return "in-stock";
+  };
+
+  // Products Actions
+  const addProduct = (p: Omit<Product, "id" | "status">) => {
+    const id = Date.now();
+    const status = updateProductStatus(p.stock, p.min);
+    const newProduct: Product = { ...p, id, status };
+    setProducts(prev => [newProduct, ...prev]);
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Nnoɔma Ka ho করা হয়েছে!" : "Product Added!",
+      message: `${p.name} (Stock: ${p.stock})`,
+    });
+  };
+
+  const updateProduct = (id: number, p: Partial<Product>) => {
+    setProducts(prev =>
+      prev.map(item => {
+        if (item.id === id) {
+          const updated = { ...item, ...p };
+          updated.status = updateProductStatus(updated.stock, updated.min);
+          return updated;
+        }
+        return item;
+      })
+    );
+    toast({
+      type: "info",
+      title: lang === "bn" ? "Nnoɔma আপডেট হয়েছে!" : "Product Updated!",
+    });
+  };
+
+  const deleteProduct = (id: number) => {
+    const p = products.find(x => x.id === id);
+    setProducts(prev => prev.filter(item => item.id !== id));
+    toast({
+      type: "error",
+      title: lang === "bn" ? "Nnoɔma মুছে ফেলা হয়েছে" : "Product Deleted",
+      message: p?.name,
+    });
+  };
+
+  const adjustStock = (id: number, qtyDelta: number, reason: string) => {
+    setProducts(prev =>
+      prev.map(item => {
+        if (item.id === id) {
+          const newStock = Math.max(0, item.stock + qtyDelta);
+          return {
+            ...item,
+            stock: newStock,
+            status: updateProductStatus(newStock, item.min),
+          };
+        }
+        return item;
+      })
+    );
+    toast({
+      type: "success",
+      title: lang === "bn" ? "Akorae সমন্বয় সম্পন্ন" : "Stock Adjusted",
+      message: `${reason}: ${qtyDelta > 0 ? "+" : ""}${qtyDelta}`,
+    });
+  };
+
+  // POS & Sale Action
+  const completeSale = (saleData: Omit<Sale, "id" | "invoiceNo" | "date" | "time" | "status">): Sale => {
+    const invoiceNumber = `INV-${1044 + sales.length}`;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+
+    const newSale: Sale = {
+      ...saleData,
+      id: `sale-${Date.now()}`,
+      invoiceNo: invoiceNumber,
+      date: dateStr,
+      time: timeStr,
+      status: saleData.due > 0 ? (saleData.paid > 0 ? "partial" : "due") : "completed",
+    };
+
+    // 1. Deduct Product Stocks
+    setProducts(prev =>
+      prev.map(p => {
+        const sold = saleData.items.find(i => i.name === p.name || i.nameBn === p.nameBn);
+        if (sold) {
+          const newStock = Math.max(0, p.stock - sold.qty);
+          return {
+            ...p,
+            stock: newStock,
+            status: updateProductStatus(newStock, p.min),
+          };
+        }
+        return p;
+      })
+    );
+
+    // 2. Add Money to Account if Paid
+    if (saleData.paid > 0) {
+      const accId = saleData.paymentMethod === "due" ? "cash" : saleData.paymentMethod;
+      setAccounts(prev =>
+        prev.map(a => {
+          if (a.id === accId || (accId === "cash" && a.id === "cash")) {
+            return { ...a, balance: a.balance + saleData.paid, in: a.in + saleData.paid };
+          }
+          return a;
+        })
+      );
+
+      // Add cash transaction
+      const newTx: CashTransaction = {
+        id: `TX-${Date.now()}`,
+        type: "in",
+        desc: `Sale ${invoiceNumber} — ${saleData.customer}
+items
+left
+marketing", label: "SMS & Facebook Marketing Hub
+month" as const, label: "30 Days
+paid",
+    challanNo: "A-CHL-8829104",
+    paidDate: "Aug 14, 2026",
+    paymentMethod: "NBR A-Challan (Sonali Bank)",
+  },
+  {
+    id: "TAX-2026-07",
+    month: "July
+paid",
+    challanNo: "GRA-CHL-6610382",
+    paidDate: "Jun 11, 2026",
+    paymentMethod: "Bank of Ghana / Ecobank GRA Gateway",
+  },
+];
+
+export default function Reports({ lang, showPL, showTax, setScreen, onBack }: ReportsProps) {
+  const { sales, expenses, products, customers, suppliers, accounts, settings, tNum, formatTaka } = useApp();
+  const isBn = lang === "bn";
+
+  const [activeTab, setActiveTab] = useState<"pl" | "sales" | "expenses" | "dues" | "tax" | "advisory">(
+    showPL ? "pl" : showTax ? "tax" : "pl"
+  );
+  const [advisoryFilter, setAdvisoryFilter] = useState<"all" | "urgent" | "soon" | "safe" | "slow">("all");
+
+  // Tax records state
+  const [taxRecords, setTaxRecords] = useState<TaxMonthRecord[]>(initialTaxRecords);
+  const [showTaxPayModal, setShowTaxPayModal] = useState(false);
+  const [selectedTaxMonth, setSelectedTaxMonth] = useState<TaxMonthRecord | null>(null);
+  const [taxPayChannel, setTaxPayChannel] = useState("a-challan");
+  const [taxChallanInput, setTaxChallanInput] = useState("");
+
+  // Dynamic P&L calculations
+  const totalRevenue = sales.reduce((sum, s) => sum + s.grandTotal, 0);
+  const totalCOGS = sales.reduce((sum, s) => {
+    return sum + s.items.reduce((cSum, item) => cSum + (item.buyPrice || item.price * 0.75) * item.qty, 0);
+  }, 0);
+  const grossProfit = totalRevenue - totalCOGS;
+  const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const netProfit = grossProfit - totalExpenses;
+
+  const grossMargin = totalRevenue > 0 ? ((grossProfit / totalRevenue) * 100).toFixed(1) : "0.0";
+  const netMargin = totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(1) : "0.0";
+
+  // Tax calculations
+  const defaultTaxRate = settings.taxRate || 5;
+  const totalSalesVatCollected = Math.round(totalRevenue * (defaultTaxRate / 100));
+  const totalInputVatRebate = Math.round(totalCOGS * 0.03); // 3% input credit
+  const currentNetVatPayable = Math.max(0, totalSalesVatCollected - totalInputVatRebate);
+  const totalTaxPaidThisYear = taxRecords.filter(t => t.status === "paid").reduce((sum, t) => sum + t.netPayable, 0);
+
+  // Expense categories breakdown
+  const expenseByCategory = expenses.reduce((acc, exp) => {
+    acc[exp.category] = (acc[exp.category] || 0) + exp.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
+  // Stock Buy Advisory: Color Coded Calculations
+  // Analyzes turnover & stock velocity
+  const productSalesQty = sales.reduce((acc, s) => {
+    s.items.forEach(i => {
+      acc[i.name] = (acc[i.name] || 0) + i.qty;
+    });
+    return acc;
+  }, {} as Record<string, number>);
+
+  const buyAdvisoryList = products.map(p => {
+    const soldQty = productSalesQty[p.name] || (p.stock > 0 ? 12 : 25);
+    const weeklyRate = Math.max(1, Math.round(soldQty / 4));
+    const daysOfStockLeft = weeklyRate > 0 ? Math.round((p.stock / weeklyRate) * 7) : 999;
+
+    let tier: "urgent" | "soon" | "safe" | "slow";
+    let colorName: string;
+    let badgeText: string;
+    let badgeTextBn: string;
+    let explanation: string;
+    let explanationBn: string;
+    let recommendedBuyQty: number;
+
+    if (p.stock === 0 || p.stock <= p.min) {
+      // 🔴 RED: Urgent restock!
+      tier = "urgent";
+      colorName = "red";
+      badgeText = "Urgent Buy / Restock";
+      badgeTextBn = "Ntɛmntɛm কেনা দরকার (Akorae Asa/ঝুঁকি)";
+      explanation = "Stock is critically low while demand is high. Restock immediately to prevent losing customers and profits.";
+      explanationBn = "Akorae মারাত্মকভাবে কমে গেছে বা শূন্য, অথচ Nnoɔma ব্যাপক চাহিদা। কাস্টমার যেন ফিরে না যায় সেজন্য দ্রুত কিনুন।";
+      recommendedBuyQty = Math.max(20, p.min * 2 - p.stock);
+    } else if (p.stock <= p.min * 1.6 || daysOfStockLeft <= 7) {
+      // 🟡 YELLOW: Reorder soon
+      tier = "soon";
+      colorName = "yellow";
+      badgeText = "Reorder Soon (3-7 Days)";
+      badgeTextBn = "Ɛrensa Ntɛm (৩-৭ Nna)";
+      explanation = "Approaching reorder point. Plan order in next supplier shipment batch.";
+      explanationBn = "আগামী কয়েকNnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী Agorɔfoɔ চালানে অর্ডার অন্তর্ভুক্ত করুন।";
+      recommendedBuyQty = Math.max(12, Math.round(p.min * 1.5 - p.stock));
+    } else if (daysOfStockLeft <= 45) {
+      // 🟢 GREEN: Optimal safe stock
+      tier = "safe";
+      colorName = "green";
+      badgeText = "Optimal / Safe (Do Not Buy)";
+      badgeTextBn = "Akorae Wɔ Hɔ (এখন কেনার দরকার নেই)";
+      explanation = "Healthy stock level with sufficient buffer. Cash flow is safely preserved.";
+      explanationBn = "Dukanে Akorae Wɔ Hɔ মজুত আছে। এখন Otɔfo Foforɔ করে নগদ Sika আটকানোর কোনো প্রয়োজন নেই।";
+      recommendedBuyQty = 0;
+    } else {
+      // ⚪ / 🔵 GRAY: Slow moving / Overstock
+      tier = "slow";
+      colorName = "gray";
+      badgeText = "Slow Moving / Overstocked";
+      badgeTextBn = "Tɔn Ntoasoɔ Brɛoo / অতিরিক্ত Akorae (কিনবেন না)";
+      explanation = "Low sales turnover. Do not purchase more units; prioritize clearing current inventory.";
+      explanationBn = "বিক্রি ধীরগতির বা অতিরিক্ত Akorae রয়েছে। ভুলেও আর কিনবেন না, আগের Akorae Tɔn দিকে নজর Nna।";
+      recommendedBuyQty = 0;
+    }
+
+    const estimatedBudget = recommendedBuyQty * p.buyPrice;
+
+    return {
+      product: p,
+      tier,
+      colorName,
+      badgeText,
+      badgeTextBn,
+      explanation,
+      explanationBn,
+      weeklyRate,
+      daysOfStockLeft,
+      recommendedBuyQty,
+      estimatedBudget,
+    };
+  });
+
+  const filteredAdvisory = buyAdvisoryList.filter(item => {
+    if (advisoryFilter === "all") return true;
+    return item.tier === advisoryFilter;
+  });
+
+  const urgentCount = buyAdvisoryList.filter(i => i.tier === "urgent").length;
+  const soonCount = buyAdvisoryList.filter(i => i.tier === "soon").length;
+  const safeCount = buyAdvisoryList.filter(i => i.tier === "safe").length;
+  const slowCount = buyAdvisoryList.filter(i => i.tier === "slow").length;
+  const totalRecommendedBudget = buyAdvisoryList.reduce((s, i) => s + i.estimatedBudget, 0);
+
+  const handleExportReport = () => {
+    toast({
+      type: "success",
+      title: isBn ? "Amanneɛbɔ ডাউনলোড হয়েছে!" : "Report Exported!",
+      message: "Financial and tax audit report saved to CSV.",
+    });
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleTaxPaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedTaxMonth) return;
+
+    const generatedChallan = taxChallanInput || `A-CHL-${Date.now().toString().slice(-7)}`;
+
+    setTaxRecords(prev =>
+      prev.map(t =>
+        t.id === selectedTaxMonth.id
+          ? {
+              ...t,
+              status: "paid",
+              challanNo: generatedChallan,
+              paidDate: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+              paymentMethod: taxPayChannel === "a-challan" ? "GRA Ghana.gov Portal" : "MTN MoMo GRA e-Payment",
+            }
+          : t
+      )
+    );
+
+    setShowTaxPayModal(false);
+    setTaxChallanInput("");
+    toast({
+      type: "success",
+      title: isBn ? "ট্যাক্স সফলভাবে Wɔatua Pɛpɛɛpɛ!" : "Tax Payment Recorded!",
+      message: isBn
+        ? `চালান নং ${generatedChallan} এনবিআর সিস্টেমে নথিভুক্ত হয়েছে।`
+        : `Challan No. ${generatedChallan} successfully linked to NBR return.`,
+    });
+  };
+
+  return (
+    <div className="p-4 sm:p-6 space-y-6 pb-24 lg:pb-8">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        ) : <div />}
+
+        <div className="ml-auto flex items-center gap-2 flex-wrap">
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast"
+          >
+            <Printer size={15} /> {isBn ? "Tintim" : "Print"}
+          </button>
+          <button
+            onClick={handleExportReport}
+            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast"
+          >
+            <Download size={15} /> {isBn ? "Export" : "Export CSV"}
+          </button>
+        </div>
+      </div>
+
+      {/* KPI Cards Summary */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink mb-1">{isBn ? "Nyinaa আয় (Revenue)" : "Total Revenue"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(totalRevenue)}</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink mb-1">{isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(grossProfit)}</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink mb-1">{isBn ? "Mfasoɔ Pɔtee (Net Profit)" : "Net Profit"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-ink">{formatTaka(netProfit)}</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
+          <div className="text-xs text-ink mb-1">{isBn ? "প্রদেয় ভ্যাট ও কর (Net Tax)" : "Net Tax / VAT Due"}</div>
+          <div className="num text-xl sm:text-2xl font-bold text-em-700">{formatTaka(currentNetVatPayable)}</div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-2 border-b border-nv-200 pb-1 overflow-x-auto">
+        {[
+          { id: "pl" as const, label: "Profit & Loss
+parcels
+pcs
+pos", label: "POS / New Sale
+reselling", label: "Reselling & Drop-Shipping Wholesale Catalog
+saved items
+tax" as const, label: "Tax Report & Payment
+times
+units sold
+users
+website", label: "No-Code Website & Online Storefront Builder
+week" as const, label: "7 Days
+⚡", active: true },
+    { id: "pathao", name: "Pathao Courier
+⚪ Avoid Overstock
+🎉 Order Placed Successfully!
+📦" },
+    { id: "steadfast", name: "Steadfast Courier
+🔴 Urgent Buy
+🔴", active: true },
+    { id: "ecourier", name: "eCourier BD
+🛵", active: true },
+    { id: "redx", name: "RedX Delivery
+🟢 Safe / Optimal

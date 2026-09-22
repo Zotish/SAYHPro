@@ -68,7 +68,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
   const totalDues = customers.reduce((sum, c) => sum + c.due, 0);
   const dueCount = customers.filter(c => c.due > 0).length;
 
-  // Smart Stock Buy Advisory (Color Coded: কোনটি কেনা উচিত)
+  // Smart Stock Buy Advisory (Color Coded: Deɛ Ɛsɛ Sɛ Wotɔ (Advisory))
   const buyAdvisoryItems = products.map(p => {
     const soldQty = sales.reduce((acc, s) => {
       const item = s.items.find(i => i.name === p.name);
@@ -99,20 +99,20 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
 
   // Core services: The 6 highest-frequency, most critical daily operations for merchants
   const services: ServiceItem[] = [
-    { id: "purchases", icon: ShoppingBag, label: "Purchases", labelBn: "ক্রয়" },
-    { id: "products", icon: Package, label: "Products", labelBn: "পণ্য তালিকা" },
-    { id: "cash", icon: Wallet, label: "Cash Book", labelBn: "হিসাব খাতা" },
-    { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "খরচের খাতা" },
-    { id: "customers", icon: Users, label: "Customers", labelBn: "গ্রাহক তালিকা" },
-    { id: "suppliers", icon: Building2, label: "Suppliers", labelBn: "সাপ্লায়ার" },
+    { id: "purchases", icon: ShoppingBag, label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ" },
+    { id: "products", icon: Package, label: "Products", labelBn: "Nnoɔma Din" },
+    { id: "cash", icon: Wallet, label: "Cash Book", labelBn: "Sika Kyerɛwtohɔ" },
+    { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "Ka Kyerɛwtohɔ" },
+    { id: "customers", icon: Users, label: "Customers", labelBn: "Atɔfoɔ Din" },
+    { id: "suppliers", icon: Building2, label: "Suppliers", labelBn: "Agorɔfoɔ" },
   ];
 
   const bottomNav: ServiceItem[] = [
-    { id: "home", icon: Home, label: "Home", labelBn: "হোম" },
-    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "বেচা-বিক্রি" },
-    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "স্টক" },
-    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "দেনা-পে" },
-    { id: "more", icon: Menu, label: "More", labelBn: "আরও" },
+    { id: "home", icon: Home, label: "Home", labelBn: "Fie (Home)" },
+    { id: "pos", icon: ShoppingCart, label: "Sell", labelBn: "Tɔn Nnoɔma" },
+    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "Akorae" },
+    { id: "dues", icon: CreditCard, label: "Dues", labelBn: "Aka / Bosea" },
+    { id: "more", icon: Menu, label: "More", labelBn: "Pii (More)" },
   ];
 
   const promoSlides = [
@@ -130,18 +130,18 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
       <div className="relative max-w-[66%]">
         <div className="font-display text-[17px] font-semibold text-white leading-snug">
           {isBn ? (
-            <>কার কাছে কত <span className="text-ac-300">বাকি</span>,<br />মনে পড়ছে না?</>
+            <>Hwan na ɔde wo <span className="text-ac-300">Aka</span>,<br />Wokae anaa?</>
           ) : (
             <>Can't recall who <span className="text-ac-300">owes</span> what?</>
           )}
         </div>
         <p className="text-[11px] text-em-200 mt-1.5 leading-snug">
           {isBn
-            ? `${tNum(dueCount)} জন গ্রাহকের কাছে মোট ${formatTaka(totalDues)} বাকি আছে।`
+            ? `${tNum(dueCount)} জন Otɔfoɔের কাছে Nyinaa ${formatTaka(totalDues)} Aka Wɔ Hɔ।`
             : `${tNum(dueCount)} customers owe you ${formatTaka(totalDues)} in total.`}
         </p>
         <span className="inline-flex items-center gap-1 mt-3 px-3 py-1.5 rounded-lg bg-ac-400 text-ink text-xs font-semibold">
-          {isBn ? "বাকির খাতা দেখুন" : "Open due ledger"}
+          {isBn ? "Hwɛ Aka Kyerɛwtohɔ" : "Open due ledger"}
           <ArrowRight size={13} />
         </span>
       </div>
@@ -155,7 +155,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
         {isBn ? "বিজ্ঞাপন / ব্যানার / প্রচার প্রচারণা" : "Ad, banner, or campaign slot"}
       </span>
       <span className="text-[11px] text-ink/70">
-        {isBn ? "আপনার অফার বা নতুন পণ্যের খবর এখানে দিন" : "Promote new arrivals or seasonal discounts here"}
+        {isBn ? "আপনার অফার বা Otɔfo Foforɔ Nnoɔma খবর এখানে Nna" : "Promote new arrivals or seasonal discounts here"}
       </span>
     </div>,
   ];
@@ -183,7 +183,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
           {/* User/Profile Avatar on the Left (Replaced RA square) */}
           <button
             onClick={() => setScreen("settings")}
-            aria-label={isBn ? "প্রোফাইল সেটিংস" : "Profile Settings"}
+            aria-label={isBn ? "প্রোফাইল Nhyehyɛeɛ" : "Profile Settings"}
             className="w-10 h-10 rounded-full bg-nv-100 flex items-center justify-center text-ink active:scale-95 hover:bg-nv-150 transition-all flex-shrink-0 border border-nv-200 shadow-2xs"
           >
             <User size={20} className="text-ink" />
@@ -239,7 +239,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             {/* Notification */}
             <button
               onClick={() => setScreen("notifications")}
-              aria-label={isBn ? "বিজ্ঞপ্তি" : "Notifications"}
+              aria-label={isBn ? "Nkaebɔ" : "Notifications"}
               className="relative w-9 h-9 rounded-full flex items-center justify-center text-ink active:bg-nv-100 transition-colors"
             >
               <Bell size={18} />
@@ -262,7 +262,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="font-bold text-xs text-ink">{isBn ? "ব্যবসায়িক রেটিং:" : "Rating:"}</span>
+                <span className="font-bold text-xs text-ink">{isBn ? "Adwuma Gyinabea:" : "Rating:"}</span>
                 <span className="num font-black text-amber-600 text-xs">{tNum(4.9)}/৫</span>
                 <div className="flex items-center text-amber-400">
                   {[...Array(5)].map((_, i) => (
@@ -271,7 +271,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
                 </div>
               </div>
               <p className="text-[10px] text-ink/60 truncate">
-                {isBn ? "৩৮৪ টি রিভিউ • ৯৮.৭% সন্তুষ্ট গ্রাহক" : "384 reviews • 98.7% satisfaction rate"}
+                {isBn ? "৩৮৪ টি রিভিউ • 98.7% Atɔfoɔ Ani Agye" : "384 reviews • 98.7% satisfaction rate"}
               </p>
             </div>
           </div>
@@ -292,9 +292,9 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
             </h2>
             <div className="inline-flex items-center p-0.5 bg-nv-100 border border-nv-200 rounded-lg">
               {[
-                { id: "day" as const, label: "Day", labelBn: "দিন" },
-                { id: "week" as const, label: "Week", labelBn: "সপ্তাহ" },
-                { id: "month" as const, label: "Month", labelBn: "মাস" },
+                { id: "day" as const, label: "Day", labelBn: "Nna" },
+                { id: "week" as const, label: "Week", labelBn: "Dapɛn" },
+                { id: "month" as const, label: "Month", labelBn: "Bosome" },
               ].map(p => (
                 <button
                   key={p.id}
@@ -317,7 +317,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "আজকের আয়" : "Income"}</span>
+                <span>{isBn ? "Ɛnnɛকের আয়" : "Income"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div className="num text-base font-semibold text-ink">{formatTaka(income)}</div>
@@ -327,7 +327,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "আজকের ব্যয়" : "Expense"}</span>
+                <span>{isBn ? "Ɛnnɛকের ব্যয়" : "Expense"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div className="num text-base font-semibold text-ink">{formatTaka(expense)}</div>
@@ -337,7 +337,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
               className="px-3 py-3 text-left hover:bg-nv-50 active:bg-nv-100 transition-colors group cursor-pointer"
             >
               <div className="text-[11px] text-ink mb-1 leading-tight flex items-center justify-between">
-                <span>{isBn ? "লাভ/ক্ষতি" : "Profit / Loss"}</span>
+                <span>{isBn ? "Mfasoɔ/ক্ষতি" : "Profit / Loss"}</span>
                 <span className="text-[10px] text-ink/40 group-hover:text-ink transition-colors">→</span>
               </div>
               <div
@@ -387,7 +387,7 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
                 <button
                   key={i}
                   onClick={() => setPromoIndex(i)}
-                  aria-label={`${isBn ? "স্লাইড" : "Slide"} ${i + 1}`}
+                  aria-label={`${isBn ? "Slide" : "Slide"} ${i + 1}`}
                   className={`h-1.5 rounded-full transition-all ${
                     i === promoIndex ? "w-4 bg-em-700" : "w-1.5 bg-nv-300"
                   }`}

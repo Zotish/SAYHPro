@@ -85,9 +85,9 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
   };
 
   const formatAccountType = (type: string) => {
-    if (type === "current") return isBn ? "কারেন্ট" : "Current";
-    if (type === "merchant_wallet") return isBn ? "মার্চেন্ট ওয়ালেট" : "Merchant Wallet";
-    if (type === "islamic_business") return isBn ? "ইসলামিক" : "Islamic Business";
+    if (type === "current") return isBn ? "Current Account" : "Current";
+    if (type === "merchant_wallet") return isBn ? "Merchant MoMo Wallet" : "Merchant Wallet";
+    if (type === "islamic_business") return isBn ? "Commercial Business" : "Islamic Business";
     return type.replace("_", " ");
   };
 
@@ -98,7 +98,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
         {onBack ? (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -112,7 +112,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
               className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-fast whitespace-nowrap"
             >
               <Plus size={16} />
-              <span>{isBn ? "নতুন ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</span>
+              <span>{isBn ? "Bue Sikakorabea Akawnt Foforɔ" : "Open Bank Account"}</span>
             </button>
           )}
 
@@ -135,7 +135,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all
             ${activeTab === "banking" ? "bg-em-700 text-white shadow-xs" : "bg-white border border-nv-200 text-ink hover:bg-nv-50"}`}
         >
-          <span>{isBn ? "ব্যাংকিং" : "Banking"}</span>
+          <span>{isBn ? "Sikakorabeaিং" : "Banking"}</span>
         </button>
 
         <button
@@ -188,7 +188,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
 
           <div className="bg-nv-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-1.5">
-              <h3 className="font-display font-extrabold text-xl">{isBn ? "ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</h3>
+              <h3 className="font-display font-extrabold text-xl">{isBn ? "Sikakorabea অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</h3>
               <p className="text-xs text-nv-100 max-w-xl leading-relaxed">
                 {isBn
                   ? "এনআইডি ও ট্রেড লাইসেন্স দিয়ে দ্রুত অ্যাকাউন্ট চালু করুন।"
@@ -228,10 +228,10 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                   <div className="mt-4 pt-3 border-t border-nv-100 flex items-center justify-between text-xs">
                     <div>
                       <span className="text-ink/70">{isBn ? "মেয়াদ" : "Tenure"}</span>
-                      <div className="font-bold text-ink text-sm mt-0.5">{tNum(loan.tenureMonths)} {isBn ? "মাস" : "Months"}</div>
+                      <div className="font-bold text-ink text-sm mt-0.5">{tNum(loan.tenureMonths)} {isBn ? "Bosome" : "Months"}</div>
                     </div>
                     <div className="text-right">
-                      <span className="text-ink/70">{isBn ? "মাসিক কিস্তি" : "Monthly EMI"}</span>
+                      <span className="text-ink/70">{isBn ? "Bosomeিক কিস্তি" : "Monthly EMI"}</span>
                       <div className="font-bold text-ink text-sm mt-0.5">{formatTaka(loan.monthlyEMI)}</div>
                     </div>
                   </div>
@@ -292,7 +292,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                 onClick={() => setShowLinkModal(true)}
                 className="text-xs text-ink font-bold hover:underline flex items-center gap-1"
               >
-                <Plus size={14} /> {isBn ? "নতুন লিঙ্ক" : "Create Link"}
+                <Plus size={14} /> {isBn ? "Otɔfo Foforɔ লিঙ্ক" : "Create Link"}
               </button>
             </div>
 
@@ -341,7 +341,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
             <div className="flex items-center justify-between pb-3 border-b border-nv-100">
               <div className="flex items-center gap-2">
                 <Landmark size={20} className="text-ink" />
-                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "ডিজিটাল ব্যাংক অ্যাকাউন্ট খুলুন" : "Open Digital Bank Account"}</h3>
+                <h3 className="font-display font-bold text-ink text-lg">{isBn ? "ডিজিটাল Sikakorabea অ্যাকাউন্ট খুলুন" : "Open Digital Bank Account"}</h3>
               </div>
               <button onClick={() => setShowKycModal(false)} className="text-ink hover:text-ink">✕</button>
             </div>
@@ -391,7 +391,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                   onClick={() => setShowKycModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -441,14 +441,14 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                   onClick={() => setShowLoanModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="button"
                   onClick={handleConfirmLoan}
                   className="flex-1 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "অ্যাকাউন্টে টাকা গ্রহণ করুন" : "Disburse to Bank"}
+                  {isBn ? "Gye Sika No Wɔ Sikakorabea" : "Disburse to Bank"}
                 </button>
               </div>
             </div>
@@ -470,7 +470,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
 
             <form onSubmit={handleCreateLink} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "গ্রাহকের নাম" : "Customer Name"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
                 <input
                   type="text"
                   required
@@ -482,7 +482,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
               </div>
 
               <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (GH₵)" : "Amount (GH₵)"} *</label>
+                <label className="block font-semibold text-ink mb-1">{isBn ? "Sika Dodoɔ (₵)" : "Amount (₵)"} *</label>
                 <input
                   type="number"
                   required
@@ -510,7 +510,7 @@ export default function FintechBanking({ lang, setScreen, onBack }: FintechBanki
                   onClick={() => setShowLinkModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"

@@ -121,16 +121,16 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
     setActiveReplyId(null);
     toast({
       type: "success",
-      title: isBn ? "উত্তর প্রকাশ করা হয়েছে!" : "Reply Published!",
-      message: isBn ? "গ্রাহক আপনার উত্তর দেখতে পাবেন।" : "Customer can view your official response.",
+      title: isBn ? "Mmuaeɛ No Akɔ!" : "Reply Published!",
+      message: isBn ? "Otɔfoɔ no betumi ahwɛ mmuaeɛ no." : "Customer can view your official response.",
     });
   };
 
   const handleSendReviewRequest = () => {
     toast({
       type: "success",
-      title: isBn ? "রেটিং লিংক পাঠানো হয়েছে!" : "Review Request Dispatched!",
-      message: isBn ? "আজকের সকল ক্রেতার মোবাইলে SMS রেটিং লিংক পাঠানো হয়েছে।" : "SMS review invite sent to today's customers with a discount voucher.",
+      title: isBn ? "Review Link No Akɔ!" : "Review Request Dispatched!",
+      message: isBn ? "Wɔamane review link no akɔ nnɛ atɔfoɔ fon so." : "SMS review invite sent to today's customers with a discount voucher.",
     });
   };
 
@@ -154,15 +154,15 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="font-display text-lg sm:text-xl font-bold text-ink">
-                  {isBn ? "ব্যবসায়িক রেটিং ও সুনাম" : "Business Rating & Reviews"}
+                  {isBn ? "Adwuma Gyinabea & Abodin" : "Business Rating & Reviews"}
                 </h2>
                 <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-em-50 text-em-800 border border-em-200 font-semibold">
                   <ShieldCheck size={12} />
-                  {isBn ? "ভেরিফায়েড শপ" : "Verified Store"}
+                  {isBn ? "Dukan a Wɔagye Atom" : "Verified Store"}
                 </span>
               </div>
               <p className="text-xs text-ink/70">
-                {isBn ? "গ্রাহক প্রতিক্রিয়া, স্কোর ও বিশ্বাসযোগ্যতা রিপোর্ট" : "Live customer satisfaction and merchant reputation audit"}
+                {isBn ? "Atɔfoɔ adwene, gyinabea ne ahotosoɔ amanneɛbɔ" : "Live customer satisfaction and merchant reputation audit"}
               </p>
             </div>
           </div>
@@ -190,10 +190,10 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                 ))}
               </div>
               <div className="text-xs font-semibold text-ink">
-                {isBn ? `${tNum(totalReviewsCount)} টি ভেরিফায়েড রিভিউ` : `Based on ${totalReviewsCount} verified reviews`}
+                {isBn ? `${tNum(totalReviewsCount)} atɔfoɔ nsɛm a wɔagye atom` : `Based on ${totalReviewsCount} verified reviews`}
               </div>
               <div className="mt-2 text-[11px] text-em-700 bg-em-50 border border-em-200 px-2.5 py-0.5 rounded-full font-bold">
-                {isBn ? "৯৮.৭% সন্তুষ্ট গ্রাহক" : "98.7% Satisfaction Rate"}
+                {isBn ? "98.7% Atɔfoɔ Ani Agye" : "98.7% Satisfaction Rate"}
               </div>
             </div>
 
@@ -229,9 +229,9 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
           {/* Trust Badges Row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             {[
-              { label: isBn ? "সঠিক ডিজিটাল ওজন" : "100% Accurate Measure", sub: isBn ? "বিএসটিআই মানসম্মত" : "Standard Certified", icon: Sparkles },
-              { label: isBn ? "অন-টাইম ডেলিভারি" : "99.4% On-Time Dispatch", sub: isBn ? "দ্রুততম সেবা" : "Fast & Reliable", icon: CheckCircle2 },
-              { label: isBn ? "স্বচ্ছ বাকির খাতা" : "Instant SMS Confirmation", sub: isBn ? "স্বয়ংক্রিয় হিসাব" : "Digital Receipts", icon: MessageSquare },
+              { label: isBn ? "Digital Kɛseɛ Pɛpɛɛpɛ" : "100% Accurate Measure", sub: isBn ? "বিএসটিআই মানসম্মত" : "Standard Certified", icon: Sparkles },
+              { label: isBn ? "Kɔmafoɔ a Wɔba Pɛpɛɛpɛ" : "99.4% On-Time Dispatch", sub: isBn ? "দ্রুততম সেবা" : "Fast & Reliable", icon: CheckCircle2 },
+              { label: isBn ? "Aka Kyerɛwtohɔ a Emu Da Hɔ" : "Instant SMS Confirmation", sub: isBn ? "স্বয়ংক্রিয় হিসাব" : "Digital Receipts", icon: MessageSquare },
               { label: isBn ? "এনবিআর ট্যাক্স অনুগত" : "NBR Tax Compliant", sub: isBn ? "ভ্যাট চালান যুক্ত" : "Mushak 6.3 Ready", icon: ShieldCheck },
             ].map((badge, idx) => (
               <div key={idx} className="p-2.5 rounded-xl border border-nv-200 bg-nv-50/50 flex flex-col justify-between">
@@ -248,7 +248,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
               <span className="text-xs font-semibold text-ink flex items-center gap-1 mr-1">
-                <Filter size={13} /> {isBn ? "ফিল্টার:" : "Filter:"}
+                <Filter size={13} /> {isBn ? "Yi Mu:" : "Filter:"}
               </span>
               <button
                 onClick={() => setFilterRating("all")}
@@ -256,7 +256,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                   filterRating === "all" ? "bg-ink text-white" : "bg-nv-100 text-ink hover:bg-nv-200"
                 }`}
               >
-                {isBn ? "সকল" : "All"}
+                {isBn ? "Nyinaa" : "All"}
               </button>
               {[5, 4, 3].map(st => (
                 <button
@@ -276,14 +276,14 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
               className="flex items-center gap-1.5 px-3.5 py-1.5 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors self-start sm:self-auto"
             >
               <Send size={13} />
-              {isBn ? "এসএমএসে রেটিং চান" : "Request Reviews via SMS"}
+              {isBn ? "Bisa Review Wɔ SMS So" : "Request Reviews via SMS"}
             </button>
           </div>
 
           {/* Reviews List */}
           <div className="space-y-3">
             <div className="text-xs font-bold text-ink uppercase tracking-wider">
-              {isBn ? "সাম্প্রতিক গ্রাহক রিভিউ" : "Recent Customer Feedback"}
+              {isBn ? "Atɔfoɔ Nsɛm a Wɔaka Nnansa Yi" : "Recent Customer Feedback"}
             </div>
 
             {filteredReviews.map(rev => (
@@ -338,7 +338,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                   <div className="mt-2 bg-nv-50 border-l-2 border-em-600 pl-3 py-2 rounded-r-xl text-xs space-y-0.5">
                     <span className="font-bold text-ink flex items-center gap-1 text-[11px]">
                       <span className="w-1.5 h-1.5 rounded-full bg-em-600" />
-                      {settings.shopName} ({isBn ? "মালিকের উত্তর" : "Owner Response"}):
+                      {settings.shopName} ({isBn ? "Wura Mmuaeɛ" : "Owner Response"}):
                     </span>
                     <p className="text-ink/80 italic">{rev.reply}</p>
                   </div>
@@ -353,7 +353,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                           rows={2}
                           value={replyText[rev.id] || ""}
                           onChange={e => setReplyText({ ...replyText, [rev.id]: e.target.value })}
-                          placeholder={isBn ? "গ্রাহকের মতামতের উত্তর লিখুন..." : "Write official reply to customer..."}
+                          placeholder={isBn ? "Kyerɛw mmuaeɛ kɔma otɔfoɔ no..." : "Write official reply to customer..."}
                           className="w-full border border-nv-200 rounded-xl p-2 text-xs focus:border-em-500 bg-white"
                         />
                         <div className="flex items-center justify-end gap-2">
@@ -361,13 +361,13 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                             onClick={() => setActiveReplyId(null)}
                             className="px-2.5 py-1 text-xs text-ink/70 hover:text-ink"
                           >
-                            {isBn ? "বাতিল" : "Cancel"}
+                            {isBn ? "Gyae (Cancel)" : "Cancel"}
                           </button>
                           <button
                             onClick={() => handleSendReply(rev.id)}
                             className="px-3 py-1 bg-em-600 hover:bg-em-700 text-white rounded-lg text-xs font-bold"
                           >
-                            {isBn ? "প্রকাশ করুন" : "Publish Reply"}
+                            {isBn ? "Pae Mu Kyerɛ (Publish)" : "Publish Reply"}
                           </button>
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
                         onClick={() => setActiveReplyId(rev.id)}
                         className="text-[11px] font-semibold text-em-700 hover:underline flex items-center gap-1 mt-1"
                       >
-                        <MessageSquare size={12} /> {isBn ? "উত্তর দিন" : "Reply to review"}
+                        <MessageSquare size={12} /> {isBn ? "Bua Review No" : "Reply to review"}
                       </button>
                     )}
                   </div>
@@ -393,7 +393,7 @@ export default function BusinessRatingModal({ isOpen, onClose, lang }: BusinessR
             onClick={onClose}
             className="px-4 py-1.5 bg-white border border-nv-200 hover:bg-nv-100 rounded-xl text-ink font-semibold"
           >
-            {isBn ? "বন্ধ করুন" : "Close"}
+            {isBn ? "To Mu" : "Close"}
           </button>
         </div>
       </div>

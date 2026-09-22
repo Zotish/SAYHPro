@@ -1,0 +1,750 @@
+src/context/AppContext.tsx:1172: title: lang === "bn" ? "Nnoɔma Ka ho করা হয়েছে!" : "Product Added!",
+src/context/AppContext.tsx:1190: title: lang === "bn" ? "Nnoɔma আপডেট হয়েছে!" : "Product Updated!",
+src/context/AppContext.tsx:1199: title: lang === "bn" ? "Nnoɔma মুছে ফেলা হয়েছে" : "Product Deleted",
+src/context/AppContext.tsx:1220: title: lang === "bn" ? "Akorae সমন্বয় সম্পন্ন" : "Stock Adjusted",
+src/context/AppContext.tsx:1274: descBn: `Tɔn আয় ${invoiceNumber}`,
+src/context/AppContext.tsx:1341: title: lang === "bn" ? "Otɔfoɔ Ka ho করা হয়েছে!" : "Customer Added!",
+src/context/AppContext.tsx:1348: toast({ type: "info", title: lang === "bn" ? "Otɔfoɔের তথ্য আপডেট হয়েছে" : "Customer Updated" });
+src/context/AppContext.tsx:1353: toast({ type: "error", title: lang === "bn" ? "Otɔfoɔ মুছে ফেলা হয়েছে" : "Customer Deleted" });
+src/context/AppContext.tsx:1389: descBn: `Aka গ্রহণ — ${cust.nameBn || cust.name}`,
+src/context/AppContext.tsx:1437: title: lang === "bn" ? "Agorɔfoɔ যুক্ত হয়েছে!" : "Supplier Added!",
+src/context/AppContext.tsx:1472: descBn: `Agorɔfoɔ পেমেন্ট — ${sup.nameBn || sup.name}`,
+src/context/AppContext.tsx:1616: toast({ type: "info", title: lang === "bn" ? "Ka মুছে ফেলা হয়েছে" : "Expense Deleted" });
+src/context/AppContext.tsx:1704: title: lang === "bn" ? "Adwumayɛfoɔ যুক্ত হয়েছে!" : "Employee Added!",
+src/context/AppContext.tsx:1711: toast({ type: "info", title: lang === "bn" ? "Adwumayɛfoɔ আপডেট হয়েছে" : "Employee Updated" });
+src/context/AppContext.tsx:1716: toast({ type: "error", title: lang === "bn" ? "Adwumayɛfoɔ মুছে ফেলা হয়েছে" : "Employee Deleted" });
+src/context/AppContext.tsx:1752: toast({ type: "info", title: lang === "bn" ? "Nyinaa নোটিফিকেশন পড়া হিসেবে চিহ্নিত" : "All notifications marked as read" });
+src/context/AppContext.tsx:1757: toast({ type: "info", title: lang === "bn" ? "Nyinaa নোটিফিকেশন মুছে ফেলা হয়েছে" : "All notifications cleared" });
+src/context/AppContext.tsx:1776: title: lang === "bn" ? "Nhyehyɛeɛ সংরক্ষিত হয়েছে!" : "Settings Saved!",
+src/context/AppContext.tsx:1866: title: lang === "bn" ? "অবদান রেকর্ড ও ইমপ্যাক্ট স্বীকৃত!" : "Contribution Recorded & Impact Recognized!",
+src/context/AppContext.tsx:1875: title: lang === "bn" ? "অপর্যাপ্ত Sika a Aka" : "Insufficient VGO Balance",
+src/context/AppContext.tsx:1887: title: lang === "bn" ? "ভ্যালু ট্রান্সফার সফল!" : "Value Transferred Successfully!",
+src/context/AppContext.tsx:1901: title: lang === "bn" ? "নেটওয়ার্ক স্ট্যাকিং সম্পন্ন!" : "Network Staking Completed!",
+src/context/AppContext.tsx:1920: title: lang === "bn" ? "নেটওয়ার্ক ডিভিডেন্ড Kyɛ সম্পন্ন!" : "Network Value Shared!",
+src/context/AppContext.tsx:1940: title: lang === "bn" ? "এসএমএস ক্যাম্পেইন পাঠানো হয়েছে!" : "SMS Campaign Sent!",
+src/context/AppContext.tsx:1948: title: lang === "bn" ? "মেটা/ফেNyinaaুক সিঙ্ক আপডেট সম্পন্ন!" : "Meta / Facebook Sync Updated!",
+src/context/AppContext.tsx:1956: title: lang === "bn" ? "এসএমএস Sika a Aka রিচার্জ সফল!" : "SMS Balance Recharged!",
+src/context/AppContext.tsx:1977: title: lang === "bn" ? "পার্সেল বুকিং সফল!" : "Courier Parcel Booked!",
+src/context/AppContext.tsx:1989: title: lang === "bn" ? "পার্সেল স্ট্যাটাস আপডেট!" : "Parcel Status Updated!",
+src/context/AppContext.tsx:2015: title: lang === "bn" ? "Sikakorabea অ্যাকাউন্ট অনুমোদিত ও চালু!" : "Digital Bank Account Activated!",
+src/context/AppContext.tsx:2055: title: lang === "bn" ? "পেমেন্ট গেটওয়ে Nhyehyɛeɛ সংরক্ষিত!" : "Digital Payment Settings Saved!",
+src/context/AppContext.tsx:2079: title: lang === "bn" ? "রিসেল প্রোডাক্ট আপডেট!" : "Resell Product Updated!",
+src/context/AppContext.tsx:2090: title: lang === "bn" ? "Intanɛte Dukan ওয়েবসাইট সংরক্ষিত!" : "Online Storefront Updated!",
+src/context/AppContext.tsx:2102: title: lang === "bn" ? "মনিটরিং রুল আপডেট!" : "Monitoring Rule Toggled!",
+src/context/AppContext.tsx:2110: title: lang === "bn" ? "Kɔkɔbɔ সমাধান করা হয়েছে!" : "Alert Resolved!",
+src/screens/Settings.tsx:116: title: isBn ? "ডেটা Export সম্পন্ন হয়েছে!" : "Data Exported Successfully!",
+src/screens/Settings.tsx:118: ? "Dukan সমস্ত Nnoɔma, Tɔn, অ্যাকাউন্ট ও কাস্টমার ডেটা ব্যাকআপ হিসেবে ডাউনলোড হয়েছে।"
+src/screens/Settings.tsx:124: title: isBn ? "Export ব্যর্থ হয়েছে" : "Export Failed",
+src/screens/Settings.tsx:125: message: isBn ? "দয়া করে পুনরায় চেষ্টা করুন।" : "An error occurred while exporting data.",
+src/screens/Settings.tsx:157: <h3 className="font-display font-bold text-ink text-base">{isBn ? "Dukan মূল তথ্য" : "Shop Information"}</h3>
+src/screens/Settings.tsx:163: <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan নাম (ইংরেজি)" : "Shop Name (English)"} *</label>
+src/screens/Settings.tsx:174: <label className="block font-semibold text-ink mb-1.5">{isBn ? "Dukan নাম (Twi (Akan))" : "Shop Name (Bangla)"}</label>
+src/screens/Settings.tsx:184: <label className="block font-semibold text-ink mb-1.5">{isBn ? "মালিকের নাম" : "Owner Name"} *</label>
+src/screens/Settings.tsx:195: <label className="block font-semibold text-ink mb-1.5">{isBn ? "ব্যবসার ধরণ" : "Business Type"}</label>
+src/screens/Settings.tsx:206: <label className="block font-semibold text-ink mb-1.5">{isBn ? "Ka hoাKa ho মোবাইল" : "Contact Phone"} *</label>
+src/screens/Settings.tsx:217: <label className="block font-semibold text-ink mb-1.5">{isBn ? "মুদ্রা" : "Currency"}</label>
+src/screens/Settings.tsx:229: <label className="block font-semibold text-ink mb-1.5">{isBn ? "ঠিকানা" : "Shop Address"}</label>
+src/screens/Settings.tsx:245: <span>{isBn ? "পরিবর্তন Kora so করুন" : "Save Changes"}</span>
+src/screens/Settings.tsx:325: <h3 className="font-display font-bold text-ink text-base">{isBn ? "Tintimিং ও Invois প্রিফারেন্স" : "Printer Configuration"}</h3>
+src/screens/Settings.tsx:331: <div className="font-semibold text-ink">{isBn ? "Tɔnের পর অটো-Tintim" : "Auto-open Print dialog after POS sale"}</div>
+src/screens/Settings.tsx:343: <div className="font-semibold text-ink">{isBn ? "Kasaa (Receipt)ের নিচের টেক্সট (Footer Note)" : "Receipt Footer Message"}</div>
+src/screens/Settings.tsx:358: <h3 className="font-display font-bold text-ink text-base">{isBn ? "সিস্টেম ও ডেমো ডেটা রিসেট" : "Data Management"}</h3>
+src/screens/Settings.tsx:363: <h4 className="font-bold text-ink text-sm">{isBn ? "ফ্যাক্টরি রিসেট / ডেমো ডেটা পুনরুদ্ধার" : "Reset Data to Initial Demo State"}</h4>
+src/screens/Settings.tsx:365: {isBn ? "এটি Nyinaa Tɔn, Otɔfo Foforɔ Nnoɔma ও কাস্টমার রেকর্ড মুছে প্রাথমিক ডেমো অবস্থায় ফিরিয়ে আনবে।" : "This will reset all products, sales, accounts, and dues back to initial demo seeds."}
+src/screens/Settings.tsx:375: <span>{isBn ? "ডেমো ডেটা রিসেট করুন" : "Reset All Demo Data"}</span>
+src/screens/Settings.tsx:384: <span>{isBn ? "ডেটা Export করুন" : "Export Data"}</span>
+src/screens/Messaging.tsx:254: text: isBn ? "ধন্যবাদ, আমি আপনার বার্তা পেয়েছি এবং দ্রুত কনফার্ম করছি।" : "Thank you, received and confirming shortly!",
+src/screens/Messaging.tsx:274: ? `সম্মানিত ${activeConv.nameBn}, ${settings.shopName} থেকে আপনার Aka হিসাবের আপডেট। অনুগ্রহ করে সুবিধা মতো পরিশোধ করুন। ধন্যবাদ!`
+src/screens/Messaging.tsx:281: ? `আপনার সর্বশেষ Nnoɔma a Wɔatɔের ডিজিটাল Kasaa (Receipt): https://dukan.bd/invoice/INV-${Math.floor(1000 + Math.random() * 9000)}`
+src/screens/Messaging.tsx:296: aria-label={isBn ? "Fie (Home)ে ফিরে যান" : "Back to Home"}
+src/screens/Messaging.tsx:313: placeholder={isBn ? "নাম বা মোবাইল নম্বর Hwehwɛ..." : "Search by name or phone..."}
+src/screens/Messaging.tsx:410: {isBn ? "কোনো চ্যাট পাওয়া যায়নি" : "No conversations found"}
+src/screens/Messaging.tsx:450: {isBn ? "তাগাদা" : "Reminder"}
+src/screens/Messaging.tsx:466: <Truck size={13} /> {isBn ? "অর্ডার" : "Order"}
+src/screens/Messaging.tsx:473: title={isBn ? "কল করুন" : "Call phone"}
+src/screens/Messaging.tsx:484: {isBn ? "Ɛnnɛকের কথোপকথন" : "Conversation Today"}
+src/screens/Messaging.tsx:546: {isBn ? "কুইক টেমপ্লেট:" : "Quick Replies:"}
+src/screens/Messaging.tsx:549: isBn ? "আপনার অর্ডার প্রস্তুত আছে।" : "Your order is packed & ready.",
+src/screens/Messaging.tsx:550: isBn ? "Aka Sika Sikakorabeaে/বিকাশে পেয়েছি।" : "Payment received, ledger updated.",
+src/screens/Messaging.tsx:551: isBn ? "Otɔfo Foforɔ Akorae আগামীƆkyena পৌঁছাবে।" : "New stock arrives tomorrow.",
+src/screens/Messaging.tsx:568: {isBn ? "চ্যানেল:" : "Send via:"}
+src/screens/Messaging.tsx:580: {ch === "chat" ? (isBn ? "অ্যাপ চ্যাট" : "In-App") : ch}
+src/screens/Messaging.tsx:597: title: isBn ? "ফাইল অ্যাটাচমেন্ট" : "Attach File",
+src/screens/Messaging.tsx:602: title={isBn ? "ফাইল সংযুক্ত করুন" : "Attach file"}
+src/screens/Messaging.tsx:613: ? isBn ? "এসএমএস বার্তা লিখুন (১ ক্রেডিট)..." : "Type SMS message (1 credit)..."
+src/screens/Messaging.tsx:615: ? isBn ? "হোয়াটসঅ্যাপ বার্তা লিখুন..." : "Type WhatsApp message..."
+src/screens/Messaging.tsx:616: : isBn ? "এখানে মেসেজ লিখুন..." : "Type a message here..."
+src/screens/Messaging.tsx:625: title={isBn ? "পাঠান" : "Send"}
+src/screens/CashAccounts.tsx:15: { id: "Service", label: "Service / Repair Fee", labelBn: "সার্ভিস / মেরামত ফি" },
+src/screens/CashAccounts.tsx:16: { id: "Commission", label: "Commission & Brokerage", labelBn: "কমিশন ও পারিশ্রমিক" },
+src/screens/CashAccounts.tsx:17: { id: "Delivery", label: "Delivery Charge", labelBn: "Delivery চার্জ" },
+src/screens/CashAccounts.tsx:18: { id: "Scrap", label: "Scrap / Waste Sales", labelBn: "স্ক্র্যাপ / বর্জ্য Tɔn" },
+src/screens/CashAccounts.tsx:19: { id: "Other", label: "Other Business Income", labelBn: "Nnoɔma Foforɔ (Others) বাণিজ্যিক আয়" },
+src/screens/CashAccounts.tsx:66: const payerName = incomeSource.trim() || (isBn ? "সাধারণ Otɔfoɔ" : "Walk-in Customer");
+src/screens/CashAccounts.tsx:76: title: isBn ? "ইনকাম এন্ট্রি সংরক্ষিত হয়েছে!" : "Income Entry Recorded!",
+src/screens/CashAccounts.tsx:97: title: isBn ? "ভিন্ন অ্যাকাউন্ট নির্বাচন করুন" : "Select Different Accounts",
+src/screens/CashAccounts.tsx:128: <Receipt size={14} /> {isBn ? "+ ইনকাম এন্ট্রি" : "+ Income Entry"}
+src/screens/CashAccounts.tsx:134: <ArrowRightLeft size={14} /> {isBn ? "ট্রান্সফার" : "Transfer"}
+src/screens/CashAccounts.tsx:149: <p className="text-ink text-xs font-semibold uppercase tracking-wider mb-1">{isBn ? "Nyinaa বর্তমান Sika a Aka" : "Total Combined Balance"}</p>
+src/screens/CashAccounts.tsx:151: <p className="text-ink text-xs mt-1">{tNum(accounts.length)} {isBn ? "টি সক্রিয় অ্যাকাউন্ট মনিটর করা হচ্ছে" : "active accounts monitored"}</p>
+src/screens/CashAccounts.tsx:156: <div className="text-xs text-ink">{isBn ? "Ɛnnɛকের Nyinaa জমা (In)" : "Total Cash In"}</div>
+src/screens/CashAccounts.tsx:161: <div className="text-xs text-ink">{isBn ? "Ɛnnɛকের Nyinaa Ka (Out)" : "Total Cash Out"}</div>
+src/screens/CashAccounts.tsx:170: <h3 className="font-display font-bold text-ink text-sm mb-3">{isBn ? "অ্যাকাউন্ট Sika a Aka" : "Account Balances"}</h3>
+src/screens/CashAccounts.tsx:196: {isBn ? "Sika (Cash) ফ্লো (আয় বনাম ব্যয়)" : "Weekly Cash Flow"}
+src/screens/CashAccounts.tsx:214: <span className="text-ink">{isBn ? "জমা (Cash In)" : "Cash In"}</span>
+src/screens/CashAccounts.tsx:228: {isBn ? "লেনদেন ও ইনকাম রেজিস্টার" : "Transactions & Income Register"}
+src/screens/CashAccounts.tsx:231: {isBn ? "দৈনিক Sika (Cash) ইনকাম ও অ্যাকাউন্টের লেনদেন" : "Daily cash entries and account transactions"}
+src/screens/CashAccounts.tsx:245: <span>{isBn ? "ইনকাম এন্ট্রি" : "Income Entries"}</span>
+src/screens/CashAccounts.tsx:259: <span>{isBn ? "Sika (Cash) লেনদেন" : "Cash Ledger"}</span>
+src/screens/CashAccounts.tsx:272: {isBn ? "কোনো ইনকাম এন্ট্রি পাওয়া যায়নি" : "No income entries found"}
+src/screens/CashAccounts.tsx:287: {isBn ? "ইনকাম এন্ট্রি" : "Income entry"}
+src/screens/CashAccounts.tsx:330: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিবরণ" : "Description"}</th>
+src/screens/CashAccounts.tsx:331: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অ্যাকাউন্ট" : "Account"}</th>
+src/screens/CashAccounts.tsx:332: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
+src/screens/CashAccounts.tsx:333: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "সময়" : "Time"}</th>
+src/screens/CashAccounts.tsx:374: <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ ইনকাম এন্ট্রি" : "New Income Entry"}</h3>
+src/screens/CashAccounts.tsx:375: <p className="text-[11px] text-ink/60">{isBn ? "ব্যবসায়িক আয় ও নগদ প্রাপ্তি রেকর্ড করুন" : "Record business revenue & cash receipts"}</p>
+src/screens/CashAccounts.tsx:385: <label className="block font-medium text-ink mb-1">{isBn ? "আয়ের ধরন / ক্যাটাগরি" : "Income Category"} *</label>
+src/screens/CashAccounts.tsx:400: <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔ বা উৎস" : "Customer / Source"}</label>
+src/screens/CashAccounts.tsx:423: <label className="block font-medium text-ink mb-1">{isBn ? "জমা হওয়ার অ্যাকাউন্ট" : "Deposit To Account"} *</label>
+src/screens/CashAccounts.tsx:438: <label className="block font-medium text-ink mb-1">{isBn ? "বিবরণ / নোট" : "Note / Remarks"}</label>
+src/screens/CashAccounts.tsx:443: placeholder={isBn ? "প্রয়োজনীয় কোনো নোট..." : "Any additional notes..."}
+src/screens/CashAccounts.tsx:460: {isBn ? "ইনকাম নিশ্চিত করুন" : "Save Income Entry"}
+src/screens/CashAccounts.tsx:478: <h3 className="font-bold text-ink text-base">{isBn ? "ইনকাম Kasaa (Receipt) বিবরণ" : "Income Receipt Details"}</h3>
+src/screens/CashAccounts.tsx:496: <span className="text-ink/70">{isBn ? "ফোন নম্বর:" : "Phone:"}</span>
+src/screens/CashAccounts.tsx:501: <span className="text-ink/70">{isBn ? "পেমেন্ট Kwan a Wɔfaa So:" : "Payment Method:"}</span>
+src/screens/CashAccounts.tsx:508: <div className="font-semibold text-ink mb-1.5">{isBn ? "Nnoɔma তালিকা:" : "Purchased Items:"}</div>
+src/screens/CashAccounts.tsx:527: <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+src/screens/CashAccounts.tsx:532: <span>{isBn ? "ছাড় (Discount):" : "Discount:"}</span>
+src/screens/CashAccounts.tsx:538: <span>{isBn ? "ভ্যাট (VAT):" : "VAT:"}</span>
+src/screens/CashAccounts.tsx:543: <span>{isBn ? "Nyinaa আয় (Grand Total):" : "Grand Total:"}</span>
+src/screens/CashAccounts.tsx:567: <span>{isBn ? "Invois দেখুন" : "View Invoice"}</span>
+src/screens/CashAccounts.tsx:581: <h3 className="font-bold text-ink text-base">{isBn ? "Hyɛ Sika Mu করুন" : "Add Cash / Deposit"}</h3>
+src/screens/CashAccounts.tsx:589: <label className="block font-medium text-ink mb-1">{isBn ? "অ্যাকাউন্ট বেছে নিন" : "Account"} *</label>
+src/screens/CashAccounts.tsx:616: <label className="block font-medium text-ink mb-1">{isBn ? "বিবরণ / নোট" : "Note / Source"}</label>
+src/screens/CashAccounts.tsx:621: placeholder={isBn ? "যেমন: Sikakorabeaে নগদ জমা বা পার্সোনাল Sika (Cash)..." : "e.g. Bank cash injection"}
+src/screens/CashAccounts.tsx:638: {isBn ? "জমা নিশ্চিত করুন" : "Confirm Deposit"}
+src/screens/CashAccounts.tsx:659: <label className="block font-medium text-ink mb-1">{isBn ? "উৎস অ্যাকাউন্ট (From)" : "From Account"} *</label>
+src/screens/CashAccounts.tsx:674: <label className="block font-medium text-ink mb-1">{isBn ? "গন্তব্য অ্যাকাউন্ট (To)" : "To Account"} *</label>
+src/screens/CashAccounts.tsx:712: {isBn ? "ট্রান্সফার সম্পন্ন করুন" : "Execute Transfer"}
+src/screens/WebsiteBuilder.tsx:63: title: isBn ? "কার্টে Ka ho হয়েছে!" : "Added to Cart!",
+src/screens/WebsiteBuilder.tsx:64: message: `${isBn ? product.nameBn || product.name : product.name} ${isBn ? "কার্টে যুক্ত হয়েছে।" : "added to cart."}`,
+src/screens/WebsiteBuilder.tsx:101: <h1 className="font-display text-xl sm:text-2xl font-bold text-ink">{isBn ? "আপনার স্টোর চালু করুন" : "Launch Your Store"}</h1>
+src/screens/WebsiteBuilder.tsx:103: {isBn ? "কোডিং ছাড়াই সহজে আপনার Intanɛte Dukan তৈরি ও চালু করুন।" : "Publish your online store in minutes with zero coding."}
+src/screens/WebsiteBuilder.tsx:113: <span>{isBn ? "অভ্যন্তরীণ প্রিভিউ" : "In-App Preview"}</span>
+src/screens/WebsiteBuilder.tsx:121: title={isBn ? "আসল ব্রাউজারে কাস্টমার স্টোর খুলুন (External Browser)" : "Open Live Storefront in Real Browser"}
+src/screens/WebsiteBuilder.tsx:133: title: isBn ? "কাস্টমার স্টোর লিংক কপি হয়েছে!" : "Storefront Link Copied!",
+src/screens/WebsiteBuilder.tsx:138: title={isBn ? "কাস্টমারদের সাথে শেয়ার করতে লিংক কপি করুন" : "Copy Customer Store Link"}
+src/screens/WebsiteBuilder.tsx:141: <span>{isBn ? "কপি লিংক" : "Copy Link"}</span>
+src/screens/WebsiteBuilder.tsx:153: { id: "design" as const, label: "Design & Theme", labelBn: "ডিজাইন ও থিম", icon: Palette },
+src/screens/WebsiteBuilder.tsx:154: { id: "content" as const, label: "Content & Copy", labelBn: "লেখা ও ব্যানার", icon: MessageCircle },
+src/screens/WebsiteBuilder.tsx:173: <label className="block font-semibold text-ink mb-1.5">{isBn ? "ব্র্যান্ড থিম Ɔkyenaার" : "Theme Color Palette"}</label>
+src/screens/WebsiteBuilder.tsx:190: <label className="block font-semibold text-ink mb-1">{isBn ? "স্টোর সাবডোমেন" : "Store URL Subdomain"} *</label>
+src/screens/WebsiteBuilder.tsx:204: <label className="block font-semibold text-ink mb-1">{isBn ? "অ্যানাউন্সমেন্ট বার নোটিশ" : "Top Announcement Ticker"}</label>
+src/screens/WebsiteBuilder.tsx:220: <label className="block font-semibold text-ink mb-1">{isBn ? "হেডলাইন (ইংরেজি)" : "Hero Headline (English)"}</label>
+src/screens/WebsiteBuilder.tsx:230: <label className="block font-semibold text-ink mb-1">{isBn ? "হেডলাইন (Twi (Akan))" : "Hero Headline (Bangla)"}</label>
+src/screens/WebsiteBuilder.tsx:240: <label className="block font-semibold text-ink mb-1">{isBn ? "সাব-হেডিং বিবরণ" : "Sub-headline Description"}</label>
+src/screens/WebsiteBuilder.tsx:256: <div className="font-bold text-ink">{isBn ? "১-ক্লিক হোয়াটসঅ্যাপ অর্ডার বাটন" : "1-Click WhatsApp Ordering"}</div>
+src/screens/WebsiteBuilder.tsx:257: <span className="text-xs text-ink">{isBn ? "Otɔfoɔ সরাসরি হোয়াটসঅ্যাপে অর্ডার পাঠাতে পারবে" : "Direct customer order chat"}</span>
+src/screens/WebsiteBuilder.tsx:269: <label className="block font-semibold text-ink mb-1">{isBn ? "হোয়াটসঅ্যাপ নম্বর" : "WhatsApp Number"}</label>
+src/screens/WebsiteBuilder.tsx:281: <div className="font-bold text-ink">{isBn ? "Sika (Cash) অন Delivery (COD)" : "Cash On Delivery (COD)"}</div>
+src/screens/WebsiteBuilder.tsx:282: <span className="text-xs text-ink">{isBn ? "Nnoɔma হাতে পেয়ে মূল্য পরিশোধ" : "Enable COD checkout"}</span>
+src/screens/WebsiteBuilder.tsx:294: <div className="font-bold text-ink">{isBn ? "Otɔfoɔ রিভিউ ও রেটিং" : "Customer Reviews"}</div>
+src/screens/WebsiteBuilder.tsx:295: <span className="text-xs text-ink">{isBn ? "ওয়েবসাইটে স্টার রেটিং প্রদর্শন" : "Show social proof rating"}</span>
+src/screens/WebsiteBuilder.tsx:313: <span>{isBn ? "ওয়েবসাইট আপডেট ও Pae Mu Kyerɛ (Publish)" : "Publish Live Website"}</span>
+src/screens/WebsiteBuilder.tsx:391: <h4 className="font-bold text-xs text-ink">{isBn ? "সেরা Nnoɔmaসমূহ" : "Featured Products"}</h4>
+src/screens/WebsiteBuilder.tsx:408: {isBn ? "অর্ডার করুন" : "Order Now"}
+src/screens/WebsiteBuilder.tsx:491: {isBn ? "বিশ্বস্ত Intanɛte শপ" : "Trusted Online Store"} • {settings.phone}
+src/screens/WebsiteBuilder.tsx:502: <span className="hidden sm:inline">{isBn ? "কার্ট" : "Cart"}</span>
+src/screens/WebsiteBuilder.tsx:518: {isBn ? "অফিসিয়াল Intanɛte Dukan" : "OFFICIAL ONLINE STORE"}
+src/screens/WebsiteBuilder.tsx:531: <span>{isBn ? "এখনই কেনাকাটা করুন" : "Shop Featured Items"}</span>
+src/screens/WebsiteBuilder.tsx:541: <span>{isBn ? "দ্রুত Delivery" : "Fast Delivery"}</span>
+src/screens/WebsiteBuilder.tsx:545: <span>{isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}</span>
+src/screens/WebsiteBuilder.tsx:549: <span>{isBn ? "১০০% খাঁnnoɔma" : "Authentic Goods"}</span>
+src/screens/WebsiteBuilder.tsx:558: {isBn ? "আমাদের সেরা Nnoɔmaসমূহ" : "Featured Products"}
+src/screens/WebsiteBuilder.tsx:561: {isBn ? "তাজা ও নির্ভরKa ho্য Nnoɔma সরাসরি আপনার ঠিকানায়" : "Quality items delivered straight to your door"}
+src/screens/WebsiteBuilder.tsx:583: {isBn ? (p.unit === "Piece" ? "১ Pcs" : p.unit === "KG" ? "১ kg" : p.unit === "Liter" ? "১ L" : p.unit) : `1 ${p.unit}`}
+src/screens/WebsiteBuilder.tsx:597: <span>{isBn ? "অর্ডার" : "Add"}</span>
+src/screens/WebsiteBuilder.tsx:611: {isBn ? "Otɔfoɔ সন্তুষ্টি ও রিভিউ" : "Customer Reviews & Ratings"}
+src/screens/WebsiteBuilder.tsx:614: {isBn ? "১২০+ সন্তুষ্ট Otɔfoɔদের মতামত" : "Based on verified customer orders"}
+src/screens/WebsiteBuilder.tsx:619: <span>৪.৯ / ৫.০</span>
+src/screens/WebsiteBuilder.tsx:625: { name: isBn ? "তানভীর হোসেন" : "Tanvir Hossain", comment: isBn ? "Nnoɔma একদম খাঁটি ও দ্রুত Fie (Home) Delivery পেয়েছি!" : "Fast delivery and authentic goods!", time: "2 days ago" },
+src/screens/WebsiteBuilder.tsx:626: { name: isBn ? "নুসরাত জাহান" : "Nusrat Jahan", comment: isBn ? "Dukanদার খুব আন্তরিক এবং Sika (Cash) অন Delivery সুবিধা চমৎকার।" : "Courteous merchant & convenient COD.", time: "4 days ago" },
+src/screens/WebsiteBuilder.tsx:627: { name: isBn ? "রফিকুল ইসলাম" : "Rafiqul Islam", comment: isBn ? "হোয়াটসঅ্যাপে অর্ডার করেই দ্রুত নিশ্চিত হয়েছে।" : "Smooth 1-click WhatsApp order experience!", time: "1 week ago" },
+src/screens/WebsiteBuilder.tsx:696: <span>{isBn ? "হোয়াটসঅ্যাপে অর্ডার করুন" : "Chat on WhatsApp"}</span>
+src/screens/WebsiteBuilder.tsx:709: <div className="text-xs text-ink/60">{isBn ? "Nyinaa বিল" : "Cart Total"}</div>
+src/screens/WebsiteBuilder.tsx:719: <span>{isBn ? "অর্ডার সম্পন্ন করুন" : "Proceed to Checkout"}</span>
+src/screens/WebsiteBuilder.tsx:735: {isBn ? "চেকআউট ও Delivery তথ্য" : "Checkout & Delivery"}
+src/screens/WebsiteBuilder.tsx:764: <span>{isBn ? "Nnoɔma Nyinaa মূল্য" : "Subtotal"}</span>
+src/screens/WebsiteBuilder.tsx:768: <span>{isBn ? "Fie (Home) Delivery চার্জ" : "Delivery Charge"}</span>
+src/screens/WebsiteBuilder.tsx:769: <span className="font-bold text-em-700">{isBn ? "ফ্রি" : "Free"}</span>
+src/screens/WebsiteBuilder.tsx:772: <span>{isBn ? "সর্বNyinaa প্রদেয়" : "Grand Total"}</span>
+src/screens/WebsiteBuilder.tsx:780: <label className="block font-semibold text-ink mb-1">{isBn ? "আপনার নাম" : "Full Name"} *</label>
+src/screens/WebsiteBuilder.tsx:785: placeholder={isBn ? "যেমন: তানভীর আহমেদ" : "e.g. Tanvir Ahmed"}
+src/screens/WebsiteBuilder.tsx:791: <label className="block font-semibold text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+src/screens/WebsiteBuilder.tsx:802: <label className="block font-semibold text-ink mb-1">{isBn ? "Delivery ঠিকানা" : "Delivery Address"} *</label>
+src/screens/WebsiteBuilder.tsx:807: placeholder={isBn ? "বাসা নং, রোড নং, এলাকা, জেলা" : "House, road, area, district"}
+src/screens/WebsiteBuilder.tsx:814: <label className="block font-semibold text-ink mb-1">{isBn ? "পেমেন্ট পদ্ধতি" : "Payment Method"}</label>
+src/screens/WebsiteBuilder.tsx:823: 💵 {isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}
+src/screens/WebsiteBuilder.tsx:843: title: isBn ? "তথ্য অসম্পূর্ণ" : "Missing Details",
+src/screens/WebsiteBuilder.tsx:844: message: isBn ? "অনুগ্রহ করে আপনার নাম, ফোন নম্বর ও ঠিকানা পূরণ করুন।" : "Please enter your name, phone and address.",
+src/screens/WebsiteBuilder.tsx:850: title: isBn ? "🎉 অর্ডার সফল হয়েছে!" : "🎉 Order Placed Successfully!",
+src/screens/WebsiteBuilder.tsx:852: ? `ধন্যবাদ ${customerName}, আপনার অর্ডারটি Dukanে নথিভুক্ত হয়েছে। Deliveryর সময় Ka hoাKa ho করা হবে।`
+src/screens/WebsiteBuilder.tsx:863: <span>{isBn ? "অর্ডার নিশ্চিত করুন" : "Confirm Order"}</span>
+src/screens/Reports.tsx:43: monthBn: "সেপ্টেম্বর",
+src/screens/Reports.tsx:54: monthBn: "আগস্ট",
+src/screens/Reports.tsx:68: monthBn: "জুলাই",
+src/screens/Reports.tsx:163: badgeTextBn = "Ntɛmntɛm কেনা দরকার (Akorae Asa/ঝুঁকি)";
+src/screens/Reports.tsx:165: explanationBn = "Akorae মারাত্মকভাবে কমে গেছে বা শূন্য, অথচ Nnoɔma ব্যাপক চাহিদা। কাস্টমার যেন ফিরে না যায় সেজন্য দ্রুত কিনুন।";
+src/screens/Reports.tsx:172: badgeTextBn = "Ɛrensa Ntɛm (৩-৭ Nna)";
+src/screens/Reports.tsx:174: explanationBn = "আগামী কয়েকNnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী Agorɔfoɔ চালানে অর্ডার অন্তর্ভুক্ত করুন।";
+src/screens/Reports.tsx:181: badgeTextBn = "Akorae Wɔ Hɔ (এখন কেনার দরকার নেই)";
+src/screens/Reports.tsx:183: explanationBn = "Dukanে Akorae Wɔ Hɔ মজুত আছে। এখন Otɔfo Foforɔ করে নগদ Sika আটকানোর কোনো প্রয়োজন নেই।";
+src/screens/Reports.tsx:190: badgeTextBn = "Tɔn Ntoasoɔ Brɛoo / অতিরিক্ত Akorae (কিনবেন না)";
+src/screens/Reports.tsx:192: explanationBn = "বিক্রি ধীরগতির বা অতিরিক্ত Akorae রয়েছে। ভুলেও আর কিনবেন না, আগের Akorae Tɔn দিকে নজর Nna।";
+src/screens/Reports.tsx:227: title: isBn ? "Amanneɛbɔ ডাউনলোড হয়েছে!" : "Report Exported!",
+src/screens/Reports.tsx:260: title: isBn ? "ট্যাক্স সফলভাবে Wɔatua Pɛpɛɛpɛ!" : "Tax Payment Recorded!",
+src/screens/Reports.tsx:262: ? `চালান নং ${generatedChallan} এনবিআর সিস্টেমে নথিভুক্ত হয়েছে।`
+src/screens/Reports.tsx:300: <div className="text-xs text-ink mb-1">{isBn ? "Nyinaa আয় (Revenue)" : "Total Revenue"}</div>
+src/screens/Reports.tsx:305: <div className="text-xs text-ink mb-1">{isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</div>
+src/screens/Reports.tsx:315: <div className="text-xs text-ink mb-1">{isBn ? "প্রদেয় ভ্যাট ও কর (Net Tax)" : "Net Tax / VAT Due"}</div>
+src/screens/Reports.tsx:323: { id: "pl" as const, label: "Profit & Loss", labelBn: "Mfasoɔ ও ক্ষতি বিবরণী" },
+src/screens/Reports.tsx:324: { id: "tax" as const, label: "Tax Report & Payment", labelBn: "কর ও ভ্যাট Amanneɛbɔ ও পরিশোধ", highlight: true },
+src/screens/Reports.tsx:327: { id: "expenses" as const, label: "Expenses", labelBn: "Ka হিসাব" },
+src/screens/Reports.tsx:328: { id: "dues" as const, label: "Dues & Payables", labelBn: "Aka ও দেনা" },
+src/screens/Reports.tsx:352: <span>{isBn ? "করKa ho্য Nyinaa Tɔn" : "Taxable Sales Turnover"}</span>
+src/screens/Reports.tsx:360: <span>{isBn ? "Otɔfoɔ থেকে সংগৃহীত ভ্যাট" : "Output VAT Collected"}</span>
+src/screens/Reports.tsx:368: <span>{isBn ? "ইনপুট ভ্যাট রেয়াত" : "Input VAT Rebate"}</span>
+src/screens/Reports.tsx:376: <span>{isBn ? "সরকারি কোষাগারে প্রদেয় ভ্যাট" : "Net Tax Payable (Govt)"}</span>
+src/screens/Reports.tsx:388: {isBn ? "জাতীয় রাজস্ব বোর্ড (NBR) ভ্যাট রিটার্ন" : "NBR Monthly VAT Returns"}
+src/screens/Reports.tsx:402: {isBn ? "কর পরিশোধ করুন (Pay Tax)" : "Pay Tax Online"}
+src/screens/Reports.tsx:412: <th className="px-4 py-3 font-bold text-ink">{isBn ? "Bosome ও অর্থAfe" : "Tax Period"}</th>
+src/screens/Reports.tsx:413: <th className="px-4 py-3 font-bold text-ink">{isBn ? "করKa ho্য Tɔn" : "Sales Turnover"}</th>
+src/screens/Reports.tsx:414: <th className="px-4 py-3 font-bold text-ink">{isBn ? "সংগৃহীত ভ্যাট (৫%)" : "Output VAT"}</th>
+src/screens/Reports.tsx:415: <th className="px-4 py-3 font-bold text-ink">{isBn ? "রেয়াত ক্রেডিট" : "Input Rebate"}</th>
+src/screens/Reports.tsx:416: <th className="px-4 py-3 font-bold text-ink">{isBn ? "নিট প্রদেয় কর" : "Net Tax Payable"}</th>
+src/screens/Reports.tsx:417: <th className="px-4 py-3 font-bold text-ink">{isBn ? "স্ট্যাটাস ও চালান নং" : "Status & Challan"}</th>
+src/screens/Reports.tsx:418: <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "কার্যক্রম" : "Action"}</th>
+src/screens/Reports.tsx:441: <AlertCircle size={12} /> {isBn ? "Aka (পরিশোধ করুন)" : "Payment Due"}
+src/screens/Reports.tsx:454: {isBn ? "এখনই Nna" : "Pay Now"}
+src/screens/Reports.tsx:461: title: isBn ? "চালান ভাউচার ডাউনলোড!" : "Challan Voucher Downloaded!",
+src/screens/Reports.tsx:467: {isBn ? "ভাউচার Kasaa (Receipt)" : "Challan PDF"}
+src/screens/Reports.tsx:489: {isBn ? "Deɛ Ɛsɛ Sɛ Wotɔ (Advisory) — Nnoɔma a Wɔatɔের স্মার্ট অ্যানালিটিক্স" : "What to Buy Next — Purchasing Advisory"}
+src/screens/Reports.tsx:493: ? "Nnoɔma Tɔn গতি ও মজুত বিবেচনা করে রং দিয়ে নির্দেশিকা: কোন Nnoɔmaটি এখনই কেনা আবশ্যক এবং কোনটি অতিরিক্ত না কেনা উচিত"
+src/screens/Reports.tsx:503: {isBn ? "Agorɔfoɔ অর্ডার করুন" : "Open Purchase Order"}
+src/screens/Reports.tsx:521: {isBn ? "🔴 Ntɛmntɛm কেনা দরকার" : "🔴 Urgent Buy"}
+src/screens/Reports.tsx:529: ? "Akorae ০ বা বিপদসীমায়, অথচ ব্যাপক চাহিদা। দ্রুত না আনলে বিক্রি নষ্ট হবে।"
+src/screens/Reports.tsx:554: ? "৩ থেকে ৭ Nnaের মধ্যে ফুরিয়ে যাবে। পরবর্তী চালানে অর্ডার করুন।"
+src/screens/Reports.tsx:571: {isBn ? "🟢 Akorae Wɔ Hɔ আছে" : "🟢 Safe / Optimal"}
+src/screens/Reports.tsx:579: ? "১৫-৪৫ Nnaের Akorae রয়েছে। Otɔfo Foforɔ করে কেনার দরকার নেই; Sika (Cash) Akorae Dɔɔso।"
+src/screens/Reports.tsx:596: {isBn ? "⚪ Tɔn Ntoasoɔ Brɛoo (কিনবেন না)" : "⚪ Avoid Overstock"}
+src/screens/Reports.tsx:604: ? "বিক্রি ধীরগতির। অতিরিক্ত কেনা থেকে বিরত থাকুন, Sika আটকে থাকবে।"
+src/screens/Reports.tsx:647: 🟢 {isBn ? "পর্যাপ্ত" : "Safe"} ({tNum(safeCount)})
+src/screens/Reports.tsx:660: <span className="text-ink/60">{isBn ? "প্রস্তাবিত রি-Akorae বাজেট:" : "Suggested Buy Budget:"}</span>
+src/screens/Reports.tsx:671: <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma ও বিভাগ" : "Product & Category"}</th>
+src/screens/Reports.tsx:672: <th className="px-4 py-3 font-bold text-ink">{isBn ? "Nnoɔma a Wɔatɔ নির্দেশিকা (রং ভিত্তিক)" : "Color Buy Advisory"}</th>
+src/screens/Reports.tsx:673: <th className="px-4 py-3 font-bold text-ink">{isBn ? "বর্তমান Akorae" : "Current Stock"}</th>
+src/screens/Reports.tsx:674: <th className="px-4 py-3 font-bold text-ink">{isBn ? "সাপ্তাহিক চাহিদা" : "Sales Burn Rate"}</th>
+src/screens/Reports.tsx:675: <th className="px-4 py-3 font-bold text-ink">{isBn ? "Akorae অবশিষ্ট" : "Days Left"}</th>
+src/screens/Reports.tsx:676: <th className="px-4 py-3 font-bold text-ink">{isBn ? "কত Pcs কেনা উচিত" : "Suggested Qty"}</th>
+src/screens/Reports.tsx:677: <th className="px-4 py-3 font-bold text-ink">{isBn ? "প্রয়োজনীয় বাজেট" : "Est. Cost"}</th>
+src/screens/Reports.tsx:678: <th className="px-4 py-3 font-bold text-ink text-right">{isBn ? "ব্যবস্থা" : "Action"}</th>
+src/screens/Reports.tsx:755: <span className="text-ink/40 font-normal">০ {isBn ? "Pcs" : "pcs"}</span>
+src/screens/Reports.tsx:773: {isBn ? "অর্ডার করুন" : "Buy Now"}
+src/screens/Reports.tsx:777: {isBn ? "প্রয়োজন নেই" : "No order"}
+src/screens/Reports.tsx:796: {isBn ? "Mfasoɔ ও ক্ষতি বিবরণী (P&L Statement)" : "Profit & Loss Statement"}
+src/screens/Reports.tsx:804: <span>1. {isBn ? "Tɔn আয় (Revenue)" : "Gross Revenue from Sales"}</span>
+src/screens/Reports.tsx:812: <span>= {isBn ? "গ্রস Mfasoɔ (Gross Profit)" : "Gross Profit"}</span>
+src/screens/Reports.tsx:820: 2. {isBn ? "Dukan পরিচালন ব্যয় (Operating Expenses)" : "Operating Expenses"}
+src/screens/Reports.tsx:832: <span>= {isBn ? "Nyinaa পরিচালন Ka" : "Total Operating Expenses"}</span>
+src/screens/Reports.tsx:839: <span>{isBn ? "চূড়ান্ত Mfasoɔ Pɔtee (Net Profit)" : "Net Profit"}</span>
+src/screens/Reports.tsx:849: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Nyinaa Tɔn তালিকা" : "Completed Sales Records"}</h3>
+src/screens/Reports.tsx:884: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Ka সম্পূর্ণ তালিকা" : "Expense Audit Trail"}</h3>
+src/screens/Reports.tsx:971: <div className="text-xs text-ink/60">{isBn ? "ট্যাক্স পর্ব / Bosome:" : "Tax Period:"}</div>
+src/screens/Reports.tsx:974: ? `${selectedTaxMonth.monthBn} ${tNum(selectedTaxMonth.year)} (মূসক ৯.১)`
+src/screens/Reports.tsx:978: <span className="text-ink/70 font-semibold">{isBn ? "প্রদেয় নিট কর:" : "Net Payable Amount:"}</span>
+src/screens/Reports.tsx:986: {isBn ? "পেমেন্ট Kwan a Wɔfaa So বেছে নিন" : "Select Payment Gateway"}
+src/screens/Reports.tsx:1039: {isBn ? "পরিশোধ নিশ্চিত করুন" : "Confirm Tax Payment"}
+src/screens/DeliveryAggregator.tsx:67: { id: "steadfast", name: "Steadfast Courier", nameBn: "স্টেডফাস্ট", logo: "⚡", active: true },
+src/screens/DeliveryAggregator.tsx:68: { id: "pathao", name: "Pathao Courier", nameBn: "পাঠাও Kɔmafoɔ", logo: "🛵", active: true },
+src/screens/DeliveryAggregator.tsx:69: { id: "redx", name: "RedX Delivery", nameBn: "রেডএক্স", logo: "🔴", active: true },
+src/screens/DeliveryAggregator.tsx:70: { id: "ecourier", name: "eCourier BD", nameBn: "ই-Kɔmafoɔ", logo: "🚚", active: true },
+src/screens/DeliveryAggregator.tsx:96: <span>{isBn ? "Otɔfo Foforɔ পার্সেল বুক করুন" : "Book New Parcel"}</span>
+src/screens/DeliveryAggregator.tsx:103: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Nyinaa পার্সেল" : "Total Parcels"}</div>
+src/screens/DeliveryAggregator.tsx:110: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Aka সিওডি" : "Pending COD"}</div>
+src/screens/DeliveryAggregator.tsx:117: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery রেট" : "Success Rate"}</div>
+src/screens/DeliveryAggregator.tsx:124: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Delivery সময়" : "Delivery Time"}</div>
+src/screens/DeliveryAggregator.tsx:148: <h3 className="font-display font-bold text-ink text-base">{isBn ? "ট্র্যাকিং" : "Tracking"}</h3>
+src/screens/DeliveryAggregator.tsx:149: <span className="text-xs text-ink font-semibold">{tNum(filteredParcels.length)} {isBn ? "টি পার্সেল" : "parcels"}</span>
+src/screens/DeliveryAggregator.tsx:220: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Kɔmafoɔ Parcel বুক করুন" : "Book Courier Parcel"}</h3>
+src/screens/DeliveryAggregator.tsx:228: <label className="block font-semibold text-ink mb-1">{isBn ? "Kɔmafoɔ সার্ভিস নির্বাচন" : "Select Courier"} *</label>
+src/screens/DeliveryAggregator.tsx:320: {isBn ? "পার্সেল বুকিং নিশ্চিত করুন" : "Confirm Booking"}
+src/screens/Inventory.tsx:89: {isBn ? "Nyinaa মূল্যমান: " : "Total Valuation: "}
+src/screens/Inventory.tsx:109: { label: "Low Stock Alert", labelBn: "Akorae Aka Kakra সতর্কতা", value: tNum(products.filter(i => i.status === "low-stock").length) },
+src/screens/Inventory.tsx:110: { label: "Out of Stock", labelBn: "Akorae শূন্য", value: tNum(products.filter(i => i.status === "out-of-stock").length) },
+src/screens/Inventory.tsx:124: {isBn ? "ক্যাটাগরি অনুযায়ী Akorae পরিমাণ" : "Stock by Category (Quantity)"}
+src/screens/Inventory.tsx:131: <Tooltip formatter={(v: any) => [`${tNum(v)} ${isBn ? "টি" : "pcs"}`, ""]} />
+src/screens/Inventory.tsx:141: <h3 className="font-display font-bold text-ink text-sm">{isBn ? "Ntɛmntɛm Akorae সতর্কতা" : "Low Stock Alerts"}</h3>
+src/screens/Inventory.tsx:157: {tNum(item.stock)} {isBn ? "টি Aka" : "pcs"}
+src/screens/Inventory.tsx:174: {isBn ? "Nnoɔma Nyinaaের Akorae পর্যাপ্ত আছে!" : "All products have adequate stock levels!"}
+src/screens/Inventory.tsx:190: placeholder={isBn ? "Nnoɔma বা SKU দিয়ে Hwehwɛ..." : "Search inventory..."}
+src/screens/Inventory.tsx:201: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
+src/screens/Inventory.tsx:202: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান Akorae" : "Current Stock"}</th>
+src/screens/Inventory.tsx:203: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Unit মূল্য" : "Unit Price"}</th>
+src/screens/Inventory.tsx:204: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Akorae মূল্যায়ন" : "Total Valuation"}</th>
+src/screens/Inventory.tsx:205: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Akorae সমন্বয়" : "Action"}</th>
+src/screens/Inventory.tsx:237: {isBn ? "Akorae সমন্বয়" : "Adjust Stock"}
+src/screens/Inventory.tsx:252: <h3 className="font-bold text-ink text-base">{isBn ? "Akorae সমন্বয়" : "Adjust Inventory"}</h3>
+src/screens/Inventory.tsx:265: <label className="block font-medium text-ink mb-1">{isBn ? "সমন্বয়ের ধরণ" : "Adjustment Type"}</label>
+src/screens/Inventory.tsx:281: <Minus size={14} /> {isBn ? "নষ্ট / ক্ষতি (Damage)" : "Damage / Out"}
+src/screens/Inventory.tsx:300: <label className="block font-medium text-ink mb-1">{isBn ? "কারণ / নোট" : "Reason / Note"}</label>
+src/screens/Inventory.tsx:305: placeholder={isBn ? "যেমন: Otɔfo Foforɔ চালান বা মেয়াদোত্তীর্ণ..." : "e.g. Received new shipment"}
+src/screens/Inventory.tsx:322: {isBn ? "নিশ্চিত করুন" : "Save Adjustment"}
+src/screens/Inventory.tsx:355: {isBn ? "ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan packet with camera"}
+src/screens/Inventory.tsx:358: {isBn ? "Nnoɔma চিহ্নিত করে স্বয়ংক্রিয় Akorae ইন হবে" : "Instant product recognition & stock in"}
+src/screens/Inventory.tsx:367: <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma নির্বাচন" : "Product"} *</label>
+src/screens/Inventory.tsx:375: {p.name} ({p.sku}) — {tNum(p.stock)} {p.unit.split("/")[0]} {isBn ? "মজুদ" : "in stock"}
+src/screens/Inventory.tsx:395: <label className="block font-medium text-ink mb-1">{isBn ? "কারণ / নোট" : "Reason / Note"}</label>
+src/screens/Inventory.tsx:400: placeholder={isBn ? "যেমন: Otɔfo Foforɔ চালান গ্রহণ" : "e.g. Received new shipment"}
+src/screens/MobileDashboard.tsx:140: ? `${tNum(dueCount)} জন Otɔfoɔের কাছে Nyinaa ${formatTaka(totalDues)} Aka Wɔ Hɔ।`
+src/screens/MobileDashboard.tsx:155: {isBn ? "বিজ্ঞাপন / ব্যানার / প্রচার প্রচারণা" : "Ad, banner, or campaign slot"}
+src/screens/MobileDashboard.tsx:158: {isBn ? "আপনার অফার বা Otɔfo Foforɔ Nnoɔma খবর এখানে Nna" : "Promote new arrivals or seasonal discounts here"}
+src/screens/MobileDashboard.tsx:186: aria-label={isBn ? "প্রোফাইল Nhyehyɛeɛ" : "Profile Settings"}
+src/screens/MobileDashboard.tsx:200: title={isBn ? "ভেরিফায়েড অ্যাকাউন্ট" : "Verified Account"}
+src/screens/MobileDashboard.tsx:221: aria-label={isBn ? "মেসেজিং" : "Messages"}
+src/screens/MobileDashboard.tsx:233: aria-label={isBn ? "সহায়তা" : "Support"}
+src/screens/MobileDashboard.tsx:266: <span className="num font-black text-amber-600 text-xs">{tNum(4.9)}/৫</span>
+src/screens/MobileDashboard.tsx:274: {isBn ? "৩৮৪ টি রিভিউ • 98.7% Atɔfoɔ Ani Agye" : "384 reviews • 98.7% satisfaction rate"}
+src/screens/MobileDashboard.tsx:283: {isBn ? "রিভিউ" : "Reviews"} →
+src/screens/MobileDashboard.tsx:291: {isBn ? "আপডেট" : "Update"}
+src/screens/MobileDashboard.tsx:320: <span>{isBn ? "Ɛnnɛকের আয়" : "Income"}</span>
+src/screens/MobileDashboard.tsx:330: <span>{isBn ? "Ɛnnɛকের ব্যয়" : "Expense"}</span>
+src/screens/MobileDashboard.tsx:340: <span>{isBn ? "Mfasoɔ/ক্ষতি" : "Profit / Loss"}</span>
+src/screens/Dashboard.tsx:166: ? `${tNum(384)} টি যাচাইকৃত Otɔfoɔ রিভিউ • ৯৮.৭% সন্তুষ্টির রেকর্ড`
+src/screens/Dashboard.tsx:337: <span className="num font-semibold text-ink">{tNum(c.value)} {isBn ? "টি" : "pcs"}</span>
+src/screens/Dashboard.tsx:374: <td className="px-4 py-3 text-ink whitespace-nowrap">{tNum(s.items.length)} {isBn ? "টি" : "items"}</td>
+src/screens/Employees.tsx:94: { label: "Active Roles", labelBn: "সক্রিয় Dibea", value: tNum(4) },
+src/screens/Employees.tsx:95: { label: "Status", labelBn: "স্ট্যাটাস", value: isBn ? "Nyinaaাই সক্রিয়" : "All Active" },
+src/screens/Employees.tsx:130: title={isBn ? "ছবি পরিবর্তন / আপলোড করুন" : "Upload / change photo"}
+src/screens/Employees.tsx:172: <div className="text-[10px] text-ink">{isBn ? "মোবাইল" : "Contact"}</div>
+src/screens/Employees.tsx:176: <div className="text-[10px] text-ink">{isBn ? "Ka hoদান" : "Joined"}</div>
+src/screens/Employees.tsx:213: <h3 className="font-bold text-ink text-base">{isBn ? "Fa Adwumayɛfoɔ Foforɔ Ka Ho যুক্ত করুন" : "Add Employee"}</h3>
+src/screens/Employees.tsx:221: <label className="block font-medium text-ink mb-1">{isBn ? "নাম" : "Full Name"} *</label>
+src/screens/Employees.tsx:233: <label className="block font-medium text-ink mb-1">{isBn ? "Dibea / দায়িত্ব" : "Role / Position"} *</label>
+src/screens/Employees.tsx:240: <option value="Sales Staff">Sales Staff / Tɔn কর্মী</option>
+src/screens/Employees.tsx:241: <option value="Store Manager">Store Manager / ম্যানেজার</option>
+src/screens/Employees.tsx:247: <label className="block font-medium text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+src/screens/Employees.tsx:271: <label className="block font-medium text-ink mb-1">{isBn ? "Adwumayɛfoɔর ছবি (ঐচ্ছিক)" : "Employee Photo (Optional)"}</label>
+src/screens/Employees.tsx:292: <span>{photo ? (isBn ? "ছবি পরিবর্তন" : "Change Photo") : (isBn ? "Fa Mfoni Gu So করুন" : "Upload Photo")}</span>
+src/screens/Employees.tsx:324: {isBn ? "Kora so করুন" : "Save Employee"}
+src/screens/Employees.tsx:350: <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So (Account)" : "Payment Account"}</label>
+src/screens/Employees.tsx:376: {isBn ? "Akatua (Salary) নিশ্চিত করুন" : "Confirm Payout"}
+src/screens/MonitoringAlerts.tsx:77: <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "ডেইলি এসএমএস" : "Daily SMS"}</div>
+src/screens/MonitoringAlerts.tsx:79: {isBn ? "১০:০০ PM" : "10:00 PM"}
+src/screens/MonitoringAlerts.tsx:84: <div className="text-sm font-semibold text-ink/80 mb-1.5">{isBn ? "ঝুঁকির মাত্রা" : "Risk Level"}</div>
+src/screens/MonitoringAlerts.tsx:97: <span>{isBn ? "অটোমেটেড মনিটরিং রুলস" : "Automated Trigger Rules"}</span>
+src/screens/MonitoringAlerts.tsx:132: {isBn ? "লাইভ Kɔkɔbɔ ফিড" : "Live Alerts Feed"}
+src/screens/MonitoringAlerts.tsx:166: {isBn ? (alert.time === "Yesterday" ? "গতƆkyena" : alert.time.replace("hours ago", "ঘণ্টা আগে")) : alert.time}
+src/screens/MonitoringAlerts.tsx:179: <Check size={13} /> {isBn ? "সমাধান" : "Resolve"}
+src/screens/CustomerDue.tsx:133: { label: "Owing Customers", labelBn: "Atɔfoɔ a Wɔde Aka", value: `${tNum(customersWithDue.length)} ${isBn ? "জন" : "Customers"}` },
+src/screens/CustomerDue.tsx:134: { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : "Registered"}` },
+src/screens/CustomerDue.tsx:135: { label: "Collection Account", labelBn: "ডিফল্ট জমা", value: "Cash (নগদ)" },
+src/screens/CustomerDue.tsx:151: placeholder={isBn ? "Otɔfoɔের নাম বা ফোন দিয়ে Hwehwɛ..." : "Search customers by name or phone..."}
+src/screens/CustomerDue.tsx:163: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+src/screens/CustomerDue.tsx:166: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+src/screens/CustomerDue.tsx:167: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+src/screens/CustomerDue.tsx:204: {isBn ? "জমা" : "Collect"}
+src/screens/CustomerDue.tsx:216: title={isBn ? "চ্যাট করুন" : "Chat"}
+src/screens/CustomerDue.tsx:271: <label className="block font-medium text-ink mb-1">{isBn ? "জমা অ্যাকাউন্ট" : "Deposit Account"}</label>
+src/screens/CustomerDue.tsx:282: <label className="block font-medium text-ink mb-1">{isBn ? "মন্তব্য / বিবরণ" : "Note"}</label>
+src/screens/CustomerDue.tsx:287: placeholder={isBn ? "যেমন: নগদ পরিশোধ" : "e.g. Cash settlement"}
+src/screens/CustomerDue.tsx:304: {isBn ? "আদায় নিশ্চিত" : "Confirm Collection"}
+src/screens/CustomerDue.tsx:317: <h3 className="font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Aka যুক্ত করুন" : "Add Due Entry"}</h3>
+src/screens/CustomerDue.tsx:325: <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
+src/screens/CustomerDue.tsx:331: placeholder={isBn ? "যেমন: করিম আহমেদ" : "e.g. Karim Ahmed"}
+src/screens/CustomerDue.tsx:337: <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho (ফোন)" : "Contact (Phone)"} *</label>
+src/screens/CustomerDue.tsx:349: <label className="block font-medium text-ink mb-1">{isBn ? "ঠিকানা" : "Address"}</label>
+src/screens/CustomerDue.tsx:407: <h3 className="font-bold text-ink text-base">{isBn ? "এসএমএস রিমাইন্ডার" : "Send SMS Reminder"}</h3>
+src/screens/CustomerDue.tsx:415: <label className="block font-medium text-ink mb-1">{isBn ? "প্রাপক" : "Recipient"}</label>
+src/screens/CustomerDue.tsx:420: <label className="block font-medium text-ink mb-1">{isBn ? "মেসেজ টেমপ্লেট" : "Message Body"}</label>
+src/screens/CustomerDue.tsx:442: <span>{isBn ? "পাঠান" : "Send SMS"}</span>
+src/screens/Reselling.tsx:68: <span>{isBn ? "আমার রিসেল স্টোর (" : "My Resell Store ("}{tNum(totalAddedCount)})</span>
+src/screens/Reselling.tsx:75: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Dukanে সক্রিয় রিসেল Nnoɔma" : "Active In Store"}</div>
+src/screens/Reselling.tsx:82: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "সম্ভাব্য মুনাফা Mfasoɔ %" : "Potential Resell Margin"}</div>
+src/screens/Reselling.tsx:89: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "Agorɔfoɔ সরাসরি Delivery" : "Direct Drop-Ship"}</div>
+src/screens/Reselling.tsx:96: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "যাচাইকৃত পাইকারি রেট" : "Wholesale Guarantee"}</div>
+src/screens/Reselling.tsx:124: placeholder={isBn ? "রিসেল Nnoɔma Hwehwɛ..." : "Search wholesale catalog..."}
+src/screens/Reselling.tsx:155: <span className="text-ink">{isBn ? "পাইকারি মূল্য (Wholesale):" : "Wholesale Price:"}</span>
+src/screens/Reselling.tsx:159: <span className="text-ink">{isBn ? "প্রস্তাবিত Boɔ a Wɔtɔn:" : "Suggested Retail:"}</span>
+src/screens/Reselling.tsx:163: <span className="font-semibold text-ink">{isBn ? "আপনার নিশ্চিত Mfasoɔ:" : "Your Profit Margin:"}</span>
+src/screens/Reselling.tsx:177: <span>{isBn ? "Dukanে সক্রিয় (Added)" : "Added to My Store"}</span>
+src/screens/Reselling.tsx:182: <span>{isBn ? "Dukanে Fa Ka Ho (+মুনাফা)" : "Add to My Store"}</span>
+src/screens/Marketing.tsx:155: <span>{isBn ? "Otɔfo Foforɔ ক্যাম্পেইন" : "New Campaign"}</span>
+src/screens/Marketing.tsx:163: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "প্রেরিত এসএমএস" : "SMS Sent"}</div>
+src/screens/Marketing.tsx:170: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "এসএমএস ক্রেডিট" : "SMS Credits"}</div>
+src/screens/Marketing.tsx:177: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</div>
+src/screens/Marketing.tsx:184: <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? "বিজ্ঞাপনের অর্ডার" : "Ad Orders"}</div>
+src/screens/Marketing.tsx:199: <span>{isBn ? "এসএমএস" : "SMS"}</span>
+src/screens/Marketing.tsx:208: <span>{isBn ? "ফেNyinaaুক" : "Facebook"}</span>
+src/screens/Marketing.tsx:217: <span>{isBn ? "টেমপ্লেট" : "Templates"}</span>
+src/screens/Marketing.tsx:225: <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাম্পেইন ইতিহাস" : "Campaign History"}</h3>
+src/screens/Marketing.tsx:230: <Plus size={14} /> {isBn ? "এসএমএস পাঠান" : "Send SMS"}
+src/screens/Marketing.tsx:262: {tNum(c.recipientCount)} {isBn ? "জন" : "users"}
+src/screens/Marketing.tsx:270: {c.status === "sent" ? (isBn ? "প্রেরিত" : "Sent") : (isBn ? "শিডিউলড" : "Scheduled")}
+src/screens/Marketing.tsx:292: <h3 className="font-display font-bold text-ink text-base whitespace-nowrap">{isBn ? "ক্যাটালগ সিঙ্ক" : "Catalog Sync"}</h3>
+src/screens/Marketing.tsx:294: <CheckCircle2 size={12} /> {isBn ? "সিঙ্ক সক্রিয়" : "Sync Active"}
+src/screens/Marketing.tsx:302: <RefreshCw size={12} /> {isBn ? "পুনরায় সিঙ্ক" : "Resync"}
+src/screens/Marketing.tsx:308: <span className="text-ink whitespace-nowrap">{isBn ? "পিক্সেল আইডি" : "Pixel ID"}</span>
+src/screens/Marketing.tsx:312: <span className="text-ink whitespace-nowrap">{isBn ? "সিঙ্ক Nnoɔma" : "Synced Products"}</span>
+src/screens/Marketing.tsx:316: <span className="text-ink whitespace-nowrap">{isBn ? "শপ লিঙ্ক" : "Shop Link"}</span>
+src/screens/Marketing.tsx:328: {isBn ? "মেটা বিজ্ঞাপন" : "Meta Ads"}
+src/screens/Marketing.tsx:330: <h3 className="font-display font-extrabold text-xl mb-2">{isBn ? "আপনার Nnoɔma বুস্ট করুন" : "Boost Your Product"}</h3>
+src/screens/Marketing.tsx:333: ? "ফেNyinaaুক ও ইনস্টাgে বিজ্ঞাপন দিয়ে বেশি কাস্টমার ও অর্ডার পান।"
+src/screens/Marketing.tsx:340: <span className="text-[10px] text-nv-200 uppercase">{isBn ? "আনুমানিক রিচ" : "Estimated Reach"}</span>
+src/screens/Marketing.tsx:341: <div className="text-lg font-bold text-white">{isBn ? "২৫,০০০ - ৫০,০০০" : "25,000 - 50,000"}</div>
+src/screens/Marketing.tsx:344: onClick={() => toast({ type: "success", title: isBn ? "বিজ্ঞাপন চালু হয়েছে!" : "Campaign Launched!", message: "Meta Ad will go live after review." })}
+src/screens/Marketing.tsx:347: {isBn ? "বিজ্ঞাপন বুস্ট করুন" : "Launch Ad"} →
+src/screens/Marketing.tsx:382: {isBn ? "এই টেমপ্লেট ব্যবহার করুন" : "Use This Template"} →
+src/screens/Marketing.tsx:396: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "Otɔfo Foforɔ এসএমএস প্রচার" : "Broadcast SMS Campaign"}</h3>
+src/screens/Marketing.tsx:403: <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাম্পেইন শিরোনাম" : "Campaign Title"} *</label>
+src/screens/Marketing.tsx:416: <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাম্পেইন টাইপ" : "Type"}</label>
+src/screens/Marketing.tsx:422: <option value="promotional">Promotional / অফার</option>
+src/screens/Marketing.tsx:423: <option value="due_reminder">Due Reminder / Aka তাগাদা</option>
+src/screens/Marketing.tsx:424: <option value="festival">Festival / উৎNyinaa</option>
+src/screens/Marketing.tsx:430: <label className="block font-semibold text-ink mb-1">{isBn ? "টার্গেট অডিয়েন্স" : "Target Audience"}</label>
+src/screens/Marketing.tsx:444: <label className="block font-semibold text-ink mb-1">{isBn ? "এসএমএস মেসেজ টেক্সট" : "SMS Text Content"} *</label>
+src/screens/Marketing.tsx:450: placeholder={isBn ? "এখানে Twi (Akan)য় মেসেজ লিখুন..." : "Type your message here..."}
+src/screens/Marketing.tsx:461: <span className="text-ink font-semibold">{isBn ? "প্রাপক সংখ্যা: " : "Recipients: "} {tNum(recipientCount)}</span>
+src/screens/Marketing.tsx:462: <div className="text-[11px] text-ink">{isBn ? "আনুমানিক Ka: " : "Estimated Cost: "} {formatTaka(estimatedCost)}</div>
+src/screens/Marketing.tsx:465: <span className="text-ink">{isBn ? "বর্তমান Sika a Aka:" : "SMS Balance:"}</span>
+src/screens/Marketing.tsx:483: <span>{isBn ? "এসএমএস পাঠান" : "Broadcast SMS"}</span>
+src/screens/Marketing.tsx:498: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "এসএমএস Sika a Aka রিচার্জ" : "Recharge SMS Balance"}</h3>
+src/screens/POS.tsx:205: placeholder={isBn ? "Nnoɔma বা SKU Hwehwɛ..." : "Search products by name or SKU..."}
+src/screens/POS.tsx:215: <span className="hidden sm:inline">{isBn ? "স্ক্যান" : "Scan"}</span>
+src/screens/POS.tsx:286: {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি Aka" : "left"}`}
+src/screens/POS.tsx:360: <p className="text-xs">{isBn ? "কার্টে Fa Nnoɔma Ka Ho" : "No items in cart"}</p>
+src/screens/POS.tsx:369: <span>{isBn ? "সাবটোটাল" : "Subtotal"}:</span>
+src/screens/POS.tsx:394: {isBn ? "পেমেন্ট Kwan a Wɔfaa So" : "Payment Method"}
+src/screens/POS.tsx:415: <span>{isBn ? "নগদ গৃহীত (Cash Given):" : "Cash Received:"}</span>
+src/screens/POS.tsx:426: <span>{isBn ? "ফেরত দিতে হবে (Change):" : "Change to return:"}</span>
+src/screens/POS.tsx:441: <span>{isBn ? `Tɔn সম্পন্ন (${formatTaka(grandTotal)})` : `Complete Sale (${formatTaka(grandTotal)})`}</span>
+src/screens/POS.tsx:457: <span>{isBn ? "কার্ট দেখুন" : "View Cart"}</span>
+src/screens/POS.tsx:469: <h3 className="font-bold text-base text-ink">{isBn ? "অর্ডার কার্ট" : "Order Cart"}</h3>
+src/screens/POS.tsx:512: {isBn ? "Tɔn সম্পন্ন করুন" : "Complete Checkout"}
+src/screens/POS.tsx:531: {isBn ? `চালান নং: ${tNum(completedSaleData.invoiceNo)}` : `Invoice: ${completedSaleData.invoiceNo}`}
+src/screens/POS.tsx:536: <div className="text-xs text-ink">{isBn ? "Nyinaa মূল্য" : "Grand Total"}</div>
+src/screens/POS.tsx:554: {isBn ? "Kasaa (Receipt) দেখুন / Tintim" : "Print Receipt / Invoice"}
+src/screens/POS.tsx:572: <h3 className="font-bold text-ink text-base">{isBn ? "Fa Otɔfoɔ Foforɔ Ka Ho যুক্ত করুন" : "Add Customer"}</h3>
+src/screens/POS.tsx:580: <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
+src/screens/POS.tsx:592: <label className="block font-medium text-ink mb-1">{isBn ? "মোবাইল নম্বর" : "Mobile Phone"} *</label>
+src/screens/POS.tsx:615: {isBn ? "যুক্ত করুন" : "Save Customer"}
+src/screens/POS.tsx:628: <h3 className="font-bold text-ink text-sm">{isBn ? "বারকোড স্ক্যানার" : "Barcode Scanner"}</h3>
+src/screens/POS.tsx:638: <p className="text-white/60 text-xs mt-3">{isBn ? "Nnoɔma বারকোড ক্যামেরার সামনে ধরুন" : "Point barcode at camera scanner"}</p>
+src/screens/POS.tsx:642: {isBn ? "দ্রুত টেস্ট করতে একnnoɔmaে চাপুন:" : "Or quick scan sample item:"}
+src/screens/Suppliers.tsx:100: { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
+src/screens/Suppliers.tsx:116: placeholder={isBn ? "Agorɔfoɔ বা ফোন দিয়ে Hwehwɛ..." : "Search suppliers by name or phone..."}
+src/screens/Suppliers.tsx:128: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+src/screens/Suppliers.tsx:131: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
+src/screens/Suppliers.tsx:132: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+src/screens/Suppliers.tsx:168: {isBn ? "পরিশোধ" : "Pay Due"}
+src/screens/Suppliers.tsx:182: title={isBn ? "চ্যাট করুন" : "Chat with supplier"}
+src/screens/Suppliers.tsx:209: <label className="block font-medium text-ink mb-1">{isBn ? "কোম্পানি / নাম" : "Company / Name"} *</label>
+src/screens/Suppliers.tsx:221: <label className="block font-medium text-ink mb-1">{isBn ? "Ka hoাKa ho নম্বর" : "Contact Phone"} *</label>
+src/screens/Suppliers.tsx:233: <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma ধরণ" : "Category"}</label>
+src/screens/Suppliers.tsx:266: {isBn ? "Kora so করুন" : "Save Supplier"}
+src/screens/Suppliers.tsx:279: <h3 className="font-bold text-ink text-base">{isBn ? "Agorɔfoɔকে পরিশোধ" : "Pay Supplier"}</h3>
+src/screens/Suppliers.tsx:303: <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Paid From Account"}</label>
+src/screens/Suppliers.tsx:325: {isBn ? "পরিশোধ নিশ্চিত করুন" : "Confirm Payment"}
+src/screens/BuyAdvisory.tsx:126: {isBn ? "Akorae Asa / ব্যাপক চাহিদা" : "Out of stock / high demand"}
+src/screens/BuyAdvisory.tsx:147: {isBn ? "৭ Nnaের মধ্যে ফুরিয়ে যাবে" : "Runs out within 7 days"}
+src/screens/BuyAdvisory.tsx:158: {isBn ? "এই ক্যাটাগরিতে কোনো Nnoɔma নেই" : "No products in this tier right now"}
+src/screens/BuyAdvisory.tsx:161: {isBn ? "আপনার Akorae Wɔ Hɔ রয়েছে" : "Current inventory levels are adequate"}
+src/screens/BuyAdvisory.tsx:181: ? (isBn ? "Akorae Asa (০ Nna)" : "0d stock left")
+src/screens/BuyAdvisory.tsx:182: : (isBn ? `${tNum(daysOfStockLeft)} Nnaের মজুদ Aka` : `${tNum(daysOfStockLeft)}d stock left`)}
+src/screens/BuyAdvisory.tsx:188: {isBn ? "Nnoɔma a Wɔatɔমূল্য" : "Cost"}: {formatTaka(p.buyPrice)}
+src/screens/BuyAdvisory.tsx:197: {isBn ? "প্রস্তাবিত Nnoɔma a Wɔatɔ" : "Suggested"}
+src/screens/Notifications.tsx:85: {isBn ? "অপঠিত" : "Unread"} ({tNum(unreadCount)})
+src/screens/Notifications.tsx:126: <h3 className="font-bold text-ink text-sm">{isBn ? "কোনো Nkaebɔ নেই" : "No notifications"}</h3>
+src/screens/Notifications.tsx:127: <p className="text-ink text-xs mt-0.5">{isBn ? "আপনি আপ-টু-ডেট আছেন!" : "You're all caught up with your store alerts!"}</p>
+src/screens/CustomerStorefront.tsx:112: nameBn: "সানফ্লাওয়ার রান্নার তেল ৫L",
+src/screens/CustomerStorefront.tsx:157: nameBn: cat === "Grocery" ? "Nnuane & Provisions" : cat === "Dairy" ? "Nufusuo & Dairy" : cat === "Snacks" ? "Biscuits & Snacks" : cat === "Beverages" ? "Nsa & Anonneɛ" : cat === "Personal Care" ? "প্রসাধন রূপচর্চা" : cat === "Household" ? "গৃহস্থালী ক্লিন" : cat,
+src/screens/CustomerStorefront.tsx:333: message: isBn ? `অর্ডার #${generatedId} নিশ্চিত হয়েছে।` : `Order #${generatedId} confirmed.`,
+src/screens/CustomerStorefront.tsx:429: text: isBn ? `${settings.shopName}-wɔ Intanɛte শপ থেকে কেনাকাটা করুন:` : `Shop online from ${settings.shopName}:`,
+src/screens/CustomerStorefront.tsx:440: title: isBn ? "কাস্টমার লিংক কপি হয়েছে!" : "Customer Link Copied!",
+src/screens/CustomerStorefront.tsx:538: ? "নিত্যপ্রয়োজনীয় মুদি সামগ্রীতে সর্বোচ্চ ৪০% পর্যন্ত ছাড়!"
+src/screens/CustomerStorefront.tsx:738: {isBn ? `মাত্র ${tNum(product.stock)}টি Aka` : `Only ${product.stock} left`}
+src/screens/CustomerStorefront.tsx:836: <span>{isBn ? "কার্টে Fa Ka Ho" : "Add to Cart"}</span>
+src/screens/CustomerStorefront.tsx:849: {isBn ? `কেন ${settings.shopName} থেকে কিনবেন?` : `Why Shop at ${settings.shopName}?`}
+src/screens/CustomerStorefront.tsx:855: <div className="font-bold text-[#0f1111]">{isBn ? "দ্রুত Delivery" : "Fast Delivery"}</div>
+src/screens/CustomerStorefront.tsx:856: <div className="text-[10px] text-gray-500">{isBn ? "Dɔnhwerew 45 Expressে" : "Within 45-60 mins"}</div>
+src/screens/CustomerStorefront.tsx:862: <div className="font-bold text-[#0f1111]">{isBn ? "খাঁnnoɔma" : "100% Genuine"}</div>
+src/screens/CustomerStorefront.tsx:863: <div className="text-[10px] text-gray-500">{isBn ? "মানের নিশ্চয়তা" : "Verified Quality"}</div>
+src/screens/CustomerStorefront.tsx:869: <div className="font-bold text-[#0f1111]">{isBn ? "Sika (Cash) অন Delivery" : "Cash on Delivery"}</div>
+src/screens/CustomerStorefront.tsx:870: <div className="text-[10px] text-gray-500">{isBn ? "Nnoɔma দেখে দাম Nna" : "Pay at doorstep"}</div>
+src/screens/CustomerStorefront.tsx:876: <div className="font-bold text-[#0f1111]">{isBn ? "হোয়াটসঅ্যাপ সাপোর্ট" : "WhatsApp Chat"}</div>
+src/screens/CustomerStorefront.tsx:877: <div className="text-[10px] text-gray-500">{isBn ? "২৪/৭ সরাসরি সাহায্য" : "Direct response"}</div>
+src/screens/CustomerStorefront.tsx:897: <div className="text-[11px] text-teal-900 font-semibold">{isBn ? "স্বাগতম," : "Hello,"}</div>
+src/screens/CustomerStorefront.tsx:911: {isBn ? "পরিবর্তন" : "Edit"}
+src/screens/CustomerStorefront.tsx:923: {isBn ? "গেস্ট কাস্টমার" : "Guest Shopper"}
+src/screens/CustomerStorefront.tsx:926: {isBn ? "স্বাগতম, প্রিয় Otɔfoɔ! 👋" : "Welcome, Guest Customer! 👋"}
+src/screens/CustomerStorefront.tsx:930: ? "কোনো পাসওয়ার্ড বা সাইন-আপের ঝামেলা নেই। সরাসরি কেনাকাটা করুন।"
+src/screens/CustomerStorefront.tsx:945: title: isBn ? "চলমান অর্ডার" : "Active Orders",
+src/screens/CustomerStorefront.tsx:946: message: isBn ? `${tNum(customerOrders.length)}টি অর্ডার প্রসেসিং হচ্ছে।` : `${customerOrders.length} order in progress.`,
+src/screens/CustomerStorefront.tsx:951: title: isBn ? "কোনো অর্ডার নেই" : "No Orders Yet",
+src/screens/CustomerStorefront.tsx:952: message: isBn ? "Nnoɔma কিনতে কার্টে Nnoɔma Fa Ka Ho।" : "Add items to cart to place an order.",
+src/screens/CustomerStorefront.tsx:958: <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "আপনার অর্ডার" : "Your Orders"}</div>
+src/screens/CustomerStorefront.tsx:961: ? (isBn ? `${tNum(customerOrders.length)}টি সক্রিয় অর্ডার` : `${customerOrders.length} active orders`)
+src/screens/CustomerStorefront.tsx:962: : (isBn ? "এখনো অর্ডার করা হয়নি" : "No orders placed yet")}
+src/screens/CustomerStorefront.tsx:970: title: isBn ? "পছন্দের তালিকা" : "Your Wishlist",
+src/screens/CustomerStorefront.tsx:976: <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "পছন্দের Nnoɔma (Wishlist)" : "Your Wishlist"}</div>
+src/screens/CustomerStorefront.tsx:977: <div className="text-[10px] text-gray-500 mt-0.5">{wishlist.length} {isBn ? "nnoɔma সেভ আছে" : "saved items"}</div>
+src/screens/CustomerStorefront.tsx:984: <div className="text-xs font-extrabold text-[#0f1111]">{isBn ? "Delivery এলাকা" : "Delivery Area"}</div>
+src/screens/CustomerStorefront.tsx:996: <span>{isBn ? "হোয়াটসঅ্যাপ হেল্প" : "Customer Care"}</span>
+src/screens/CustomerStorefront.tsx:998: <div className="text-[10px] text-gray-500 mt-0.5">{isBn ? "সরাসরি Dukanদারের সাথে চ্যাট" : "Direct WhatsApp Help"}</div>
+src/screens/CustomerStorefront.tsx:1007: <span>{isBn ? "আপনার অর্ডারসমূহ (Order History)" : "Your Orders"}</span>
+src/screens/CustomerStorefront.tsx:1011: {tNum(customerOrders.length)} {isBn ? "টি অর্ডার" : "Orders"}
+src/screens/CustomerStorefront.tsx:1037: {isBn ? "অর্ডার গ্রহণ করা হয়েছে — Dukanে প্যাকিং চলছে" : "Order Confirmed — Packing at store"}
+src/screens/CustomerStorefront.tsx:1072: {isBn ? "পুনরায় কিনুন" : "Buy Again"}
+src/screens/CustomerStorefront.tsx:1083: {isBn ? "আপনার কোনো পূর্ববর্তী অর্ডার নেই" : "No orders placed yet"}
+src/screens/CustomerStorefront.tsx:1087: ? "পছন্দের Nnoɔma কার্টে নিয়ে অর্ডার প্লেস করুন। কোনো অ্যাকাউন্ট খোলার দরকার নেই!"
+src/screens/CustomerStorefront.tsx:1094: {isBn ? "কেনাকাটা শুরু করুন" : "Start Shopping"}
+src/screens/CustomerStorefront.tsx:1104: {isBn ? "পূর্বে অর্ডার করেছেন? ট্র্যাকিং দেখুন" : "Already placed an order? Track it"}
+src/screens/CustomerStorefront.tsx:1108: ? "আপনার মোবাইল নম্বরটি লিখলে পূর্ববর্তী অর্ডারের স্ট্যাটাস দেখতে পারবেন:"
+src/screens/CustomerStorefront.tsx:1145: title: isBn ? "অর্ডার লোড হয়েছে!" : "Order Found!",
+src/screens/CustomerStorefront.tsx:1146: message: isBn ? "আপনার প্রোফাইল ও অর্ডার হিস্ট্রি সংযুক্ত হয়েছে।" : "Your order history has been linked.",
+src/screens/CustomerStorefront.tsx:1151: title: isBn ? "সঠিক নম্বর Nna" : "Invalid Phone",
+src/screens/CustomerStorefront.tsx:1152: message: isBn ? "১১ ডিজিটের মোবাইল নম্বর লিখুন।" : "Please enter a valid phone number.",
+src/screens/CustomerStorefront.tsx:1158: {isBn ? "ট্র্যাক" : "Track"}
+src/screens/CustomerStorefront.tsx:1168: <span>{isBn ? "Dukan বিবরণ ও Ka hoাKa ho" : "About the Store"}</span>
+src/screens/CustomerStorefront.tsx:1188: {isBn ? `সাবটোটাল (${tNum(totalItemsCount)} nnoɔma):` : `Subtotal (${totalItemsCount} items):`}
+src/screens/CustomerStorefront.tsx:1199: <span>{isBn ? "আপনার অর্ডারটি ফ্রি Deliveryর Ka ho্য!" : "Your order qualifies for FREE Delivery!"}</span>
+src/screens/CustomerStorefront.tsx:1204: <span>{isBn ? "ফ্রি Delivery পেতে আর মাত্র" : "Add more for FREE delivery"}</span>
+src/screens/CustomerStorefront.tsx:1251: <span>{isBn ? "হোয়াটসঅ্যাপে ১-ক্লিকে অর্ডার Nna" : "Order via WhatsApp with 1 Tap"}</span>
+src/screens/CustomerStorefront.tsx:1262: placeholder={isBn ? "কুপন কোড (SAVE50 / AMAZON100)" : "Promo code (e.g. SAVE50)"}
+src/screens/CustomerStorefront.tsx:1269: {isBn ? "প্রয়োগ" : "Apply"}
+src/screens/CustomerStorefront.tsx:1279: {isBn ? "আপনার কার্ট এখন খালি" : "Your Amazon Cart is empty"}
+src/screens/CustomerStorefront.tsx:1282: {isBn ? "আমাদের সেরা ডিল ও মুদি Nnoɔma ঘুরে দেখুন!" : "Check out today's deals to fill your cart."}
+src/screens/CustomerStorefront.tsx:1288: {isBn ? "কেনাকাটা শুরু করুন" : "Continue Shopping"}
+src/screens/CustomerStorefront.tsx:1353: title: isBn ? "সংরক্ষিত হয়েছে" : "Saved for Later",
+src/screens/CustomerStorefront.tsx:1354: message: isBn ? "Nnoɔmaটি পছন্দের তালিকায় Ka ho করা হয়েছে।" : "Item moved to saved items.",
+src/screens/CustomerStorefront.tsx:1359: {isBn ? "পরে কিনুন" : "Save for later"}
+src/screens/CustomerStorefront.tsx:1381: <div className="text-[10px] text-gray-500">{isBn ? "Nkyekyɛmu Nyinaa ও সার্ভিস" : "Explore all store sections"}</div>
+src/screens/CustomerStorefront.tsx:1394: <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "Nyinaa ডিপার্টমেন্ট" : "Shop by Category"}</h4>
+src/screens/CustomerStorefront.tsx:1417: <h4 className="text-xs font-extrabold text-[#0f1111] uppercase tracking-wider">{isBn ? "কাস্টমার সার্ভিস" : "Customer Service & Help"}</h4>
+src/screens/CustomerStorefront.tsx:1427: <span>{isBn ? "হোয়াটসঅ্যাপ কাস্টমার সাপোর্ট" : "Live WhatsApp Support"}</span>
+src/screens/CustomerStorefront.tsx:1440: <span>{isBn ? "Dukanদারের সাথে কথা বলুন" : "Call Store Hotline"}</span>
+src/screens/CustomerStorefront.tsx:1449: title: isBn ? "রিটার্ন ও রিফান্ড নীতি" : "Return & Refund Policy",
+src/screens/CustomerStorefront.tsx:1450: message: isBn ? "Nnoɔma পৌঁছানোর পর যেকোনো ত্রুটিতে তাৎক্ষণিক রিপ্লেসমেন্ট।" : "Instant return & replacement on delivery.",
+src/screens/CustomerStorefront.tsx:1457: <span>{isBn ? "রিটার্ন এবং মান পলিসি" : "Returns & Guarantees"}</span>
+src/screens/CustomerStorefront.tsx:1496: <span className="text-[10px] tracking-tight">{isBn ? "অ্যাকাউন্ট" : "You"}</span>
+src/screens/CustomerStorefront.tsx:1517: <span className="text-[10px] tracking-tight">{isBn ? "কার্ট" : "Cart"}</span>
+src/screens/CustomerStorefront.tsx:1531: <span className="text-[10px] tracking-tight">{isBn ? "মেনু" : "Menu"}</span>
+src/screens/CustomerStorefront.tsx:1599: <span>{isBn ? "ফ্রি এক্সপ্রেস Delivery পাওয়া যাবে" : "Eligible for FREE Express Delivery"}</span>
+src/screens/CustomerStorefront.tsx:1607: {isBn ? "Akoraeে আছে — এখনই অর্ডার করুন" : "In Stock - Order now for fast delivery"}
+src/screens/CustomerStorefront.tsx:1611: {isBn ? "বর্তমানে Akorae Asa" : "Currently out of stock"}
+src/screens/CustomerStorefront.tsx:1625: {isBn ? "কার্টে Fa Ka Ho (Add to Cart)" : "Add to Cart"}
+src/screens/CustomerStorefront.tsx:1639: {isBn ? "এখনই কিনুন (Buy Now)" : "Buy Now"}
+src/screens/CustomerStorefront.tsx:1646: <span>{isBn ? "Akorae Dɔɔso লেনদেন ও Sika (Cash) অন Delivery" : "Secure transaction • Cash on Delivery"}</span>
+src/screens/CustomerStorefront.tsx:1662: <span>{isBn ? "Delivery এলাকা নির্বাচন করুন" : "Choose your location"}</span>
+src/screens/CustomerStorefront.tsx:1670: {isBn ? "আপনার এলাকা অনুযায়ী এক্সপ্রেস Deliveryর সময় নির্ধারিত হবে:" : "Select your area to see accurate delivery speed and availability:"}
+src/screens/CustomerStorefront.tsx:1693: title: isBn ? "ঠিকানা আপডেট হয়েছে" : "Location Set",
+src/screens/CustomerStorefront.tsx:1723: {isBn ? "প্রোফাইল তথ্য পরিবর্তন" : "Edit Customer Profile"}
+src/screens/CustomerStorefront.tsx:1733: {isBn ? "আপনার নাম" : "Your Name"}
+src/screens/CustomerStorefront.tsx:1745: {isBn ? "মোবাইল নম্বর" : "Phone Number"}
+src/screens/CustomerStorefront.tsx:1769: title: isBn ? "প্রোফাইল আপডেট হয়েছে" : "Profile Updated",
+src/screens/CustomerStorefront.tsx:1776: {isBn ? "Kora so করুন" : "Save Changes"}
+src/screens/CustomerStorefront.tsx:1796: ? (isBn ? "অ্যামাজন লেন্স (বারকোড / ছবি স্ক্যান)" : "Amazon Visual Lens Search")
+src/screens/CustomerStorefront.tsx:1797: : (isBn ? "অ্যামাজন ভয়েস সার্চ" : "Amazon Voice Assistant")}
+src/screens/CustomerStorefront.tsx:1801: ? (isBn ? "Nnoɔma ছবি বা প্যাকেজের বারকোড স্ক্যান করুন" : "Point camera at an item or barcode to search instantly")
+src/screens/CustomerStorefront.tsx:1802: : (isBn ? "দয়া করে বলুন: 'রান্নার তেল' অথবা 'মুদি সামগ্রী'..." : "Say: 'Sunflower cooking oil' or 'Rice'...")}
+src/screens/CustomerStorefront.tsx:1834: ? (isBn ? "অ্যামাজন এক্সপ্রেস চেকআউট" : "Amazon Express Checkout")
+src/screens/CustomerStorefront.tsx:1851: <span>{isBn ? "কোনো পাসওয়ার্ড দরকার নেই — শুধু ঠিকানা Nna ও অর্ডার করুন!" : "Zero Sign-up: Enter address & place your order instantly."}</span>
+src/screens/CustomerStorefront.tsx:1858: <span>{isBn ? "Delivery ঠিকানা (Shipping Address)" : "1. Shipping Address"}</span>
+src/screens/CustomerStorefront.tsx:1864: {isBn ? "আপনার পুরো নাম" : "Your Full Name"} *
+src/screens/CustomerStorefront.tsx:1870: placeholder={isBn ? "যেমন: তানভীর হাসান / সোহেল" : "e.g. Tanvir Hasan"}
+src/screens/CustomerStorefront.tsx:1877: {isBn ? "মোবাইল নম্বর" : "Mobile Phone Number"} *
+src/screens/CustomerStorefront.tsx:1890: {isBn ? "রাস্তা ও বাসার ঠিকানা" : "Street Address / House / Road"} *
+src/screens/CustomerStorefront.tsx:1896: placeholder={isBn ? "বাসা নম্বর, রোড নম্বর, এলাকা" : "House #, Road #, Flat #"}
+src/screens/CustomerStorefront.tsx:1903: {isBn ? "এলাকা ও থানা" : "Area & City"}
+src/screens/CustomerStorefront.tsx:1927: <span>{isBn ? "পেমেন্ট Kwan a Wɔfaa So (Payment Method)" : "2. Payment Method"}</span>
+src/screens/CustomerStorefront.tsx:1948: <span>{isBn ? "Sika (Cash) অন Delivery (Cash on Delivery)" : "Cash on Delivery (COD)"}</span>
+src/screens/CustomerStorefront.tsx:1992: <span>{isBn ? "হোয়াটসঅ্যাপের Kwan a Wɔfaa Soে কনফার্ম করুন" : "Confirm via WhatsApp Chat"}</span>
+src/screens/CustomerStorefront.tsx:2002: <span>{isBn ? "Nnoɔma সাবটোটাল:" : "Items Total:"}</span>
+src/screens/CustomerStorefront.tsx:2007: <span>{isBn ? "Delivery ফি:" : "Delivery Fee:"}</span>
+src/screens/CustomerStorefront.tsx:2013: <span>{isBn ? "ডিসকাউন্ট কুপন:" : "Promo Discount:"}</span>
+src/screens/CustomerStorefront.tsx:2030: <span>{isBn ? `অর্ডার নিশ্চিত করুন (${formatTaka(grandTotal)})` : `Place Your Order in BDT`}</span>
+src/screens/CustomerStorefront.tsx:2042: {isBn ? "Order No Ayɛ Yie Pɛpɛɛpɛ! ধন্যবাদ।" : "Order placed, thank you!"}
+src/screens/CustomerStorefront.tsx:2045: {isBn ? `অর্ডার নম্বর: #${orderId}` : `Confirmation sent. Order #${orderId}`}
+src/screens/CustomerStorefront.tsx:2051: <div className="font-bold text-gray-700">{isBn ? "Delivery ট্র্যাকিং স্ট্যাটাস:" : "Estimated Delivery Status:"}</div>
+src/screens/CustomerStorefront.tsx:2055: <span>{isBn ? "অর্ডার গ্রহণ করা হয়েছে" : "Order Placed & Confirmed"}</span>
+src/screens/CustomerStorefront.tsx:2059: <span>{isBn ? "Dukanে প্যাkgং চলছে" : `Packing at ${settings.shopName}`}</span>
+src/screens/CustomerStorefront.tsx:2063: <span>{isBn ? "রাইডার Deliveryর জন্য বের হবে" : "Out for delivery (Today, 45m)"}</span>
+src/screens/CustomerStorefront.tsx:2076: {isBn ? "অর্ডার ট্র্যাকিং দেখুন" : "View in Your Orders"}
+src/screens/CustomerStorefront.tsx:2085: {isBn ? "Pii (More) কেনাকাটা" : "Continue Shopping"}
+src/screens/Invoice.tsx:116: <Printer size={15} /> {isBn ? "Tintim করুন" : "Print Receipt"}
+src/screens/Invoice.tsx:123: <span className="text-xs font-semibold text-ink whitespace-nowrap">{isBn ? "সাম্প্রতিক Invois:" : "Recent Invoices:"}</span>
+src/screens/Invoice.tsx:150: <span>{isBn ? "Invois নং:" : "Invoice:"}</span>
+src/screens/Invoice.tsx:154: <span>{isBn ? "তারিখ ও সময়:" : "Date:"}</span>
+src/screens/Invoice.tsx:162: <span>{isBn ? "পেমেন্ট Kwan a Wɔfaa So:" : "Payment:"}</span>
+src/screens/Invoice.tsx:170: <span>{isBn ? "Nnoɔma ও পরিমাণ" : "Item & Qty"}</span>
+src/screens/Invoice.tsx:187: <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+src/screens/Invoice.tsx:192: <span>{isBn ? "ডিসকাউন্ট:" : "Discount:"}</span>
+src/screens/Invoice.tsx:212: <span>{isBn ? "ফেরত দেওয়া হয়েছে:" : "Change Returned:"}</span>
+src/screens/Invoice.tsx:238: <div className="text-xs text-ink mt-1">{isBn ? "তারিখ:" : "Date:"} {activeSale.date}</div>
+src/screens/Invoice.tsx:245: <p className="text-xs font-bold text-ink uppercase tracking-wider mb-1">{isBn ? "বিল প্রাপক" : "Bill To"}</p>
+src/screens/Invoice.tsx:250: <p className="text-xs font-bold text-ink uppercase tracking-wider mb-1">{isBn ? "পেমেন্ট অবস্থা" : "Payment Status"}</p>
+src/screens/Invoice.tsx:262: <th className="p-3 font-bold text-ink">{isBn ? "Nnoɔma বিবরণ" : "Item Description"}</th>
+src/screens/Invoice.tsx:263: <th className="p-3 font-bold text-ink text-center">{isBn ? "পরিমাণ" : "Qty"}</th>
+src/screens/Invoice.tsx:264: <th className="p-3 font-bold text-ink text-right">{isBn ? "Unit মূল্য" : "Unit Price"}</th>
+src/screens/Invoice.tsx:285: <span>{isBn ? "সাবটোটাল:" : "Subtotal:"}</span>
+src/screens/Invoice.tsx:290: <span>{isBn ? "ডিসকাউন্ট:" : "Discount:"}</span>
+src/screens/Invoice.tsx:308: <h3 className="font-bold text-ink text-base">{isBn ? "Invois Kyɛ করুন" : "Share Invoice"}</h3>
+src/screens/Invoice.tsx:316: <label className="block font-medium text-ink mb-1">{isBn ? "Otɔfoɔের হোয়াটসঅ্যাপ / মোবাইল" : "Mobile / WhatsApp"}</label>
+src/screens/Invoice.tsx:341: <span>{isBn ? "পাঠান" : "Send Now"}</span>
+src/screens/BusinessAnalytics.tsx:41: { day: "Sun", dayBn: "রবি", sales: income || 51200, profit: Math.abs(profit) || 16200 },
+src/screens/BusinessAnalytics.tsx:46: { name: isBn ? "প্রসাধন ও স্বাস্থ্য" : "Personal Care", percent: 28, color: "bg-amber-500" },
+src/screens/BusinessAnalytics.tsx:47: { name: isBn ? "দুগ্ধজাত ও পানীয়" : "Dairy & Beverages", percent: 27, color: "bg-ac-600" },
+src/screens/BusinessAnalytics.tsx:94: {isBn ? "ব্যবসায়িক অ্যানালিটিক্স ও ইনসাইটস" : "Business Analytics & Insights"}
+src/screens/BusinessAnalytics.tsx:102: <span>{isBn ? "Nnoɔma a Wɔatɔ পরামর্শ" : "Buy Advisory"}</span>
+src/screens/BusinessAnalytics.tsx:110: {isBn ? "সময়Ɔkyena:" : "Period:"}
+src/screens/BusinessAnalytics.tsx:114: { id: "week" as const, label: "7 Days", labelBn: "৭ Nna" },
+src/screens/BusinessAnalytics.tsx:115: { id: "month" as const, label: "30 Days", labelBn: "৩০ Nna" },
+src/screens/BusinessAnalytics.tsx:138: +১৮.৪%
+src/screens/BusinessAnalytics.tsx:148: <span className="font-semibold">{isBn ? "নিট মুনাফা" : "Net Profit"}</span>
+src/screens/BusinessAnalytics.tsx:160: {isBn ? "গড় অর্ডার মূল্য" : "Avg Order Value"}
+src/screens/BusinessAnalytics.tsx:169: <span className="font-semibold">{isBn ? "Aka অনুপাত" : "Dues Ratio"}</span>
+src/screens/BusinessAnalytics.tsx:171: {isBn ? "৮৪% আদায়" : "84% Collected"}
+src/screens/BusinessAnalytics.tsx:187: {isBn ? "গত ৭ Nnaের রেকর্ড" : "Last 7 days"}
+src/screens/BusinessAnalytics.tsx:222: {isBn ? "ক্যাটাগরি অনুযায়ী Tɔn অবদান" : "Category Sales Contribution"}
+src/screens/BusinessAnalytics.tsx:246: {isBn ? "শীর্ষ বিক্রিত Nnoɔmaসমূহ" : "Top Performing Products"}
+src/screens/BusinessAnalytics.tsx:248: <span className="text-xs text-ink/60">{isBn ? "চাহিদা অনুযায়ী" : "By volume"}</span>
+src/screens/BusinessAnalytics.tsx:263: {tNum(tp.soldQty)} {isBn ? "টি বিক্রি হয়েছে" : "units sold"}
+src/screens/BusinessAnalytics.tsx:272: {isBn ? "শীর্ষ আয়" : "High revenue"}
+src/screens/Expenses.tsx:17: { id: "Maintenance", label: "Maintenance", labelBn: "রক্ষণাবেক্ষণ", icon: Wrench, color: "#94A3B8" },
+src/screens/Expenses.tsx:19: { id: "Miscellaneous", label: "Miscellaneous", labelBn: "বিবিধ", icon: Grid, color: "#CBD5E1" },
+src/screens/Expenses.tsx:99: <h3 className="font-display font-bold text-ink text-base">{isBn ? "Otɔfo Foforɔ Ka এন্ট্রি" : "Record New Expense"}</h3>
+src/screens/Expenses.tsx:108: <label className="block font-semibold text-ink mb-1">{isBn ? "Ka বিভাগ" : "Category"} *</label>
+src/screens/Expenses.tsx:135: <label className="block font-semibold text-ink mb-1">{isBn ? "পরিশোধ Kwan a Wɔfaa So" : "Paid From Account"}</label>
+src/screens/Expenses.tsx:150: <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
+src/screens/Expenses.tsx:160: <label className="block font-semibold text-ink mb-1">{isBn ? "সংক্ষিপ্ত বিবরণ / নোট" : "Description / Note"}</label>
+src/screens/Expenses.tsx:165: placeholder={isBn ? "যেমন: জানুয়ারি Bosomeের Dukan Ka (Shop Rent) বা Anyinam Ahoɔden (Electricity) বিল..." : "e.g. Electricity bill or staff lunch..."}
+src/screens/Expenses.tsx:183: {isBn ? "Ka Kora so করুন" : "Save Expense"}
+src/screens/Expenses.tsx:195: {isBn ? "বিভাগ অনুযায়ী Ka" : "Expenses by Category"}
+src/screens/Expenses.tsx:240: {isBn ? "Ka তালিকা" : "Expense Transactions"}
+src/screens/Expenses.tsx:258: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বিভাগ" : "Category"}</th>
+src/screens/Expenses.tsx:259: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিমাণ" : "Amount"}</th>
+src/screens/Expenses.tsx:260: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পরিশোধ" : "Account"}</th>
+src/screens/Expenses.tsx:261: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
+src/screens/Expenses.tsx:262: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "নোট" : "Note"}</th>
+src/screens/Expenses.tsx:263: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "কাজ" : "Action"}</th>
+src/screens/Expenses.tsx:292: {isBn ? "কোনো Ka পাওয়া যায়নি" : "No expense records found"}
+src/screens/Products.tsx:207: title={isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "AI Camera Scan"}
+src/screens/Products.tsx:210: <span className="text-xs font-bold hidden sm:inline">{isBn ? "স্ক্যান" : "Scan"}</span>
+src/screens/Products.tsx:222: { label: "Out of Stock", labelBn: "Akorae শূন্য", value: tNum(products.filter(p => p.status === "out-of-stock").length) },
+src/screens/Products.tsx:240: placeholder={isBn ? "নাম বা SKU দিয়ে Hwehwɛ..." : "Search by product name or SKU..."}
+src/screens/Products.tsx:285: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
+src/screens/Products.tsx:289: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+src/screens/Products.tsx:290: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+src/screens/Products.tsx:342: {isBn ? "কোনো Nnoɔma খুঁজে পাওয়া যায়নি" : "No matching products found"}
+src/screens/Products.tsx:392: {editingProduct ? (isBn ? "Nnoɔma Sesa করুন" : "Edit Product") : (isBn ? "Otɔfo Foforɔ Fa Nnoɔma Ka Ho" : "Add New Product")}
+src/screens/Products.tsx:420: <span>{isBn ? "এআই ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan Product with AI Camera"}</span>
+src/screens/Products.tsx:424: {isBn ? "নাম, ওজন, ক্যাটাগরি ও মার্কেট প্রাইস স্বয়ংক্রিয়ভাবে ফিল হবে" : "Auto-detects name, weight, category & market price"}
+src/screens/Products.tsx:429: {isBn ? "ক্যামেরা স্ক্যান" : "Scan Now"} <ChevronRight size={13} />
+src/screens/Products.tsx:437: <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Din (ইংরেজি)" : "Product Name (EN)"} *</label>
+src/screens/Products.tsx:454: placeholder="যেমন: ফ্রেশ সয়াবিন তেল ৫লি"
+src/screens/Products.tsx:460: <label className="block font-semibold text-ink mb-1">{isBn ? "ক্যাটাগরি" : "Category"}</label>
+src/screens/Products.tsx:466: <option value="Grocery">Grocery / মুদি</option>
+src/screens/Products.tsx:468: <option value="Beverages">Beverages / পানীয়</option>
+src/screens/Products.tsx:476: <label className="block font-semibold text-ink mb-1">{isBn ? "আইকন / ছবি" : "Emoji Icon"}</label>
+src/screens/Products.tsx:516: <label className="block font-semibold text-ink mb-1">{isBn ? "বর্তমান Akorae" : "Current Stock Quantity"} *</label>
+src/screens/Products.tsx:528: <label className="block font-semibold text-ink mb-1">{isBn ? "Akorae Aka Kakra সতর্কবার্তা সীমা" : "Low Stock Alert Limit"}</label>
+src/screens/Products.tsx:554: {editingProduct ? (isBn ? "আপডেট করুন" : "Update Product") : (isBn ? "Kora so করুন" : "Save Product")}
+src/screens/Products.tsx:567: <h3 className="font-bold text-ink text-sm">{isBn ? "বারকোড স্টিকার" : "Barcode Label"}</h3>
+src/screens/Products.tsx:592: {isBn ? "Tintim Barcode করুন" : "Print Label"}
+src/screens/Customers.tsx:107: { label: "Total Customers", labelBn: "Atɔfoɔ Nyinaa", value: `${tNum(customers.length)} ${isBn ? "জন" : ""}` },
+src/screens/Customers.tsx:110: { label: "VIP Customers", labelBn: "Otɔfo Titiriw (VIP) Otɔfoɔ", value: `${tNum(vipCount)} ${isBn ? "জন" : ""}` },
+src/screens/Customers.tsx:127: placeholder={isBn ? "নাম বা ফোন নম্বর দিয়ে Hwehwɛ..." : "Search by name or phone..."}
+src/screens/Customers.tsx:157: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Ka hoাKa ho" : "Contact"}</th>
+src/screens/Customers.tsx:159: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান Aka" : "Current Due"}</th>
+src/screens/Customers.tsx:160: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ভিজিট সংখ্যা" : "Visits"}</th>
+src/screens/Customers.tsx:161: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Status"}</th>
+src/screens/Customers.tsx:162: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "অ্যাকশন" : "Actions"}</th>
+src/screens/Customers.tsx:188: <td className="px-4 py-3 text-xs text-ink">{tNum(c.visits)} {isBn ? "বার" : "times"}</td>
+src/screens/Customers.tsx:200: {isBn ? "প্রোফাইল" : "View"}
+src/screens/Customers.tsx:244: <div className="text-[11px] text-ink">{isBn ? "বর্তমান Aka" : "Current Due"}</div>
+src/screens/Customers.tsx:248: <div className="text-[11px] text-ink">{isBn ? "Nyinaa ভিজিট" : "Visits"}</div>
+src/screens/Customers.tsx:271: <span>{isBn ? "কল" : "Call"}</span>
+src/screens/Customers.tsx:278: <span>{isBn ? "চ্যাট" : "Chat"}</span>
+src/screens/Customers.tsx:290: <Trash2 size={13} /> {isBn ? "Otɔfoɔ মুছে ফেলুন" : "Delete Customer"}
+src/screens/Customers.tsx:308: <h3 className="font-bold text-ink text-base">{isBn ? "Aka পরিশোধ গ্রহণ" : "Collect Payment"}</h3>
+src/screens/Customers.tsx:327: <label className="block font-medium text-ink mb-1">{isBn ? "অ্যাকাউন্ট" : "Account"}</label>
+src/screens/Customers.tsx:349: {isBn ? "জমা নিশ্চিত" : "Confirm"}
+src/screens/MobilePOS.tsx:143: {isBn ? "Kasaa (Receipt) দেখুন / Tintim" : "View Invoice"}
+src/screens/MobilePOS.tsx:238: {isOutOfStock ? (isBn ? "Akorae Asa" : "Stock 0") : `${tNum(p.stock)} ${isBn ? "টি Aka" : "left"}`}
+src/screens/MobilePOS.tsx:255: <span>{isBn ? "কার্ট দেখুন ও পেমেন্ট" : "View Cart & Pay"}</span>
+src/screens/MobilePOS.tsx:270: <h1 className="font-display font-bold text-lg">{isBn ? "কার্ট পর্যালোচনা" : "Order Cart"}</h1>
+src/screens/MobilePOS.tsx:302: <span>{isBn ? "Nyinaa পরিমাণ" : "Total Amount"}</span>
+src/screens/MobilePOS.tsx:309: {isBn ? "পেমেন্ট নির্বাচন করুন" : "Proceed to Payment"} →
+src/screens/MobilePOS.tsx:322: <h1 className="font-display font-bold text-lg">{isBn ? "পেমেন্ট Kwan a Wɔfaa So" : "Payment"}</h1>
+src/screens/MobilePOS.tsx:332: <p className="text-xs font-bold text-ink uppercase tracking-wider mb-2">{isBn ? "পদ্ধতি নির্বাচন" : "Select Payment Method"}</p>
+src/screens/MobilePOS.tsx:361: {isBn ? `ফেরত দিতে হবে: ${formatTaka(change)}` : `Change: ${formatTaka(change)}`}
+src/screens/MobilePOS.tsx:374: <span>{isBn ? "Tɔn সম্পন্ন করুন" : "Complete Sale"}</span>
+src/screens/FintechBanking.tsx:125: <span>{isBn ? "পেমেন্ট লিঙ্ক তৈরি করুন" : "Create Payment Link"}</span>
+src/screens/FintechBanking.tsx:138: <span>{isBn ? "Sikakorabeaিং" : "Banking"}</span>
+src/screens/FintechBanking.tsx:146: <span>{isBn ? "লোন" : "Loans"}</span>
+src/screens/FintechBanking.tsx:154: <span>{isBn ? "পেমেন্ট" : "Payments"}</span>
+src/screens/FintechBanking.tsx:171: <CheckCircle2 size={12} /> {isBn ? (app.status === "active" ? "সক্রিয়" : "অনুমোদিত") : app.status}
+src/screens/FintechBanking.tsx:176: <span className="text-[10px] text-ink/70 uppercase font-semibold">{isBn ? "অ্যাকাউন্ট নং" : "Account No"}</span>
+src/screens/FintechBanking.tsx:182: <span className="text-ink/70">{isBn ? "কেওয়াইসি:" : "KYC:"}</span>
+src/screens/FintechBanking.tsx:183: <span className="font-bold text-ink">{isBn ? "১০০% ভেরিফাইড" : "100% Verified"}</span>
+src/screens/FintechBanking.tsx:191: <h3 className="font-display font-extrabold text-xl">{isBn ? "Sikakorabea অ্যাকাউন্ট খুলুন" : "Open Bank Account"}</h3>
+src/screens/FintechBanking.tsx:194: ? "এনআইডি ও ট্রেড লাইসেন্স দিয়ে দ্রুত অ্যাকাউন্ট চালু করুন।"
+src/screens/FintechBanking.tsx:203: {isBn ? "আবেদন করুন" : "Apply Now"} →
+src/screens/FintechBanking.tsx:218: {loan.status === "disbursed" ? (isBn ? "বিতরণকৃত" : "Active Disbursed") : (isBn ? "প্রাক-অনুমোদিত" : "Pre-Approved")}
+src/screens/FintechBanking.tsx:230: <span className="text-ink/70">{isBn ? "মেয়াদ" : "Tenure"}</span>
+src/screens/FintechBanking.tsx:234: <span className="text-ink/70">{isBn ? "Bosomeিক কিস্তি" : "Monthly EMI"}</span>
+src/screens/FintechBanking.tsx:249: {loan.status === "disbursed" ? (isBn ? "ঋণ সক্রিয় রয়েছে" : "Loan Active") : (isBn ? "ঋণের জন্য আবেদন করুন" : "Apply Instantly")}
+src/screens/FintechBanking.tsx:290: <h3 className="font-display font-bold text-ink text-base">{isBn ? "পেমেন্ট লিঙ্কসমূহ" : "Active Payment Links"}</h3>
+src/screens/FintechBanking.tsx:295: <Plus size={14} /> {isBn ? "Otɔfo Foforɔ লিঙ্ক" : "Create Link"}
+src/screens/FintechBanking.tsx:344: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "ডিজিটাল Sikakorabea অ্যাকাউন্ট খুলুন" : "Open Digital Bank Account"}</h3>
+src/screens/FintechBanking.tsx:400: {isBn ? "সাবমিট ও অ্যাক্টিভ করুন" : "Submit KYC"}
+src/screens/FintechBanking.tsx:415: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "এসএমই লোন অনুমোদন" : "Instant SME Loan Disbursal"}</h3>
+src/screens/FintechBanking.tsx:466: <h3 className="font-display font-bold text-ink text-lg">{isBn ? "পেমেন্ট লিঙ্ক তৈরি করুন" : "Create Payment Link"}</h3>
+src/screens/FintechBanking.tsx:473: <label className="block font-semibold text-ink mb-1">{isBn ? "Otɔfoɔের নাম" : "Customer Name"} *</label>
+src/screens/FintechBanking.tsx:497: <label className="block font-semibold text-ink mb-1">{isBn ? "বিবরণ / উদ্দেশ্য" : "Payment Purpose"}</label>
+src/screens/FintechBanking.tsx:519: {isBn ? "লিঙ্ক তৈরি করুন" : "Generate Link"}
+src/screens/Purchases.tsx:110: { label: "Total Orders", labelBn: "Nyinaa অর্ডার", value: tNum(purchases.length) },
+src/screens/Purchases.tsx:111: { label: "Active Suppliers", labelBn: "Agorɔfoɔ সংখ্যা", value: tNum(suppliers.length) },
+src/screens/Purchases.tsx:123: {isBn ? "স্মার্ট Nnoɔma a Wɔatɔ অ্যানালিটিক্স:" : "Smart Purchasing Advisory:"}
+src/screens/Purchases.tsx:131: <span>{tNum(urgentCount)} {isBn ? "টি Ntɛmntɛm" : "Urgent"}</span>
+src/screens/Purchases.tsx:139: <span>{isBn ? "অটো-ফিল" : "Auto-Fill"}</span>
+src/screens/Purchases.tsx:150: <h3 className="font-display font-bold text-ink text-base">{isBn ? "Purchase Order Foforɔ এন্ট্রি" : "Record Purchase Order"}</h3>
+src/screens/Purchases.tsx:171: <label className="block font-semibold text-ink mb-1">{isBn ? "চালান / Invois নং" : "Supplier Invoice No."}</label>
+src/screens/Purchases.tsx:182: <label className="block font-semibold text-ink mb-1">{isBn ? "তারিখ" : "Date"}</label>
+src/screens/Purchases.tsx:195: <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "Nnoɔma তালিকা (Akorae বৃদ্ধি পাবে)" : "Products (Will auto-add to Stock)"}</span>
+src/screens/Purchases.tsx:201: <Plus size={14} /> {isBn ? "আরেকটি Fa Nnoɔma Ka Ho" : "Add Item"}
+src/screens/Purchases.tsx:279: <label className="block font-medium text-ink mb-1">{isBn ? "পরিশোধ অ্যাকাউন্ট" : "Payment Account"}</label>
+src/screens/Purchases.tsx:302: {isBn ? "Nnoɔma a Wɔatɔ নিশ্চিত করুন (Akorae যুক্ত হবে)" : "Confirm Purchase"}
+src/screens/Purchases.tsx:318: placeholder={isBn ? "Agorɔfoɔ বা অর্ডার আইডি দিয়ে Hwehwɛ..." : "Search by supplier or order ID..."}
+src/screens/Purchases.tsx:328: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অর্ডার আইডি" : "Order ID"}</th>
+src/screens/Purchases.tsx:330: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "তারিখ" : "Date"}</th>
+src/screens/Purchases.tsx:333: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Aka দেনা" : "Due"}</th>
+src/screens/Purchases.tsx:334: <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "অবস্থা" : "Status"}</th>
+src/components/GlobalSearchModal.tsx:60: { id: "dashboard", label: "Dashboard", labelBn: "ড্যাশবোর্ড", icon: LayoutDashboard },
+src/components/GlobalSearchModal.tsx:61: { id: "marketing", label: "SMS & Facebook Marketing Hub", labelBn: "Dawubɔ ও এসএমএস ক্যাম্পেইন", icon: MessageSquare },
+src/components/GlobalSearchModal.tsx:62: { id: "delivery", label: "Delivery Aggregator (Steadfast, Pathao, RedX, eCourier)", labelBn: "Kɔmafoɔ Parcel ও Delivery এগ্রিগেটর", icon: Truck },
+src/components/GlobalSearchModal.tsx:63: { id: "fintech", label: "Banking, SME Loans & Bangla QR Digital Payments", labelBn: "ডিজিটাল Sikakorabeaিং, ঋণ ও Twi (Akan) কিউআর পেমেন্ট", icon: Landmark },
+src/components/GlobalSearchModal.tsx:64: { id: "reselling", label: "Reselling & Drop-Shipping Wholesale Catalog", labelBn: "রিসেলিং মার্কেট ও পাইকারি ক্যাটালগ", icon: Store },
+src/components/GlobalSearchModal.tsx:65: { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "Intanɛte Dukan ও ওয়েবসাইট বিল্ডার", icon: Globe2 },
+src/components/GlobalSearchModal.tsx:66: { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "স্মার্ট মনিটরিং ও স্বয়ংক্রিয় Kɔkɔbɔ", icon: ShieldAlert },
+src/components/GlobalSearchModal.tsx:67: { id: "pos", label: "POS / New Sale", labelBn: "বিক্রি করুন", icon: Scan },
+src/components/GlobalSearchModal.tsx:69: { id: "dues", label: "Customer Dues", labelBn: "Akaর হিসাব", icon: CreditCard },
+src/components/GlobalSearchModal.tsx:77: { id: "analytics", label: "Business Analytics & Insights", labelBn: "ব্যবসায়িক অ্যানালিটিক্স", icon: BarChart2 },
+src/components/GlobalSearchModal.tsx:102: placeholder={isBn ? "Nnoɔma, Otɔfoɔ, Invois বা মেনু Hwehwɛ..." : "Search products, customers, invoices, or pages..."}
+src/components/GlobalSearchModal.tsx:148: <div className="text-xs text-ink">{tNum(p.stock)} {isBn ? "টি Aka" : "in stock"}</div>
+src/components/GlobalSearchModal.tsx:225: {isBn ? "দ্রুত মেনু" : "Navigation & Pages"}
+src/components/BusinessRatingModal.tsx:232: { label: isBn ? "Digital Kɛseɛ Pɛpɛɛpɛ" : "100% Accurate Measure", sub: isBn ? "বিএসটিআই মানসম্মত" : "Standard Certified", icon: Sparkles },
+src/components/BusinessRatingModal.tsx:233: { label: isBn ? "Kɔmafoɔ a Wɔba Pɛpɛɛpɛ" : "99.4% On-Time Dispatch", sub: isBn ? "দ্রুততম সেবা" : "Fast & Reliable", icon: CheckCircle2 },
+src/components/BusinessRatingModal.tsx:234: { label: isBn ? "Aka Kyerɛwtohɔ a Emu Da Hɔ" : "Instant SMS Confirmation", sub: isBn ? "স্বয়ংক্রিয় হিসাব" : "Digital Receipts", icon: MessageSquare },
+src/components/BusinessRatingModal.tsx:235: { label: isBn ? "এনবিআর ট্যাক্স অনুগত" : "NBR Tax Compliant", sub: isBn ? "ভ্যাট চালান যুক্ত" : "Mushak 6.3 Ready", icon: ShieldCheck },
+src/components/AIProductScannerModal.tsx:406: ? "ক্যামেরা চালু না হলেও নিচে যেকোনো স্যাম্পল প্যাকেটে ক্লিক করে এআই ডিটেকশন টেস্ট করতে পারবেন।"

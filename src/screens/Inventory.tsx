@@ -75,7 +75,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
         {onBack && (
           <button
             onClick={onBack}
-            aria-label={isBn ? "পেছনে যান" : "Go back"}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
             className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200"
           >
             <ArrowLeft size={18} />
@@ -86,7 +86,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
               never does — it's the one number on this row that matters. */}
           <div className="flex items-baseline gap-1 min-w-0">
             <span className="truncate text-ink text-xs sm:text-sm">
-              {isBn ? "মোট মূল্যমান: " : "Total Valuation: "}
+              {isBn ? "Nyinaa মূল্যমান: " : "Total Valuation: "}
             </span>
             <span className="num font-bold text-ink text-xs sm:text-sm flex-shrink-0 whitespace-nowrap">
               {formatTaka(totalValue)}
@@ -96,7 +96,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
             onClick={() => setShowAIScanner(true)}
             className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast"
           >
-            <Plus size={16} /> {isBn ? "স্টক যোগ করুন" : "Add Stock"}
+            <Plus size={16} /> {isBn ? "Akorae Fa Ka Ho" : "Add Stock"}
           </button>
         </div>
       </div>
@@ -104,10 +104,10 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "Total Products", labelBn: "মোট পণ্য", value: tNum(products.length) },
-          { label: "In Stock", labelBn: "পর্যাপ্ত স্টক", value: tNum(products.filter(i => i.status === "in-stock").length) },
-          { label: "Low Stock Alert", labelBn: "কম স্টক সতর্কতা", value: tNum(products.filter(i => i.status === "low-stock").length) },
-          { label: "Out of Stock", labelBn: "স্টক শূন্য", value: tNum(products.filter(i => i.status === "out-of-stock").length) },
+          { label: "Total Products", labelBn: "Nyinaa Nnoɔma", value: tNum(products.length) },
+          { label: "In Stock", labelBn: "Akorae Wɔ Hɔ", value: tNum(products.filter(i => i.status === "in-stock").length) },
+          { label: "Low Stock Alert", labelBn: "Akorae Aka Kakra সতর্কতা", value: tNum(products.filter(i => i.status === "low-stock").length) },
+          { label: "Out of Stock", labelBn: "Akorae শূন্য", value: tNum(products.filter(i => i.status === "out-of-stock").length) },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-2xl p-4 shadow-sm border border-nv-200">
             <div className="text-xs text-ink/70 font-medium mb-1">{isBn ? s.labelBn : s.label}</div>
@@ -121,7 +121,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
         {/* Category Stock Level Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-nv-200 p-5 flex flex-col justify-between">
           <h3 className="font-display font-bold text-ink text-sm mb-3">
-            {isBn ? "ক্যাটাগরি অনুযায়ী স্টক পরিমাণ" : "Stock by Category (Quantity)"}
+            {isBn ? "ক্যাটাগরি অনুযায়ী Akorae পরিমাণ" : "Stock by Category (Quantity)"}
           </h3>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
@@ -138,8 +138,8 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
         {/* Low Stock Alerts */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-nv-200 overflow-hidden flex flex-col">
           <div className="flex items-center justify-between p-4 border-b border-nv-100">
-            <h3 className="font-display font-bold text-ink text-sm">{isBn ? "জরুরি স্টক সতর্কতা" : "Low Stock Alerts"}</h3>
-            <span className="text-xs font-bold px-2 py-0.5 bg-red-100 text-ink rounded-full">{tNum(lowItems.length)} {isBn ? "টি পণ্য" : "items"}</span>
+            <h3 className="font-display font-bold text-ink text-sm">{isBn ? "Ntɛmntɛm Akorae সতর্কতা" : "Low Stock Alerts"}</h3>
+            <span className="text-xs font-bold px-2 py-0.5 bg-red-100 text-ink rounded-full">{tNum(lowItems.length)} {isBn ? "nnoɔma" : "items"}</span>
           </div>
 
           <div className="divide-y divide-nv-100 overflow-y-auto max-h-60">
@@ -154,7 +154,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`num font-bold text-sm ${item.stock === 0 ? "text-ink font-extrabold" : "text-ink"}`}>
-                    {tNum(item.stock)} {isBn ? "টি বাকি" : "pcs"}
+                    {tNum(item.stock)} {isBn ? "টি Aka" : "pcs"}
                   </span>
                   <button
                     onClick={() => {
@@ -164,14 +164,14 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                     }}
                     className="px-3 py-1.5 bg-em-50 text-ink hover:bg-em-100 rounded-lg text-xs font-bold transition-fast shadow-2xs"
                   >
-                    {isBn ? "স্টক যোগ" : "Add Stock"}
+                    {isBn ? "Akorae Ka ho" : "Add Stock"}
                   </button>
                 </div>
               </div>
             ))}
             {lowItems.length === 0 && (
               <div className="p-8 text-center text-ink text-xs font-medium">
-                {isBn ? "সব পণ্যের স্টক পর্যাপ্ত আছে!" : "All products have adequate stock levels!"}
+                {isBn ? "Nnoɔma Nyinaaের Akorae পর্যাপ্ত আছে!" : "All products have adequate stock levels!"}
               </div>
             )}
           </div>
@@ -187,7 +187,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
               value={search}
               onChange={e => setSearch(e.target.value)}
               type="text"
-              placeholder={isBn ? "পণ্য বা SKU দিয়ে খুঁজুন..." : "Search inventory..."}
+              placeholder={isBn ? "Nnoɔma বা SKU দিয়ে Hwehwɛ..." : "Search inventory..."}
               className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-nv-50 border border-nv-200 rounded-xl focus:bg-white"
             />
           </div>
@@ -197,12 +197,12 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-nv-50 border-b border-nv-200">
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "পণ্য" : "Product"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Nnoɔma" : "Product"}</th>
                 <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "ক্যাটাগরি" : "Category"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান স্টক" : "Current Stock"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "একক মূল্য" : "Unit Price"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "স্টক মূল্যায়ন" : "Total Valuation"}</th>
-                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "স্টক সমন্বয়" : "Action"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "বর্তমান Akorae" : "Current Stock"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Unit মূল্য" : "Unit Price"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap">{isBn ? "Akorae মূল্যায়ন" : "Total Valuation"}</th>
+                <th className="px-4 py-3 font-bold text-ink whitespace-nowrap text-right">{isBn ? "Akorae সমন্বয়" : "Action"}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-nv-100">
@@ -234,7 +234,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                       }}
                       className="px-3 py-1.5 bg-nv-100 hover:bg-em-100 text-ink hover:text-ink rounded-lg text-xs font-semibold transition-fast"
                     >
-                      {isBn ? "স্টক সমন্বয়" : "Adjust Stock"}
+                      {isBn ? "Akorae সমন্বয়" : "Adjust Stock"}
                     </button>
                   </td>
                 </tr>
@@ -249,7 +249,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "স্টক সমন্বয়" : "Adjust Inventory"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Akorae সমন্বয়" : "Adjust Inventory"}</h3>
               <button onClick={() => setSelectedProduct(null)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -270,7 +270,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                     className={`py-2 rounded-xl text-xs font-bold border transition-fast flex items-center justify-center gap-1
                       ${adjustType === "in" ? "bg-em-700 text-white border-transparent" : "border-nv-200 text-ink bg-white"}`}
                   >
-                    <Plus size={14} /> {isBn ? "স্টক যোগ (In)" : "Add Stock"}
+                    <Plus size={14} /> {isBn ? "Akorae Ka ho (In)" : "Add Stock"}
                   </button>
                   <button
                     type="button"
@@ -284,7 +284,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিমাণ (পিস)" : "Quantity"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Dodoɔ (Pcs)" : "Quantity"} *</label>
                 <input
                   type="number"
                   required
@@ -302,7 +302,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                   type="text"
                   value={adjustReason}
                   onChange={e => setAdjustReason(e.target.value)}
-                  placeholder={isBn ? "যেমন: নতুন চালান বা মেয়াদোত্তীর্ণ..." : "e.g. Received new shipment"}
+                  placeholder={isBn ? "যেমন: Otɔfo Foforɔ চালান বা মেয়াদোত্তীর্ণ..." : "e.g. Received new shipment"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
@@ -313,7 +313,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                   onClick={() => setSelectedProduct(null)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
@@ -332,7 +332,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl border border-nv-200 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-nv-100">
-              <h3 className="font-bold text-ink text-base">{isBn ? "স্টক যোগ করুন" : "Add Stock"}</h3>
+              <h3 className="font-bold text-ink text-base">{isBn ? "Akorae Fa Ka Ho" : "Add Stock"}</h3>
               <button onClick={() => setShowAddStockModal(false)} className="text-ink hover:text-ink">
                 <X size={18} />
               </button>
@@ -355,7 +355,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                     {isBn ? "ক্যামেরা দিয়ে প্যাকেট স্ক্যান করুন" : "Scan packet with camera"}
                   </div>
                   <div className="text-[10px] text-ink/60">
-                    {isBn ? "পণ্য চিহ্নিত করে স্বয়ংক্রিয় স্টক ইন হবে" : "Instant product recognition & stock in"}
+                    {isBn ? "Nnoɔma চিহ্নিত করে স্বয়ংক্রিয় Akorae ইন হবে" : "Instant product recognition & stock in"}
                   </div>
                 </div>
               </div>
@@ -364,7 +364,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
 
             <form onSubmit={handleAddStockSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পণ্য নির্বাচন" : "Product"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Nnoɔma নির্বাচন" : "Product"} *</label>
                 <select
                   value={addStockProductId}
                   onChange={e => setAddStockProductId(Number(e.target.value))}
@@ -379,7 +379,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
               </div>
 
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "পরিমাণ (পিস)" : "Quantity to Add"} *</label>
+                <label className="block font-medium text-ink mb-1">{isBn ? "Dodoɔ (Pcs)" : "Quantity to Add"} *</label>
                 <input
                   type="number"
                   required
@@ -397,7 +397,7 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                   type="text"
                   value={addStockReason}
                   onChange={e => setAddStockReason(e.target.value)}
-                  placeholder={isBn ? "যেমন: নতুন চালান গ্রহণ" : "e.g. Received new shipment"}
+                  placeholder={isBn ? "যেমন: Otɔfo Foforɔ চালান গ্রহণ" : "e.g. Received new shipment"}
                   className="w-full border border-nv-200 rounded-xl px-3 py-2 focus:border-em-500"
                 />
               </div>
@@ -408,13 +408,13 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                   onClick={() => setShowAddStockModal(false)}
                   className="flex-1 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50"
                 >
-                  {isBn ? "বাতিল" : "Cancel"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 bg-em-600 hover:bg-em-700 text-white rounded-xl font-bold shadow-md"
                 >
-                  {isBn ? "স্টক যোগ করুন" : "Add Stock"}
+                  {isBn ? "Akorae Fa Ka Ho" : "Add Stock"}
                 </button>
               </div>
             </form>

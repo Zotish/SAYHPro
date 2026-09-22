@@ -32,17 +32,17 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
 
   // Chart data for weekly trend
   const salesTrendData = [
-    { day: "Mon", dayBn: "সোম", sales: 42000, profit: 12000 },
-    { day: "Tue", dayBn: "মঙ্গল", sales: 38000, profit: 10500 },
-    { day: "Wed", dayBn: "বুধ", sales: 55000, profit: 18000 },
-    { day: "Thu", dayBn: "বৃহঃ", sales: 31000, profit: 8900 },
-    { day: "Fri", dayBn: "শুক্র", sales: 62000, profit: 21000 },
-    { day: "Sat", dayBn: "শনি", sales: 48000, profit: 15400 },
+    { day: "Mon", dayBn: "Dwo", sales: 42000, profit: 12000 },
+    { day: "Tue", dayBn: "Bena", sales: 38000, profit: 10500 },
+    { day: "Wed", dayBn: "Wuku", sales: 55000, profit: 18000 },
+    { day: "Thu", dayBn: "Yawo", sales: 31000, profit: 8900 },
+    { day: "Fri", dayBn: "Efi", sales: 62000, profit: 21000 },
+    { day: "Sat", dayBn: "Meme", sales: 48000, profit: 15400 },
     { day: "Sun", dayBn: "রবি", sales: income || 51200, profit: Math.abs(profit) || 16200 },
   ];
 
   const categoryAnalytics = [
-    { name: isBn ? "মুদি ও খাদ্যপণ্য" : "Grocery & Staples", percent: 45, color: "bg-em-600" },
+    { name: isBn ? "Nnuane & ProvisionsNnoɔma" : "Grocery & Staples", percent: 45, color: "bg-em-600" },
     { name: isBn ? "প্রসাধন ও স্বাস্থ্য" : "Personal Care", percent: 28, color: "bg-amber-500" },
     { name: isBn ? "দুগ্ধজাত ও পানীয়" : "Dairy & Beverages", percent: 27, color: "bg-ac-600" },
   ];
@@ -66,8 +66,8 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <button
           onClick={handleBack}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-nv-100 hover:bg-nv-200 active:bg-nv-300 flex items-center justify-center text-ink transition-colors flex-shrink-0 cursor-pointer"
-          title={isBn ? "পেছনে যান" : "Go Back"}
-          aria-label={isBn ? "পেছনে যান" : "Go Back"}
+          title={isBn ? "San Kɔ Akyi" : "Go Back"}
+          aria-label={isBn ? "San Kɔ Akyi" : "Go Back"}
         >
           <ArrowLeft size={20} />
         </button>
@@ -75,8 +75,8 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <button
           onClick={handleBack}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-nv-100 hover:bg-nv-200 active:bg-nv-300 flex items-center justify-center text-ink transition-colors flex-shrink-0 cursor-pointer"
-          title={isBn ? "বন্ধ করুন" : "Close"}
-          aria-label={isBn ? "বন্ধ করুন" : "Close"}
+          title={isBn ? "To Mu" : "Close"}
+          aria-label={isBn ? "To Mu" : "Close"}
         >
           <X size={19} />
         </button>
@@ -99,7 +99,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
             onClick={() => setScreen("advisory")}
             className="hidden sm:flex text-xs font-bold text-em-700 hover:text-em-800 items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-em-50 transition-colors"
           >
-            <span>{isBn ? "ক্রয় পরামর্শ" : "Buy Advisory"}</span>
+            <span>{isBn ? "Nnoɔma a Wɔatɔ পরামর্শ" : "Buy Advisory"}</span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -107,12 +107,12 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         {/* Period Filter Buttons */}
         <div className="flex items-center gap-2 pt-2.5 border-t border-em-100/80 flex-wrap">
           <span className="text-xs font-semibold text-ink/70 mr-1">
-            {isBn ? "সময়কাল:" : "Period:"}
+            {isBn ? "সময়Ɔkyena:" : "Period:"}
           </span>
           {[
-            { id: "day" as const, label: "Today", labelBn: "আজ" },
-            { id: "week" as const, label: "7 Days", labelBn: "৭ দিন" },
-            { id: "month" as const, label: "30 Days", labelBn: "৩০ দিন" },
+            { id: "day" as const, label: "Today", labelBn: "Ɛnnɛ" },
+            { id: "week" as const, label: "7 Days", labelBn: "৭ Nna" },
+            { id: "month" as const, label: "30 Days", labelBn: "৩০ Nna" },
           ].map(p => (
             <button
               key={p.id}
@@ -133,7 +133,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="p-3.5 sm:p-4 bg-white rounded-2xl border border-nv-200 shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-            <span className="font-semibold">{isBn ? "মোট বিক্রয়" : "Total Revenue"}</span>
+            <span className="font-semibold">{isBn ? "Nyinaa Tɔn" : "Total Revenue"}</span>
             <span className="text-[10px] sm:text-xs font-bold text-em-700 bg-em-50 px-1.5 py-0.5 rounded-md">
               +১৮.৪%
             </span>
@@ -166,7 +166,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
 
         <div className="p-3.5 sm:p-4 bg-white rounded-2xl border border-nv-200 shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-ink/70 mb-1">
-            <span className="font-semibold">{isBn ? "বাকি অনুপাত" : "Dues Ratio"}</span>
+            <span className="font-semibold">{isBn ? "Aka অনুপাত" : "Dues Ratio"}</span>
             <span className="text-[10px] sm:text-xs font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-md">
               {isBn ? "৮৪% আদায়" : "84% Collected"}
             </span>
@@ -181,10 +181,10 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
       <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
         <div className="flex items-center justify-between">
           <span className="font-display text-sm font-bold text-ink">
-            {isBn ? "Dapɛn Tɔn Nnoɔma (GH₵)" : "Weekly Revenue Trend (GH₵)"}
+            {isBn ? "Dapɛn Tɔn Nnoɔma (₵)" : "Weekly Revenue Trend (₵)"}
           </span>
           <span className="text-xs text-ink/60 font-medium">
-            {isBn ? "গত ৭ দিনের রেকর্ড" : "Last 7 days"}
+            {isBn ? "গত ৭ Nnaের রেকর্ড" : "Last 7 days"}
           </span>
         </div>
 
@@ -204,7 +204,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
                 tickLine={false}
               />
               <Tooltip
-                formatter={(v: any) => [formatTaka(Number(v)), isBn ? "বিক্রয়" : "Sales"]}
+                formatter={(v: any) => [formatTaka(Number(v)), isBn ? "Tɔn" : "Sales"]}
                 contentStyle={{ backgroundColor: "#1e293b", borderColor: "#334155", borderRadius: "12px", color: "#fff" }}
               />
               <Bar dataKey="sales" fill="#16A34A" radius={[5, 5, 0, 0]} />
@@ -219,7 +219,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <span className="font-display text-sm font-bold text-ink">
-              {isBn ? "ক্যাটাগরি অনুযায়ী বিক্রয় অবদান" : "Category Sales Contribution"}
+              {isBn ? "ক্যাটাগরি অনুযায়ী Tɔn অবদান" : "Category Sales Contribution"}
             </span>
             <span className="text-xs text-em-700 font-bold">{tNum(100)}%</span>
           </div>
@@ -243,7 +243,7 @@ export default function BusinessAnalytics({ lang, setScreen, onBack }: BusinessA
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-nv-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <span className="font-display text-sm font-bold text-ink">
-              {isBn ? "শীর্ষ বিক্রিত পণ্যসমূহ" : "Top Performing Products"}
+              {isBn ? "শীর্ষ বিক্রিত Nnoɔmaসমূহ" : "Top Performing Products"}
             </span>
             <span className="text-xs text-ink/60">{isBn ? "চাহিদা অনুযায়ী" : "By volume"}</span>
           </div>
