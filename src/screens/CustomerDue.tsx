@@ -11,7 +11,7 @@ interface CustomerDueProps {
 }
 
 export default function CustomerDue({ lang, setScreen, onBack }: CustomerDueProps) {
-  const { customers, recordCustomerPayment, addCustomer, accounts, tNum, formatTaka } = useApp();
+  const { customers, recordCustomerPayment, addCustomer, accounts, settings, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
   const [search, setSearch] = useState("");
