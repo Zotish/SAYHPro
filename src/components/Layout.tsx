@@ -84,8 +84,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
     { id: "reselling", icon: Store, label: "Reselling Network", labelBn: "Tɔ Na Tɔn / Reselling" },
     { id: "website", icon: Globe2, label: "Online Storefront", labelBn: "Intanɛte Dukan" },
     { id: "alerts", icon: ShieldAlert, label: "Monitoring & Alerts", labelBn: "Ahwɛso & Kɔkɔbɔ" },
-    { id: "products", icon: Package, label: "Products", labelBn: "Nnoɔma (Products)", badge: products.length },
-    { id: "inventory", icon: Boxes, label: "Inventory", labelBn: "Akorae (Stock)", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-ac-600" },
+    { id: "inventory", icon: Boxes, label: "Stock", labelBn: "Akorae (Stock)", badge: lowStockCount > 0 ? lowStockCount : undefined, badgeColor: "bg-ac-600" },
     { id: "customers", icon: Users, label: "Customers", labelBn: "Atɔfoɔ (Customers)", badge: customers.length },
     { id: "dues", icon: CreditCard, label: "Customer Dues", labelBn: "Aka / Bosea (Dues)", badge: dueCustomersCount > 0 ? dueCustomersCount : undefined, badgeColor: "bg-red-600" },
     { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "Ka a Wɔabɔ (Expenses)" },
@@ -203,7 +202,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
           {navItems.map(item => {
             const isActive =
               currentScreen === item.id ||
-              (item.id === "products" && currentScreen === "addproduct") ||
+              (item.id === "inventory" && (currentScreen === "products" || currentScreen === "addproduct")) ||
               (item.id === "dues" && currentScreen === "customerdetail") ||
               (item.id === "reports" && currentScreen === "profitloss") ||
               (item.id === "pos" && currentScreen === "invoice");
@@ -495,7 +494,7 @@ export default function Layout({ currentScreen, setScreen, children, onLogout, o
               const isActive = !mobileMoreOpen && (
                 item.id === "dashboard" ? currentScreen === "dashboard" :
                 item.id === "pos" ? (currentScreen === "pos" || currentScreen === "sales") :
-                item.id === "inventory" ? (currentScreen === "inventory" || currentScreen === "products") :
+                item.id === "inventory" ? (currentScreen === "inventory" || currentScreen === "products" || currentScreen === "addproduct") :
                 item.id === "dues" ? (currentScreen === "dues" || currentScreen === "customerdetail") :
                 false
               );

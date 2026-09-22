@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { useApp } from "../context/AppContext";
 import BusinessRatingModal from "../components/BusinessRatingModal";
+import ProductThumb from "../components/ProductThumb";
 
 interface DashboardProps {
   lang: "en" | "bn";
@@ -451,7 +452,12 @@ export default function Dashboard({ lang, setScreen }: DashboardProps) {
               {(advisorySubTab === "urgent" ? urgentAdvisory : soonAdvisory).map(({ product: p, daysOfStockLeft, suggestedBuyQty, tier }) => (
                 <div key={p.id} className="py-2.5 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-xl flex-shrink-0">{p.image || "📦"}</span>
+                    <ProductThumb
+                      src={p.image}
+                      alt={p.name}
+                      className="w-9 h-9 rounded-xl object-contain bg-nv-50 p-0.5 border border-nv-200/60 flex-shrink-0"
+                      sizeClass="text-base"
+                    />
                     <div className="min-w-0">
                       <div className="text-xs font-medium text-ink truncate">{isBn ? p.nameBn : p.name}</div>
                       <div className="text-[10px] text-ink/60">

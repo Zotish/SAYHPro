@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useApp, Product, CartItem, cleanProductName, cleanProductNameBn } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import ProductThumb from "../components/ProductThumb";
 
 interface MobilePOSProps {
   lang: "en" | "bn";
@@ -274,7 +275,12 @@ export default function MobilePOS({ lang, setScreen }: MobilePOSProps) {
             {cart.map(item => (
               <div key={item.id} className="flex items-center justify-between p-3 bg-white rounded-2xl border border-nv-200 shadow-2xs">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="text-2xl">{item.image || "📦"}</span>
+                  <ProductThumb
+                    src={item.image}
+                    alt={item.name}
+                    className="w-10 h-10 rounded-xl object-contain bg-nv-50 p-1 border border-nv-200/60 flex-shrink-0"
+                    sizeClass="text-xl"
+                  />
                   <div className="min-w-0">
                     <div className="text-xs font-bold text-ink truncate">{isBn ? cleanProductNameBn(item.nameBn) : cleanProductName(item.name)}</div>
                     <div className="num text-[11px] text-ink">{formatTaka(item.price)} each</div>

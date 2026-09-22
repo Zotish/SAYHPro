@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, X, Package, Users, Receipt, LayoutDashboard, Scan, ShoppingCart, Truck, CreditCard, Wallet, UserCheck, BarChart2, Settings, ArrowRight, Sparkles, MessageSquare, Landmark, Store, Globe2, ShieldAlert } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import ProductThumb from "./ProductThumb";
 
 interface GlobalSearchModalProps {
   isOpen: boolean;
@@ -65,9 +66,8 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
     { id: "website", label: "No-Code Website & Online Storefront Builder", labelBn: "Intanɛte Dukan & Wɛbsaet Si", icon: Globe2 },
     { id: "alerts", label: "Monitoring & Smart Business Alert System", labelBn: "Nhwɛsoɔ & Dukan Ho Kɔkɔbɔ", icon: ShieldAlert },
     { id: "pos", label: "POS / New Sale", labelBn: "POS / Tɔn Nnoɔma", icon: Scan },
-    { id: "products", label: "Products Catalog", labelBn: "Nnoɔma Din", icon: Package },
+    { id: "inventory", label: "Stock / Inventory", labelBn: "Akorae (Stock)", icon: Package },
     { id: "dues", label: "Customer Dues", labelBn: "Atɔfoɔ Aka Nhoma", icon: CreditCard },
-    { id: "inventory", label: "Inventory Stock", labelBn: "Akorae", icon: Package },
     { id: "expenses", label: "Expenses", labelBn: "Ka", icon: Receipt },
     { id: "purchases", label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ", icon: Truck },
     { id: "customers", label: "Customers", labelBn: "Otɔfoɔ", icon: Users },
@@ -127,13 +127,16 @@ export default function GlobalSearchModal({ isOpen, onClose, setScreen }: Global
                 {filteredProducts.map(p => (
                   <button
                     key={p.id}
-                    onClick={() => navigateTo("products")}
+                    onClick={() => navigateTo("inventory")}
                     className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nv-100 transition-fast text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg text-xl flex items-center justify-center">
-                        {p.image || "📦"}
-                      </div>
+                      <ProductThumb
+                        src={p.image}
+                        alt={p.name}
+                        className="w-8 h-8 rounded-lg object-contain bg-nv-50 p-0.5 border border-nv-200/60 flex-shrink-0"
+                        sizeClass="text-base"
+                      />
                       <div>
                         <div className="text-sm font-semibold text-ink group-hover:text-ink">
                           {isBn ? p.nameBn : p.name}

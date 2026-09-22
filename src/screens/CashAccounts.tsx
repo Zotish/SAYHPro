@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown, ArrowLeft, Receipt, ChevronRight, Eye, Calendar, User, FileText, CheckCircle2, DollarSign } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowRightLeft, Plus, X, Wallet, CheckCircle, TrendingUp, TrendingDown, ArrowLeft, Receipt, ChevronRight, Eye, Calendar, User, FileText, CheckCircle2, DollarSign, Sparkles } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, Sale } from "../context/AppContext";
 import { toast } from "../components/Toast";
@@ -20,7 +20,7 @@ const incomeCategories = [
 ];
 
 export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsProps) {
-  const { accounts, transactions, sales, setCurrentInvoice, addCashDeposit, transferCash, tNum, formatTaka } = useApp();
+  const { accounts, transactions, sales, setCurrentInvoice, addCashDeposit, transferCash, tNum, formatTaka, lastSaleIncome } = useApp();
   const isBn = lang === "bn";
 
   const [showModal, setShowModal] = useState<"add" | "transfer" | "income" | null>(null);
@@ -33,6 +33,25 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
   const [incomeAmount, setIncomeAmount] = useState("");
   const [incomeAccountId, setIncomeAccountId] = useState(accounts[0]?.id || "cash");
   const [incomeNote, setIncomeNote] = useState("");
+
+  // Flow structure auto-fill: When income modal opens, auto-fill from latest POS sale
+  const openIncomeModal = () => {
+    if (lastSaleIncome && lastSaleIncome > 0 && !incomeAmount) {
+      setIncomeAmount(lastSaleIncome.toString());
+      setIncomeSource(isBn ? "POS Nkitahodie Tɔn" : "POS Sale Income");
+      setIncomeCategory("Sales");
+    }
+    setShowModal("income");
+  };
+
+  useEffect(() => {
+    if (showModal === "income" && lastSaleIncome && lastSaleIncome > 0 && !incomeAmount) {
+      setIncomeAmount(lastSaleIncome.toString());
+      if (!incomeSource) {
+        setIncomeSource(isBn ? "POS Nkitahodie Tɔn" : "POS Sale Income");
+      }
+    }
+  }, [showModal, lastSaleIncome, isBn]);
 
   // Add deposit state
   const [depositAccId, setDepositAccId] = useState(accounts[0]?.id || "cash");
@@ -122,7 +141,7 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
         )}
         <div className="ml-auto flex items-center gap-2 flex-wrap justify-end">
           <button
-            onClick={() => setShowModal("income")}
+            onClick={openIncomeModal}
             className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-2xs transition-fast"
           >
             <Receipt size={14} /> {isBn ? "+ Sika Foforɔ Kyerɛw" : "+ Income Entry"}
@@ -407,8 +426,39 @@ export default function CashAccounts({ lang, onBack, setScreen }: CashAccountsPr
                 />
               </div>
 
+              {/* Auto-fill banner from POS sale flowchart */}
+              {lastSaleIncome && (
+                <div className="flex items-center justify-between p-2.5 bg-em-50 border border-em-200 rounded-xl text-xs text-em-900">
+                  <div className="flex items-center gap-1.5 min-w-0 font-medium">
+                    <Sparkles size={14} className="text-em-700 flex-shrink-0" />
+                    <span className="truncate">
+                      {isBn
+                        ? `POS Tɔn Nkitahodie Sika: ₵${tNum(lastSaleIncome)}`
+                        : `Latest POS Sale Income: ₵${lastSaleIncome}`}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIncomeAmount(lastSaleIncome.toString());
+                      if (!incomeSource) setIncomeSource(isBn ? "POS Nkitahodie Tɔn" : "POS Sale Income");
+                    }}
+                    className="text-[11px] font-bold text-em-800 bg-em-100 hover:bg-em-200 px-2 py-0.5 rounded-md cursor-pointer transition-colors flex-shrink-0"
+                  >
+                    {isBn ? "Fa Hyɛ Mu" : "Auto-fill"}
+                  </button>
+                </div>
+              )}
+
               <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Sika Dodoɔ (₵)" : "Income Amount (₵)"} *</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block font-medium text-ink">{isBn ? "Sika Dodoɔ (₵)" : "Income Amount (₵)"} *</label>
+                  {lastSaleIncome && Number(incomeAmount) === lastSaleIncome && (
+                    <span className="text-[10px] bg-em-100 text-em-800 font-bold px-1.5 py-0.5 rounded">
+                      ✓ {isBn ? "Auto-filled" : "Auto-filled from POS"}
+                    </span>
+                  )}
+                </div>
                 <input
                   type="number"
                   required

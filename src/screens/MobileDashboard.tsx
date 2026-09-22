@@ -6,7 +6,7 @@ import {
   Truck, BarChart2, Home, QrCode, Menu, TrendingUp, TrendingDown,
   Landmark, MessageSquare, Store, Globe2, ShieldAlert, UserCheck, Settings,
   Star, ShieldCheck, MessageCircle, AlertTriangle, Sparkles, ChevronRight,
-  FileText, Building2
+  FileText, Building2, Box
 } from "lucide-react";
 import { useApp, toBnDigits } from "../context/AppContext";
 import BusinessRatingModal from "../components/BusinessRatingModal";
@@ -100,7 +100,13 @@ export default function MobileDashboard({ lang, setScreen }: MobileProps) {
   // Core services: The 6 highest-frequency, most critical daily operations for merchants
   const services: ServiceItem[] = [
     { id: "purchases", icon: ShoppingBag, label: "Purchases", labelBn: "Nnoɔma a Wɔatɔ" },
-    { id: "products", icon: Package, label: "Products", labelBn: "Nnoɔma Din" },
+    {
+      id: "advisory",
+      icon: Box,
+      label: "Buy Advisory",
+      labelBn: "Afotu / Advisory",
+      badge: urgentAdvisory.length > 0 ? urgentAdvisory.length : undefined,
+    },
     { id: "cash", icon: Wallet, label: "Cash Book", labelBn: "Sika Kyerɛwtohɔ" },
     { id: "expenses", icon: Receipt, label: "Expenses", labelBn: "Ka Kyerɛwtohɔ" },
     { id: "customers", icon: Users, label: "Customers", labelBn: "Atɔfoɔ Din" },

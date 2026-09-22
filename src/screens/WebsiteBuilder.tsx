@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import ProductThumb from "../components/ProductThumb";
 
 interface WebsiteBuilderProps {
   lang: "en" | "bn";
@@ -395,8 +396,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                 <div className="grid grid-cols-2 gap-2.5">
                   {products.slice(0, 4).map(p => (
                     <div key={p.id} className="bg-white rounded-2xl p-2.5 border border-nv-200 shadow-2xs flex flex-col justify-between">
-                      <div className="w-full h-16 rounded-xl bg-nv-50 flex items-center justify-center text-2xl mb-1.5">
-                        {p.image}
+                      <div className="w-full h-16 rounded-xl bg-nv-50 flex items-center justify-center text-2xl mb-1.5 overflow-hidden p-1">
+                        <ProductThumb src={p.image} alt={p.name} className="w-full h-full object-contain" sizeClass="text-2xl" />
                       </div>
                       <div className="font-bold text-[11px] text-ink line-clamp-1">{isBn ? p.nameBn : p.name}</div>
                       <div className="text-[10px] font-extrabold text-ink mt-1">{formatTaka(p.sellPrice)}</div>
@@ -573,8 +574,8 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
                       className="bg-white rounded-2xl p-3 border border-nv-200 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between group"
                     >
                       <div>
-                        <div className="w-full h-28 rounded-xl bg-nv-50 flex items-center justify-center text-4xl mb-2.5 group-hover:scale-105 transition-transform">
-                          {p.image}
+                        <div className="w-full h-28 rounded-xl bg-nv-50 flex items-center justify-center text-4xl mb-2.5 group-hover:scale-105 transition-transform overflow-hidden p-2">
+                          <ProductThumb src={p.image} alt={p.name} className="w-full h-full object-contain" sizeClass="text-4xl" />
                         </div>
                         <div className="font-bold text-xs sm:text-sm text-ink line-clamp-1">
                           {isBn ? p.nameBn || p.name : p.name}
@@ -747,7 +748,7 @@ export default function WebsiteBuilder({ lang, setScreen }: WebsiteBuilderProps)
               {cart.map(item => (
                 <div key={item.id} className="pt-2 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-lg">{item.image}</span>
+                    <ProductThumb src={item.image} alt={item.name} className="w-7 h-7 rounded-lg object-contain bg-nv-50 p-0.5 border border-nv-200/60 flex-shrink-0" sizeClass="text-sm" />
                     <span className="font-semibold text-ink truncate">{isBn ? item.nameBn || item.name : item.name}</span>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">

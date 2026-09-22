@@ -3,6 +3,8 @@ import { Search, Download, AlertTriangle, X, RotateCcw, Plus, Minus, ArrowRight,
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useApp, Product } from "../context/AppContext";
 import AIProductScannerModal from "../components/AIProductScannerModal";
+import ProductThumb from "../components/ProductThumb";
+import { toast } from "../components/Toast";
 
 interface InventoryProps {
   lang: "en" | "bn";
@@ -65,6 +67,37 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
     setAddStockReason("");
   };
 
+  const handleExportCSV = () => {
+    const csvRows = [
+      ["ID", "Name", "SKU", "Category", "Buy Price", "Sell Price", "Stock", "Unit", "Valuation"],
+      ...products.map(p => [
+        p.id,
+        p.name,
+        p.sku,
+        p.category,
+        p.buyPrice,
+        p.sellPrice,
+        p.stock,
+        p.unit,
+        p.sellPrice * p.stock,
+      ]),
+    ];
+    const csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `SAYHPro_Stock_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      type: "success",
+      title: isBn ? "Akorae Export Awie!" : "Stock Exported!",
+      message: `${products.length} items saved to CSV.`,
+    });
+  };
+
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header — the back arrow and the valuation+button group are real
@@ -81,20 +114,30 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
             <ArrowLeft size={18} />
           </button>
         )}
-        <div className="ml-auto flex items-center gap-3 min-w-0">
+        <div className="ml-auto flex items-center gap-2 sm:gap-3 min-w-0">
           {/* Label truncates first if the row is tight; the amount itself
               never does — it's the one number on this row that matters. */}
           <div className="flex items-baseline gap-1 min-w-0">
-            <span className="truncate text-ink text-xs sm:text-sm">
+            <span className="hidden sm:inline truncate text-ink text-xs sm:text-sm">
               {isBn ? "Nnoɔma Boɔ Nyinaa: " : "Total Valuation: "}
+            </span>
+            <span className="sm:hidden text-ink text-xs">
+              {isBn ? "Boɔ: " : "Val: "}
             </span>
             <span className="num font-bold text-ink text-xs sm:text-sm flex-shrink-0 whitespace-nowrap">
               {formatTaka(totalValue)}
             </span>
           </div>
           <button
+            onClick={handleExportCSV}
+            className="flex items-center gap-1.5 px-3 py-2 border border-nv-200 rounded-xl text-xs sm:text-sm font-semibold text-ink bg-white hover:bg-nv-50 transition-fast shrink-0 cursor-pointer"
+          >
+            <Download size={15} />
+            <span>{isBn ? "Export" : "Export CSV"}</span>
+          </button>
+          <button
             onClick={() => setShowAIScanner(true)}
-            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast"
+            className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 bg-em-600 hover:bg-em-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-em-600/40 transition-fast cursor-pointer whitespace-nowrap"
           >
             <Plus size={16} /> {isBn ? "Akorae Fa Ka Ho" : "Add Stock"}
           </button>
@@ -146,7 +189,12 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
             {lowItems.map(item => (
               <div key={item.id} className="p-3.5 flex items-center justify-between gap-3 hover:bg-nv-50 transition-fast">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{item.image || "📦"}</span>
+                  <ProductThumb
+                    src={item.image}
+                    alt={item.name}
+                    className="w-10 h-10 rounded-xl object-contain bg-nv-50 p-1 border border-nv-200/70 flex-shrink-0"
+                    sizeClass="text-2xl"
+                  />
                   <div>
                     <div className="font-bold text-xs sm:text-sm text-ink">{isBn ? item.nameBn : item.name}</div>
                     <div className="text-[10px] text-ink font-mono">Min limit: {tNum(item.min)} pcs</div>
@@ -210,7 +258,12 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
                 <tr key={p.id} className="hover:bg-nv-50 transition-fast">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-2xl">{p.image || "📦"}</span>
+                      <ProductThumb
+                        src={p.image}
+                        alt={p.name}
+                        className="w-11 h-11 rounded-xl object-contain bg-nv-50 p-1 border border-nv-200/70 flex-shrink-0"
+                        sizeClass="text-2xl"
+                      />
                       <div>
                         <div className="font-bold text-ink">{isBn ? p.nameBn : p.name}</div>
                         <div className="text-[10px] text-ink font-mono">{p.sku}</div>
@@ -256,9 +309,17 @@ export default function Inventory({ lang, onBack }: InventoryProps) {
             </div>
 
             <form onSubmit={handleAdjustStockSubmit} className="space-y-3 text-xs sm:text-sm">
-              <div className="p-3 bg-nv-50 rounded-xl">
-                <div className="font-bold text-ink">{selectedProduct.name}</div>
-                <div className="text-xs text-ink">Current Stock: <span className="num font-bold text-ink">{tNum(selectedProduct.stock)}</span></div>
+              <div className="p-3 bg-nv-50 rounded-xl flex items-center gap-3">
+                <ProductThumb
+                  src={selectedProduct.image}
+                  alt={selectedProduct.name}
+                  className="w-10 h-10 rounded-lg object-contain bg-white p-0.5 border border-nv-200 flex-shrink-0"
+                  sizeClass="text-xl"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="font-bold text-ink truncate">{isBn ? selectedProduct.nameBn : selectedProduct.name}</div>
+                  <div className="text-xs text-ink">Current Stock: <span className="num font-bold text-ink">{tNum(selectedProduct.stock)}</span></div>
+                </div>
               </div>
 
               <div>

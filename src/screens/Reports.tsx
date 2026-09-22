@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import ProductThumb from "../components/ProductThumb";
 
 interface ReportsProps {
   lang: "en" | "bn";
@@ -693,7 +694,12 @@ export default function Reports({ lang, showPL, showTax, setScreen, onBack }: Re
                       >
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2.5">
-                            <span className="text-xl flex-shrink-0">{p.image || "📦"}</span>
+                            <ProductThumb
+                              src={p.image}
+                              alt={p.name}
+                              className="w-9 h-9 rounded-xl object-contain bg-nv-50 p-0.5 border border-nv-200/60 flex-shrink-0"
+                              sizeClass="text-base"
+                            />
                             <div>
                               <div className="font-bold text-ink">{isBn ? p.nameBn : p.name}</div>
                               <div className="text-[10px] text-ink/60 font-mono">

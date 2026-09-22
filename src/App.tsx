@@ -159,9 +159,7 @@ function MainApp() {
       case "sales":
         return <POS lang={lang} setScreen={setScreen} />;
       case "products":
-        return <Products lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "addproduct":
-        return <Products lang={lang} showAdd setScreen={setScreen} onBack={goBack} />;
       case "inventory":
         return <Inventory lang={lang} onBack={goBack} />;
       case "dues":
@@ -173,7 +171,7 @@ function MainApp() {
       case "suppliers":
         return <Suppliers lang={lang} setScreen={setScreen} onBack={goBack} />;
       case "purchases":
-        return <Purchases lang={lang} />;
+        return <Purchases lang={lang} onBack={goBack} />;
       case "expenses":
         return <Expenses lang={lang} onBack={goBack} />;
       case "cash":

@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { toast } from "../components/Toast";
+import ProductThumb from "../components/ProductThumb";
 
 interface ResellingProps {
   lang: "en" | "bn";
@@ -133,9 +134,12 @@ export default function Reselling({ lang, setScreen, onBack }: ResellingProps) {
           <div key={p.id} className="bg-white rounded-3xl p-5 shadow-sm border border-nv-200 hover:border-nv-300 transition-all flex flex-col justify-between space-y-4">
             <div>
               <div className="flex items-start justify-between mb-3">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-2xs border border-nv-100">
-                  {p.image}
-                </div>
+                <ProductThumb
+                  src={p.image}
+                  alt={p.name}
+                  className="w-14 h-14 rounded-2xl object-contain bg-nv-50 p-1 border border-nv-100 shadow-2xs flex-shrink-0"
+                  sizeClass="text-3xl"
+                />
                 <div className="flex flex-col items-end">
                   <span className="flex items-center gap-1 text-xs font-bold text-ink bg-ac-50 px-2 py-0.5 rounded-full">
                     <Star size={12} className="fill-amber-500" /> {tNum(p.rating)}

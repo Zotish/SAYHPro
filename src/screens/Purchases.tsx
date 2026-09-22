@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Plus, Search, ChevronDown, Calendar, Truck, CheckCircle, Clock, X, Trash2, ArrowRight } from "lucide-react";
+import { Plus, Search, ChevronDown, Calendar, Truck, CheckCircle, Clock, X, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import { toast } from "../components/Toast";
 
 interface PurchasesProps {
   lang: "en" | "bn";
+  onBack?: () => void;
 }
 
 const statusBadge = (status: string, isBn: boolean) => {
@@ -21,7 +23,7 @@ const statusBadge = (status: string, isBn: boolean) => {
   );
 };
 
-export default function Purchases({ lang }: PurchasesProps) {
+export default function Purchases({ lang, onBack }: PurchasesProps) {
   const { purchases, addPurchase, suppliers, products, accounts, tNum, formatTaka } = useApp();
   const isBn = lang === "bn";
 
@@ -64,6 +66,12 @@ export default function Purchases({ lang }: PurchasesProps) {
     setShowForm(false);
     setPaidAmount("");
     setInvoiceNo("");
+
+    toast({
+      type: "success",
+      title: isBn ? "Ntɔdeɛ No Akɔ!" : "Purchase Order Recorded!",
+      message: isBn ? `${items.length} nnoɔma aka akorae mu.` : `${items.length} item(s) added to inventory stock.`,
+    });
   };
 
   const filtered = purchases.filter(p =>
@@ -93,13 +101,24 @@ export default function Purchases({ lang }: PurchasesProps) {
   return (
     <div className="p-4 sm:p-6 space-y-5 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="flex justify-end">
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md"
-        >
-          <Plus size={16} /> {isBn ? "Purchase Order Foforɔ" : "New Purchase"}
-        </button>
+      <div className="flex items-center justify-between gap-3">
+        {onBack && (
+          <button
+            onClick={onBack}
+            aria-label={isBn ? "San Kɔ Akyi" : "Go back"}
+            className="lg:hidden flex-shrink-0 w-9 h-9 rounded-full bg-nv-100 flex items-center justify-center text-ink active:bg-nv-200 cursor-pointer"
+          >
+            <ArrowLeft size={18} />
+          </button>
+        )}
+        <div className="ml-auto">
+          <button
+            onClick={() => setShowForm(true)}
+            className="flex items-center gap-1.5 px-4 py-2 bg-em-700 hover:bg-em-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md cursor-pointer transition-colors"
+          >
+            <Plus size={16} /> {isBn ? "Purchase Order Foforɔ" : "New Purchase"}
+          </button>
+        </div>
       </div>
 
       {/* Summary KPI Cards */}
@@ -141,168 +160,196 @@ export default function Purchases({ lang }: PurchasesProps) {
         </div>
       </div>
 
-      {/* New Purchase Modal / Card */}
+      {/* New Purchase Modal Popup */}
       {showForm && (
-        <div className="bg-white rounded-3xl shadow-xl border border-nv-200 p-5 sm:p-6 animate-in fade-in zoom-in-95">
-          <div className="flex items-center justify-between pb-3 border-b border-nv-100 mb-4">
-            <div className="flex items-center gap-2">
-              <Truck size={20} className="text-ink" />
-              <h3 className="font-display font-bold text-ink text-base">{isBn ? "Kyerɛw Nnoɔma a Wɔatɔ Invois" : "Record Purchase Order"}</h3>
-            </div>
-            <button onClick={() => setShowForm(false)} className="text-ink hover:text-ink">
-              <X size={18} />
-            </button>
-          </div>
-
-          <form onSubmit={handleCreatePurchase} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
-              <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Agorɔfoɔ" : "Supplier"} *</label>
-                <select
-                  value={supplierName}
-                  onChange={e => setSupplierName(e.target.value)}
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500"
-                >
-                  {suppliers.map(s => <option key={s.id} value={s.name}>{s.name}</option>)}
-                </select>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div
+            className="fixed inset-0"
+            onClick={() => setShowForm(false)}
+            aria-hidden="true"
+          />
+          <div
+            className="relative bg-white rounded-3xl shadow-2xl border border-nv-200 w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 my-auto"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="px-5 py-4 sm:px-6 border-b border-nv-100 flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-2.5">
+                <Truck size={20} className="text-ink" />
+                <h3 className="font-display font-bold text-ink text-base sm:text-lg leading-tight">
+                  {isBn ? "Kyerɛw Nnoɔma a Wɔatɔ Invois" : "Record Purchase Order"}
+                </h3>
               </div>
-
-              <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Wura Invois Nɔma" : "Supplier Invoice No."}</label>
-                <input
-                  type="text"
-                  value={invoiceNo}
-                  onChange={e => setInvoiceNo(e.target.value)}
-                  placeholder="e.g. PRAN-9921"
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 font-mono focus:border-em-500"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-ink mb-1">{isBn ? "Da" : "Date"}</label>
-                <input
-                  type="date"
-                  value={purchaseDate}
-                  onChange={e => setPurchaseDate(e.target.value)}
-                  className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500"
-                />
-              </div>
+              <button
+                onClick={() => setShowForm(false)}
+                className="w-8 h-8 rounded-full bg-nv-100 hover:bg-nv-200 flex items-center justify-center text-ink transition-colors cursor-pointer"
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            {/* Line Items */}
-            <div className="space-y-2 pt-2 border-t border-nv-100">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-ink uppercase tracking-wider">{isBn ? "Nnoɔma (Bɛkɔ akorae mu ntɛm)" : "Products (Will auto-add to Stock)"}</span>
+            {/* Modal Scrollable Body */}
+            <form onSubmit={handleCreatePurchase} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
+                <div>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Agorɔfoɔ" : "Supplier"} *</label>
+                  <select
+                    value={supplierName}
+                    onChange={e => setSupplierName(e.target.value)}
+                    className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500 text-xs sm:text-sm"
+                  >
+                    {suppliers.map(s => <option key={s.id} value={s.name}>{s.name}</option>)}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Nnoɔma Wura Invois Nɔma" : "Supplier Invoice No."}</label>
+                  <input
+                    type="text"
+                    value={invoiceNo}
+                    onChange={e => setInvoiceNo(e.target.value)}
+                    placeholder="e.g. PRAN-9921"
+                    className="w-full border border-nv-200 rounded-xl px-3 py-2 font-mono focus:border-em-500 text-xs sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-ink mb-1">{isBn ? "Da" : "Date"}</label>
+                  <input
+                    type="date"
+                    value={purchaseDate}
+                    onChange={e => setPurchaseDate(e.target.value)}
+                    className="w-full border border-nv-200 rounded-xl px-3 py-2 bg-white focus:border-em-500 text-xs sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Line Items */}
+              <div className="space-y-2.5 pt-2 border-t border-nv-100">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] sm:text-xs font-bold text-ink uppercase tracking-wider">
+                    {isBn ? "Nnoɔma (Bɛkɔ akorae mu ntɛm)" : "Products (Will auto-add to Stock)"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={addItem}
+                    className="text-xs font-bold text-em-700 hover:text-em-800 hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus size={14} /> {isBn ? "Fa Nnoɔma Ka Ho" : "Add Item"}
+                  </button>
+                </div>
+
+                <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                  {items.map((item, idx) => (
+                    <div key={idx} className="bg-nv-50/80 p-2.5 sm:p-3 rounded-2xl border border-nv-200 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={item.product}
+                          onChange={e => {
+                            const val = e.target.value;
+                            const matched = products.find(p => p.name === val);
+                            setItems(prev => prev.map((it, i) => i === idx ? { ...it, product: val, cost: matched ? matched.buyPrice : it.cost } : it));
+                          }}
+                          className="flex-1 border border-nv-200 rounded-xl px-3 py-2 text-xs sm:text-sm bg-white font-medium text-ink focus:border-em-500"
+                        >
+                          {products.map(p => <option key={p.id} value={p.name}>{p.name}</option>)}
+                        </select>
+                        {items.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeItem(idx)}
+                            className="w-8 h-8 rounded-lg text-red-500 hover:bg-red-50 flex items-center justify-center flex-shrink-0 transition-colors cursor-pointer"
+                            title={isBn ? "Yi Fi Mu" : "Remove item"}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 items-center">
+                        <div>
+                          <span className="text-[10px] font-semibold text-ink/70 block mb-0.5">Qty</span>
+                          <input
+                            type="number"
+                            min="1"
+                            value={item.qty}
+                            onChange={e => setItems(prev => prev.map((it, i) => i === idx ? { ...it, qty: Number(e.target.value) } : it))}
+                            className="num w-full border border-nv-200 rounded-lg px-2.5 py-1.5 text-xs text-center bg-white font-semibold focus:border-em-500"
+                          />
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] font-semibold text-ink/70 block mb-0.5">Cost (₵/pc)</span>
+                          <input
+                            type="number"
+                            min="0"
+                            value={item.cost}
+                            onChange={e => setItems(prev => prev.map((it, i) => i === idx ? { ...it, cost: Number(e.target.value) } : it))}
+                            className="num w-full border border-nv-200 rounded-lg px-2.5 py-1.5 text-xs text-right bg-white font-semibold focus:border-em-500"
+                          />
+                        </div>
+
+                        <div className="text-right">
+                          <span className="text-[10px] font-semibold text-ink/70 block mb-0.5">Subtotal</span>
+                          <span className="num font-bold text-xs sm:text-sm text-ink block py-1">
+                            {formatTaka(item.qty * item.cost)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Payment Summary Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 bg-nv-50/90 rounded-2xl border border-nv-200 text-xs sm:text-sm">
+                <div>
+                  <span className="block text-ink/70 text-[11px] font-medium">{isBn ? "Nyinaa Boɔ a Wɔtɔeɛ" : "Total Cost"}</span>
+                  <span className="num text-xl font-black text-ink">{formatTaka(subtotal)}</span>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-ink text-[11px] mb-1">{isBn ? "Akatua a Wɔatua (₵)" : "Paid Amount (₵)"}</label>
+                  <input
+                    type="number"
+                    value={paidAmount}
+                    onChange={e => setPaidAmount(e.target.value)}
+                    placeholder={`Full (${formatTaka(subtotal)})`}
+                    className="num w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-bold text-ink focus:border-em-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-ink text-[11px] mb-1">{isBn ? "Akatua Akawnt" : "Payment Account"}</label>
+                  <select
+                    value={paymentMethod}
+                    onChange={e => setPaymentMethod(e.target.value)}
+                    className="w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-medium focus:border-em-500"
+                  >
+                    {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({formatTaka(a.balance)})</option>)}
+                  </select>
+                </div>
+              </div>
+
+              {/* Modal Footer / Actions */}
+              <div className="flex gap-2.5 justify-end pt-3 border-t border-nv-100">
                 <button
                   type="button"
-                  onClick={addItem}
-                  className="text-xs font-bold text-ink hover:underline flex items-center gap-1"
+                  onClick={() => setShowForm(false)}
+                  className="px-4 sm:px-5 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-100 text-xs sm:text-sm transition-colors cursor-pointer"
                 >
-                  <Plus size={14} /> {isBn ? "Fa Nnoɔma Ka Ho" : "Add Item"}
+                  {isBn ? "Gyae (Cancel)" : "Cancel"}
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 sm:px-6 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm transition-colors cursor-pointer"
+                >
+                  {isBn ? "Si Ntɔdeɛ No So Dua" : "Confirm Purchase"}
                 </button>
               </div>
-
-              <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
-                {items.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 bg-nv-50 p-2.5 rounded-xl border border-nv-200">
-                    <select
-                      value={item.product}
-                      onChange={e => {
-                        const val = e.target.value;
-                        const matched = products.find(p => p.name === val);
-                        setItems(prev => prev.map((it, i) => i === idx ? { ...it, product: val, cost: matched ? matched.buyPrice : it.cost } : it));
-                      }}
-                      className="flex-1 border border-nv-200 rounded-lg px-2.5 py-1.5 text-xs bg-white focus:border-em-500"
-                    >
-                      {products.map(p => <option key={p.id} value={p.name}>{p.name}</option>)}
-                    </select>
-
-                    <div className="flex items-center gap-1 w-24">
-                      <span className="text-[11px] text-ink">Qty:</span>
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.qty}
-                        onChange={e => setItems(prev => prev.map((it, i) => i === idx ? { ...it, qty: Number(e.target.value) } : it))}
-                        className="num w-full border border-nv-200 rounded-lg px-2 py-1 text-xs text-center bg-white"
-                      />
-                    </div>
-
-                    <div className="flex items-center gap-1 w-28">
-                      <span className="text-[11px] text-ink">₵/pc:</span>
-                      <input
-                        type="number"
-                        min="0"
-                        value={item.cost}
-                        onChange={e => setItems(prev => prev.map((it, i) => i === idx ? { ...it, cost: Number(e.target.value) } : it))}
-                        className="num w-full border border-nv-200 rounded-lg px-2 py-1 text-xs text-right bg-white"
-                      />
-                    </div>
-
-                    <div className="num font-bold text-xs text-ink w-20 text-right">
-                      {formatTaka(item.qty * item.cost)}
-                    </div>
-
-                    {items.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeItem(idx)}
-                        className="text-ink hover:text-ink p-1"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Payment Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-nv-100 text-xs sm:text-sm bg-nv-50/50 p-3 rounded-2xl">
-              <div>
-                <span className="block text-ink">{isBn ? "Nyinaa Boɔ a Wɔtɔeɛ" : "Total Cost"}</span>
-                <span className="num text-xl font-bold text-ink">{formatTaka(subtotal)}</span>
-              </div>
-
-              <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua a Wɔatua (₵)" : "Paid Amount (₵)"}</label>
-                <input
-                  type="number"
-                  value={paidAmount}
-                  onChange={e => setPaidAmount(e.target.value)}
-                  placeholder={`Full (${formatTaka(subtotal)})`}
-                  className="num w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white font-bold text-ink"
-                />
-              </div>
-
-              <div>
-                <label className="block font-medium text-ink mb-1">{isBn ? "Akatua Akawnt" : "Payment Account"}</label>
-                <select
-                  value={paymentMethod}
-                  onChange={e => setPaymentMethod(e.target.value)}
-                  className="w-full border border-nv-200 rounded-xl px-3 py-1.5 bg-white"
-                >
-                  {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({formatTaka(a.balance)})</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div className="flex gap-2 justify-end pt-2">
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                className="px-5 py-2.5 border border-nv-200 rounded-xl font-semibold text-ink hover:bg-nv-50 text-xs sm:text-sm"
-              >
-                {isBn ? "Gyae (Cancel)" : "Cancel"}
-              </button>
-              <button
-                type="submit"
-                className="px-6 py-2.5 bg-em-700 hover:bg-em-800 text-white rounded-xl font-bold shadow-md text-xs sm:text-sm"
-              >
-                {isBn ? "Si Ntɔdeɛ No So Dua" : "Confirm Purchase"}
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       )}
 

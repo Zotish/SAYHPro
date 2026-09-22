@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
+import { Search, Plus, Filter, Download, MoreVertical, Edit2, Trash2, CheckCircle, AlertTriangle, X, Barcode, Grid, List, ArrowLeft, Sparkles, ChevronRight, Upload } from "lucide-react";
 import { useApp, Product } from "../context/AppContext";
 import { toast } from "../components/Toast";
 import AIProductScannerModal from "../components/AIProductScannerModal";
+import ProductThumb from "../components/ProductThumb";
 
 interface ProductsProps {
   lang: "en" | "bn";
@@ -295,7 +296,12 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                   <tr key={p.id} className="hover:bg-nv-50 transition-fast group">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl flex-shrink-0">{p.image || "📦"}</span>
+                        <ProductThumb
+                          src={p.image}
+                          alt={p.name}
+                          className="w-11 h-11 rounded-xl object-contain bg-nv-50 p-1 border border-nv-200/70 flex-shrink-0"
+                          sizeClass="text-2xl"
+                        />
                         <div>
                           <div className="font-bold text-ink">{isBn ? p.nameBn : p.name}</div>
                           <div className="text-[10px] text-ink font-mono">{p.sku}</div>
@@ -357,7 +363,12 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
             >
               <div>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-3xl">{p.image || "📦"}</span>
+                  <ProductThumb
+                    src={p.image}
+                    alt={p.name}
+                    className="w-14 h-14 rounded-2xl object-contain bg-nv-50 p-1 border border-nv-200/70 flex-shrink-0"
+                    sizeClass="text-3xl"
+                  />
                   {statusBadge(p.status, isBn)}
                 </div>
                 <h4 className="font-bold text-xs sm:text-sm text-ink line-clamp-2">{isBn ? p.nameBn : p.name}</h4>
@@ -473,14 +484,79 @@ export default function Products({ lang, showAdd = false, setScreen, onBack }: P
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-ink mb-1">{isBn ? "Emoji Ahyɛnsodeɛ" : "Emoji Icon"}</label>
-                  <div className="flex gap-2">
+                  <label className="block font-semibold text-ink mb-1.5">{isBn ? "Mfonyin / Ahyɛnsodeɛ" : "Product Photo / Icon"}</label>
+                  <div className="flex items-center gap-3 mb-2.5">
+                    <ProductThumb
+                      src={icon}
+                      alt="Selected"
+                      className="w-14 h-14 rounded-xl object-contain bg-nv-50 p-1 border-2 border-em-500 shadow-xs flex-shrink-0"
+                      sizeClass="text-2xl"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-medium text-ink truncate mb-1">
+                        {icon?.startsWith("/") || icon?.startsWith("http") || icon?.startsWith("data:") ? icon : "Emoji Icon Selected"}
+                      </div>
+                      <label className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-em-700 bg-em-50 border border-em-200 rounded-lg hover:bg-em-100 cursor-pointer transition-fast">
+                        <Upload size={13} />
+                        <span>{isBn ? "Fa Mfonyin Gu So" : "Upload Photo"}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = ev => {
+                                if (ev.target?.result) {
+                                  setIcon(ev.target.result as string);
+                                }
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Preset Store Photos */}
+                  <div className="text-[11px] font-semibold text-ink/70 mb-1">{isBn ? "Mfonyin a Wɔasiesie" : "Preset Store Photos"}</div>
+                  <div className="flex gap-1.5 overflow-x-auto pb-1.5 mb-2.5 no-scrollbar">
+                    {[
+                      { path: "/products/potato.png", label: "Potato" },
+                      { path: "/products/sunflower-oil.jpg", label: "Oil" },
+                      { path: "/products/chanachur.jpg", label: "Indomie" },
+                      { path: "/products/milk.jpg", label: "Milk" },
+                      { path: "/products/tissue-box.jpg", label: "Tissue" },
+                      { path: "/products/frooto.jpg", label: "Milo" },
+                      { path: "/products/soap.jpg", label: "Soap" },
+                      { path: "/products/salt.jpg", label: "Salt" },
+                      { path: "/products/biscuit.jpg", label: "Choc" },
+                      { path: "/products/juice.jpg", label: "Juice" },
+                      { path: "/products/dove-soap.jpg", label: "Dove" },
+                    ].map(img => (
+                      <button
+                        type="button"
+                        key={img.path}
+                        onClick={() => setIcon(img.path)}
+                        className={`p-1 rounded-xl border flex-shrink-0 transition-fast ${icon === img.path ? "border-em-500 bg-em-50 shadow-xs ring-2 ring-em-500/20" : "border-nv-200 hover:border-nv-300 bg-white"}`}
+                        title={img.label}
+                      >
+                        <img src={img.path} alt={img.label} className="w-8 h-8 rounded-lg object-contain bg-nv-50" />
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Or Emoji Icons */}
+                  <div className="text-[11px] font-semibold text-ink/70 mb-1">{isBn ? "Anaasɛ Emoji" : "Or Emoji Icons"}</div>
+                  <div className="flex gap-1.5 flex-wrap">
                     {["📦", "🌾", "🛢️", "🍪", "🥤", "🧼", "🧴", "🥫"].map(emo => (
                       <button
                         type="button"
                         key={emo}
                         onClick={() => setIcon(emo)}
-                        className={`p-1.5 rounded-lg border text-lg ${icon === emo ? "border-em-500 bg-em-50" : "border-nv-200"}`}
+                        className={`p-1.5 rounded-lg border text-base ${icon === emo ? "border-em-500 bg-em-50 ring-2 ring-em-500/20" : "border-nv-200 hover:border-nv-300 bg-white"}`}
                       >
                         {emo}
                       </button>

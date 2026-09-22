@@ -48,6 +48,7 @@ export interface CartItem {
   name: string;
   nameBn: string;
   price: number;
+  originalPrice?: number;
   buyPrice?: number;
   qty: number;
   discount: number;
@@ -59,6 +60,7 @@ export interface SaleItem {
   nameBn: string;
   qty: number;
   price: number;
+  originalPrice?: number;
   buyPrice?: number;
   discount: number;
 }
@@ -403,6 +405,8 @@ interface AppContextType {
   currentInvoice: Sale | null;
   setCurrentInvoice: (sale: Sale | null) => void;
   completeSale: (saleData: Omit<Sale, "id" | "invoiceNo" | "date" | "time" | "status">) => Sale;
+  lastSaleIncome: number | null;
+  setLastSaleIncome: (val: number | null) => void;
 
   // Customers
   customers: Customer[];
@@ -893,6 +897,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  const [lastSaleIncome, setLastSaleIncome] = useState<number | null>(null);
+
   const [customers, setCustomers] = useState<Customer[]>(() => {
     try {
       const saved = localStorage.getItem("dukan_customers");
@@ -1311,6 +1317,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setSales(prev => [newSale, ...prev]);
     setCurrentInvoice(newSale);
+    setLastSaleIncome(saleData.grandTotal);
 
     toast({
       type: "success",
@@ -1807,6 +1814,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         currentInvoice,
         setCurrentInvoice,
         completeSale,
+        lastSaleIncome,
+        setLastSaleIncome,
         customers,
         addCustomer,
         updateCustomer,
